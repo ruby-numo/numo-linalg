@@ -1,0 +1,12 @@
+COGEN=ruby gen/cogen.rb -l
+DEPS=gen/linalg.erb.c gen/tmpl/*.c
+
+<% tmap={d:"dfloat", s:"sfloat", z:"dcomplex", c:"scomplex"}
+   tmap.each do |c,t| %>
+
+linalg_<%=c%>.c: $(DEPS) gen/def/<%=t%>.rb
+	$(COGEN) gen/linalg.erb.c gen/def/<%=t%>.rb > $@
+
+<% end %>
+
+CLEANOBJS = *.o *.bak linalg_?.c
