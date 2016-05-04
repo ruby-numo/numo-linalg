@@ -1,10 +1,10 @@
-# NArray::Linalg : Linear Algebra librart with LAPACK
+# Numo::Linalg : Linear Algebra library with LAPACK
 
 ## Implemented Methods
 
-    x = NArray::Linalg.matmul(a,b)   (_gemm) Matrix multiply
-    x = NArray::Linalg.solve(a,b)    (_gesv) Solve Linear equation with LU factorization
-    x,y = NArray::Linalg.eigen(a,b)  (_geev) Eigen value and Eigen vector
+    x = Numo::Linalg.matmul(a,b)   (_gemm) Matrix multiply
+    x = Numo::Linalg.solve(a,b)    (_gesv) Solve Linear equation with LU factorization
+    x,y = Numo::Linalg.eigen(a,b)  (_geev) Eigen value and Eigen vector
 
 * [GitHub](https://github.com/masa16/numo-linalg)
 
