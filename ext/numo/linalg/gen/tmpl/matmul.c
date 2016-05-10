@@ -53,8 +53,8 @@ static void
     fortran_integer m, n, k;
 
     // a[k,m], b[n,k], c[n,m]
-    a = (dtype*)(lp->args[0].ptr + lp->iter[0].pos);
-    b = (dtype*)(lp->args[1].ptr + lp->iter[1].pos);
+    a = (dtype*)(lp->args[0].ptr + lp->args[0].iter[0].pos);
+    b = (dtype*)(lp->args[1].ptr + lp->args[1].iter[0].pos);
     //c = (dtype*)(lp->args[2].ptr + lp->iter[2].pos);
     n11 = lp->args[0].shape[0]; // m
     n22 = lp->args[1].shape[1]; // n

@@ -59,11 +59,11 @@ transpose_<%=w+d%>(dtype *x, na_loop_t *lp, int arg_idx, int n_args)
     <% end %>
 
     n1 = lp->args[arg_idx].shape[0]; // n[0+4*0] = n
-    s1 = lp->iter[arg_idx+n_args*0].step;
-    p1 = lp->args[arg_idx].ptr + lp->iter[arg_idx].pos;
+    s1 = lp->args[arg_idx].iter[0].step;
+    p1 = lp->args[arg_idx].ptr + lp->args[arg_idx].iter[0].pos;
     <% if d=="_2d" %>
     n2 = lp->args[arg_idx].shape[1]; // n[0+4*1] = n
-    s2 = lp->iter[arg_idx+n_args*1].step;
+    s2 = lp->args[arg_idx].iter[1].step;
     p2 = p1;
     for (i2=0; i2<n2; i2++) {
         p1 = p2;

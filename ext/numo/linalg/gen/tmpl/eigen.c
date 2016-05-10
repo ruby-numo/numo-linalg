@@ -86,12 +86,12 @@ static void
     opt = (geev_work_t*)(lp->opt_ptr);
 
     // a[n,lda], w[n], vr[n,ldvl]
-    a   = (dtype*)(lp->args[0].ptr + lp->iter[0].pos);
-    w   = (ctype*)(lp->args[1].ptr + lp->iter[1].pos);
-    vr  = (ctype*)(lp->args[2].ptr + lp->iter[2].pos);
+    a   = (dtype*)(lp->args[0].ptr + lp->args[0].iter[0].pos);
+    w   = (ctype*)(lp->args[1].ptr + lp->args[1].iter[0].pos);
+    vr  = (ctype*)(lp->args[2].ptr + lp->args[2].iter[0].pos);
     n   = m = lp->args[1].shape[0];
-    lda  = lp->iter[0].step / sizeof(dtype);
-    ldvr = lp->iter[2].step / sizeof(ctype);
+    lda  = lp->args[0].iter[0].step / sizeof(dtype);
+    ldvr = lp->args[2].iter[0].step / sizeof(ctype);
     lwork = opt->lwork;
 
     work = opt->work;

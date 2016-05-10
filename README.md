@@ -24,3 +24,18 @@ $ cd numo-linalg
 $ rake build
 $ gem install pkg/numo-linalg-*.gem
 ```
+
+## ToDo
+
+* rank
+* norm
+* det
+* lstsq
+* inv
+* pinv
+* cholesky
+* qr
+* svd
+* eigh
+* eigvals
+* eigvalsh
