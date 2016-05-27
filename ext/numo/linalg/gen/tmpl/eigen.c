@@ -236,7 +236,8 @@ static VALUE
     opt = set_opt_real(n, lwork, &vopt);
     <% end %>
 
-    ans = na_ndloop3(&ndf, opt, 1, na_copy(a));
+    //ans = na_ndloop3(&ndf, opt, 1, na_copy(a));
+    ans = na_ndloop3(&ndf, opt, 1, a);
 
     rb_free_tmp_buffer(&vopt);
     return ans;

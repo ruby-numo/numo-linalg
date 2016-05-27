@@ -139,7 +139,7 @@ static VALUE
     }
     shape1[0] = n21; // n
     shape1[1] = n22; // nrhs
-    printf("n11=%ld,n12=%ld,n21=%ld,n22=%ld\n",n11,n12,n21,n22);
+    //printf("n11=%ld,n12=%ld,n21=%ld,n22=%ld\n",n11,n12,n21,n22);
     //printf("n11=%ld\n",n11);
     //printf("n12=%ld\n",n12);
     //printf("n21=%ld\n",n21);
