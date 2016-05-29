@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["masa16.tanaka@gmail.com"]
   spec.description   = %q{Linalg development version.}
   spec.summary       = %q{Linalg development version}
-  spec.homepage      = "https://github.com/masa16/numo-linalg"
+  spec.homepage      = "https://github.com/ruby-numo/numo-linalg"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files Gemfile README.md Rakefile ext numo-linalg.gemspec spec`.split($/)
