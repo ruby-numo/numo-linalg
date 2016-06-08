@@ -16,13 +16,14 @@
   ```shell
 $ yum install openblas-devel
 ```
+  * or, install OpenBLAS from source and enjoy multithread acceleration.
 
 * Install Numo::Linalg
   ```shell
 $ git clone git clone git://github.com/ruby-numo/linalg.git
 $ cd linalg
 $ rake build
-$ gem install pkg/numo-linalg-*.gem
+$ gem install pkg/numo-linalg-*.gem -- --with-openblas --with-opt-dir=/opt/OpenBLAS
 ```
 
 ## ToDo
