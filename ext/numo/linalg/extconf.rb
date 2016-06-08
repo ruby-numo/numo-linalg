@@ -11,6 +11,9 @@ dir_config("lapack")
 # configure options: --with-blas-lib=path
 dir_config("blas")
 
+# configure options: --with-openblas-dir=/opt/OpenBLAS
+dir_config("openblas")
+
 if with_config("openblas")
   # configure options: --with-openblas
   exit(-1) unless have_library("openblas")
