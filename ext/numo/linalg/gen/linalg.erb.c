@@ -9,6 +9,7 @@
   NO WARRANTY.
 */
 
+#include <assert.h>
 #include <ruby.h>
 #include "numo/narray.h"
 #include "numo/template.h"

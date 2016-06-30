@@ -95,18 +95,29 @@ static VALUE
 <%=c_func%>(VALUE mod, VALUE a1, VALUE a2)
 {
     volatile VALUE ans, tmp_c;
-    narray_t *na1, *na2;
+    narray_t *na1, *na2, *na;
     size_t    n11, n12, n21, n22;
     size_t    shape[2];
     void     *ptr;
+    int       trim1=0, trim2=0;
     ndfunc_arg_in_t ain[2] = {{cT,2},{cT,2}};
     ndfunc_arg_out_t aout[1] = {{cT,2,shape}};
     ndfunc_t  ndf = {<%=c_iter%>, NO_LOOP, 2, 1, ain, aout};
 
     GetNArray(a1,na1);
     GetNArray(a2,na2);
-    CHECK_DIM_GE(na1,2);
-    CHECK_DIM_GE(na2,2);
+    CHECK_DIM_GE(na1,1);
+    CHECK_DIM_GE(na2,1);
+    if (na1->ndim == 1) {
+        trim1 = 1;
+        a1 = na_expand_dims(a1,INT2FIX(0));
+        GetNArray(a1,na1);
+    }
+    if (na2->ndim == 1) {
+        trim2 = 1;
+        a2 = na_expand_dims(a2,INT2FIX(1));
+        GetNArray(a2,na2);
+    }
     n11 = na1->shape[na1->ndim-2]; // m
     n12 = na1->shape[na1->ndim-1]; // k
     n21 = na2->shape[na2->ndim-2]; // k
@@ -115,7 +126,7 @@ static VALUE
     //printf("n12=%ld\n",n12);
     //printf("n21=%ld\n",n21);
     //printf("n22=%ld\n",n22);
-    if (n12!=n21) {
+    if (n12 != n21) {
         rb_raise(nary_eShapeError,"matrix dimension mismatch: "
                  "n11=%"SZF"u n12=%"SZF"u n21=%"SZF"u",n11,n12,n21);
     }
@@ -124,5 +135,19 @@ static VALUE
     ptr = rb_alloc_tmp_buffer(&tmp_c, n11*n22*sizeof(dtype));
     ans = na_ndloop3(&ndf, ptr, 2, a1, a2);
     rb_free_tmp_buffer(&tmp_c);
+    GetNArray(ans,na);
+    assert(na->type == NARRAY_DATA_T);
+    if (trim2) {
+        if (trim1) {
+            return rb_funcall(ans,rb_intern("[]"),1,INT2FIX(0));
+        }
+        assert(na->shape[na->ndim-1] == 1);
+        na->ndim--;
+    } else if (trim1) {
+        assert(na->shape[na->ndim-2] == 1);
+        na->shape[na->ndim-2] = na->shape[na->ndim-1];
+        na->shape[na->ndim-1] = 1;
+        na->ndim--;
+    }
     return ans;
 }
