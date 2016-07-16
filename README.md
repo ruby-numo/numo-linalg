@@ -4,7 +4,7 @@
 
     x = Numo::Linalg.matmul(a,b)   (_gemm) Matrix multiply
     x = Numo::Linalg.solve(a,b)    (_gesv) Solve Linear equation with LU factorization
-    x,y = Numo::Linalg.eigen(a,b)  (_geev) Eigen value and Eigen vector
+    x,y = Numo::Linalg.eigen(a)  (_geev) Eigen value and Eigen vector
 
 * [GitHub](https://github.com/ruby-numo/linalg)
 
@@ -20,7 +20,7 @@ $ yum install openblas-devel
 
 * Install Numo::Linalg
   ```shell
-$ git clone git clone git://github.com/ruby-numo/linalg.git
+$ git clone git://github.com/ruby-numo/linalg.git
 $ cd linalg
 $ rake build
 $ gem install pkg/numo-linalg-*.gem -- --with-openblas --with-opt-dir=/opt/OpenBLAS
