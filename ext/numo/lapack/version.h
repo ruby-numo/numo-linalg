@@ -1,0 +1,1 @@
+#define NUMO_LAPACK_VERSION "0.0.0"

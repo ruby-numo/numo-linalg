@@ -1,5 +1,5 @@
 /*
-  linalg_<%=type_name%>.c
+  lapack_<%=type_name%>.c
   Numerical Array Extension for Ruby
     (C) Copyright 1999-2007,2013 by Masahiro TANAKA
 
@@ -98,13 +98,13 @@ Function.codes.each do |x| %>
 <% end %>
 
 void
-Init_nary_<%=type_name%>_linalg()
+Init_nary_<%=type_name%>_lapack()
 {
     VALUE mN;
     mN = rb_const_get(rb_cObject, rb_intern("Numo"));
     cT = rb_const_get(mN, rb_intern("<%=class_name%>"));
     cCT = rb_const_get(mN, rb_intern("<%=complex_class_name%>"));
-    mTL = rb_define_module_under(cT, "Linalg");
+    mTL = rb_define_module_under(cT, "LAPACK");
 
     <% Function.definitions.each do |x| %><%= x %>
     <% end %>

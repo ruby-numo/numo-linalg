@@ -39,11 +39,11 @@ $LOAD_PATH.each do |x|
 end
 
 srcs = %w(
-linalg
-linalg_d
-linalg_s
-linalg_z
-linalg_c
+lapack
+lapack_d
+lapack_s
+lapack_z
+lapack_c
 )
 $objs = srcs.collect{|i| i+".o"}
 fflags = ""
@@ -77,7 +77,7 @@ end
 
 system "rm -f depend; erb depend.erb > depend"
 
-create_makefile('numo/linalg')
+create_makefile('numo/lapack')
 
 # if $makefile_created
 #   puts "appending extra install tasks to Makefile"

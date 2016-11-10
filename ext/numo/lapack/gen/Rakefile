@@ -14,7 +14,7 @@ DEFS.each do |rb|
   TARGETS << c = DSTDIR+File.basename(rb,".rb")+".c"
   # generate C from templates
   file c => [rb,DSTDIR]+TMPL+SCRIPT do |t|
-    sh "#{COGEN} linalg.erb.c #{t.prerequisites[0]} > #{t.name}"
+    sh "#{COGEN} lapack.erb.c #{t.prerequisites[0]} > #{t.name}"
   end
 end
 

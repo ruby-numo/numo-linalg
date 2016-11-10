@@ -1,4 +1,12 @@
-# Numo::Linalg : Linear Algebra library with LAPACK
+# Numo::LAPACK : LAPACK binding with Numo::NArray
+
+## Introduction
+
+This is a binding of LAPACK with Numo::NArray .
+
+## ToDo
+
+rewrite this README
 
 ## Implemented Methods
 
