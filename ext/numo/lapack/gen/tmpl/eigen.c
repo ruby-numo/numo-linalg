@@ -169,7 +169,7 @@ static void
   Euclidean norm equal to 1 and largest component real.
 */
 static VALUE
-<%=c_func%>(VALUE const mod, VALUE const a)
+<%=c_func%>(VALUE const UNUSED(mod), VALUE const a)
 {
     volatile VALUE ans;
     fortran_integer lwork;

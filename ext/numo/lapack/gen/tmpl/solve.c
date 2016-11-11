@@ -86,7 +86,7 @@ static void
   The factored form of A is then used to solve the system of equations A * X = B.
 */
 static VALUE
-<%=c_func%>(VALUE const mod, VALUE const a1, VALUE const a2)
+<%=c_func%>(VALUE const UNUSED(mod), VALUE const a1, VALUE const a2)
 {
     volatile VALUE ans;
 

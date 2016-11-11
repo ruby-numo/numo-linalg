@@ -14,6 +14,13 @@
 #include "numo/narray.h"
 #include "numo/template.h"
 //#include <blas.h>
+
+#if defined __clang__
+#  define UNUSED(name) __unused name
+#else
+#  define UNUSED(name) name
+#endif
+
 #define FFUNC(f) f##_
 
 typedef <%=ctype%> dtype;

@@ -80,7 +80,7 @@ static void
   C an m by n matrix.
 */
 static VALUE
-<%=c_func%>(VALUE const mod, VALUE a1, VALUE a2)
+<%=c_func%>(VALUE const UNUSED(mod), VALUE a1, VALUE a2)
 {
     volatile VALUE ans;
 
