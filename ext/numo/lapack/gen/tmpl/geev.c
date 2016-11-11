@@ -154,7 +154,7 @@ static void
 #undef SET_POS
 
 /*
-  @overload eigen(a)
+  @overload geev(a)
   @param ***TODO*** [Numo::<%=class_name%>] a >=2-dimentional NArray.
   @return ***TODO*** [[Numo::<%=complex_class_name%>,Numo::<%=complex_class_name%>]] pair of eigenvalue and right eigenvector
   @raise

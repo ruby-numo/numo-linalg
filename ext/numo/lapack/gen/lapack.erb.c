@@ -98,9 +98,9 @@ transpose_<%=w+d%>(dtype *x, na_loop_t *lp, int arg_idx, int n_args)
 <%
 mod_var "mTL"
 
-def_singleton("matmul",2,"matmul",mod_var:"mTL")
-def_singleton("solve",2,"solve",mod_var:"mTL")
-def_singleton("eigen",1,"eigen",mod_var:"mTL")
+def_singleton("gemm",2,"gemm",mod_var:"mTL")
+def_singleton("gesv",2,"gesv",mod_var:"mTL")
+def_singleton("geev",1,"geev",mod_var:"mTL")
 
 #def_alias "dot_mm", "matmul"
 

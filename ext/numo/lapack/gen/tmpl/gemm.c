@@ -68,7 +68,7 @@ static void
 }
 
 /*
-  @overload matmul(a, b)
+  @overload gemm(a, b)
   @param [Numo::<%=class_name%>] a  >=2-dimentional NArray.
   @param [Numo::<%=class_name%>] b  >=2-dimentional NArray.
   @return [Numo::<%=class_name%>]

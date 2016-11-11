@@ -71,7 +71,7 @@ static void
 }
 
 /*
-  @overload solve(a, b)
+  @overload gesv(a, b)
   @param [Numo::<%=class_name%>] a  >=2-dimentional NArray.
   @param [Numo::<%=class_name%>] b  >=1-dimentional NArray.
   @return [Numo::<%=class_name%>]
