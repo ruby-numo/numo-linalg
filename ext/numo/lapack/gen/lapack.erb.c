@@ -42,6 +42,7 @@ end
 static VALUE mTL;
 static VALUE cT;
 static VALUE cCT;
+static VALUE cRT;
 
 // Error Class ??
 #define CHECK_DIM_GE(na,nd)                                     \
@@ -101,6 +102,7 @@ mod_var "mTL"
 def_singleton("gemm",2,"gemm",mod_var:"mTL")
 def_singleton("gesv",2,"gesv",mod_var:"mTL")
 def_singleton("geev",1,"geev",mod_var:"mTL")
+def_singleton("gesvd",1,"gesvd",mod_var:"mTL")
 
 #def_alias "dot_mm", "matmul"
 
@@ -115,6 +117,7 @@ Init_nary_<%=type_name%>_lapack()
     mN = rb_const_get(rb_cObject, rb_intern("Numo"));
     cT = rb_const_get(mN, rb_intern("<%=class_name%>"));
     cCT = rb_const_get(mN, rb_intern("<%=complex_class_name%>"));
+    cRT = rb_const_get(mN, rb_intern("<%=real_class_name%>"));
     mTL = rb_define_module_under(cT, "LAPACK");
 
     <% Function.definitions.each do |x| %><%= x %>
