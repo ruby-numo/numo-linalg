@@ -44,6 +44,8 @@ static VALUE cCT;
                  (na)->ndim, (nd));                             \
     }
 
+# if 0
+
 // transpose copy
 <% %w[_1d _2d].each do |d|
    %w[set get].each do |w| %>
@@ -83,6 +85,8 @@ transpose_<%=w+d%>(dtype *x, na_loop_t *lp, int arg_idx, int n_args)
     }
 }
 <% end end %>
+
+#endif
 
 <%
 mod_var "mTL"
