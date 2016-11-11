@@ -47,16 +47,16 @@ min_(fortran_integer m, fortran_integer n)
 #define gesvd FFUNC(<%=blas_char%>gesvd)
 
 void gesvd(
-  char const *, char const *,
-  fortran_integer *, fortran_integer *, dtype *, fortran_integer *,
-  rtype *,
-  dtype *, fortran_integer *,
-  dtype *, fortran_integer *,
-  dtype *, fortran_integer *,
+  char const * /*JOBU*/, char const * /*JOBVT*/,
+  fortran_integer * /*M*/, fortran_integer * /*N*/, dtype * /*A*/, fortran_integer * /*LDA*/,
+  rtype * /*S*/,
+  dtype * /*U*/, fortran_integer * /*LDU*/,
+  dtype * /*VT*/, fortran_integer * /*LDVT*/,
+  dtype * /*WORK*/, fortran_integer * /*LWORK*/,
   <% if is_complex %>
-  rtype *,
+  rtype * /*RWORK*/,
   <% end %>
-  fortran_integer *);
+  fortran_integer * /*INFO*/);
 
 #define SET_POS(pos, i, type, n) do {(pos)[i] = (pos)[(i)-1] + ((sizeof(type)*(n)-1)/16+1)*16;} while (0)
 
