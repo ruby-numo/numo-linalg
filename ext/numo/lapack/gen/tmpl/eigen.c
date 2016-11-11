@@ -61,6 +61,7 @@ static void
 <%=c_iter%>(na_loop_t * const lp)
 {
     char const * const jobvl="N", * const jobvr="V";
+    size_t n0;
     dtype *a;
     ctype *w, *vr;
     fortran_integer n, lda, ldvr, lwork, info=0;
@@ -75,7 +76,8 @@ static void
     a  = (dtype *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
     w  = (ctype *)(lp->args[1].ptr + lp->args[1].iter[0].pos);
     vr = (ctype *)(lp->args[2].ptr + lp->args[2].iter[0].pos);
-    n  = lp->args[1].shape[0];
+    n0 = lp->args[1].shape[0];
+    n  = n0;
     lda  = n;
     ldvr = n;
     lwork = *(fortran_integer *)lp->opt_ptr;
@@ -114,16 +116,16 @@ static void
              work, &lwork, &info);
         {
             size_t j;
-            for (j=0; j<n; ++j) {
+            for (j=0; j<n0; ++j) {
                 REAL(w[j]) = wr[j];
                 IMAG(w[j]) = wi[j];
             }
-            for (j=0; j<n; ++j) {
+            for (j=0; j<n0; ++j) {
                 dtype * const p1 = &(vrr[j*ldvr]);
                 ctype * const p2 = &(vr[j*ldvr]);
                 if (IMAG(w[j]) == 0.0) { /* real eigenvalue */
                     size_t i;
-                    for (i=0; i<n; ++i) {
+                    for (i=0; i<n0; ++i) {
                         REAL(p2[i]) =  p1[i];
                         IMAG(p2[i]) =  0;
                     }
@@ -131,7 +133,7 @@ static void
                     size_t i;
                     /* v(j)   = VR(:,j) + i*VR(:,j+1) and
                        v(j+1) = VR(:,j) - i*VR(:,j+1) */
-                    for (i=0; i<n; ++i) {
+                    for (i=0; i<n0; ++i) {
                         REAL(p2[i])      =  p1[i];
                         IMAG(p2[i])      =  p1[i+ldvr];
                         REAL(p2[i+ldvr]) =  p1[i];
