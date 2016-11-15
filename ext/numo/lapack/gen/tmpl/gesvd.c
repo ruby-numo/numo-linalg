@@ -165,8 +165,8 @@ sub_func_name(<%=c_func%>, (VALUE UNUSED(mod), VALUE a, int UNUSED(full), int UN
 
     GetNArray(a, na);
     CHECK_DIM_GE(na, 2);
-    m = na->shape[na->ndim-2];
-    n = na->shape[na->ndim-1];
+    m = na->shape[na->ndim-1];
+    n = na->shape[na->ndim-2];
     min_mn = min_(m, n);
     u_shape[0] = m;
     u_shape[1] = m;
@@ -183,8 +183,8 @@ sub_func_name(<%=c_func%>, (VALUE UNUSED(mod), VALUE a, int UNUSED(full), int UN
     lwork = wk[0];
     <% end %>
 
-    ans = na_ndloop3(&ndf, &lwork, 1, na_copy(a));
-    //ans = na_ndloop3(&ndf, opt, 1, a);
+    //ans = na_ndloop3(&ndf, &lwork, 1, na_copy(a));
+    ans = na_ndloop3(&ndf, &lwork, 1, a);
 
     return ans;
 }
