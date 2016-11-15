@@ -37,7 +37,6 @@
 *       ..
 */
 
-
 static fortran_integer
 min_(fortran_integer m, fortran_integer n)
 {
