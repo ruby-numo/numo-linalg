@@ -52,6 +52,18 @@ static VALUE cRT;
                  (na)->ndim, (nd));                             \
     }
 
+static fortran_integer
+max_(fortran_integer m, fortran_integer n)
+{
+  return ( (m > n) ? m : n ) ;
+}
+
+static fortran_integer
+min_(fortran_integer m, fortran_integer n)
+{
+  return ( (m < n) ? m : n ) ;
+}
+
 # if 0
 
 // transpose copy
@@ -99,10 +111,11 @@ transpose_<%=w+d%>(dtype *x, na_loop_t *lp, int arg_idx, int n_args)
 <%
 mod_var "mTL"
 
-def_singleton("gemm",2,"gemm",mod_var:"mTL")
-def_singleton("gesv",2,"gesv",mod_var:"mTL")
-def_singleton("geev",1,"geev",mod_var:"mTL")
-def_singleton("gesvd",1,"gesvd",mod_var:"mTL")
+def_singleton("gemm",  2, "gemm",  mod_var:"mTL")
+def_singleton("gesv",  2, "gesv",  mod_var:"mTL")
+def_singleton("geev",  1, "geev",  mod_var:"mTL")
+def_singleton("gesvd", 1, "gesvd", mod_var:"mTL")
+def_singleton("gesdd", 1, "gesdd", mod_var:"mTL")
 
 #def_alias "dot_mm", "matmul"
 

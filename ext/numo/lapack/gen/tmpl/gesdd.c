@@ -1,46 +1,51 @@
 /*
-* DGESVD computes the singular value decomposition (SVD) for GE
-* matrices
+* DGESDD computes the singular value decomposition (SVD) of a real
+* M-by-N matrix A, optionally computing the left and right singular
+* vectors.  If singular vectors are desired, it uses a
+* divide-and-conquer algorithm.
 *
 *  Definition:
 *  ===========
 *
-*       SUBROUTINE DGESVD( JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT,
-*                          WORK, LWORK, INFO )
+*       SUBROUTINE DGESDD( JOBZ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK,
+*                          LWORK, IWORK, INFO )
 *
 *       .. Scalar Arguments ..
-*       CHARACTER          JOBU, JOBVT
+*       CHARACTER          JOBZ
 *       INTEGER            INFO, LDA, LDU, LDVT, LWORK, M, N
 *       ..
 *       .. Array Arguments ..
+*       INTEGER            IWORK( * )
 *       DOUBLE PRECISION   A( LDA, * ), S( * ), U( LDU, * ),
 *      $                   VT( LDVT, * ), WORK( * )
 *       ..
 *
-* ZGESVD computes the singular value decomposition (SVD) for GE
-* matrices
+* ZGESDD computes the singular value decomposition (SVD) of a complex
+* M-by-N matrix A, optionally computing the left and/or right singular
+* vectors, by using divide-and-conquer method.
 *
 *  Definition:
 *  ===========
 *
-*       SUBROUTINE ZGESVD( JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT,
-*                          WORK, LWORK, RWORK, INFO )
+*       SUBROUTINE ZGESDD( JOBZ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK,
+*                          LWORK, RWORK, IWORK, INFO )
 *
 *       .. Scalar Arguments ..
-*       CHARACTER          JOBU, JOBVT
+*       CHARACTER          JOBZ
 *       INTEGER            INFO, LDA, LDU, LDVT, LWORK, M, N
 *       ..
 *       .. Array Arguments ..
+*       INTEGER            IWORK( * )
 *       DOUBLE PRECISION   RWORK( * ), S( * )
 *       COMPLEX*16         A( LDA, * ), U( LDU, * ), VT( LDVT, * ),
 *      $                   WORK( * )
 *       ..
 */
 
-#define gesvd FFUNC(<%=blas_char%>gesvd)
+#define gesdd FFUNC(<%=blas_char%>gesdd)
 
-void gesvd(
-  char const * /*JOBU*/, char const * /*JOBVT*/,
+void gesdd(
+  char const * /*JOBZ*/,
   fortran_integer * /*M*/, fortran_integer * /*N*/, dtype * /*A*/, fortran_integer * /*LDA*/,
   rtype * /*S*/,
   dtype * /*U*/, fortran_integer * /*LDU*/,
@@ -49,6 +54,7 @@ void gesvd(
   <% if is_complex %>
   rtype * /*RWORK*/,
   <% end %>
+  fortran_integer * /*IWORK*/,
   fortran_integer * /*INFO*/);
 
 #define SET_POS(pos, i, type, n) do {(pos)[i] = (pos)[(i)-1] + ((sizeof(type)*(n)-1)/16+1)*16;} while (0)
@@ -56,7 +62,7 @@ void gesvd(
 static void
 <%=c_iter%>(na_loop_t * const lp)
 {
-    char const * const jobu="A", * const jobvt="A";
+    char const * const jobz="A";
     volatile VALUE vopt;  // !!! DONT REMOVE: volatile qualification !!!
     dtype *a;
     dtype *u;
@@ -67,6 +73,7 @@ static void
     <% if is_complex %>
     rtype *rwork;
     <% end %>
+    fortran_integer *iwork;
 
     // a[n,lda], u[m,m], s[min(m,n)], vt[n,n]
     a     = (dtype *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
@@ -78,35 +85,50 @@ static void
     n      = lp->args[3].shape[0];
     {
         char *ptr;
-        <% if is_complex %>
-        size_t ofs[3];
         size_t min_mn;
+        <% if is_complex %>
+        size_t max_mn, lrwork;
+        size_t ofs[4];
+        <% else %>
+        size_t ofs[3];
+        <% end %>
+
         min_mn = lp->args[2].shape[0];
+        <% if is_complex %>
+        max_mn = max_(m, n);
+        lrwork = min_mn * max_(5*min_mn+7, 2*max_mn+2*min_mn+1);
+        <% end %>
+
+        <% if is_complex %>
         ofs[0] = 0;
         SET_POS(ofs, 1, dtype, lwork);     // work[lwork]
-        SET_POS(ofs, 2, rtype, 5*min_mn);  // rwork[5*min_mn]
-        ptr = rb_alloc_tmp_buffer(&vopt, ofs[2]);
-        rwork = (rtype *)(ptr + ofs[1]);
+        SET_POS(ofs, 2, rtype, lrwork);  // rwork[lrwork]
+        SET_POS(ofs, 3, fortran_integer, 8*min_mn);  // iwork[8*min_mn]
+        ptr = rb_alloc_tmp_buffer(&vopt, ofs[3]);
+        work  =           (dtype *) ptr;
+        rwork =           (rtype *)(ptr + ofs[1]);
+        iwork = (fortran_integer *)(ptr + ofs[2]);
 
         <% else %>
 
-        size_t ofs[2];
         ofs[0] = 0;
         SET_POS(ofs, 1, dtype, lwork);     // work[lwork]
-        ptr = rb_alloc_tmp_buffer(&vopt, ofs[1]);
+        SET_POS(ofs, 2, fortran_integer, 8*min_mn);  // iwork[8*min_mn]
+        ptr = rb_alloc_tmp_buffer(&vopt, ofs[2]);
+        work  =           (dtype *) ptr;
+        iwork = (fortran_integer *)(ptr + ofs[1]);
         <% end %>
-        work = (dtype *)ptr;
     }
     lda   = m;
     ldu   = m;
     ldvt  = n;
 
     <% if is_complex %>
-    gesvd(jobu, jobvt, &m, &n, a, &lda, s, u, &ldu, vt, &ldvt,
-          work, &lwork, rwork, &info);
+    gesdd(jobz, &m, &n, a, &lda, s, u, &ldu, vt, &ldvt,
+          work, &lwork, rwork, iwork, &info);
     <% else %>
-    gesvd(jobu, jobvt, &m, &n, a, &lda, s, u, &ldu, vt, &ldvt,
-          work, &lwork, &info);
+    gesdd(jobz, &m, &n, a, &lda, s, u, &ldu, vt, &ldvt,
+          work, &lwork, iwork, &info);
     <% end %>
 
     rb_free_tmp_buffer(&vopt);
@@ -119,23 +141,12 @@ static void
 #define sub_func_name(f, args) f##sub args
 
 /*
-  @overload gesvd(a)
+  @overload gesdd(a)
   @param [Numo::<%=class_name%>] a >=2-dimentional NArray.
   @return ***TBD***
   @raise
 
-  <%=blas_char%>gesvd - computes the singular value decomposition (SVD) of a
-  M-by-N Matrix A, optionally computing the left and/or right singular
-  vectors. The SVD is written
-
-       A = U * SIGMA * (conjugate-)transpose(V)
-
-  where SIGMA is an M-by-N matrix which is zero except for its
-  min(m,n) diagonal elements, U is an M-by-M unitary matrix, and
-  V is an N-by-N unitary matrix.  The diagonal elements of SIGMA
-  are the singular values of A; they are real and non-negative, and
-  are returned in descending order.  The first min(m,n) columns of
-  U and V are the left and right singular vectors of A.
+  TBD
 */
 static VALUE
 sub_func_name(<%=c_func%>, (VALUE UNUSED(mod), VALUE a, int UNUSED(full), int UNUSED(with_uv)))
@@ -169,10 +180,10 @@ sub_func_name(<%=c_func%>, (VALUE UNUSED(mod), VALUE a, int UNUSED(full), int UN
 
     lwork = -1;
     <% if is_complex %>
-    gesvd(chr, chr, &m, &n, 0, &m, 0, 0, &m, 0, &n, wk, &lwork, 0, &info);
+    gesdd(chr, &m, &n, 0, &m, 0, 0, &m, 0, &n, wk, &lwork, 0, 0, &info);
     lwork = REAL(wk[0]);
     <% else %>
-    gesvd(chr, chr, &m, &n, 0, &m, 0, 0, &m, 0, &n, wk, &lwork, &info);
+    gesdd(chr, &m, &n, 0, &m, 0, 0, &m, 0, &n, wk, &lwork, 0, &info);
     lwork = wk[0];
     <% end %>
 
