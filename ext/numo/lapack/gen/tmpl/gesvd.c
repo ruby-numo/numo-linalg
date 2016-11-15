@@ -183,7 +183,6 @@ sub_func_name(<%=c_func%>, (VALUE UNUSED(mod), VALUE a, int UNUSED(full), int UN
     lwork = wk[0];
     <% end %>
 
-    //ans = na_ndloop3(&ndf, &lwork, 1, na_copy(a));
     ans = na_ndloop3(&ndf, &lwork, 1, a);
 
     return ans;
