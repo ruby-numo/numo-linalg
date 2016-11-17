@@ -116,7 +116,7 @@ static void
 #undef SET_POS
 
 #define COUNT_OF_(a) (sizeof(a)/sizeof((a)[0]))
-#define sub_func_name(f, args) f##sub args
+#define sub_func_name(f, args) f##_sub args
 
 /*
   @overload gesvd(a)

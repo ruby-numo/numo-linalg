@@ -57,13 +57,20 @@ void gesdd(
   fortran_integer * /*IWORK*/,
   fortran_integer * /*INFO*/);
 
+typedef struct {
+    int with_uv;
+    fortran_integer lwork;
+} gesdd_opt_t;
+
 #define SET_POS(pos, i, type, n) do {(pos)[i] = (pos)[(i)-1] + ((sizeof(type)*(n)-1)/16+1)*16;} while (0)
 
 static void
 <%=c_iter%>(na_loop_t * const lp)
 {
-    char const * const jobz="A";
+    char const * const job_a="A", * const job_n="N";
+    char const *job;
     volatile VALUE vopt;  // !!! DONT REMOVE: volatile qualification !!!
+    gesdd_opt_t *opt;
     dtype *a;
     dtype *u;
     rtype *s;
@@ -80,9 +87,11 @@ static void
     u     = (dtype *)(lp->args[1].ptr + lp->args[1].iter[0].pos);
     s     = (rtype *)(lp->args[2].ptr + lp->args[2].iter[0].pos);
     vt    = (dtype *)(lp->args[3].ptr + lp->args[3].iter[0].pos);
-    lwork = *(fortran_integer *)lp->opt_ptr;
-    m      = lp->args[1].shape[0];
-    n      = lp->args[3].shape[0];
+    m     =           lp->args[1].shape[0];
+    n     =           lp->args[3].shape[0];
+    opt   =           lp->opt_ptr;
+    lwork = opt->lwork;
+    job   = ( opt->with_uv ? job_a : job_n ) ;
     {
         char *ptr;
         size_t min_mn;
@@ -124,10 +133,10 @@ static void
     ldvt  = n;
 
     <% if is_complex %>
-    gesdd(jobz, &m, &n, a, &lda, s, u, &ldu, vt, &ldvt,
+    gesdd(job, &m, &n, a, &lda, s, u, &ldu, vt, &ldvt,
           work, &lwork, rwork, iwork, &info);
     <% else %>
-    gesdd(jobz, &m, &n, a, &lda, s, u, &ldu, vt, &ldvt,
+    gesdd(job, &m, &n, a, &lda, s, u, &ldu, vt, &ldvt,
           work, &lwork, iwork, &info);
     <% end %>
 
@@ -138,7 +147,7 @@ static void
 #undef SET_POS
 
 #define COUNT_OF_(a) (sizeof(a)/sizeof((a)[0]))
-#define sub_func_name(f, args) f##sub args
+#define sub_func_name(f, args) f##_sub args
 
 /*
   @overload gesdd(a)
@@ -149,7 +158,7 @@ static void
   TBD
 */
 static VALUE
-sub_func_name(<%=c_func%>, (VALUE UNUSED(mod), VALUE a, int UNUSED(full), int UNUSED(with_uv)))
+sub_func_name(<%=c_func%>, (VALUE UNUSED(mod), VALUE a, int UNUSED(with_uv)))
 {
     char const * const chr = "N";
     dtype wk[1];
@@ -187,7 +196,17 @@ sub_func_name(<%=c_func%>, (VALUE UNUSED(mod), VALUE a, int UNUSED(full), int UN
     lwork = wk[0];
     <% end %>
 
-    ans = na_ndloop3(&ndf, &lwork, 1, a);
+    {
+        volatile VALUE vopt;
+        gesdd_opt_t *opt;
+
+        opt = rb_alloc_tmp_buffer(&vopt, sizeof(gesdd_opt_t));
+        opt->with_uv = with_uv;
+        opt->lwork = lwork;
+        ans = na_ndloop3(&ndf, opt, 1, a);
+        rb_free_tmp_buffer(&vopt);
+        RB_GC_GUARD(vopt);
+    }
 
     return ans;
 }
@@ -195,7 +214,7 @@ sub_func_name(<%=c_func%>, (VALUE UNUSED(mod), VALUE a, int UNUSED(full), int UN
 static VALUE
 <%=c_func%>(VALUE mod, VALUE a)
 {
-    return sub_func_name(<%=c_func%>, (mod, a, 1, 1));
+    return sub_func_name(<%=c_func%>, (mod, a, 1));
 }
 
 #undef COUNT_OF_
