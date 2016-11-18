@@ -158,7 +158,7 @@ static void
   TBD
 */
 static VALUE
-sub_func_name(<%=c_func%>, (VALUE UNUSED(mod), VALUE a, int UNUSED(with_uv)))
+sub_func_name(<%=c_func%>, (VALUE UNUSED(mod), VALUE a, int with_uv))
 {
     char const * const chr = "N";
     dtype wk[1];
