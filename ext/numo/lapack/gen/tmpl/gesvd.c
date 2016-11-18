@@ -51,8 +51,6 @@ void gesvd(
   <% end %>
   fortran_integer * /*INFO*/);
 
-#define SET_POS(pos, i, type, n) do {(pos)[i] = (pos)[(i)-1] + ((sizeof(type)*(n)-1)/16+1)*16;} while (0)
-
 static void
 <%=c_iter%>(na_loop_t * const lp)
 {
@@ -112,8 +110,6 @@ static void
     rb_free_tmp_buffer(&vopt);
     RB_GC_GUARD(vopt);
 }
-
-#undef SET_POS
 
 #define COUNT_OF_(a) (sizeof(a)/sizeof((a)[0]))
 #define sub_func_name(f, args) f##_sub args

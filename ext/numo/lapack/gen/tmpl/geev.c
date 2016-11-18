@@ -55,8 +55,6 @@ void geev(
 <% end %>
   fortran_integer * /*INFO*/);
 
-#define SET_POS(pos, i, type, n) do {(pos)[i] = (pos)[(i)-1] + ((sizeof(type)*(n)-1)/16+1)*16;} while (0)
-
 static void
 <%=c_iter%>(na_loop_t * const lp)
 {
@@ -150,8 +148,6 @@ static void
         RB_GC_GUARD(tmp_wk);
     }
 }
-
-#undef SET_POS
 
 /*
   @overload geev(a)

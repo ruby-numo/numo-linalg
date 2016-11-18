@@ -44,13 +44,16 @@ static VALUE cT;
 static VALUE cCT;
 static VALUE cRT;
 
+#define SET_POS(pos, i, type, n) do {(pos)[i] = (pos)[(i)-1] + ((sizeof(type)*(n)-1)/16+1)*16;} while (0)
+
 // Error Class ??
-#define CHECK_DIM_GE(na,nd)                                     \
+#define CHECK_DIM_GE(na,nd) do {                                \
     if ((na)->ndim<(nd)) {                                      \
         rb_raise(nary_eShapeError,                              \
                  "n-dimension=%d, but >=%d is expected",        \
                  (na)->ndim, (nd));                             \
-    }
+    }                                                           \
+} while (0)
 
 static fortran_integer
 max_(fortran_integer m, fortran_integer n)
