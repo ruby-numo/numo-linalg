@@ -80,8 +80,6 @@ static void
     }
 }
 
-#define COUNT_OF_(a) (sizeof(a)/sizeof((a)[0]))
-
 <% if is_complex %>
 
 static VALUE
@@ -240,5 +238,3 @@ static VALUE
     }
     return ans;
 }
-
-#undef COUNT_OF_

@@ -142,7 +142,6 @@ static void
     RB_GC_GUARD(vopt);
 }
 
-#define COUNT_OF_(a) (sizeof(a)/sizeof((a)[0]))
 #define sub_func_name(f, args) f##_sub args
 
 /*
@@ -213,5 +212,4 @@ static VALUE
     return sub_func_name(<%=c_func%>, (mod, a, 1));
 }
 
-#undef COUNT_OF_
 #undef sub_func_name

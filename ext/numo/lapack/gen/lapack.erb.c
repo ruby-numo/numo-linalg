@@ -44,6 +44,8 @@ static VALUE cT;
 static VALUE cCT;
 static VALUE cRT;
 
+#define COUNT_OF_(a) (sizeof(a)/sizeof((a)[0]))
+
 #define SET_POS(pos, i, type, n) do {(pos)[i] = (pos)[(i)-1] + ((sizeof(type)*(n)-1)/16+1)*16;} while (0)
 
 // Error Class ??
