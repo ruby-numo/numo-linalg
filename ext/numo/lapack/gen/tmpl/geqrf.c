@@ -36,7 +36,7 @@ void geqrf(
   dtype * /*WORK*/, fortran_integer * /*LWORK*/, fortran_integer * /*INFO*/);
 
 static void
-<%=c_iter%>(na_loop_t * const UNUSED(lp))
+<%=c_iter%>(na_loop_t * const lp)
 {
     size_t n1, n2, wksize;
     dtype *ai, *ao, *tau;
