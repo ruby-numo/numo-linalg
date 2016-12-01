@@ -47,18 +47,16 @@ typedef struct {
 
 <% if is_complex %>
 void heev(
-  char const * /*JOBZ*/, char const * /*UPLO*/,
-  fortran_integer * /*N*/, dtype * /*A*/, fortran_integer * /*LDA*/,
-  rtype * /*W*/, dtype * /*WORK*/, fortran_integer * /*LWORK*/,
-  rtype * /*RWORK*/,
-  fortran_integer * /*INFO*/);
 <% else %>
 void syev(
+<% end %>
   char const * /*JOBZ*/, char const * /*UPLO*/,
   fortran_integer * /*N*/, dtype * /*A*/, fortran_integer * /*LDA*/,
   rtype * /*W*/, dtype * /*WORK*/, fortran_integer * /*LWORK*/,
+  <% if is_complex %>
+  rtype * /*RWORK*/,
+  <% end %>
   fortran_integer * /*INFO*/);
-<% end %>
 
 static void
 <%=c_iter%>(na_loop_t * const lp)
