@@ -86,12 +86,12 @@ static void
     memcpy(p1, a, n1*n2*sizeof(dtype));
 
     opt = lp->opt_ptr;
-    lwork = opt->lwork;
+    lwork  = opt->lwork;
     lwork2 = opt->lwork2;
     {
         char *ptr;
         size_t ofs[4];
-        size_t wksize = lwork;
+        size_t wksize  = lwork;
         size_t wksize2 = lwork2;
 
         ofs[0] = 0;
