@@ -207,7 +207,7 @@ sub_func_name(<%=c_func%>, (VALUE const UNUSED(mod), VALUE const a,
 static VALUE
 <%=c_func%>(VALUE const mod, VALUE const a)
 {
-    return sub_func_name(<%=c_func%>, (mod, a, 0, 1, 0));
+    return sub_func_name(<%=c_func%>, (mod, a, 0, 0, 0));
 }
 
 #undef sub_func_name

@@ -125,6 +125,7 @@ def_singleton("matrix_rank", -1, "matrix_rank", mod_var:"mTL")
 def_singleton("gels",  2, "gels",  mod_var:"mTL")
 def_singleton("geqrf",  1, "geqrf",  mod_var:"mTL")
 def_singleton("heev",  1, "heev",  mod_var:"mTL")
+def_singleton("heevd",  1, "heevd",  mod_var:"mTL")
 
 #def_alias "dot_mm", "matmul"
 
