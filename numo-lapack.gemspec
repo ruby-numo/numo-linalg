@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/metanest/numo-lapack"
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files Gemfile README.md Rakefile ext numo-lapack.gemspec spec`.split($/)
+  spec.files         = `git ls-files Gemfile README.md Rakefile ext lib numo-lapack.gemspec spec`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
