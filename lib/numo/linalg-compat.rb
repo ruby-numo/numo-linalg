@@ -10,7 +10,7 @@ module Numo::Linalg
         end
 
         def vdot a, b
-            throw NotImplementedError.new
+            raise NotImplementedError.new
         end
 
         def inner a, b
@@ -27,26 +27,26 @@ module Numo::Linalg
         end
 
         def tensordot a, b #, axes
-            throw NotImplementedError.new
+            raise NotImplementedError.new
         end
 
         def einsum *a
-            throw NotImplementedError.new
+            raise NotImplementedError.new
         end
 
         def matrix_power m, n
-            throw NotImplementedError.new
+            raise NotImplementedError.new
         end
 
         def kron a, b
-            throw NotImplementedError.new
+            raise NotImplementedError.new
         end
 
 
         ## Decompositions
 
         def cholesky a
-            throw NotImplementedError.new
+            raise NotImplementedError.new
         end
 
         def qr a #, mode
@@ -67,7 +67,7 @@ module Numo::Linalg
         end
 
         def svdvals a #, options
-            throw NotImplementedError.new
+            raise NotImplementedError.new
         end
 
 
@@ -111,7 +111,60 @@ module Numo::Linalg
 
         ## Norms and other numbers
 
+        def norm *x
+            raise NotImplementedError.new
+        end
+
+        def cond *x
+            raise NotImplementedError.new
+        end
+
+        def det *x
+            raise NotImplementedError.new
+        end
+
+        def matrix_rank m, tol=nil
+            m = m.transpose
+            if tol then
+                Numo::LAPACK.matrix_rank m, tol
+            else
+                Numo::LAPACK.matrix_rank m
+            end
+        end
+
+        def slogdet *a
+            raise NotImplementedError.new
+        end
+
+        def trace *a
+            raise NotImplementedError.new
+        end
+
+
         ## Solving equations and inverting matrices
 
+        def solve a, b
+            Numo::LAPACK.gesv a.transpose, b
+        end
+
+        def tensorsolve a, b, *_
+            raise NotImplementedError.new
+        end
+
+        def lstsq a, b
+            Numo::LAPACK.gels a.transpose, b
+        end
+
+        def inv a
+            raise NotImplementedError.new
+        end
+
+        def pinv a, *_
+            raise NotImplementedError.new
+        end
+
+        def tensorinv a, *_
+            raise NotImplementedError.new
+        end
     end
 end
