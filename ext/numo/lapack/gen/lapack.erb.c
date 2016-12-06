@@ -116,16 +116,19 @@ transpose_<%=w+d%>(dtype *x, na_loop_t *lp, int arg_idx, int n_args)
 <%
 mod_var "mTL"
 
-def_singleton("gemm",  2, "gemm",  mod_var:"mTL")
-def_singleton("gesv",  2, "gesv",  mod_var:"mTL")
-def_singleton("geev",  1, "geev",  mod_var:"mTL")
-def_singleton("gesvd", 1, "gesvd", mod_var:"mTL")
-def_singleton("gesdd", 1, "gesdd", mod_var:"mTL")
-def_singleton("matrix_rank", -1, "matrix_rank", mod_var:"mTL")
-def_singleton("gels",  2, "gels",  mod_var:"mTL")
-def_singleton("geqrf",  1, "geqrf",  mod_var:"mTL")
-def_singleton("heev",  1, "heev",  mod_var:"mTL")
-def_singleton("heevd",  1, "heevd",  mod_var:"mTL")
+def_singleton("gemm",   2, "gemm",  mod_var:"mTL")
+def_singleton("gesv",   2, "gesv",  mod_var:"mTL")
+def_singleton("gels",   2, "gels",  mod_var:"mTL")
+def_singleton("geqrf",  1, "geqrf", mod_var:"mTL")
+
+def_singleton("gesvd",  1, "gesvd", mod_var:"mTL")
+def_singleton("gesdd",  1, "gesdd", mod_var:"mTL")
+
+def_singleton("matrix_rank", -1, "matrix_rank", mod_var:"mTL")  # this must be located after ges[vd]d
+
+def_singleton("geev",  -1, "geev",  mod_var:"mTL")
+def_singleton("heev",  -1, "heev",  mod_var:"mTL")
+def_singleton("heevd", -1, "heevd", mod_var:"mTL")
 
 #def_alias "dot_mm", "matmul"
 

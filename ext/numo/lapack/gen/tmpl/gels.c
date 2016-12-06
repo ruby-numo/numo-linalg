@@ -60,7 +60,7 @@ static void
     n2  = lp->args[1].shape[0];  // m (of b)
     n3  = lp->args[2].shape[0];  // ldb
     lwork = *(fortran_integer *)lp->opt_ptr;
-    wksize = lwork;
+    wksize = (size_t)lwork;
     memcpy(bo, bi, n2*sizeof(dtype));
 
     m = n11; n = n12;

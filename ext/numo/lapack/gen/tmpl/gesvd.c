@@ -76,12 +76,13 @@ static void
     n      = lp->args[3].shape[0];
     {
         char *ptr;
+        size_t wksize = (size_t)lwork;
         <% if is_complex %>
         size_t ofs[3];
         size_t min_mn;
         min_mn = lp->args[2].shape[0];
         ofs[0] = 0;
-        SET_POS(ofs, 1, dtype, lwork);     // work[lwork]
+        SET_POS(ofs, 1, dtype, wksize);    // work[lwork]
         SET_POS(ofs, 2, rtype, 5*min_mn);  // rwork[5*min_mn]
         ptr = rb_alloc_tmp_buffer(&vopt, ofs[2]);
         rwork = (rtype *)(ptr + ofs[1]);
@@ -90,7 +91,7 @@ static void
 
         size_t ofs[2];
         ofs[0] = 0;
-        SET_POS(ofs, 1, dtype, lwork);     // work[lwork]
+        SET_POS(ofs, 1, dtype, wksize);  // work[lwork]
         ptr = rb_alloc_tmp_buffer(&vopt, ofs[1]);
         <% end %>
         work = (dtype *)ptr;
@@ -165,10 +166,10 @@ sub_func_name(<%=c_func%>, (VALUE UNUSED(mod), VALUE a, int UNUSED(full), int UN
     lwork = -1;
     <% if is_complex %>
     gesvd(chr, chr, &m, &n, 0, &m, 0, 0, &m, 0, &n, wk, &lwork, 0, &info);
-    lwork = REAL(wk[0]);
+    lwork = (fortran_integer)REAL(wk[0]);
     <% else %>
     gesvd(chr, chr, &m, &n, 0, &m, 0, 0, &m, 0, &n, wk, &lwork, &info);
-    lwork = wk[0];
+    lwork = (fortran_integer)wk[0];
     <% end %>
 
     ans = na_ndloop3(&ndf, &lwork, 1, a);

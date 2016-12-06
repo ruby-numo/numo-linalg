@@ -50,8 +50,8 @@ void orgqr(
     dtype * /*WORK*/, fortran_integer * /*LWORK*/, fortran_integer * /*INFO*/);
 
 typedef struct {
-    fortran_integer lwork;
-    fortran_integer lwork2;
+    size_t lwork;
+    size_t lwork2;
 } geqrf_opt_t;
 
 static void
@@ -86,13 +86,14 @@ static void
     memcpy(p1, a, n1*n2*sizeof(dtype));
 
     opt = lp->opt_ptr;
-    lwork  = opt->lwork;
-    lwork2 = opt->lwork2;
     {
         char *ptr;
         size_t ofs[4];
-        size_t wksize  = lwork;
-        size_t wksize2 = lwork2;
+        size_t wksize  = opt->lwork;
+        size_t wksize2 = opt->lwork2;
+
+        lwork  = (fortran_integer)wksize;
+        lwork2 = (fortran_integer)wksize2;
 
         ofs[0] = 0;
         SET_POS(ofs, 1, dtype, n3);       // tau[MIN(m, n)]
@@ -180,7 +181,6 @@ static VALUE
     ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP,
         COUNT_OF_(ain), COUNT_OF_(aout),
         ain, aout};
-    fortran_integer lwork;
 
     GetNArray(a, na);
     CHECK_DIM_GE(na, 2);
@@ -212,7 +212,7 @@ static VALUE
 
     {
         fortran_integer info=0;
-        fortran_integer m, n, k, lda;
+        fortran_integer m, n, k, lda, lwork;
         dtype wk[1];
         m = n1;
         n = n2;
@@ -221,9 +221,9 @@ static VALUE
         lwork = -1;
         geqrf(&m, &n, 0, &lda, 0, wk, &lwork, &info);
         <% if is_complex %>
-        opt.lwork = (fortran_integer)REAL(wk[0]);
+        opt.lwork = (size_t)REAL(wk[0]);
         <% else %>
-        opt.lwork = (fortran_integer)wk[0];
+        opt.lwork = (size_t)wk[0];
         <% end %>
 
         if (m > n) {
@@ -238,9 +238,9 @@ static VALUE
         <% end %>
             &m, &n, &k, 0, &lda, 0, wk, &lwork, &info);
         <% if is_complex %>
-        opt.lwork2 = (fortran_integer)REAL(wk[0]);
+        opt.lwork2 = (size_t)REAL(wk[0]);
         <% else %>
-        opt.lwork2 = (fortran_integer)wk[0];
+        opt.lwork2 = (size_t)wk[0];
         <% end %>
     }
     ans = na_ndloop3(&ndf, &opt, 1, a);

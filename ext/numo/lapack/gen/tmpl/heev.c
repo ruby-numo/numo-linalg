@@ -39,7 +39,7 @@
 <% end %>
 
 typedef struct {
-    int val_only;
+    int vals_only;
     int upper;
     int overwrite;
     size_t lwork;
@@ -80,26 +80,26 @@ static void
 
     opt = (heev_opt_t *)lp->opt_ptr;
 
-    jobz = ( opt->val_only ? jobz_n : jobz_v ) ;
-    uplo = ( opt->upper    ? uplo_u : uplo_l ) ;
+    jobz = ( opt->vals_only ? jobz_n : jobz_v ) ;
+    uplo = ( opt->upper     ? uplo_u : uplo_l ) ;
 
     n1 = lp->args[0].shape[1];
-    if (opt->val_only || opt->overwrite) {
+    if (opt->vals_only || opt->overwrite) {
         a  = (dtype *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
         w  = (rtype *)(lp->args[1].ptr + lp->args[1].iter[0].pos);
-    } else {// !opt->val_only && !opt->overwrite
+    } else {// !opt->vals_only && !opt->overwrite
         ai = (dtype *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
         w  = (rtype *)(lp->args[1].ptr + lp->args[1].iter[0].pos);
         a  = (dtype *)(lp->args[2].ptr + lp->args[2].iter[0].pos);
         memcpy(a, ai, n1*n1*sizeof(dtype));
     }
     wksize = opt->lwork;
+    lwork = (fortran_integer)wksize;
 
     n = n1;
     lda = n;
 
     work = rb_alloc_tmp_buffer(&tmp_work, wksize*sizeof(dtype));
-    lwork = wksize;
     <% if is_complex %>
     rwork = rb_alloc_tmp_buffer(&tmp_rwork, (3*n1-2)*sizeof(rtype));
     <% end %>
@@ -131,11 +131,9 @@ static void
   TBD
 */
 static VALUE
-sub_func_name(<%=c_func%>, (VALUE const UNUSED(mod), VALUE const a,
-                            int const val_only, int const upper, int const overwrite))
+sub_func_name(<%=c_func%>, (VALUE const a, int const vals_only, int const upper, int const overwrite))
 {
     volatile VALUE ans;
-
     narray_t *na;
     size_t n1, n2;
     heev_opt_t opt;
@@ -150,7 +148,7 @@ sub_func_name(<%=c_func%>, (VALUE const UNUSED(mod), VALUE const a,
         rb_raise(nary_eShapeError, "not square-matrix");
     }
 
-    opt.val_only = val_only;
+    opt.vals_only = vals_only;
     opt.upper = upper;
     opt.overwrite = overwrite;
     {
@@ -161,8 +159,8 @@ sub_func_name(<%=c_func%>, (VALUE const UNUSED(mod), VALUE const a,
         fortran_integer n, lda;
         dtype wk[1];
 
-        jobz = ( val_only ? jobz_n : jobz_v ) ;
-        uplo = ( upper    ? uplo_u : uplo_l ) ;
+        jobz = ( vals_only ? jobz_n : jobz_v ) ;
+        uplo = ( upper     ? uplo_u : uplo_l ) ;
 
         n = n1;
         lda = n;
@@ -177,7 +175,7 @@ sub_func_name(<%=c_func%>, (VALUE const UNUSED(mod), VALUE const a,
     }
     opt.lwork = (size_t)lwork;
 
-    if (val_only || overwrite) {
+    if (vals_only || overwrite) {
         size_t shape[1];
         ndfunc_arg_in_t ain[1] = {{cT, 2}};
         ndfunc_arg_out_t aout[1] = {
@@ -187,7 +185,7 @@ sub_func_name(<%=c_func%>, (VALUE const UNUSED(mod), VALUE const a,
           ain, aout};
         shape[0] = n1;
         ans = na_ndloop3(&ndf, &opt, 1, a);
-    } else {// !val_only && !overwrite
+    } else {// !vals_only && !overwrite
         size_t shape1[1], shape2[2];
         ndfunc_arg_in_t ain[1] = {{cT, 2}};
         ndfunc_arg_out_t aout[2] = {
@@ -205,9 +203,27 @@ sub_func_name(<%=c_func%>, (VALUE const UNUSED(mod), VALUE const a,
 }
 
 static VALUE
-<%=c_func%>(VALUE const mod, VALUE const a)
+<%=c_func%>(int const argc, VALUE const argv[], VALUE UNUSED(mod))
 {
-    return sub_func_name(<%=c_func%>, (mod, a, 0, 0, 0));
+    int const flg_overwrite = 0;
+    int flg_vals_only=0, flg_upper=0;
+
+    rb_check_arity(argc, 1, 2);
+
+    if (argc == 2) {
+        ID table[2];
+        VALUE values[COUNT_OF_(table)];
+        table[0] = rb_intern("vals_only");
+        table[1] = rb_intern("upper");
+        rb_get_kwargs(argv[1], table, 0, COUNT_OF_(table), values);
+        if (values[0] != Qundef) {
+            flg_vals_only = RTEST(values[0]);
+        }
+        if (values[1] != Qundef) {
+            flg_upper = RTEST(values[1]);
+        }
+    }
+    return sub_func_name(<%=c_func%>, (argv[0], flg_vals_only, flg_upper, flg_overwrite));
 }
 
 #undef sub_func_name

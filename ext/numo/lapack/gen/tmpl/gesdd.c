@@ -59,7 +59,7 @@ void gesdd(
 
 typedef struct {
     int with_uv;
-    fortran_integer lwork;
+    size_t lwork;
 } gesdd_opt_t;
 
 static void
@@ -87,8 +87,7 @@ static void
     vt    = (dtype *)(lp->args[3].ptr + lp->args[3].iter[0].pos);
     m     =           lp->args[1].shape[0];
     n     =           lp->args[3].shape[0];
-    opt   =           lp->opt_ptr;
-    lwork = opt->lwork;
+    opt   = lp->opt_ptr;
     job   = ( opt->with_uv ? job_a : job_n ) ;
     {
         char *ptr;
@@ -99,6 +98,9 @@ static void
         <% else %>
         size_t ofs[3];
         <% end %>
+        size_t wksize = opt->lwork;
+
+        lwork = (fortran_integer)wksize;
 
         min_mn = lp->args[2].shape[0];
         <% if is_complex %>
@@ -108,7 +110,7 @@ static void
 
         <% if is_complex %>
         ofs[0] = 0;
-        SET_POS(ofs, 1, dtype, lwork);     // work[lwork]
+        SET_POS(ofs, 1, dtype, wksize);  // work[lwork]
         SET_POS(ofs, 2, rtype, lrwork);  // rwork[lrwork]
         SET_POS(ofs, 3, fortran_integer, 8*min_mn);  // iwork[8*min_mn]
         ptr = rb_alloc_tmp_buffer(&vopt, ofs[3]);
@@ -119,7 +121,7 @@ static void
         <% else %>
 
         ofs[0] = 0;
-        SET_POS(ofs, 1, dtype, lwork);     // work[lwork]
+        SET_POS(ofs, 1, dtype, wksize);  // work[lwork]
         SET_POS(ofs, 2, fortran_integer, 8*min_mn);  // iwork[8*min_mn]
         ptr = rb_alloc_tmp_buffer(&vopt, ofs[2]);
         work  =           (dtype *) ptr;
@@ -185,22 +187,18 @@ sub_func_name(<%=c_func%>, (VALUE UNUSED(mod), VALUE a, int with_uv))
     lwork = -1;
     <% if is_complex %>
     gesdd(chr, &m, &n, 0, &m, 0, 0, &m, 0, &n, wk, &lwork, 0, 0, &info);
-    lwork = REAL(wk[0]);
+    lwork = (fortran_integer)REAL(wk[0]);
     <% else %>
     gesdd(chr, &m, &n, 0, &m, 0, 0, &m, 0, &n, wk, &lwork, 0, &info);
-    lwork = wk[0];
+    lwork = (fortran_integer)wk[0];
     <% end %>
 
     {
-        volatile VALUE vopt;
-        gesdd_opt_t *opt;
+        gesdd_opt_t opt;
 
-        opt = rb_alloc_tmp_buffer(&vopt, sizeof(gesdd_opt_t));
-        opt->with_uv = with_uv;
-        opt->lwork = lwork;
-        ans = na_ndloop3(&ndf, opt, 1, a);
-        rb_free_tmp_buffer(&vopt);
-        RB_GC_GUARD(vopt);
+        opt.with_uv = with_uv;
+        opt.lwork = (size_t)lwork;
+        ans = na_ndloop3(&ndf, &opt, 1, a);
     }
 
     return ans;

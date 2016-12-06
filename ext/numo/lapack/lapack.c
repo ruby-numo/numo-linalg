@@ -14,9 +14,13 @@ extern void Init_nary_scomplex_lapack();
   @param [NArray,Numeric] x  input array.
   @return [NArray] result.
 */
-VALUE nary_lapack_method_missing(int argc, VALUE *argv, VALUE mlapack)
+static VALUE nary_lapack_method_missing(int const argc_orig, VALUE *argv, VALUE mlapack)
 {
     VALUE type, mod, hash;
+    int argc = argc_orig;
+    if (argc>2 && rb_check_hash_type(argv[argc-1])) {
+        --argc;
+    }
     if (argc>1) {
 	type = nary_mathcast(argc-1,argv+1);
 	hash = rb_const_get(mlapack, rb_intern("DISPATCH"));
@@ -25,7 +29,7 @@ VALUE nary_lapack_method_missing(int argc, VALUE *argv, VALUE mlapack)
 	    rb_raise(rb_eTypeError,"%s is unknown for Numo::Math",
 		     rb_class2name(type));
 	}
-	return rb_funcall2(mod,rb_intern("send"),argc,argv);
+	return rb_funcall2(mod,rb_intern("send"),argc_orig,argv);
     }
     rb_raise(rb_eArgError,"argument or method missing");
     return Qnil;
