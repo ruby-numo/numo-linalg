@@ -151,20 +151,35 @@ static VALUE
   ***TBD***
 */
 static VALUE
-<%=c_func%>(int const argc, VALUE const argv[], VALUE mod)
+<%=c_func%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
 {
     volatile VALUE ans;  // !!! DONT REMOVE: volatile qualification !!!
-    VALUE a, tol=Qnil;
+    VALUE tol = Qnil, a;
+    int flg_turbo = 0;
     narray_t *na;
 
+    if (argc > 0) {
+        int const last = argc-1;
+        VALUE h;
+        if ( ! NIL_P(h = rb_check_hash_type(argv[last]))) {
+            ID tbl;
+            VALUE v;
+            tbl = rb_intern("turbo");
+            rb_get_kwargs(h, &tbl, 0, 1, &v);
+            if (v != Qundef) {
+                flg_turbo = RTEST(v);
+            }
+            --argc;
+        }
+    }
     rb_check_arity(argc, 1, 2);
+    if (argc == 2) {
+        tol = argv[1];
+    }
+
     a = argv[0];
     GetNArray(a, na);
     CHECK_DIM_GE(na, 0);
-
-    if (argc > 1) {
-        tol = argv[1];
-    }
 
     if (NA_NDIM(na) < 2) {
         if (NA_NDIM(na) == 0) {
@@ -188,14 +203,14 @@ static VALUE
             size_t const d = NA_NDIM(na);
             size_t const a = na->shape[d-1];
             size_t const b = na->shape[d-2];
-            dmax = ( (a > b) ? a : b ) ;
+            dmax = (double)max_(a, b);
         }
-        ans = numo_<%=type_name%>_s_gesdd_sub(mod, a, 0);
-        // ans is [_, s, _]
         {
-            VALUE idx[1] = { Qnil };
-            idx[0] = INT2FIX(1);
-            a = rb_ary_aref(1, idx, ans);
+            VALUE (* const f)(VALUE, int const) = (
+                flg_turbo
+                ? numo_<%=type_name%>_s_gesdd_sub
+                : numo_<%=type_name%>_s_gesvd_sub ) ;
+            a = (*f)(a, 1);
         }
         GetNArray(a, na);
         if (NA_NDIM(na) < 2) {
@@ -212,27 +227,23 @@ static VALUE
             mN = rb_const_get(rb_cObject, rb_intern("Numo"));
             rO = rb_const_get(mN, rb_intern("RObject"));
             {
-                volatile VALUE vopt;
-                matrix_rank_opt_t *opt;
+                matrix_rank_opt_t opt;
                 double th_tmp;
                 size_t shape[1];
                 ndfunc_arg_in_t ain[1] = {{cRT, 2}};
                 ndfunc_arg_out_t aout[1] = {{rO, COUNT_OF_(shape), shape}};
                 ndfunc_t ndf = {<%=c_iter%>_2, NO_LOOP, COUNT_OF_(ain), COUNT_OF_(aout), ain, aout};
                 shape[0] = na->shape[NA_NDIM(na)-2];
-                opt = rb_alloc_tmp_buffer(&vopt, sizeof(matrix_rank_opt_t));
                 if (tol == Qnil) {
                     th_tmp = dmax * eps;
-                    opt->th_tmp = &th_tmp;
-                    opt->th = 0;
+                    opt.th_tmp = &th_tmp;
+                    opt.th = 0;
                 } else {
                     th_tmp = NUM2DBL(tol);
-                    opt->th_tmp = 0;
-                    opt->th = &th_tmp;
+                    opt.th_tmp = 0;
+                    opt.th = &th_tmp;
                 }
-                ans = na_ndloop3(&ndf, opt, 1, a);
-                rb_free_tmp_buffer(&vopt);
-                RB_GC_GUARD(vopt);
+                ans = na_ndloop3(&ndf, &opt, 1, a);
             }
         }
     }

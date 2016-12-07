@@ -89,7 +89,7 @@ static void
     fortran_integer *iwork;
     volatile VALUE tmp_ptr;
 
-    opt = (heevd_opt_t *)lp->opt_ptr;
+    opt = lp->opt_ptr;
 
     jobz = ( opt->vals_only ? jobz_n : jobz_v ) ;
     uplo = ( opt->upper    ? uplo_u : uplo_l ) ;

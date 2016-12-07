@@ -78,7 +78,7 @@ static void
     volatile VALUE tmp_rwork;
     <% end %>
 
-    opt = (heev_opt_t *)lp->opt_ptr;
+    opt = lp->opt_ptr;
 
     jobz = ( opt->vals_only ? jobz_n : jobz_v ) ;
     uplo = ( opt->upper     ? uplo_u : uplo_l ) ;

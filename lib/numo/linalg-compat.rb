@@ -57,17 +57,27 @@ module Numo::Linalg
             result
         end
 
-        def svd a #, options
-            result = Numo::LAPACK.gesvd a.transpose
-            #Numo::LAPACK.gesdd a.transpose
+        def svd a, turbo:false
+            a = a.transpose
+            result =
+                if turbo then
+                    Numo::LAPACK.gesdd a, vals_only:false
+                else
+                    Numo::LAPACK.gesvd a, vals_only:false
+                end
             u, _, v = result
             result[0] = u.transpose
             result[2] = v.transpose
             result
         end
 
-        def svdvals a #, options
-            raise NotImplementedError.new
+        def svdvals a, turbo:false
+            a = a.transpose
+            if turbo then
+                Numo::LAPACK.gesdd a, vals_only:true
+            else
+                Numo::LAPACK.gesvd a, vals_only:true
+            end
         end
 
 

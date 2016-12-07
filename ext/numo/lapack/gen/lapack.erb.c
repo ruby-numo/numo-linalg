@@ -57,14 +57,14 @@ static VALUE cRT;
     }                                                           \
 } while (0)
 
-static fortran_integer
-max_(fortran_integer m, fortran_integer n)
+static size_t
+max_(size_t m, size_t n)
 {
   return ( (m > n) ? m : n ) ;
 }
 
-static fortran_integer
-min_(fortran_integer m, fortran_integer n)
+static size_t
+min_(size_t m, size_t n)
 {
   return ( (m < n) ? m : n ) ;
 }
@@ -121,8 +121,8 @@ def_singleton("gesv",   2, "gesv",  mod_var:"mTL")
 def_singleton("gels",   2, "gels",  mod_var:"mTL")
 def_singleton("geqrf",  1, "geqrf", mod_var:"mTL")
 
-def_singleton("gesvd",  1, "gesvd", mod_var:"mTL")
-def_singleton("gesdd",  1, "gesdd", mod_var:"mTL")
+def_singleton("gesvd", -1, "gesvd", mod_var:"mTL")
+def_singleton("gesdd", -1, "gesdd", mod_var:"mTL")
 
 def_singleton("matrix_rank", -1, "matrix_rank", mod_var:"mTL")  # this must be located after ges[vd]d
 

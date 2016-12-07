@@ -18,7 +18,7 @@ static VALUE nary_lapack_method_missing(int const argc_orig, VALUE *argv, VALUE 
 {
     VALUE type, mod, hash;
     int argc = argc_orig;
-    if (argc>2 && rb_check_hash_type(argv[argc-1])) {
+    if (argc>2 && ( ! NIL_P(rb_check_hash_type(argv[argc-1])))) {
         --argc;
     }
     if (argc>1) {
