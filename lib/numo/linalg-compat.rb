@@ -45,8 +45,9 @@ module Numo::Linalg
 
         ## Decompositions
 
-        def cholesky a
-            raise NotImplementedError.new
+        def cholesky a, upper:false
+            uflag = upper
+            Numo::LAPACK.potrf(a.transpose, upper:uflag).transpose
         end
 
         def qr a #, mode

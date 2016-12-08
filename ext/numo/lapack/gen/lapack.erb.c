@@ -121,6 +121,8 @@ def_singleton("gesv",   2, "gesv",  mod_var:"mTL")
 def_singleton("gels",   2, "gels",  mod_var:"mTL")
 def_singleton("geqrf",  1, "geqrf", mod_var:"mTL")
 
+def_singleton("potrf", -1, "potrf", mod_var:"mTL")
+
 def_singleton("gesvd", -1, "gesvd", mod_var:"mTL")
 def_singleton("gesdd", -1, "gesdd", mod_var:"mTL")
 
