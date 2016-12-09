@@ -177,7 +177,12 @@ module Numo::Linalg
         end
 
         def inv a
-            raise NotImplementedError.new
+            sh_a = a.shape
+            raise "ndim(a) != 2" if sh_a.size != 2
+            x, y = sh_a
+            raise "argument matrix is not square" if x != y
+            b = a.class.new(y, x).eye
+            Numo::LAPACK.gesv(a.transpose, b).transpose
         end
 
         def pinv a, *_
