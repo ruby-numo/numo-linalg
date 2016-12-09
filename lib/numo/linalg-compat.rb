@@ -5,18 +5,22 @@ module Numo::Linalg
 
         ## Matrix and vector products
 
+        # not linalg
         def dot a, b
             a.dot b
         end
 
+        # not linalg
         def vdot a, b
             raise NotImplementedError.new
         end
 
+        # not linalg
         def inner a, b
             a.mulsum b
         end
 
+        # not linalg
         def outer a, b
             a[false, :new] * b
         end
@@ -26,18 +30,22 @@ module Numo::Linalg
             result.transpose
         end
 
+        # not linalg
         def tensordot a, b #, axes
             raise NotImplementedError.new
         end
 
+        # not linalg
         def einsum *a
             raise NotImplementedError.new
         end
 
+        # not linalg
         def matrix_power m, n
             raise NotImplementedError.new
         end
 
+        # not linalg
         def kron a, b
             raise NotImplementedError.new
         end
@@ -134,12 +142,13 @@ module Numo::Linalg
             raise NotImplementedError.new
         end
 
-        def matrix_rank m, tol=nil
+        def matrix_rank m, tol=nil, turbo:false
+            tflag = turbo
             m = m.transpose
             if tol then
-                Numo::LAPACK.matrix_rank m, tol
+                Numo::LAPACK.matrix_rank m, tol, turbo:tflag
             else
-                Numo::LAPACK.matrix_rank m
+                Numo::LAPACK.matrix_rank m, turbo:tflag
             end
         end
 
@@ -147,6 +156,7 @@ module Numo::Linalg
             raise NotImplementedError.new
         end
 
+        # not linalg
         def trace *a
             raise NotImplementedError.new
         end
@@ -155,7 +165,7 @@ module Numo::Linalg
         ## Solving equations and inverting matrices
 
         def solve a, b
-            Numo::LAPACK.gesv a.transpose, b
+            Numo::LAPACK.gesv(a.transpose, b).transpose
         end
 
         def tensorsolve a, b, *_
