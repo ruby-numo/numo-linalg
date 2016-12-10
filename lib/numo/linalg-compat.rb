@@ -70,9 +70,9 @@ module Numo::Linalg
             a = a.transpose
             result =
                 if turbo then
-                    Numo::LAPACK.gesdd a, vals_only:false
+                    Numo::LAPACK.gesdd a, job: :full
                 else
-                    Numo::LAPACK.gesvd a, vals_only:false
+                    Numo::LAPACK.gesvd a, job: :full
                 end
             u, _, v = result
             result[0] = u.transpose
@@ -83,9 +83,9 @@ module Numo::Linalg
         def svdvals a, turbo:false
             a = a.transpose
             if turbo then
-                Numo::LAPACK.gesdd a, vals_only:true
+                Numo::LAPACK.gesdd a, job: :vals_only
             else
-                Numo::LAPACK.gesvd a, vals_only:true
+                Numo::LAPACK.gesvd a, job: :vals_only
             end
         end
 
@@ -185,8 +185,22 @@ module Numo::Linalg
             Numo::LAPACK.gesv(a.transpose, b).transpose
         end
 
-        def pinv a, *_
-            raise NotImplementedError.new
+        def pinv a, turbo:false
+            tflag = turbo
+            a = a.conj.transpose
+            args = a, {job: :thin}
+            if tflag then
+                result = Numo::LAPACK.gesdd *args
+            else
+                result = Numo::LAPACK.gesvd *args
+            end
+            u, s, vt = result
+            n = s.shape[0]
+            s_mat = s.class.new(n, n).fill 0.0
+            (0 ... n).each {|i|
+                s_mat[i, i] = 1.0 / s[i]
+            }
+            vt.dot(s_mat).dot(u)
         end
 
         def tensorinv a, *_

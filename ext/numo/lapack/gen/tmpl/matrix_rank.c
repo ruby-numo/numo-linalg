@@ -206,11 +206,11 @@ static VALUE
             dmax = (double)max_(a, b);
         }
         {
-            VALUE (* const f)(VALUE, int const) = (
+            VALUE (* const f)(VALUE, svd_job) = (
                 flg_turbo
                 ? numo_<%=type_name%>_s_gesdd_sub
                 : numo_<%=type_name%>_s_gesvd_sub ) ;
-            a = (*f)(a, 1);
+            a = (*f)(a, SVD_VALS_ONLY);
         }
         GetNArray(a, na);
         if (NA_NDIM(na) < 2) {

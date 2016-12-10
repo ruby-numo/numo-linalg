@@ -57,7 +57,7 @@ static void
     uplo = ( opt->upper ? uplo_u : uplo_l ) ;
 
     ai = (dtype *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
-    ao = (rtype *)(lp->args[1].ptr + lp->args[1].iter[0].pos);
+    ao = (dtype *)(lp->args[1].ptr + lp->args[1].iter[0].pos);
     n1    = lp->args[0].shape[0];
     //n2 = lp->args[0].shape[1];  // (lda)
     if (opt->overwrite) {

@@ -37,6 +37,12 @@
 *       ..
 */
 
+typedef enum {
+    SVD_FULL
+    , SVD_THIN
+    , SVD_VALS_ONLY
+} svd_job;
+
 #define gesvd FFUNC(<%=blas_char%>gesvd)
 
 void gesvd(
@@ -52,7 +58,7 @@ void gesvd(
   fortran_integer * /*INFO*/);
 
 typedef struct {
-    int vals_only;
+    svd_job job;
     size_t lwork;
 } gesvd_opt_t;
 
@@ -72,20 +78,27 @@ static void
 
     gesvd_opt_t *opt = lp->opt_ptr;
 
-    if (opt->vals_only) {
-        // a[n,lda], u[m,m], s[min(m,n)], vt[n,n]
-        a     = (dtype *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
-        u     = 0;
-        s     = (rtype *)(lp->args[1].ptr + lp->args[1].iter[0].pos);
-        vt    = 0;
-        min_n =           lp->args[1].shape[0];
-    } else {
+    switch (opt->job) {
+    case SVD_FULL:
+        /*FALLTHROUGH*/
+    case SVD_THIN:
         // a[n,lda], u[m,m], s[min(m,n)], vt[n,n]
         a     = (dtype *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
         u     = (dtype *)(lp->args[1].ptr + lp->args[1].iter[0].pos);
         s     = (rtype *)(lp->args[2].ptr + lp->args[2].iter[0].pos);
         vt    = (dtype *)(lp->args[3].ptr + lp->args[3].iter[0].pos);
         min_n =           lp->args[2].shape[0];
+        break;
+    case SVD_VALS_ONLY:
+        // a[n,lda], u[m,m], s[min(m,n)], vt[n,n]
+        a     = (dtype *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
+        u     = 0;
+        s     = (rtype *)(lp->args[1].ptr + lp->args[1].iter[0].pos);
+        vt    = 0;
+        min_n =           lp->args[1].shape[0];
+        break;
+    default:
+        assert(0);
     }
     n1 = lp->args[0].shape[1];
     n2 = lp->args[0].shape[0];
@@ -116,20 +129,32 @@ static void
         memcpy(a2, a, sizeof(dtype)*n1*n2);
     }
     {
-        char const * const job_a="A", * const job_n="N";
+        char const * const job_a="A", * const job_s="S", * const job_n="N";
         char const *jobu, *jobvt;
         fortran_integer m = (fortran_integer)n1, n = (fortran_integer)n2;
+        fortran_integer k = (fortran_integer)min_n;
         fortran_integer lda = m, ldu, ldvt, info=0;
-        if (opt->vals_only) {
-            jobu  = job_n;
-            jobvt = job_n;
-            ldu   = 1;
-            ldvt  = 1;
-        } else {
+        switch (opt->job) {
+        case SVD_FULL:
             jobu  = job_a;
             jobvt = job_a;
             ldu   = m;
             ldvt  = n;
+            break;
+        case SVD_THIN:
+            jobu  = job_s;
+            jobvt = job_s;
+            ldu   = m;
+            ldvt  = k;
+            break;
+        case SVD_VALS_ONLY:
+            jobu  = job_n;
+            jobvt = job_n;
+            ldu   = 1;
+            ldvt  = 1;
+            break;
+        default:
+            assert(0);
         }
         <% if is_complex %>
         gesvd(jobu, jobvt, &m, &n, a2, &lda, s, u, &ldu, vt, &ldvt,
@@ -165,11 +190,11 @@ static void
   U and V are the left and right singular vectors of A.
 */
 static VALUE
-sub_func_name(<%=c_func%>, (VALUE a, int const vals_only))
+sub_func_name(<%=c_func%>, (VALUE a, svd_job job))
 {
-    volatile VALUE ans;  // !!! DONT REMOVE: volatile qualification !!!
+    volatile VALUE ans=Qnil;  // !!! DONT REMOVE: volatile qualification !!!
     gesvd_opt_t opt;
-    size_t n1, n2;
+    size_t n1, n2, min_n;
     {
         narray_t *na;
 
@@ -177,76 +202,123 @@ sub_func_name(<%=c_func%>, (VALUE a, int const vals_only))
         CHECK_DIM_GE(na, 2);
         n1 = na->shape[na->ndim-1];
         n2 = na->shape[na->ndim-2];
+        min_n = min_(n1, n2);
     }
     {
-        char const * const chr_a = "A", * const chr_n = "N";
+        char const * const chr_a = "A", * const chr_s = "S", * const chr_n = "N";
         char const *chr;
         fortran_integer m = (fortran_integer)n1, n = (fortran_integer)n2;
-        fortran_integer ldu, ldvt;
+        fortran_integer k = (fortran_integer)min_n;
+        fortran_integer lda = m, ldu, ldvt;
         dtype wk[1];
         fortran_integer lwork, info=0;
 
-        if (vals_only) {
-            chr = chr_n;
-            ldu = 1;
-            ldvt = 1;
-        } else {
+        switch (job) {
+        case SVD_FULL:
             chr = chr_a;
             ldu = m;
             ldvt = n;
+            break;
+        case SVD_THIN:
+            chr = chr_s;
+            ldu = m;
+            ldvt = k;
+            break;
+        case SVD_VALS_ONLY:
+            chr = chr_n;
+            ldu = 1;
+            ldvt = 1;
+            break;
+        default:
+            assert(0);
         }
         lwork = -1;
         <% if is_complex %>
-        gesvd(chr, chr, &m, &n, 0, &m, 0, 0, &ldu, 0, &ldvt, wk, &lwork, 0, &info);
+        gesvd(chr, chr, &m, &n, 0, &lda, 0, 0, &ldu, 0, &ldvt, wk, &lwork, 0, &info);
         opt.lwork = (size_t)REAL(wk[0]);
         <% else %>
-        gesvd(chr, chr, &m, &n, 0, &m, 0, 0, &ldu, 0, &ldvt, wk, &lwork, &info);
+        gesvd(chr, chr, &m, &n, 0, &lda, 0, 0, &ldu, 0, &ldvt, wk, &lwork, &info);
         opt.lwork = (size_t)wk[0];
         <% end %>
     }
-    opt.vals_only = vals_only;
+    opt.job = job;
 
-    if (vals_only) {
-        size_t s_shape[1] = { min_(n1, n2) };
-        ndfunc_arg_in_t ain[1] = {{cT,2}};
-        ndfunc_arg_out_t aout[1] = {
-            {cRT,COUNT_OF_(s_shape),s_shape}};
-        ndfunc_t ndf = {<%=c_iter%>, NO_LOOP, COUNT_OF_(ain), COUNT_OF_(aout), ain, aout};
+    switch (job) {
+    case SVD_FULL:
+        {
+            size_t u_shape[2] = { n1, n1 };
+            size_t s_shape[1] = { min_n };
+            size_t vt_shape[2] = { n2, n2 };
+            ndfunc_arg_in_t ain[1] = {{cT,2}};
+            ndfunc_arg_out_t aout[3] = {
+                {cT,COUNT_OF_(u_shape),u_shape},
+                {cRT,COUNT_OF_(s_shape),s_shape},
+                {cT,COUNT_OF_(vt_shape),vt_shape}};
+            ndfunc_t ndf = {<%=c_iter%>, NO_LOOP, COUNT_OF_(ain), COUNT_OF_(aout), ain, aout};
 
-        ans = na_ndloop3(&ndf, &opt, 1, a);
-    } else {
-        size_t u_shape[2] = { n1, n1 };
-        size_t s_shape[1] = { min_(n1, n2) };
-        size_t vt_shape[2] = { n2, n2 };
-        ndfunc_arg_in_t ain[1] = {{cT,2}};
-        ndfunc_arg_out_t aout[3] = {
-            {cT,COUNT_OF_(u_shape),u_shape},
-            {cRT,COUNT_OF_(s_shape),s_shape},
-            {cT,COUNT_OF_(vt_shape),vt_shape}};
-        ndfunc_t ndf = {<%=c_iter%>, NO_LOOP, COUNT_OF_(ain), COUNT_OF_(aout), ain, aout};
+            ans = na_ndloop3(&ndf, &opt, 1, a);
+        }
+        break;
+    case SVD_THIN:
+        {
+            size_t u_shape[2] = { min_n, n1 };
+            size_t s_shape[1] = { min_n };
+            size_t vt_shape[2] = { n2, min_n };
+            ndfunc_arg_in_t ain[1] = {{cT,2}};
+            ndfunc_arg_out_t aout[3] = {
+                {cT,COUNT_OF_(u_shape),u_shape},
+                {cRT,COUNT_OF_(s_shape),s_shape},
+                {cT,COUNT_OF_(vt_shape),vt_shape}};
+            ndfunc_t ndf = {<%=c_iter%>, NO_LOOP, COUNT_OF_(ain), COUNT_OF_(aout), ain, aout};
 
-        ans = na_ndloop3(&ndf, &opt, 1, a);
+            ans = na_ndloop3(&ndf, &opt, 1, a);
+        }
+        break;
+    case SVD_VALS_ONLY:
+        {
+            size_t s_shape[1] = { min_(n1, n2) };
+            ndfunc_arg_in_t ain[1] = {{cT,2}};
+            ndfunc_arg_out_t aout[1] = {
+                {cRT,COUNT_OF_(s_shape),s_shape}};
+            ndfunc_t ndf = {<%=c_iter%>, NO_LOOP, COUNT_OF_(ain), COUNT_OF_(aout), ain, aout};
+
+            ans = na_ndloop3(&ndf, &opt, 1, a);
+        }
+        break;
+    default:
+        assert(0);
     }
     return ans;
 }
 
 static VALUE
-<%=c_func%>(int const argc, VALUE const argv[], VALUE UNUSED(mod))
+<%=c_func%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
 {
-    int flg_vals_only=0;
-
-    rb_check_arity(argc, 1, 2);
-
-    if (argc == 2) {
-        ID tbl;
-        VALUE v;
-        tbl = rb_intern("vals_only");
-        rb_get_kwargs(argv[1], &tbl, 0, 1, &v);
-        if (v != Qundef) {
-            flg_vals_only = RTEST(v);
+    svd_job job=SVD_FULL;
+    {
+        VALUE h;
+        if ( ! NIL_P(h = rb_check_hash_type(argv[argc-1]))) {
+            ID tbl;
+            VALUE v;
+            tbl = rb_intern("job");
+            rb_get_kwargs(h, &tbl, 0, 1, &v);
+            if (v != Qundef) {
+                ID job_id = rb_to_id(v);
+                if (job_id == rb_intern("full")) {
+                    job = SVD_FULL;
+                } else if (job_id == rb_intern("thin")) {
+                    job = SVD_THIN;
+                } else if (job_id == rb_intern("vals_only")) {
+                    job = SVD_VALS_ONLY;
+                } else {
+                    rb_raise(rb_eArgError, "not valid argument for job:");
+                }
+            }
+            --argc;
         }
     }
-    return sub_func_name(<%=c_func%>, (argv[0], flg_vals_only));
+    rb_check_arity(argc, 1, 1);
+    return sub_func_name(<%=c_func%>, (argv[0], job));
 }
 
 #undef sub_func_name
