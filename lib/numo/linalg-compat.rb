@@ -70,9 +70,9 @@ module Numo::Linalg
             a = a.transpose
             result =
                 if turbo then
-                    Numo::LAPACK.gesdd a, job: :full
+                    Numo::LAPACK.gesdd a, job: :FULL
                 else
-                    Numo::LAPACK.gesvd a, job: :full
+                    Numo::LAPACK.gesvd a, job: :FULL
                 end
             u, _, v = result
             result[0] = u.transpose
@@ -83,9 +83,9 @@ module Numo::Linalg
         def svdvals a, turbo:false
             a = a.transpose
             if turbo then
-                Numo::LAPACK.gesdd a, job: :vals_only
+                Numo::LAPACK.gesdd a, job: :VALS_ONLY
             else
-                Numo::LAPACK.gesvd a, job: :vals_only
+                Numo::LAPACK.gesvd a, job: :VALS_ONLY
             end
         end
 
@@ -188,7 +188,7 @@ module Numo::Linalg
         def pinv a, turbo:false
             tflag = turbo
             a = a.conj.transpose
-            args = a, {job: :thin}
+            args = a, {job: :THIN}
             if tflag then
                 result = Numo::LAPACK.gesdd *args
             else

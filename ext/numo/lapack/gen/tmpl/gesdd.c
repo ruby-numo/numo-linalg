@@ -299,11 +299,11 @@ static VALUE
             rb_get_kwargs(h, &tbl, 0, 1, &v);
             if (v != Qundef) {
                 ID job_id = rb_to_id(v);
-                if (job_id == rb_intern("full")) {
+                if (job_id == rb_intern("FULL")) {
                     job = SVD_FULL;
-                } else if (job_id == rb_intern("thin")) {
+                } else if (job_id == rb_intern("THIN")) {
                     job = SVD_THIN;
-                } else if (job_id == rb_intern("vals_only")) {
+                } else if (job_id == rb_intern("VALS_ONLY")) {
                     job = SVD_VALS_ONLY;
                 } else {
                     rb_raise(rb_eArgError, "not valid argument for job:");
