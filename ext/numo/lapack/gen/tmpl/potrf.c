@@ -134,7 +134,7 @@ sub_func_name(<%=c_func%>, (VALUE const a, int const upper, int const overwrite)
         size_t shape[2];
         ndfunc_arg_in_t ain[1] = {{cT, 2}};
         ndfunc_arg_out_t aout[1] = {
-            {cRT, COUNT_OF_(shape), shape}};
+            {cT, COUNT_OF_(shape), shape}};
         ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP,
             COUNT_OF_(ain), COUNT_OF_(aout),
             ain, aout};

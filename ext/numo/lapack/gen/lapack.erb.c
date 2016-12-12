@@ -43,6 +43,7 @@ static VALUE mTL;
 static VALUE cT;
 static VALUE cCT;
 static VALUE cRT;
+static VALUE cIT;
 
 #define COUNT_OF_(a) (sizeof(a)/sizeof((a)[0]))
 
@@ -121,6 +122,7 @@ def_singleton("gesv",   2, "gesv",  mod_var:"mTL")
 def_singleton("gels",   2, "gels",  mod_var:"mTL")
 def_singleton("geqrf",  1, "geqrf", mod_var:"mTL")
 
+def_singleton("getrf",  1, "getrf", mod_var:"mTL")
 def_singleton("potrf", -1, "potrf", mod_var:"mTL")
 
 def_singleton("gesvd", -1, "gesvd", mod_var:"mTL")
@@ -142,10 +144,21 @@ void
 Init_nary_<%=type_name%>_lapack()
 {
     VALUE mN;
+#if INT_MAX == 0x7fff
+    char const * const int_name = "Int16";
+#elif INT_MAX == 0x7fffffff
+    char const * const int_name = "Int32";
+#elif INT_MAX == 0x7fffffffffffffff
+    char const * const int_name = "Int64";
+#else
+    char const * const int_name = 0;
+#endif
+    assert(int_name);
     mN = rb_const_get(rb_cObject, rb_intern("Numo"));
     cT = rb_const_get(mN, rb_intern("<%=class_name%>"));
     cCT = rb_const_get(mN, rb_intern("<%=complex_class_name%>"));
     cRT = rb_const_get(mN, rb_intern("<%=real_class_name%>"));
+    cIT = rb_const_get(mN, rb_intern(int_name));
     mTL = rb_define_module_under(cT, "LAPACK");
 
     <% Function.definitions.each do |x| %><%= x %>
