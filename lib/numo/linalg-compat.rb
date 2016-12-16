@@ -89,6 +89,13 @@ module Numo::Linalg
             end
         end
 
+        def lu a
+            result = Numo::LAPACK.getrf(a.transpose)
+            lu, _ = result
+            result[0] = lu.transpose
+            result
+        end
+
 
         ## Matrix eigenvalues
 
@@ -138,8 +145,82 @@ module Numo::Linalg
             raise NotImplementedError.new
         end
 
-        def det *x
-            raise NotImplementedError.new
+        def det a
+            lu, piv = Numo::LAPACK.getrf a
+            piv_sgn = 1
+            (0 ... piv.shape[0]).each {|i|
+                if piv[i] != i then
+                    piv_sgn = (-piv_sgn)
+                end
+            }
+            acc = 1.0
+            (0 ... lu.shape.min).each {|i|
+                acc *= lu[i, i]
+            }
+            if acc.zero? then
+                if acc.real? then
+                    0.0
+                else
+                    (0.0+0.0i)
+                end
+            else
+                piv_sgn*acc
+            end
+        end
+
+        def slogdet a
+            lu, piv = Numo::LAPACK.getrf a
+            if Numo::DFloat === a or Numo::SFloat === a then
+                sgn = 1
+                (0 ... piv.shape[0]).each {|i|
+                    if piv[i] != i then
+                        sgn = (-sgn)
+                    end
+                }
+                sum_arr = []
+                (0 ... lu.shape.min).each {|i|
+                    x = lu[i, i]
+                    if x.zero? then
+                        return 0, (-Float::INFINITY)
+                    else
+                        if x.negative? then
+                            sgn = (-sgn)
+                            x = -x
+                        end
+                        sum_arr << Math.log(x)
+                    end
+                }
+                acc = enum_sum sum_arr
+                if acc == (-Float::INFINITY) then
+                    sgn = 0
+                end
+                return sgn, acc
+            elsif Numo::DComplex === a or Numo::SComplex === a then
+                sgn = 1.0
+                (0 ... piv.shape[0]).each {|i|
+                    if piv[i] != i then
+                        sgn = (-sgn)
+                    end
+                }
+                sum_arr = []
+                (0 ... lu.shape.min).each {|i|
+                    x = lu[i, i]
+                    x_abs = x.abs
+                    if x_abs.zero? then
+                        return (0.0+0.0i), (-Float::INFINITY)
+                    else
+                        sgn *= x/x_abs
+                        sum_arr << Math.log(x_abs)
+                    end
+                }
+                acc = enum_sum sum_arr
+                if acc == (-Float::INFINITY) then
+                    sgn = (0.0+0.0i)
+                end
+                return sgn, acc
+            else
+                raise
+            end
         end
 
         def matrix_rank m, tol=nil, turbo:false
@@ -152,9 +233,6 @@ module Numo::Linalg
             end
         end
 
-        def slogdet *a
-            raise NotImplementedError.new
-        end
 
         # not linalg
         def trace *a
@@ -205,6 +283,15 @@ module Numo::Linalg
 
         def tensorinv a, *_
             raise NotImplementedError.new
+        end
+
+        private
+
+        def enum_sum e
+            if e.respond_to? :sum then
+                return e.sum
+            end
+            e.reduce :+
         end
     end
 end
