@@ -291,8 +291,12 @@ static VALUE
 {
     svd_job job=SVD_FULL;
     {
-        VALUE h;
-        if ( ! NIL_P(h = rb_check_hash_type(argv[argc-1]))) {
+        VALUE const h = rb_check_hash_type(argv[argc-1]);
+        if ( ! NIL_P(h)) {
+            --argc;
+        }
+        rb_check_arity(argc, 1, 1);
+        if ( ! NIL_P(h)) {
             ID tbl;
             VALUE v;
             tbl = rb_intern("job");
@@ -309,10 +313,8 @@ static VALUE
                     rb_raise(rb_eArgError, "not valid argument for job:");
                 }
             }
-            --argc;
         }
     }
-    rb_check_arity(argc, 1, 1);
     return sub_func_name(<%=c_func%>, (argv[0], job));
 }
 

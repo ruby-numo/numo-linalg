@@ -157,11 +157,13 @@ static VALUE
     VALUE tol = Qnil, a;
     int flg_turbo = 0;
     narray_t *na;
-
-    if (argc > 0) {
-        int const last = argc-1;
-        VALUE h;
-        if ( ! NIL_P(h = rb_check_hash_type(argv[last]))) {
+    {
+        VALUE const h = rb_check_hash_type(argv[argc-1]);
+        if ( ! NIL_P(h)) {
+            --argc;
+        }
+        rb_check_arity(argc, 1, 2);
+        if ( ! NIL_P(h)) {
             ID tbl;
             VALUE v;
             tbl = rb_intern("turbo");
@@ -169,10 +171,8 @@ static VALUE
             if (v != Qundef) {
                 flg_turbo = RTEST(v);
             }
-            --argc;
         }
     }
-    rb_check_arity(argc, 1, 2);
     if (argc == 2) {
         tol = argv[1];
     }

@@ -150,9 +150,13 @@ static VALUE
 {
     int const flg_overwrite = 0;
     int flg_upper=0;
-    if (argc == 2) {
-        VALUE h;
-        if ( ! NIL_P(h = rb_check_hash_type(argv[1]))) {
+    {
+        VALUE const h = rb_check_hash_type(argv[argc-1]);
+        if ( ! NIL_P(h)) {
+            --argc;
+        }
+        rb_check_arity(argc, 1, 1);
+        if ( ! NIL_P(h)) {
             ID tbl;
             VALUE v;
             tbl = rb_intern("upper");
@@ -160,11 +164,8 @@ static VALUE
             if (v != Qundef) {
                 flg_upper = RTEST(v);
             }
-            --argc;
         }
-        
     }
-    rb_check_arity(argc, 1, 1);
     return sub_func_name(<%=c_func%>, (argv[0], flg_upper, flg_overwrite));
 }
 

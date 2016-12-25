@@ -261,19 +261,23 @@ sub_func_name(<%=c_func%>, (VALUE const a, int const vals_only))
 }
 
 static VALUE
-<%=c_func%>(int const argc, VALUE const argv[], VALUE UNUSED(mod))
+<%=c_func%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
 {
     int flg_vals_only=0;
-
-    rb_check_arity(argc, 1, 2);
-
-    if (argc == 2) {
-        ID tbl;
-        VALUE v;
-        tbl = rb_intern("vals_only");
-        rb_get_kwargs(argv[1], &tbl, 0, 1, &v);
-        if (v != Qundef) {
-            flg_vals_only = RTEST(v);
+    {
+        VALUE const h = rb_check_hash_type(argv[argc-1]);
+        if ( ! NIL_P(h)) {
+            --argc;
+        }
+        rb_check_arity(argc, 1, 1);
+        if ( ! NIL_P(h)) {
+            ID tbl;
+            VALUE v;
+            tbl = rb_intern("vals_only");
+            rb_get_kwargs(h, &tbl, 0, 1, &v);
+            if (v != Qundef) {
+                flg_vals_only = RTEST(v);
+            }
         }
     }
     return sub_func_name(<%=c_func%>, (argv[0], flg_vals_only));

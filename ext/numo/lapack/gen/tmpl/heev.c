@@ -203,24 +203,28 @@ sub_func_name(<%=c_func%>, (VALUE const a, int const vals_only, int const upper,
 }
 
 static VALUE
-<%=c_func%>(int const argc, VALUE const argv[], VALUE UNUSED(mod))
+<%=c_func%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
 {
     int const flg_overwrite = 0;
     int flg_vals_only=0, flg_upper=0;
-
-    rb_check_arity(argc, 1, 2);
-
-    if (argc == 2) {
-        ID table[2];
-        VALUE values[COUNT_OF_(table)];
-        table[0] = rb_intern("vals_only");
-        table[1] = rb_intern("upper");
-        rb_get_kwargs(argv[1], table, 0, COUNT_OF_(table), values);
-        if (values[0] != Qundef) {
-            flg_vals_only = RTEST(values[0]);
+    {
+        VALUE const h = rb_check_hash_type(argv[argc-1]);
+        if ( ! NIL_P(h)) {
+            --argc;
         }
-        if (values[1] != Qundef) {
-            flg_upper = RTEST(values[1]);
+        rb_check_arity(argc, 1, 1);
+        if ( ! NIL_P(h)) {
+            ID table[2];
+            VALUE values[COUNT_OF_(table)];
+            table[0] = rb_intern("vals_only");
+            table[1] = rb_intern("upper");
+            rb_get_kwargs(h, table, 0, COUNT_OF_(table), values);
+            if (values[0] != Qundef) {
+                flg_vals_only = RTEST(values[0]);
+            }
+            if (values[1] != Qundef) {
+                flg_upper = RTEST(values[1]);
+            }
         }
     }
     return sub_func_name(<%=c_func%>, (argv[0], flg_vals_only, flg_upper, flg_overwrite));
