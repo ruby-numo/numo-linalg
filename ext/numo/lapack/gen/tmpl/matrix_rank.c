@@ -129,12 +129,10 @@ static VALUE
             if (n < 256) {
                 return rb_funcall(ans, rb_intern("sum"), 0);
             } else {
-                VALUE id_index;
                 size_t i;
                 long sum=0;
-                id_index = rb_intern("[]");
                 for (i=0; i<n; ++i) {
-                    sum += FIX2LONG(rb_funcall(ans, id_index, 1, INT2FIX(i)));
+                    sum += FIX2LONG(rb_funcall(ans, rb_intern("[]"), 1, INT2FIX(i)));
                 }
                 return INT2FIX(sum);
             }
