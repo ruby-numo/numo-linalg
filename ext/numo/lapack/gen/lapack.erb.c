@@ -162,6 +162,16 @@ Init_nary_<%=type_name%>_lapack()
     cRT = rb_const_get(mN, rb_intern("<%=real_class_name%>"));
     cIT = rb_const_get(mN, rb_intern(int_name));
     mTL = rb_define_module_under(cT, "LAPACK");
+    {
+        size_t shape[1] = { 0 };
+        VALUE const na = rb_narray_new(numo_cDFloat, COUNT_OF_(shape), &(shape[0]));
+        ID const id_kahan_sum = rb_intern("kahan_sum");
+        if (RTEST(rb_respond_to(na, id_kahan_sum))) {
+            id_kahan_sum_or_sum = id_kahan_sum;
+        } else {
+            id_kahan_sum_or_sum = rb_intern("sum");
+        }
+    }
 
     <% Function.definitions.each do |x| %><%= x %>
     <% end %>
