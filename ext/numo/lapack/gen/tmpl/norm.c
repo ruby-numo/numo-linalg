@@ -15,23 +15,26 @@ typedef struct {
 
 static ID id_kahan_sum_or_sum = (ID)0xDEADBEAF;
 
+
+// bodies for iterators
+
 static void
-<%=c_iter%>2(na_loop_t * const lp)
+<%=c_iter%>2norm(na_loop_t * const lp)
 {
-    size_t n = lp->args[1].shape[0];
-    dtype  *a = (dtype  *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
-    double *o = (double *)(lp->args[1].ptr + lp->args[1].iter[0].pos);
-    {
-        size_t i;
-        for (i = 0; i < n; ++i) {
-            dtype a_i = a[i];
-            <% if is_complex %>
-            o[i] = c_abs_square(a_i);
-            <% else %>
-            double da_i = (double)a_i;
-            o[i] = da_i*da_i;
-            <% end %>
-        }
+    // Tiny case
+    size_t   const n =            lp->args[1].shape[0];
+    dtype  * const a = (dtype  *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
+    double * const o = (double *)(lp->args[1].ptr + lp->args[1].iter[0].pos);
+
+    size_t i;
+    for (i = 0; i < n; ++i) {
+        dtype a_i = a[i];
+        <% if is_complex %>
+        o[i] = c_abs_square(a_i);
+        <% else %>
+        double da_i = (double)a_i;
+        o[i] = da_i*da_i;
+        <% end %>
     }
 }
 
@@ -43,11 +46,11 @@ static inline void
     norm_opt_1d_t * const opt = (norm_opt_1d_t *)lp->opt_ptr;
     unsigned const ax = opt->axis;
     size_t const ax_n = lp->args[0].shape[ax];
-    unsigned const outer_n = opt->outer_n;
-    unsigned const inner_n = opt->inner_n;
-    dtype * const a = (dtype  *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
-    char  * const o =            lp->args[1].ptr + lp->args[1].iter[0].pos ;
-    size_t const osize =         lp->args[1].elmsz;
+    size_t const outer_n = opt->outer_n;
+    size_t const inner_n = opt->inner_n;
+    dtype * const a = (dtype *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
+    char  * const o =           lp->args[1].ptr + lp->args[1].iter[0].pos ;
+    size_t const osize =        lp->args[1].elmsz;
 
     size_t na_shape[1] = { ax_n };
     VALUE const na_ptr = rb_narray_new(numo_cDFloat, COUNT_OF_(na_shape), na_shape);
@@ -70,7 +73,7 @@ static inline void
 
                 }
                 (*reduce_func)(po, na_ptr, lp->opt_ptr);
-                po += osize;
+                po += osize;  // po is char*
             }
         }
     }
@@ -81,9 +84,9 @@ static inline void
                  , double (* const map_func)(dtype, void *)
                  , void (* const reduce_func)(void *, VALUE, void *))
 {
-    size_t const n = lp->args[0].shape[0];
-    dtype *a = (dtype  *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
-    char  *o =            lp->args[1].ptr + lp->args[1].iter[0].pos ;
+    size_t  const n =           lp->args[0].shape[0];
+    dtype * const a = (dtype *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
+    void  * const o =           lp->args[1].ptr + lp->args[1].iter[0].pos ;
 
     size_t na_shape[1] = { n };
     VALUE const na_ptr = rb_narray_new(numo_cDFloat, 1, na_shape);
@@ -109,12 +112,11 @@ static inline void
     unsigned const ax1 = opt->axis1;
     size_t const ax0_n = lp->args[0].shape[ax0];
     size_t const ax1_n = lp->args[0].shape[ax1];
-    unsigned const outer_n = opt->outer_n;
-    unsigned const mid_n   = opt->mid_n;
-    unsigned const inner_n = opt->inner_n;
-    dtype * const a = (dtype  *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
-    char  * const o =            lp->args[1].ptr + lp->args[1].iter[0].pos ;
-    size_t const osize =         lp->args[1].elmsz;
+    size_t const outer_n = opt->outer_n;
+    size_t const mid_n   = opt->mid_n;
+    size_t const inner_n = opt->inner_n;
+    dtype * const a = (dtype *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
+    rtype * const o = (rtype *) lp->args[1].ptr + lp->args[1].iter[0].pos ;
 
     size_t na_shape0[1] = { ax0_n };
     size_t na_shape1[1] = { ax1_n };
@@ -125,7 +127,7 @@ static inline void
     {
         size_t i;
         dtype *pa = a;
-        char  *po = o;
+        rtype *po = o;
         size_t step_1, step_2, step_4, step_5;
         if ( ! reverse) {
             step_5 = inner_n;
@@ -162,7 +164,7 @@ static inline void
                         ++tmp0;
                     }
                     (*reduce_func)(po, na_ptr0, 0);
-                    po += osize;
+                    ++po;  // po is rtype*
                 }
             }
         }
@@ -178,10 +180,10 @@ static inline void
 {
     unsigned const ax0 = reverse;
     unsigned const ax1 = !reverse;
-    size_t const ax0_n = lp->args[0].shape[ax0];
-    size_t const ax1_n = lp->args[0].shape[ax1];
-    dtype * const a = (dtype  *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
-    char  * const o =            lp->args[1].ptr + lp->args[1].iter[0].pos ;
+    size_t   const ax0_n =        lp->args[0].shape[ax0];
+    size_t   const ax1_n =        lp->args[0].shape[ax1];
+    dtype  * const a = (dtype  *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
+    double * const o = (double *) lp->args[1].ptr + lp->args[1].iter[0].pos ;
 
     size_t na_shape0[1] = { ax0_n };
     size_t na_shape1[1] = { ax1_n };
@@ -228,12 +230,11 @@ static inline void
     unsigned const ax1 = opt->axis1;
     size_t const ax0_n = lp->args[0].shape[ax0];
     size_t const ax1_n = lp->args[0].shape[ax1];
-    unsigned const outer_n = opt->outer_n;
-    unsigned const mid_n   = opt->mid_n;
-    unsigned const inner_n = opt->inner_n;
-    dtype * const a = (dtype  *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
-    char  * const o =            lp->args[1].ptr + lp->args[1].iter[0].pos ;
-    size_t const osize =         lp->args[1].elmsz;
+    size_t const outer_n = opt->outer_n;
+    size_t const mid_n   = opt->mid_n;
+    size_t const inner_n = opt->inner_n;
+    dtype * const a = (dtype *)(lp->args[0].ptr + lp->args[0].iter[0].pos);
+    rtype * const o = (rtype *) lp->args[1].ptr + lp->args[1].iter[0].pos ;
 
     size_t na_shape[2] = { ax0_n, ax1_n };
     <% if is_complex %>
@@ -246,7 +247,7 @@ static inline void
     {
         size_t i;
         dtype *pa = a;
-        char  *po = o;
+        rtype *po = o;
         size_t step_1, step_2, step_4, step_5;
         if ( ! reverse) {
             step_5 = inner_n;
@@ -295,24 +296,16 @@ static inline void
                                      , rb_funcall(mLAPACK, rb_intern("gesvd"), 2, na_ptr, kwargs)
                                      , 0);
                     }
-                    po += osize;
+                    ++po;
                 }
             }
         }
     }
 }
 
-static void
-<%=c_iter%>2ds_svd_special(na_loop_t *lp
-                         , void (* const reduce_func)(void *, VALUE, void *))
-{
-    VALUE const kwargs = rb_hash_new();
-    VALUE const argv[] = { lp->option, kwargs } ;
-    rb_hash_aset(kwargs, ID2SYM(rb_intern("job")), ID2SYM(rb_intern("VALS_ONLY")));
-    (*reduce_func)(&(lp->option)
-                 , numo_<%=type_name%>_s_gesvd(COUNT_OF_(argv), argv, Qnil)
-                 , 0);
-}
+
+
+// Map functions
 
 static inline double
 map_abs_squ(dtype const x, void *p)
@@ -326,49 +319,6 @@ map_abs_squ(dtype const x, void *p)
     return dx*dx;
     <% end %>
 }
-static inline void
-reduce_sum_sqrt(void * const o, VALUE const v, void *p)
-{
-    double * const oo = o;
-    VALUE const sum = rb_funcall(v, id_kahan_sum_or_sum, 0);
-    *oo = NUM2DBL(rb_funcall(rb_mMath, rb_intern("sqrt"), 1, sum));
-}
-static inline double
-mid_sum(VALUE const v)
-{
-    return NUM2DBL(rb_funcall(v, id_kahan_sum_or_sum, 0));
-}
-static void
-<%=c_iter%>1dg_2norm(na_loop_t * const lp)
-{
-    <%=c_iter%>1dg_sub(lp, &map_abs_squ, &reduce_sum_sqrt);
-}
-static void
-<%=c_iter%>1ds_2norm(na_loop_t * const lp)
-{
-    <%=c_iter%>1ds_sub(lp, &map_abs_squ, &reduce_sum_sqrt);
-}
-static void
-<%=c_iter%>2dg_fro(na_loop_t * const lp)
-{
-    <%=c_iter%>2dg_sub(lp, &map_abs_squ, &mid_sum, &reduce_sum_sqrt, 0);
-}
-static void
-<%=c_iter%>2dg_fro_x(na_loop_t * const lp)
-{
-    <%=c_iter%>2dg_sub(lp, &map_abs_squ, &mid_sum, &reduce_sum_sqrt, 1);
-}
-static void
-<%=c_iter%>2ds_fro(na_loop_t * const lp)
-{
-    <%=c_iter%>2ds_sub(lp, &map_abs_squ, &mid_sum, &reduce_sum_sqrt, 0);
-}
-static void
-<%=c_iter%>2ds_fro_x(na_loop_t * const lp)
-{
-    <%=c_iter%>2ds_sub(lp, &map_abs_squ, &mid_sum, &reduce_sum_sqrt, 1);
-}
-
 static inline double
 map_abs(dtype const x, void *p)
 {
@@ -381,88 +331,6 @@ map_abs(dtype const x, void *p)
     return fabs(dx);
     <% end %>
 }
-static inline void
-reduce_max_dtype(void * const o, VALUE const v, void *p)
-{
-    <% if is_complex %>
-    double * const oo = o;
-    <% else %>
-    dtype * const oo = o;
-    <% end %>
-    *oo = NUM2DBL(rb_funcall(v, rb_intern("max"), 0));
-}
-static void
-<%=c_iter%>1dg_abs_max(na_loop_t * const lp)
-{
-    <%=c_iter%>1dg_sub(lp, &map_abs, &reduce_max_dtype);
-}
-static void
-<%=c_iter%>1ds_abs_max(na_loop_t * const lp)
-{
-    <%=c_iter%>1ds_sub(lp, &map_abs, &reduce_max_dtype);
-}
-static void
-<%=c_iter%>2dg_abs_sum_max(na_loop_t * const lp)
-{
-    <%=c_iter%>2dg_sub(lp, &map_abs, &mid_sum, &reduce_max_dtype, 0);
-}
-static void
-<%=c_iter%>2dg_abs_sum_max_x(na_loop_t * const lp)
-{
-    <%=c_iter%>2dg_sub(lp, &map_abs, &mid_sum, &reduce_max_dtype, 1);
-}
-static void
-<%=c_iter%>2ds_abs_sum_max(na_loop_t * const lp)
-{
-    <%=c_iter%>2ds_sub(lp, &map_abs, &mid_sum, &reduce_max_dtype, 0);
-}
-static void
-<%=c_iter%>2ds_abs_sum_max_x(na_loop_t * const lp)
-{
-    <%=c_iter%>2ds_sub(lp, &map_abs, &mid_sum, &reduce_max_dtype, 1);
-}
-
-static inline void
-reduce_min_dtype(void * const o, VALUE const v, void *p)
-{
-    <% if is_complex %>
-    double * const oo = o;
-    <% else %>
-    dtype * const oo = o;
-    <% end %>
-    *oo = NUM2DBL(rb_funcall(v, rb_intern("min"), 0));
-}
-static void
-<%=c_iter%>1dg_abs_min(na_loop_t * const lp)
-{
-    <%=c_iter%>1dg_sub(lp, &map_abs, &reduce_min_dtype);
-}
-static void
-<%=c_iter%>1ds_abs_min(na_loop_t * const lp)
-{
-    <%=c_iter%>1ds_sub(lp, &map_abs, &reduce_min_dtype);
-}
-static void
-<%=c_iter%>2dg_abs_sum_min(na_loop_t * const lp)
-{
-    <%=c_iter%>2dg_sub(lp, &map_abs, &mid_sum, &reduce_min_dtype, 0);
-}
-static void
-<%=c_iter%>2dg_abs_sum_min_x(na_loop_t * const lp)
-{
-    <%=c_iter%>2dg_sub(lp, &map_abs, &mid_sum, &reduce_min_dtype, 1);
-}
-static void
-<%=c_iter%>2ds_abs_sum_min(na_loop_t * const lp)
-{
-    <%=c_iter%>2ds_sub(lp, &map_abs, &mid_sum, &reduce_min_dtype, 0);
-}
-static void
-<%=c_iter%>2ds_abs_sum_min_x(na_loop_t * const lp)
-{
-    <%=c_iter%>2ds_sub(lp, &map_abs, &mid_sum, &reduce_min_dtype, 1);
-}
-
 static inline double
 map_notzero(dtype const x, void *p)
 {
@@ -472,12 +340,68 @@ map_notzero(dtype const x, void *p)
     return (double)(x != 0.0);
     <% end %>
 }
+
+
+// Reduce functions
+
+#define DEF_REDUCE(N, T, I) \
+  static inline void \
+  reduce_##N##_##T(void * const o, VALUE const v, void *p) \
+  { \
+      T * const oo = o; \
+      *oo = NUM2DBL(rb_funcall(v, (I), 0)); \
+  }
+DEF_REDUCE(max, rtype,  rb_intern("max"))
+DEF_REDUCE(max, double, rb_intern("max"))
+DEF_REDUCE(min, rtype,  rb_intern("min"))
+DEF_REDUCE(min, double, rb_intern("min"))
+DEF_REDUCE(sum, rtype,  id_kahan_sum_or_sum)
+DEF_REDUCE(sum, double, id_kahan_sum_or_sum)
+#undef DEF_REDUCE
+
+static inline void
+reduce_sum_sqrt_rtype(void * const o, VALUE const v, void *p)
+{
+    rtype * const oo = o;
+    VALUE const sum = rb_funcall(v, id_kahan_sum_or_sum, 0);
+    *oo = NUM2DBL(rb_funcall(rb_mMath, rb_intern("sqrt"), 1, sum));
+}
+static inline void
+reduce_sum_sqrt_double(void * const o, VALUE const v, void *p)
+{
+    double * const oo = o;
+    VALUE const sum = rb_funcall(v, id_kahan_sum_or_sum, 0);
+    *oo = NUM2DBL(rb_funcall(rb_mMath, rb_intern("sqrt"), 1, sum));
+}
+
+// for Zero norm
 static inline void
 reduce_uintsum(void * const o, VALUE const v, void *p)
 {
     unsigned * const oo = o;
-    *oo = NUM2UINT(rb_funcall(v, id_kahan_sum_or_sum, 0));
+    *oo = NUM2UINT(rb_funcall(v, rb_intern("sum"), 0));
 }
+
+
+// handlers for iterators, 1D
+
+#define DEF_1D(N, M, R) \
+  static void \
+  <%=c_iter%>1dg_##N(na_loop_t * const lp) \
+  { \
+      <%=c_iter%>1dg_sub(lp, &map_##M, &reduce_##R##_rtype); \
+  } \
+  static void \
+  <%=c_iter%>1ds_##N(na_loop_t * const lp) \
+  { \
+      <%=c_iter%>1ds_sub(lp, &map_##M, &reduce_##R##_double); \
+  }
+DEF_1D(fro, abs_squ, sum_sqrt)
+DEF_1D(abs_max, abs, max)
+DEF_1D(abs_min, abs, min)
+DEF_1D(abs_sum, abs, sum)
+#undef DEF_1D
+
 static void
 <%=c_iter%>1dg_notzero_uintsum(na_loop_t * const lp)
 {
@@ -489,117 +413,8 @@ static void
     <%=c_iter%>1ds_sub(lp, &map_notzero, &reduce_uintsum);
 }
 
-static inline void
-reduce_sum_dtype(void * const o, VALUE const v, void *p)
-{
-    <% if is_complex %>
-    double * const oo = o;
-    <% else %>
-    dtype * const oo = o;
-    <% end %>
-    VALUE const sum = rb_funcall(v, id_kahan_sum_or_sum, 0);
-    *oo = NUM2DBL(sum);
-}
-static void
-<%=c_iter%>1dg_abs_sum(na_loop_t * const lp)
-{
-    <%=c_iter%>1dg_sub(lp, &map_abs, &reduce_sum_dtype);
-}
-static void
-<%=c_iter%>1ds_abs_sum(na_loop_t * const lp)
-{
-    <%=c_iter%>1ds_sub(lp, &map_abs, &reduce_sum_dtype);
-}
 
-static inline void
-reduce_sum_double(void * const o, VALUE const v, void *p)
-{
-    double * const oo = o;
-    *oo = NUM2DBL(rb_funcall(v, id_kahan_sum_or_sum, 0));
-}
-
-static inline void
-reduce_sum_value(void * const o, VALUE const v, void *p)
-{
-    VALUE * const oo = o;
-    *oo = rb_funcall(v, id_kahan_sum_or_sum, 0);
-}
-
-static inline void
-reduce_max_double(void * const o, VALUE const v, void *p)
-{
-    double * const oo = o;
-    *oo = NUM2DBL(rb_funcall(v, rb_intern("max"), 0));
-}
-
-static inline void
-reduce_max_value(void * const o, VALUE const v, void *p)
-{
-    VALUE * const oo = o;
-    *oo = rb_funcall(v, rb_intern("max"), 0);
-}
-
-static inline void
-reduce_min_double(void * const o, VALUE const v, void *p)
-{
-    double * const oo = o;
-    *oo = NUM2DBL(rb_funcall(v, rb_intern("min"), 0));
-}
-
-static inline void
-reduce_min_value(void * const o, VALUE const v, void *p)
-{
-    VALUE * const oo = o;
-    *oo = rb_funcall(v, rb_intern("min"), 0);
-}
-
-static void
-<%=c_iter%>2dg_nuc(na_loop_t * const lp)
-{
-    <%=c_iter%>2dg_svd(lp, &reduce_sum_double, 0);
-}
-static void
-<%=c_iter%>2dg_nuc_x(na_loop_t * const lp)
-{
-    <%=c_iter%>2dg_svd(lp, &reduce_sum_double, 1);
-}
-static void
-<%=c_iter%>2ds_nuc(na_loop_t * const lp)
-{
-    <%=c_iter%>2ds_svd_special(lp, &reduce_sum_value);
-}
-
-static void
-<%=c_iter%>2dg_svd_max(na_loop_t * const lp)
-{
-    <%=c_iter%>2dg_svd(lp, &reduce_max_double, 0);
-}
-static void
-<%=c_iter%>2dg_svd_max_x(na_loop_t * const lp)
-{
-    <%=c_iter%>2dg_svd(lp, &reduce_max_double, 1);
-}
-static void
-<%=c_iter%>2ds_svd_max(na_loop_t * const lp)
-{
-    <%=c_iter%>2ds_svd_special(lp, &reduce_max_value);
-}
-
-static void
-<%=c_iter%>2dg_svd_min(na_loop_t * const lp)
-{
-    <%=c_iter%>2dg_svd(lp, &reduce_min_double, 0);
-}
-static void
-<%=c_iter%>2dg_svd_min_x(na_loop_t * const lp)
-{
-    <%=c_iter%>2dg_svd(lp, &reduce_min_double, 1);
-}
-static void
-<%=c_iter%>2ds_svd_min(na_loop_t * const lp)
-{
-    <%=c_iter%>2ds_svd_special(lp, &reduce_min_value);
-}
+// extra case (ord > 2) for 1D
 
 static inline double
 map_extra(dtype const x, void * const p)
@@ -616,50 +431,160 @@ map_extra(dtype const x, void * const p)
     return pow(tmp, opt->extra);
 }
 static inline void
-reduce_extra(void * const o, VALUE const v, void * const p)
+reduce_extra_rtype(void * const o, VALUE const v, void * const p)
+{
+    rtype * const oo = o;
+    norm_opt_1d_t * const opt = p;
+    *oo = NUM2DBL(rb_funcall(rb_funcall(v, id_kahan_sum_or_sum, 0)
+                           , rb_intern("**"), 1, DBL2NUM(1.0/(double)opt->extra)));
+}
+static inline void
+reduce_extra_double(void * const o, VALUE const v, void * const p)
 {
     double * const oo = o;
     norm_opt_1d_t * const opt = p;
-    VALUE const tmp = rb_funcall(v, id_kahan_sum_or_sum, 0);
-    *oo = NUM2DBL(rb_funcall(tmp, rb_intern("**"), 1, DBL2NUM(1.0/(double)opt->extra)));
+    *oo = NUM2DBL(rb_funcall(rb_funcall(v, id_kahan_sum_or_sum, 0)
+                           , rb_intern("**"), 1, DBL2NUM(1.0/(double)opt->extra)));
 }
 static void
 <%=c_iter%>1dg_extra(na_loop_t * const lp)
 {
-    <%=c_iter%>1dg_sub(lp, &map_extra, &reduce_extra);
+    <%=c_iter%>1dg_sub(lp, &map_extra, &reduce_extra_rtype);
 }
 static void
 <%=c_iter%>1ds_extra(na_loop_t * const lp)
 {
-    <%=c_iter%>1ds_sub(lp, &map_extra, &reduce_extra);
+    <%=c_iter%>1ds_sub(lp, &map_extra, &reduce_extra_double);
 }
 
-static VALUE
-norm2dg_svd_optimized(VALUE const a, narray_t * const na, void (*iter_func)(na_loop_t *))
+
+// mid function
+
+static inline double
+mid_sum(VALUE const v)
+{
+    return NUM2DBL(rb_funcall(v, id_kahan_sum_or_sum, 0));
+}
+
+
+// handlers for iterators, 2D
+
+#define DEF_2D(N, M, R) \
+  static void \
+  <%=c_iter%>2dg_##N(na_loop_t * const lp) \
+  { \
+      <%=c_iter%>2dg_sub(lp, &map_##M, &mid_sum, &reduce_##R##_rtype, 0); \
+  } \
+  static void \
+  <%=c_iter%>2dg_##N##_x(na_loop_t * const lp) \
+  { \
+      <%=c_iter%>2dg_sub(lp, &map_##M, &mid_sum, &reduce_##R##_rtype, 1); \
+  } \
+  static void \
+  <%=c_iter%>2ds_##N(na_loop_t * const lp) \
+  { \
+      <%=c_iter%>2ds_sub(lp, &map_##M, &mid_sum, &reduce_##R##_double, 0); \
+  } \
+  static void \
+  <%=c_iter%>2ds_##N##_x(na_loop_t * const lp) \
+  { \
+      <%=c_iter%>2ds_sub(lp, &map_##M, &mid_sum, &reduce_##R##_double, 1); \
+  }
+DEF_2D(fro, abs_squ, sum_sqrt)
+DEF_2D(abs_sum_max, abs, max)
+DEF_2D(abs_sum_min, abs, min)
+#undef DEF_2D
+
+
+// sum(nuc)/max/min for SVD
+
+static inline VALUE
+norm2ds_svd_special(VALUE const a
+                  , void (* const reduce_func)(void *, VALUE, void *))
+{
+    VALUE const kwargs = rb_hash_new();
+    VALUE const argv[] = { a, kwargs } ;
+    rb_hash_aset(kwargs, ID2SYM(rb_intern("job")), ID2SYM(rb_intern("VALS_ONLY")));
+    {
+        VALUE result;
+        VALUE const svd = numo_<%=type_name%>_s_gesvd(COUNT_OF_(argv), argv, Qnil);
+        (*reduce_func)(&result, svd, 0);
+        return result;
+    }
+}
+
+#define DEF_REDUCE_V(N, I) \
+  static inline void \
+  reduce_##N##_value(void * const o, VALUE const v, void *p) \
+  { \
+      VALUE * const oo = o; \
+      *oo = rb_funcall(v, (I), 0); \
+  }
+<% if real_class_name=="DFloat" %>
+DEF_REDUCE_V(sum, id_kahan_sum_or_sum)
+<% elsif real_class_name=="SFloat" %>
+DEF_REDUCE_V(sum, rb_intern("sum"))
+<% else %>
+#error
+<% end %>
+DEF_REDUCE_V(max, rb_intern("max"))
+DEF_REDUCE_V(min, rb_intern("min"))
+#undef DEF_REDUCE_V
+
+#define DEF_SVD(N, R) \
+  static void \
+  <%=c_iter%>2dg_##N(na_loop_t * const lp) \
+  { \
+      <%=c_iter%>2dg_svd(lp, &reduce_##R##_rtype, 0); \
+  } \
+  static void \
+  <%=c_iter%>2dg_##N##_x(na_loop_t * const lp) \
+  { \
+      <%=c_iter%>2dg_svd(lp, &reduce_##R##_rtype, 1); \
+  } \
+  static void \
+  <%=c_iter%>2ds_##N(na_loop_t * const lp) \
+  { \
+      VALUE const a = lp->option; \
+      lp->option = norm2ds_svd_special(a, &reduce_##R##_value); \
+  }
+DEF_SVD(nuc, sum)
+DEF_SVD(svd_max, max)
+DEF_SVD(svd_min, min)
+#undef DEF_SVD
+
+
+// Optimized case (axes are last 2 dims) for SVD
+
+static inline void
+reduce_sum_rtypesum(void * const o, VALUE const v, void *p)
+{
+    rtype * const oo = o;
+    <% if real_class_name=="DFloat" %>
+    *oo = NUM2DBL(rb_funcall(v, id_kahan_sum_or_sum, 0));
+    <% elsif real_class_name=="SFloat" %>
+    *oo = NUM2DBL(rb_funcall(v, rb_intern("sum"), 0));
+    <% else %>
+#error
+    <% end %>
+}
+
+static inline VALUE
+norm2dg_svd_optimized(VALUE const a, narray_t * const na, void (* const reduce_func)(void *, VALUE, void *))
 {
     unsigned const d_2 = na->ndim - 2;
-    VALUE const na_ptr = rb_narray_new(cT, d_2, na->shape);
+    VALUE const na_ptr = rb_narray_new(cRT, d_2, na->shape);
     rtype * const o = (rtype *)na_get_pointer_for_write(na_ptr);
-    void (*reduce_func)(void *, VALUE, void *);
     VALUE * const indices = ALLOCA_N(VALUE, d_2 + 1);
     int dim;  // this must be signed
-
-    if ((iter_func == <%=c_iter%>2dg_nuc) || (iter_func == <%=c_iter%>2dg_nuc_x)) {
-        reduce_func = &reduce_sum_dtype;
-    } else if ((iter_func == <%=c_iter%>2dg_svd_max) || (iter_func == <%=c_iter%>2dg_svd_max_x))  {
-        reduce_func = &reduce_max_dtype;
-    } else if ((iter_func == <%=c_iter%>2dg_svd_min) || (iter_func == <%=c_iter%>2dg_svd_min_x))  {
-        reduce_func = &reduce_min_dtype;
-    } else {
-        assert(0);
-    }
+    rtype *po;
 
     for (dim = 0; dim < (int)d_2; ++dim) {
         indices[dim] = INT2FIX(0);
     }
     indices[d_2] = Qfalse;
 
-    rtype *po = o;
+    po = o;
     do {
         VALUE const view = rb_funcallv(a, rb_intern("[]"), d_2 + 1, indices);
         VALUE const kwargs = rb_hash_new();
@@ -682,23 +607,32 @@ norm2dg_svd_optimized(VALUE const a, narray_t * const na, void (*iter_func)(na_l
     return na_ptr;
 }
 
-static VALUE
-norm2_sub(ndfunc_t * const ndf, VALUE const a)
-{
-    VALUE const tmp = na_ndloop3(ndf, 0, 1, a);
-    VALUE const sum = rb_funcall(tmp, id_kahan_sum_or_sum, 0);
-    return rb_funcall(rb_mMath, rb_intern("sqrt"), 1, sum);
-}
+#define DEF_SVD_OPT(N, R) \
+  static void \
+  <%=c_iter%>2dg_##N##_optimized(na_loop_t * const lp) \
+  { \
+      VALUE const a = lp->option; \
+      narray_t *na; \
+      GetNArray(a, na); \
+      lp->option = norm2dg_svd_optimized(a, na, &reduce_##R); \
+  }
+DEF_SVD_OPT(nuc, sum_rtypesum)
+DEF_SVD_OPT(svd_max, max_rtype)
+DEF_SVD_OPT(svd_min, min_rtype)
+#undef DEF_SVD_OPT
+
+
+// Tiny case
 
 static VALUE
-norm2(VALUE const a, narray_t * const na)
+norm_2norm(VALUE const a, narray_t * const na)
 {
     size_t shape[1];
     unsigned const d = na->ndim;
     ndfunc_arg_in_t ain[1] = {{cT, d}};
     ndfunc_arg_out_t aout[1] = {
       {numo_cDFloat, COUNT_OF_(shape), shape}};
-    ndfunc_t ndf = {&<%=c_iter%>2, NO_LOOP,
+    ndfunc_t ndf = {&<%=c_iter%>2norm, NO_LOOP,
       COUNT_OF_(ain), COUNT_OF_(aout),
       ain, aout};
     {
@@ -709,8 +643,15 @@ norm2(VALUE const a, narray_t * const na)
         }
         shape[0] = n;
     }
-    return norm2_sub(&ndf, a);
+    {
+        VALUE const tmp = na_ndloop3(&ndf, 0, 1, a);
+        VALUE const sum = rb_funcall(tmp, id_kahan_sum_or_sum, 0);
+        return rb_float_new(sqrt(NUM2DBL(sum)));
+    }
 }
+
+
+// 1D Dispatching
 
 static int
 norm1d_ord_idx(VALUE const ord)
@@ -745,10 +686,32 @@ norm1d_ord_idx(VALUE const ord)
 }
 
 typedef struct {
-    VALUE otype;
     void (*iter_func)(na_loop_t *);
     int extra;
 } norm1d_info;
+
+static void
+norm1d_setup_info(norm1d_info * const info, VALUE const ord, int const simple)
+{
+
+#define F(SUFFIX) { &<%=c_iter%>1dg_##SUFFIX, &<%=c_iter%>1ds_##SUFFIX }
+
+    void (* const func_tbl0[][2])(na_loop_t *) = { F(abs_max), F(abs_min) };
+    void (* const func_tbl1[][2])(na_loop_t *) = { F(notzero_uintsum), F(abs_sum), F(fro) };
+
+#undef F
+
+    int const idx = norm1d_ord_idx(ord);
+
+    if (idx < 0) {
+        int const i = -(1+idx);
+        info->iter_func = func_tbl0[i][simple];
+    } else if (idx < 3) {
+        info->iter_func = func_tbl1[idx][simple];
+    } else {
+        info->extra = idx;
+    }
+}
 
 #if SIZEOF_INT == 2
 # define UINTSUM_TYPE numo_cUInt16
@@ -760,49 +723,21 @@ typedef struct {
 # error
 #endif
 
-static void
-norm1d_setup_info(norm1d_info * const info, VALUE const ord, int const simple)
-{
-    <% if is_complex %>
-    VALUE const otype_tbl0[] = { numo_cDFloat, numo_cDFloat };
-    VALUE const otype_tbl1[] = { UINTSUM_TYPE, numo_cDFloat, numo_cDFloat };
-    <% else %>
-    VALUE const otype_tbl0[] = { cT, cT };
-    VALUE const otype_tbl1[] = { UINTSUM_TYPE, cT, numo_cDFloat };
-    <% end %>
-
-#define F(SUFFIX) { &<%=c_iter%>1dg_##SUFFIX, &<%=c_iter%>1ds_##SUFFIX }
-
-    void (* const func_tbl0[][2])(na_loop_t *) = { F(abs_max), F(abs_min) };
-    void (* const func_tbl1[][2])(na_loop_t *) = { F(notzero_uintsum), F(abs_sum), F(2norm) };
-
-#undef F
-
-    int const idx = norm1d_ord_idx(ord);
-
-    if (idx < 0) {
-        int const i = -(1+idx);
-        info->otype     = otype_tbl0[i];
-        info->iter_func = func_tbl0[i][simple];
-    } else if (idx < 3) {
-        info->otype     = otype_tbl1[idx];
-        info->iter_func = func_tbl1[idx][simple];
-    } else {
-        info->extra = idx;
-    }
-}
-
-#undef UINTSUM_TYPE
-
 static VALUE
 norm1d_general(VALUE const a, narray_t * const na, VALUE const ord, unsigned ax)
 {
-    norm1d_info info = { .otype=Qundef, .iter_func=0, .extra=0 };
+    norm1d_info info = { .iter_func=0, .extra=0 };
+    VALUE otype;
 
     norm1d_setup_info(&info, ord, 0);
 
+    if (info.iter_func == <%=c_iter%>1dg_notzero_uintsum) {
+        otype = UINTSUM_TYPE;
+    } else {
+        otype = cRT;
+    }
+
     if (info.extra) {
-        info.otype = numo_cDFloat;
         info.iter_func = &<%=c_iter%>1dg_extra;
     }
     {
@@ -811,7 +746,7 @@ norm1d_general(VALUE const a, narray_t * const na, VALUE const ord, unsigned ax)
         size_t * const shape = ALLOCA_N(size_t, d_1);
         ndfunc_arg_in_t ain[1] = {{cT, d}};
         ndfunc_arg_out_t aout[1] = {
-          {info.otype, d_1, shape}};
+          {otype, d_1, shape}};
         ndfunc_t ndf = {info.iter_func, NO_LOOP,
           COUNT_OF_(ain), COUNT_OF_(aout),
           ain, aout};
@@ -844,9 +779,16 @@ norm1d_general(VALUE const a, narray_t * const na, VALUE const ord, unsigned ax)
 static VALUE
 norm1d_simple(VALUE const a, narray_t * const na, VALUE const ord)
 {
-    norm1d_info info = { .otype=Qundef, .iter_func=0, .extra=0 };
+    norm1d_info info = { .iter_func=0, .extra=0 };
+    VALUE otype;
 
     norm1d_setup_info(&info, ord, 1);
+
+    if (info.iter_func == &<%=c_iter%>1ds_notzero_uintsum) {
+        otype = UINTSUM_TYPE;
+    } else {
+        otype = numo_cDFloat;
+    }
 
     {
         norm_opt_1d_t opt;
@@ -855,13 +797,12 @@ norm1d_simple(VALUE const a, narray_t * const na, VALUE const ord)
             opt_p = &opt;
             opt.extra = info.extra;
 
-            info.otype = numo_cDFloat;
             info.iter_func = &<%=c_iter%>1ds_extra;
         }
         {
             ndfunc_arg_in_t ain[1] = {{cT, 1}};
             ndfunc_arg_out_t aout[1] = {
-              {info.otype, 0, 0}};
+              {otype, 0, 0}};
             ndfunc_t ndf = {info.iter_func, NO_LOOP,
               COUNT_OF_(ain), COUNT_OF_(aout),
               ain, aout};
@@ -871,32 +812,10 @@ norm1d_simple(VALUE const a, narray_t * const na, VALUE const ord)
     }
 }
 
-static VALUE
-norm2d_get_otype(int const idx)
-{
-    VALUE const tbl[8] = {
-      <% if is_complex %>
-        numo_cDFloat
-      , numo_cDFloat
-      , numo_cDFloat
-      , numo_cDFloat
-      , numo_cDFloat
-      , numo_cDFloat
-      , numo_cDFloat
-      , numo_cDFloat
-      <% else %>
-        numo_cDFloat
-      , numo_cDFloat
-      , cT
-      , cT
-      , cT
-      , cT
-      , numo_cDFloat
-      , numo_cDFloat
-      <% end %>
-    };
-    return tbl[idx];
-}
+#undef UINTSUM_TYPE
+
+
+// 2D Dispatching
 
 static void (*
 norm2d_get_func(int const idx, int const simple, int const reverse)
@@ -911,7 +830,7 @@ norm2d_get_func(int const idx, int const simple, int const reverse)
 #define G(SUFFIX) \
   { {&<%=c_iter%>2dg_##SUFFIX, &<%=c_iter%>2dg_##SUFFIX##_x} \
   , {&<%=c_iter%>2ds_##SUFFIX, &<%=c_iter%>2ds_##SUFFIX} \
-  } // special case for svd
+  } // SVD for simple 2d is special
 
     void (* const tbl[8][2][2])(na_loop_t *) = {
         F(fro)
@@ -963,13 +882,12 @@ norm2d_ord_idx(VALUE const ord)
 }
 
 typedef struct {
-    VALUE otype;
     void (*iter_func)(na_loop_t *);
     int swapaxis, svd;
 } norm2d_info;
 
 static void
-norm2d_setup_info(norm2d_info * const info, VALUE const ord, int const simple, unsigned axis0, unsigned axis1)
+norm2d_setup_info(norm2d_info * const info, VALUE const ord, int const simple, unsigned axis0, unsigned axis1, unsigned d_2)
 {
     int const idx = norm2d_ord_idx(ord);
     if ((idx == 4) || (idx == 5)) {
@@ -978,35 +896,56 @@ norm2d_setup_info(norm2d_info * const info, VALUE const ord, int const simple, u
         axis1 = tmp;
         info->swapaxis = 1;
     }
+    info->iter_func = norm2d_get_func(idx, simple, axis0 > axis1);
     if ((idx == 1) || (idx == 6) || (idx == 7)) {
         info->svd = 1;
+        if (( ! simple) && (axis0 >= d_2) && (axis1 >= d_2)) {
+            // optimized case in general SVD
+            switch (idx) {
+            case 1:
+                info->iter_func = &<%=c_iter%>2dg_nuc_optimized;
+                break;
+            case 6:
+                info->iter_func = &<%=c_iter%>2dg_svd_max_optimized;
+                break;
+            case 7:
+                info->iter_func = &<%=c_iter%>2dg_svd_min_optimized;
+                break;
+            default:
+                assert(0);
+            }
+        }
     }
-    info->otype = norm2d_get_otype(idx);
-    info->iter_func = norm2d_get_func(idx, simple, axis0 > axis1);
 }
-
 
 static VALUE
 norm2d_general(VALUE const a, narray_t * const na, VALUE const ord, unsigned axis0, unsigned axis1)
 {
     unsigned const d = na->ndim;
-    norm2d_info info = { .otype=Qundef, .iter_func=0, .swapaxis=0, .svd=0 };
+    unsigned const d_2 = d - 2;
+    norm2d_info info = { .iter_func=0, .swapaxis=0, .svd=0 };
 
-    norm2d_setup_info(&info, ord, 0, axis0, axis1);
-    if ((info.svd) && (axis0 >= d-2) && (axis1 >= d-2)) {
-        return norm2dg_svd_optimized(a, na, info.iter_func);
+    VALUE const otype = cRT;
+
+    norm2d_setup_info(&info, ord, 0, axis0, axis1, d_2);
+    if ((info.svd) && (axis0 >= d_2) && (axis1 >= d_2)) {
+        na_loop_t lp;
+        // optimized case
+        lp.option = a;
+        (*info.iter_func)(&lp);
+        return lp.option;
     }
+
     if (info.swapaxis) {
         unsigned tmp = axis0;
         axis0 = axis1;
         axis1 = tmp;
     }
     {
-        unsigned const d_2 = d-2;
         size_t * const shape = ALLOCA_N(size_t, d_2);
         ndfunc_arg_in_t ain[1] = {{cT, d}};
         ndfunc_arg_out_t aout[1] = {
-          {info.otype, d_2, shape}};
+          {otype, d_2, shape}};
         ndfunc_t ndf = {info.iter_func, NO_LOOP,
           COUNT_OF_(ain), COUNT_OF_(aout),
           ain, aout};
@@ -1050,13 +989,19 @@ norm2d_general(VALUE const a, narray_t * const na, VALUE const ord, unsigned axi
 }
 
 static VALUE
-norm2d_simple(VALUE const a, narray_t * const na_, VALUE const ord, unsigned axis0, unsigned axis1)
+norm2d_simple(VALUE const a, narray_t * const na, VALUE const ord, unsigned axis0, unsigned axis1)
 {
-    norm2d_info info = { .otype=Qundef, .iter_func=0, .swapaxis=0, .svd=0 };
+    unsigned const d = na->ndim;
+    unsigned const d_2 = d - 2;
+    norm2d_info info = { .iter_func=0, .swapaxis=0, .svd=0 };
 
-    norm2d_setup_info(&info, ord, 1, axis0, axis1);
+    VALUE const otype = numo_cDFloat;
+
+    norm2d_setup_info(&info, ord, 1, axis0, axis1, d_2);
+
     if (info.svd) {
         na_loop_t lp;
+        // SVD for simple is special
         lp.option = a;
         (*info.iter_func)(&lp);
         return lp.option;
@@ -1064,7 +1009,7 @@ norm2d_simple(VALUE const a, narray_t * const na_, VALUE const ord, unsigned axi
     {
         ndfunc_arg_in_t ain[1] = {{cT, 2}};
         ndfunc_arg_out_t aout[1] = {
-          {info.otype, 0, 0}};
+          {otype, 0, 0}};
         ndfunc_t ndf = {info.iter_func, NO_LOOP,
           COUNT_OF_(ain), COUNT_OF_(aout),
           ain, aout};
@@ -1073,6 +1018,9 @@ norm2d_simple(VALUE const a, narray_t * const na_, VALUE const ord, unsigned axi
     }
 }
 
+
+// MAIN
+// TODO: YARD documentation comment
 static VALUE
 <%=c_func%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
 {
@@ -1111,7 +1059,8 @@ static VALUE
         if ( NIL_P(ord)
           || ((ord == ID2SYM(rb_intern("FRO"))) && (ndim == 2))
           || ((ord == INT2FIX(2)) && (ndim == 1)) ) {
-            return norm2(a, na);
+            // Tiny case
+            return norm_2norm(a, na);
         }
         axis = rb_ary_new_capa(ndim);
         {
@@ -1182,13 +1131,10 @@ static VALUE
                     ax1 += ndim;
                 }
                 uax0 = ax0; uax1 = ax1;
-                if (ndim == 2) {
-                    if (uax0 == uax1) {
-                        rb_raise(rb_eArgError, "Duplicate axes given.");
-                    } else {
-                        return norm2d_simple(a, na, ord, uax0, uax1);
-                    }
-                }
+            }
+            if ( ( ((uax0 == 0) && (uax1 == 1))
+                || ((uax0 == 1) && (uax1 == 0)) ) && (ndim == 2) ) {
+                return norm2d_simple(a, na, ord, uax0, uax1);
             }
             if ((uax0 >= ndim) || (uax1 >= ndim)) {
                 rb_raise(rb_eArgError, "Invalid axis");
