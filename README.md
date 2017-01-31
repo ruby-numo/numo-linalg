@@ -4,17 +4,31 @@
 
 This is a binding of LAPACK with Numo::NArray .
 
-## ToDo
+## About 
 
-rewrite this README
+* [GitHub](https://github.com/metanest/numo-lapack)
+
+## About column-major order of LAPACK
+
+Numo::LAPACK doesn't change of matrix row or column-major order.
+NArray uses row-major, LAPACK uses column-major, user script must
+convert the argument matrix and returned matrix.
+
+(except for norm)
+
+Or see lib/numo/linalg-compat.rb , this is a tiny sample compatible layer.
 
 ## Implemented Methods
 
-    x = Numo::Linalg.matmul(a,b)   (_gemm) Matrix multiply
-    x = Numo::Linalg.solve(a,b)    (_gesv) Solve Linear equation with LU factorization
-    x,y = Numo::Linalg.eigen(a)  (_geev) Eigen value and Eigen vector
-
-* [GitHub](https://github.com/ruby-numo/linalg)
+* geev, heev, heevd - eigenvalues (for complex Hermitian matrix / using divide and conquer algorithm)
+* gels - finding a least squares solution / minimum norm solution
+* gemm - matrix multiplication
+* gesv - solves linear systems
+* gesvd, gesdd - singular value decomposition (using divide and conquer algorithm)
+* geqrf - QR Factorization
+* getrf, potrf - linear equations
+* matrix_rank - matrix rank
+* norm - various norm of a vector or matrix, with optional axes
 
 ## Installation
 
@@ -26,25 +40,14 @@ $ yum install openblas-devel
 ```
   * or, install OpenBLAS from source and enjoy multithread acceleration.
 
-* Install Numo::Linalg
+* Install Numo::LAPACK
   ```shell
-$ git clone git://github.com/ruby-numo/linalg.git
-$ cd linalg
+$ git clone git://github.com/metanest/numo-lapack.git
+$ cd numo-lapack
 $ rake build
-$ gem install pkg/numo-linalg-*.gem -- --with-openblas --with-opt-dir=/opt/OpenBLAS
+$ gem install pkg/numo-lapack-*.gem -- --with-openblas --with-opt-dir=/opt/OpenBLAS
 ```
 
 ## ToDo
 
-* rank
-* norm
-* det
-* lstsq
-* inv
-* pinv
-* cholesky
-* qr
-* svd
-* eigh
-* eigvals
-* eigvalsh
+* Documentation complete
