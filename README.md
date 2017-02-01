@@ -18,6 +18,10 @@ convert the argument matrix and returned matrix.
 
 Or see lib/numo/linalg-compat.rb , this is a tiny sample compatible layer.
 
+## Usage
+
+See lib/numo/linalg-compat.rb .
+
 ## Implemented Methods
 
 * geev, heev, heevd - eigenvalues (for complex Hermitian matrix / using divide and conquer algorithm)
