@@ -137,8 +137,10 @@ module Numo::Linalg
 
         ## Norms and other numbers
 
-        def norm *x
-            raise NotImplementedError.new
+        def norm a, ord:nil, axis:nil
+            oflag = ord
+            aflag = axis
+            Numo::LAPACK.norm a, ord:oflag, axis:aflag
         end
 
         def cond *x
