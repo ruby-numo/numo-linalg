@@ -39,7 +39,7 @@ end
 #include "numo/types/complex_macro.h"
 <% end %>
 
-static VALUE mTL;
+static VALUE mLAPACK;
 static VALUE cT;
 static VALUE cCT;
 static VALUE cRT;
@@ -115,26 +115,26 @@ transpose_<%=w+d%>(dtype *x, na_loop_t *lp, int arg_idx, int n_args)
 #endif
 
 <%
-mod_var "mTL"
+mod_var "mLAPACK"
 
-def_singleton("gemm",   2, "gemm",  mod_var:"mTL")
-def_singleton("gesv",   2, "gesv",  mod_var:"mTL")
-def_singleton("gels",   2, "gels",  mod_var:"mTL")
-def_singleton("geqrf",  1, "geqrf", mod_var:"mTL")
+def_singleton("gemm",   2, "gemm",  mod_var:"mLAPACK")
+def_singleton("gesv",   2, "gesv",  mod_var:"mLAPACK")
+def_singleton("gels",   2, "gels",  mod_var:"mLAPACK")
+def_singleton("geqrf",  1, "geqrf", mod_var:"mLAPACK")
 
-def_singleton("getrf",  1, "getrf", mod_var:"mTL")
-def_singleton("potrf", -1, "potrf", mod_var:"mTL")
+def_singleton("getrf",  1, "getrf", mod_var:"mLAPACK")
+def_singleton("potrf", -1, "potrf", mod_var:"mLAPACK")
 
-def_singleton("gesvd", -1, "gesvd", mod_var:"mTL")
-def_singleton("gesdd", -1, "gesdd", mod_var:"mTL")
+def_singleton("gesvd", -1, "gesvd", mod_var:"mLAPACK")
+def_singleton("gesdd", -1, "gesdd", mod_var:"mLAPACK")
 
-def_singleton("matrix_rank", -1, "matrix_rank", mod_var:"mTL")  # this must be located after ges[vd]d
+def_singleton("matrix_rank", -1, "matrix_rank", mod_var:"mLAPACK")  # this must be located after ges[vd]d
 
-def_singleton("geev",  -1, "geev",  mod_var:"mTL")
-def_singleton("heev",  -1, "heev",  mod_var:"mTL")
-def_singleton("heevd", -1, "heevd", mod_var:"mTL")
+def_singleton("geev",  -1, "geev",  mod_var:"mLAPACK")
+def_singleton("heev",  -1, "heev",  mod_var:"mLAPACK")
+def_singleton("heevd", -1, "heevd", mod_var:"mLAPACK")
 
-def_singleton("norm", -1, "norm", mod_var:"mTL")
+def_singleton("norm", -1, "norm", mod_var:"mLAPACK")
 
 #def_alias "dot_mm", "matmul"
 
@@ -161,7 +161,10 @@ Init_nary_<%=type_name%>_lapack()
     cCT = rb_const_get(mN, rb_intern("<%=complex_class_name%>"));
     cRT = rb_const_get(mN, rb_intern("<%=real_class_name%>"));
     cIT = rb_const_get(mN, rb_intern(int_name));
-    mTL = rb_define_module_under(cT, "LAPACK");
+    {
+        VALUE const c<%=class_name%> = cT;
+        mLAPACK = rb_define_module_under(c<%=class_name%>, "LAPACK");
+    }
     {
         size_t shape[1] = { 0 };
         VALUE const na = rb_narray_new(numo_cDFloat, COUNT_OF_(shape), &(shape[0]));

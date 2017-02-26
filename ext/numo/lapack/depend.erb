@@ -1,5 +1,5 @@
 doc :
-	yard doc *.c
+	yard doc dummy_for_yard.c lapack*.c
 
 COGEN=ruby gen/cogen.rb -l
 DEPS=gen/lapack.erb.c gen/tmpl/*.c
