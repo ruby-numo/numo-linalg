@@ -181,21 +181,6 @@ static void
 
 #define sub_func_name(f, args) f##_sub args
 
-/*
-  @overload geev(a)
-  @param ***TODO*** [Numo::<%=class_name%>] a >=2-dimentional NArray.
-  @return ***TODO*** [[Numo::<%=complex_class_name%>,Numo::<%=complex_class_name%>]] pair of eigenvalue and right eigenvector
-  @raise
-
-  ***TODO***
-  <%=blas_char%>geev - computes the eigenvalues and the right eigenvectors
-  for an N-by-N real nonsymmetric matrix A.
-  The right eigenvector v(j) of A satisfies
-                        A * v(j) = lambda(j) * v(j)
-  where lambda(j) is its eigenvalue.
-  The computed eigenvectors are normalized to have
-  Euclidean norm equal to 1 and largest component real.
-*/
 static VALUE
 sub_func_name(<%=c_func%>, (VALUE const a, int const vals_only))
 {
@@ -260,6 +245,19 @@ sub_func_name(<%=c_func%>, (VALUE const a, int const vals_only))
     return ans;
 }
 
+/*
+  @overload geev(a)
+  @param [Numo::<%=class_name%>] a >=2-dimentional NArray.
+  @return [[Numo::<%=complex_class_name%>,Numo::<%=complex_class_name%>]] pair of eigenvalue and right eigenvector
+
+  <%=blas_char%>geev - computes the eigenvalues and the right eigenvectors
+  for an N-by-N real nonsymmetric matrix A.
+  The right eigenvector v(j) of A satisfies
+                        A * v(j) = lambda(j) * v(j)
+  where lambda(j) is its eigenvalue.
+  The computed eigenvectors are normalized to have
+  Euclidean norm equal to 1 and largest component real.
+*/
 static VALUE
 <%=c_func%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
 {

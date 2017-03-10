@@ -78,10 +78,16 @@ static void
   @overload gels(a, b)
   @param [Numo::<%=class_name%>] a  >=2-dimentional NArray.
   @param [Numo::<%=class_name%>] b  >=1-dimentional NArray.
-  @return [Numo::<%=class_name%>] TBD
-  @raise
+  @return [Numo::<%=class_name%>]
 
-  TBD
+  <%=blas_char%>gels - solves overdetermined or underdetermined real linear systems
+  involving an M-by-N matrix A, or its transpose, using a QR or LQ factorization of A.
+  It is assumed that A has full rank.
+
+  1. If m >= n:  find the least squares solution of an overdetermined
+     system, i.e., solve the least squares problem minimize || B - A*X ||.
+
+  2. If m < n:  find the minimum norm solution of an underdetermined system A * X = B.
 */
 static VALUE
 <%=c_func%>(VALUE const UNUSED(mod), VALUE const a1, VALUE const a2)

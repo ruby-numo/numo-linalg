@@ -75,7 +75,6 @@ static void
   @param [Numo::<%=class_name%>] a  >=2-dimentional NArray.
   @param [Numo::<%=class_name%>] b  >=1-dimentional NArray.
   @return [Numo::<%=class_name%>]
-  @raise
 
   <%=blas_char%>gesv - computes the solution to a complex system of linear equations
      A  *  X = B,
