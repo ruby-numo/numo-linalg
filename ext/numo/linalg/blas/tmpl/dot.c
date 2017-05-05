@@ -1,0 +1,88 @@
+#define func_p <%=cblas_func%>_p
+
+static <%=cblas_func%>_t func_p = 0;
+
+#undef result_dtype
+#define result_dtype <%=result_dtype%>
+
+static void
+<%=c_iter%>(na_loop_t *const lp)
+{
+    char *p1, *p2, *p3;
+    size_t n;
+    ssize_t s1, s2;
+
+    INIT_PTR(lp,0,p1,s1);
+    INIT_PTR(lp,1,p2,s2);
+    p3 = NDL_PTR(lp,2);
+    n  = lp->args[0].shape[0];
+
+  <% if /[cz]/ =~ blas_char %>
+    (*func_p)(n, (dtype*)p1, s1/sizeof(dtype),
+                 (dtype*)p2, s2/sizeof(dtype), (result_dtype*)p3);
+  <% else %>
+    *(result_dtype*)p3 = (*func_p)(n, (dtype*)p1, s1/sizeof(dtype),
+                                      (dtype*)p2, s2/sizeof(dtype));
+  <% end %>
+}
+
+/*
+*  Definition:
+*  ===========
+*
+*       DOUBLE PRECISION FUNCTION DDOT(N,DX,INCX,DY,INCY)
+*
+*       .. Scalar Arguments ..
+*       INTEGER INCX,INCY,N
+*       ..
+*       .. Array Arguments ..
+*       DOUBLE PRECISION DX(*),DY(*)
+*       ..
+*
+*
+*> \par Purpose:
+*  =============
+*>
+*> \verbatim
+*>
+*>    DDOT forms the dot product of two vectors.
+*>    uses unrolled loops for increments equal to one.
+*> \endverbatim
+*/
+/*
+ *  @overload <%=name%>( x, y )
+ *  @param [Numo::NArray] x  >= 1-dimentional NArray.
+ *  @param [Numo::NArray] y  >= 1-dimentional NArray.
+ *  @return [Numo::NArray]
+ *  @raise
+ *
+ *  <%=name%> forms the dot product of two vectors.
+ *  uses unrolled loops for increments equal to one.
+ */
+static VALUE
+<%=c_func(2)%>(VALUE mod, VALUE x, VALUE y)
+{
+    VALUE     ans;
+    narray_t *na1, *na2;
+    size_t    nx, ny, shape[1]={1};
+    ndfunc_arg_in_t ain[2] = {{cT,1},{cT,1}};
+    ndfunc_arg_out_t aout[1] = {{<%=result_class%>,0,shape}};
+    ndfunc_t ndf = {<%=c_iter%>, NDF_EXTRACT, 2,1, ain,aout};
+
+    check_func((void*)(&func_p),"<%=cblas_func%>");
+
+    GetNArray(x,na1);
+    GetNArray(y,na2);
+    CHECK_DIM_GE(na1,1);
+    CHECK_DIM_GE(na2,1);
+    CHECK_NON_EMPTY(na1);
+    CHECK_NON_EMPTY(na2);
+    nx = na1->shape[na1->ndim-1];
+    ny = na2->shape[na2->ndim-1];
+    CHECK_SIZE_EQ(nx,ny);
+
+    ans = na_ndloop(&ndf, 2, x, y);
+
+    return ans;
+}
+#undef func_p
