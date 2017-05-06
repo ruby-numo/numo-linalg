@@ -21,18 +21,15 @@ tmp
 mkmf.log
 TAGS
 
-ext/numo/linalg/lapack/types/*.c
-ext/numo/linalg/lapack/extconf.h
-ext/numo/linalg/lapack/Makefile
-ext/numo/linalg/lapack/depend
-ext/numo/linalg/lapack/linalg_?.c
-
-ext/numo/linalg/blas/extconf.h
-ext/numo/linalg/blas/Makefile
-ext/numo/linalg/blas/depend
+ext/numo/linalg/*/types/*.c
+ext/numo/linalg/*/extconf.h
+ext/numo/linalg/*/Makefile
+ext/numo/linalg/*/depend
 ext/numo/linalg/blas/blas_?.c
+ext/numo/linalg/lapacke/lapack_?.c
 
 t.rb
 t.py
 bak
 *.bak
+#*
