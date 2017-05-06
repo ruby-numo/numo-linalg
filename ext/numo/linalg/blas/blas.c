@@ -10,7 +10,7 @@
 #include <ruby.h>
 #include "numo/narray.h"
 #include "numo/template.h"
-#include <cblas.h>
+#include "cblas.h"
 
 // from ruby/ext/fiddle/fiddle.h
 #if defined(HAVE_DLFCN_H)
