@@ -7,7 +7,10 @@
 typedef int blasint;
 
 #define option_order numo_lapacke_option_order
-extern char numo_lapacke_option_order(VALUE trans);
+extern int numo_lapacke_option_order(VALUE order);
+
+#define option_job numo_lapacke_option_job
+extern char numo_lapacke_option_job(VALUE job);
 
 #define option_trans numo_lapacke_option_trans
 extern char numo_lapacke_option_trans(VALUE trans);
@@ -25,6 +28,6 @@ extern char numo_lapacke_option_side(VALUE side);
 extern void numo_lapacke_check_func(void **func, const char *name);
 
 #define CHECK_ERROR(info)                                           \
-    { if (*(info)<0) {                                              \
-            rb_raise(eLapackError,"LAPACK error, info=%d",*(info)); \
+    { if ((info)<0) {                                               \
+            rb_raise(eLapackError,"LAPACK error, info=%d",(info)); \
         }}
