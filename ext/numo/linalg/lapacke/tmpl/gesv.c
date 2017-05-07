@@ -74,7 +74,7 @@ static void
     //       g->order,n,nrhs,lda,ldb,lp->args[1].ndim);
     *info = (*<%=func_name%>_p)(g->order, <%=uplo%>
                                 n, nrhs, a, lda, <%=ipiv%> b, ldb);
-    CHECK_ERROR(info);
+    CHECK_ERROR(*info);
 }
 
 /*
@@ -107,13 +107,8 @@ static VALUE
     size_t n11, n12, n21, n22;
     ndfunc_arg_in_t ain[2] = {{OVERWRITE,2},{OVERWRITE,2}};
     size_t shape[2];
- <% if ipiv %>
     ndfunc_arg_out_t aout[2] = {{cInt,1,shape},{cInt,0}};
     ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 2, 2, ain, aout};
- <% else %>
-    ndfunc_arg_out_t aout[1] = {{cInt,0}};
-    ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 2, 1, ain, aout};
- <% end %>
     int i;
     args_t g = {LAPACK_ROW_MAJOR, 'U'};
 
@@ -158,6 +153,10 @@ static VALUE
     }
     shape[0] = n11; // n
     shape[1] = n22; // nrhs
+ <% if !ipiv %>
+    aout[0] = aout[1];
+    ndf.nout--;
+ <% end %>
 
     ans = na_ndloop3(&ndf, &g, 2, a, b);
  <% if ipiv %>
