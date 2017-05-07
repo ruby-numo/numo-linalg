@@ -24,6 +24,13 @@ module LapackMethod
     h[:result_dtype] ||= result_dtype
     h[:result_class] ||= result_class
 
+    case c
+    when /c|z/
+      h[:is_complex] ||= true
+    else
+      h[:is_complex] ||= false
+    end
+
     def_module_function(meth, tmpl, **h)
   end
 end
