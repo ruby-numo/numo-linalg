@@ -50,13 +50,13 @@ static void
     int    n, nrhs;
     int    lda, ldb;
     args_t *g;
-<% if ipiv %>
+ <% if ipiv %>
     int *ipiv;
     ipiv = (int*)NDL_PTR(lp,2);
     info = (int*)NDL_PTR(lp,3);
-<% else %>
+ <% else %>
     info = (int*)NDL_PTR(lp,2);
-<% end %>
+ <% end %>
     a = (dtype*)NDL_PTR(lp,0);
     b = (dtype*)NDL_PTR(lp,1);
     g = (args_t*)(lp->opt_ptr);
@@ -107,29 +107,29 @@ static VALUE
     size_t n11, n12, n21, n22;
     ndfunc_arg_in_t ain[2] = {{OVERWRITE,2},{OVERWRITE,2}};
     size_t shape[2];
-<% if ipiv %>
+ <% if ipiv %>
     ndfunc_arg_out_t aout[2] = {{cInt,1,shape},{cInt,0}};
     ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 2, 2, ain, aout};
-<% else %>
+ <% else %>
     ndfunc_arg_out_t aout[1] = {{cInt,0}};
     ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 2, 1, ain, aout};
-<% end %>
+ <% end %>
     int i;
     args_t g = {LAPACK_ROW_MAJOR, 'U'};
 
-<% if uplo %>
+ <% if uplo %>
     VALUE uplo;
     i = rb_scan_args(argc, argv, "22", &a, &b, &uplo, &order);
     switch (i) {
     case 4: g.order = option_order(order);
     case 3: g.uplo = option_uplo(uplo);
     }
-<% else %>
+ <% else %>
     i = rb_scan_args(argc, argv, "21", &a, &b, &order);
     switch (i) {
     case 3: g.order = option_order(order);
     }
-<% end %>
+ <% end %>
 
     check_func((void*)(&<%=func_name%>_p),"<%=func_name%>");
 
@@ -160,11 +160,11 @@ static VALUE
     shape[1] = n22; // nrhs
 
     ans = na_ndloop3(&ndf, &g, 2, a, b);
-<% if ipiv %>
+ <% if ipiv %>
     return rb_ary_concat(rb_assoc_new(a,b),ans);
-<% else %>
+ <% else %>
     return rb_ary_push(rb_assoc_new(a,b),ans);
-<% end %>
+ <% end %>
 }
 
 #undef args_t
