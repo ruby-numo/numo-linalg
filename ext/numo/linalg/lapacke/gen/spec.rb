@@ -18,3 +18,5 @@ case blas_char
 when /c|z/
   def_lpk "?hesv", "gesv"
 end
+
+def_lpk "?gesvd"
