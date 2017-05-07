@@ -84,6 +84,32 @@ numo_lapacke_option_order(VALUE trans)
 }
 
 char
+numo_lapacke_option_job(VALUE job)
+{
+    char *ptr, c;
+
+    switch(TYPE(job)) {
+    case T_NIL:
+    case T_FALSE:
+        return 0;
+    case T_SYMBOL:
+        job = rb_sym2str(job);
+    case T_STRING:
+        ptr = RSTRING_PTR(job);
+        if (RSTRING_LEN(job) > 0) {
+            c = ptr[0];
+            if (c >= 'a' && c <= 'z') {
+                c -= 'a'-'A';
+            }
+            return c;
+        }
+        break;
+    }
+    rb_raise(rb_eArgError,"invalid value for JOB option");
+    return 0;
+}
+
+char
 numo_lapacke_option_trans(VALUE trans)
 {
     int opt;
