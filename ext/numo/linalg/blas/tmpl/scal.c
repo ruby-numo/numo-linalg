@@ -23,7 +23,7 @@ static void
   <% if /^[cz]scal/ =~ name %>
     (*func_p)(n, g, (dtype*)p1, s1/sizeof(dtype));
   <% else %>
-    (*func_p)(n, g[0], (dtype*)p1, s1/sizeof(dtype));
+    (*func_p)(n, *g, (dtype*)p1, s1/sizeof(dtype));
   <% end %>
 }
 

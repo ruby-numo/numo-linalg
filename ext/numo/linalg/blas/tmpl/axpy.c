@@ -15,13 +15,8 @@ static void
     INIT_PTR(lp,1,p2,s2);
     g = (dtype*)(lp->opt_ptr);
 
-  <% if /[cz]/ =~ blas_char %>
-    (*func_p)(n, g, (dtype*)p1, s1/sizeof(dtype),
-                    (dtype*)p2, s2/sizeof(dtype));
-  <% else %>
-    (*func_p)(n, g[0], (dtype*)p1, s1/sizeof(dtype),
-                       (dtype*)p2, s2/sizeof(dtype));
-  <% end %>
+    (*func_p)(n, DP(*g), (dtype*)p1, s1/sizeof(dtype),
+                         (dtype*)p2, s2/sizeof(dtype));
 }
 
 /*

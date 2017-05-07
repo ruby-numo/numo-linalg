@@ -25,8 +25,8 @@ static void
     g = (args_t*)(lp->opt_ptr);
 
     (*func_p)(g->order, g->uplo, g->n,
-              &g->alpha, a, g->lda, (dtype*)p1, s1/sizeof(dtype),
-              &g->beta, (dtype*)p2, s2/sizeof(dtype));
+              DP(g->alpha), a, g->lda, (dtype*)p1, s1/sizeof(dtype),
+              DP(g->beta), (dtype*)p2, s2/sizeof(dtype));
 }
 
 /*

@@ -23,14 +23,8 @@ static void
     c = (dtype*)NDL_PTR(lp,2);
     g = (args_t*)(lp->opt_ptr);
 
-  <% if /[cz]/ =~ blas_char %>
     (*func_p)(g->order, g->uplo, g->trans, g->n, g->k,
-              &g->alpha, a, g->lda, b, g->ldb, &g->beta, c, g->ldc);
-  <% else %>
-    (*func_p)(g->order, g->uplo, g->trans, g->n, g->k,
-              g->alpha, a, g->lda, b, g->ldb, g->beta, c, g->ldc);
-  <% end %>
-
+              DP(g->alpha), a, g->lda, b, g->ldb, DP(g->beta), c, g->ldc);
 }
 
 /*

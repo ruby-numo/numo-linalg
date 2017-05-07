@@ -24,16 +24,9 @@ static void
     INIT_PTR(lp,2,p2,s2);
     g = (args_t*)(lp->opt_ptr);
 
-  <% if /[cz]/ =~ blas_char %>
     (*func_p)(g->order, g->trans, g->m, g->n,
-              &g->alpha, a, g->lda, (dtype*)p1, s1/sizeof(dtype),
-              &g->beta, (dtype*)p2, s2/sizeof(dtype));
-  <% else %>
-    (*func_p)(g->order, g->trans, g->m, g->n,
-              g->alpha, a, g->lda, (dtype*)p1, s1/sizeof(dtype),
-              g->beta, (dtype*)p2, s2/sizeof(dtype));
-  <% end %>
-
+              DP(g->alpha), a, g->lda, (dtype*)p1, s1/sizeof(dtype),
+              DP(g->beta), (dtype*)p2, s2/sizeof(dtype));
 }
 
 /*
