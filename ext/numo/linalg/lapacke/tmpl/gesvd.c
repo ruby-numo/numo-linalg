@@ -80,7 +80,7 @@ static void
 static VALUE
 <%=c_func(-1)%>(int argc, VALUE *argv, VALUE const mod)
 {
-    VALUE order, jobu, jobvt, tmpbuf=Qnil;
+    VALUE order, jobu, jobvt, tmpwork=Qnil, tmprwork=Qnil;
     VALUE a, ans;
     int   m, n, min_mn, lda, ldu, ldvt, info, tmp;
     dtype work_q;
@@ -184,11 +184,15 @@ static VALUE
     CHECK_ERROR(info);
     g.lwork = m_real(work_q);
     //printf("lwork=%d\n",g.lwork);
-    g.work = (dtype*)rb_alloc_tmp_buffer(&tmpbuf, g.lwork*sizeof(dtype));
+    g.work = (dtype*)rb_alloc_tmp_buffer(&tmpwork, g.lwork*sizeof(dtype));
+    <% if is_complex %>
+    g.rwork = (rtype*)rb_alloc_tmp_buffer(&tmprwork, 5*min_mn*sizeof(rtype));
+    <% end %>
 
     ans = na_ndloop3(&ndf, &g, 1, a);
 
-    rb_free_tmp_buffer(&tmpbuf);
+    rb_free_tmp_buffer(&tmprwork);
+    rb_free_tmp_buffer(&tmpwork);
     if (aout[2].dim == 0) { rb_ary_delete_at(ans,2); }
     if (aout[1].dim == 0) { rb_ary_delete_at(ans,1); }
     return ans;
