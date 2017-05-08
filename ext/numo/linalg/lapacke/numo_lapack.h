@@ -33,4 +33,4 @@ extern void numo_lapacke_check_func(void **func, const char *name);
         }}
 
 #define SWAP_IFCOL(order,a,b)                                           \
-    { if ((order)!=LAPACK_ROW_MAJOR) {tmp=(a);(a)=(b);(b)=tmp;} }
+    { if ((order)==LAPACK_COL_MAJOR) {tmp=(a);(a)=(b);(b)=tmp;} }
