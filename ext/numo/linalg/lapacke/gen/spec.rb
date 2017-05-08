@@ -20,3 +20,4 @@ when /c|z/
 end
 
 def_lpk "?gesvd"
+def_lpk "?gesdd", "gesvd"
