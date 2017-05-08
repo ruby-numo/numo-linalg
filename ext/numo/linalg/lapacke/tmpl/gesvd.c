@@ -52,29 +52,20 @@ static void
 
     a = (dtype*)NDL_PTR(lp,0);
     s = (rtype*)NDL_PTR(lp,1);
+    u = (dtype*)NDL_PTR(lp,2);
+    vt = (dtype*)NDL_PTR(lp,3);
     info = (int*)NDL_PTR(lp,4);
     g = (args_t*)(lp->opt_ptr);
 
-    n = lp->args[0].shape[0];
-    m = lp->args[0].shape[1];
-    if (g->order == LAPACK_ROW_MAJOR) {
-        swap(m,n);
-    }
+    m = lp->args[0].shape[0];
+    n = lp->args[0].shape[1];
+    SWAP_IFCOL(g->order,m,n);
     lda = lp->args[0].iter[0].step / sizeof(dtype);
+    ldu = lp->args[2].iter[0].step / sizeof(dtype);
+    if (ldu == 0) { ldu = m; } // jobu == 'O' or 'N'
+    ldvt = lp->args[3].iter[0].step / sizeof(dtype);
+    if (ldvt == 0) { ldvt = n; } // jobvt == 'O' or 'N'
 
-    if (g->jobu == 'A' || g->jobu == 'S') {
-        u = (dtype*)NDL_PTR(lp,2);
-        ldu = lp->args[2].iter[0].step / sizeof(dtype);
-    } else {
-        ldu = m;
-    }
-
-    if (g->jobvt == 'A' || g->jobvt == 'S') {
-        vt = (dtype*)NDL_PTR(lp,3);
-        ldvt = lp->args[3].iter[0].step / sizeof(dtype);
-    } else {
-        ldvt = n;
-    }
     //printf("order=%d jobu=%c jobvt=%c m=%d n=%d lda=%d ldu=%d ldvt=%d\n",g->order,g->jobu, g->jobvt, m,n,lda, ldu,ldvt);
 
     <% rwork = (is_complex) ? ", g->rwork":"" %>
@@ -90,7 +81,7 @@ static VALUE
 <%=c_func(-1)%>(int argc, VALUE *argv, VALUE const mod)
 {
     VALUE order, jobu, jobvt, tmpbuf=Qnil;
-    VALUE a, aa, ans;
+    VALUE a, ans;
     int   m, n, min_mn, lda, ldu, ldvt, info, tmp;
     dtype work_q;
     narray_t *na1;
@@ -115,8 +106,20 @@ static VALUE
 
     check_func((void*)(&func_p),"<%=func_name%>_work");
 
-    aa = rb_funcall(cT,rb_intern("cast"),1,a);
-    a = (aa==a) ? na_copy(aa) : aa;
+    if (g.jobu=='O' || g.jobvt=='O') {
+        if (g.jobu == g.jobvt) {
+            rb_raise(rb_eArgError,"JOBVT and JOBU cannot both be 'O'");
+        }
+        if (CLASS_OF(a) != cT) {
+            rb_raise(rb_eTypeError,"type of matrix a is invalid for overwrite");
+        }
+    } else {
+        if (CLASS_OF(a) == cT) {
+            a = na_copy(a);
+        } else {
+            a = rb_funcall(cT,rb_intern("cast"),1,a);
+        }
+    }
 
     GetNArray(a, na1);
     CHECK_DIM_GE(na1, 2);
