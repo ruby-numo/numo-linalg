@@ -31,3 +31,6 @@ extern void numo_lapacke_check_func(void **func, const char *name);
     { if ((info)<0) {                                               \
             rb_raise(eLapackError,"LAPACK error, info=%d",(info)); \
         }}
+
+#define SWAP_IFCOL(order,a,b)                                           \
+    { if ((order)!=LAPACK_ROW_MAJOR) {tmp=(a);(a)=(b);(b)=tmp;} }

@@ -120,28 +120,26 @@ static VALUE
 
     GetNArray(a, na1);
     CHECK_DIM_GE(na1, 2);
-    n = na1->shape[na1->ndim-2];
-    m = na1->shape[na1->ndim-1];
-    lda = m;
-    min_mn = (m < n) ? m : n;
-    //printf("m=%d n=%d\n",m,n);
-
-    if (g.order == LAPACK_ROW_MAJOR) {
-        swap(m,n);
-    }
+    m = na1->shape[na1->ndim-2];
+    n = na1->shape[na1->ndim-1];
+    lda = n;
+    SWAP_IFCOL(g.order,m,n);
 
     // output S
-    shape_s[0] = min_mn;
+    shape_s[0] = min_mn = (m < n) ? m : n;
 
     // output U
     switch(g.jobu){
     case 'A':
         shape_u[0] = m;
-        shape_u[1] = ldu = m;
+        shape_u[1] = m;
+        ldu = m;
         break;
     case 'S':
-        shape_u[0] = m; //min_mn;
-        shape_u[1] = ldu = n;
+        shape_u[0] = m;
+        shape_u[1] = min_mn;
+        SWAP_IFCOL(g.order,shape_u[0],shape_u[1]);
+        ldu = shape_u[1];
         break;
     case 'O':
     case 'N':
@@ -155,11 +153,14 @@ static VALUE
     switch(g.jobvt){
     case 'A':
         shape_vt[0] = n;
-        shape_vt[1] = ldvt = n;
+        shape_vt[1] = n;
+        ldvt = n;
         break;
     case 'S':
-        shape_vt[0] = n; //min_mn;
-        shape_vt[1] = ldvt = n;
+        shape_vt[0] = min_mn;
+        shape_vt[1] = n;
+        SWAP_IFCOL(g.order,shape_vt[0],shape_vt[1]);
+        ldvt = shape_vt[1];
         break;
     case 'O':
     case 'N':
@@ -170,10 +171,13 @@ static VALUE
         rb_raise(rb_eArgError,"invalid option: jobvt='%c'",g.jobvt);
     }
 
+    //printf("order=%d jobu=%c jobvt=%c m=%d n=%d lda=%d ldu=%d ldvt=%d\n",g.order,g.jobu, g.jobvt, m,n,lda,ldu,ldvt);
+
     <% rwork = (is_complex) ? ", 0":"" %>
     info = (*func_p)( g.order, g.jobu, g.jobvt,
                       m, n, 0, lda, 0, 0, ldu, 0, ldvt, &work_q, -1
                       <%=rwork%> );
+    //printf("info=%d\n",info);
     CHECK_ERROR(info);
     g.lwork = m_real(work_q);
     //printf("lwork=%d\n",g.lwork);
