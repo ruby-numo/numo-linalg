@@ -34,3 +34,6 @@ extern void numo_lapacke_check_func(void **func, const char *name);
 
 #define SWAP_IFCOL(order,a,b)                                           \
     { if ((order)==LAPACK_COL_MAJOR) {tmp=(a);(a)=(b);(b)=tmp;} }
+
+#define CHECK_FUNC(fptr, fname) \
+    { if ((fptr)==0) { check_func((void*)(&(fptr)),fname); } }
