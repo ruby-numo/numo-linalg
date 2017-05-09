@@ -35,9 +35,14 @@
 <% uplo = (/^?ge/=~name) ? nil : "g->uplo," %>
 <% ipiv = (/^?po/=~name) ? nil : "ipiv," %>
 */
+#define UPLO <%=(/^?ge/!~name) ? "1":"0"%>
+#define IPIV <%=(/^?po/!~name) ? "1":"0"%>
 #define args_t <%=func_name%>_args_t
+#define func_p <%=func_name%>_p
+
 typedef struct {
-    int order; char uplo;
+    int order;
+    char uplo;
 } args_t;
 
 static <%=func_name%>_t <%=func_name%>_p = 0;
@@ -50,13 +55,13 @@ static void
     int    n, nrhs;
     int    lda, ldb;
     args_t *g;
- <% if ipiv %>
+#if IPIV
     int *ipiv;
     ipiv = (int*)NDL_PTR(lp,2);
     info = (int*)NDL_PTR(lp,3);
- <% else %>
+#else
     info = (int*)NDL_PTR(lp,2);
- <% end %>
+#endif
     a = (dtype*)NDL_PTR(lp,0);
     b = (dtype*)NDL_PTR(lp,1);
     g = (args_t*)(lp->opt_ptr);
@@ -72,8 +77,8 @@ static void
     }
     //printf("order=%d n=%d nrhs=%d lda=%d ldb=%d b.ndim=%d\n",
     //       g->order,n,nrhs,lda,ldb,lp->args[1].ndim);
-    *info = (*<%=func_name%>_p)(g->order, <%=uplo%>
-                                n, nrhs, a, lda, <%=ipiv%> b, ldb);
+    *info = (*func_p)(g->order, <%=uplo%>
+                      n, nrhs, a, lda, <%=ipiv%> b, ldb);
     CHECK_ERROR(*info);
 }
 
@@ -112,21 +117,21 @@ static VALUE
     int i;
     args_t g = {LAPACK_ROW_MAJOR, 'U'};
 
- <% if uplo %>
+#if UPLO
     VALUE uplo;
     i = rb_scan_args(argc, argv, "22", &a, &b, &uplo, &order);
     switch (i) {
     case 4: g.order = option_order(order);
     case 3: g.uplo = option_uplo(uplo);
     }
- <% else %>
+#else
     i = rb_scan_args(argc, argv, "21", &a, &b, &order);
     switch (i) {
     case 3: g.order = option_order(order);
     }
- <% end %>
+#endif
 
-    check_func((void*)(&<%=func_name%>_p),"<%=func_name%>");
+    CHECK_FUNC(func_p,"<%=func_name%>");
 
     a = rb_funcall(cT,rb_intern("cast"),1,a);
     if (!TEST_INPLACE(a)) {a = na_copy(a);}
@@ -153,17 +158,20 @@ static VALUE
     }
     shape[0] = n11; // n
     shape[1] = n22; // nrhs
- <% if !ipiv %>
+#if !IPIV
     aout[0] = aout[1];
     ndf.nout--;
- <% end %>
+#endif
 
     ans = na_ndloop3(&ndf, &g, 2, a, b);
- <% if ipiv %>
+#if IPIV
     return rb_ary_concat(rb_assoc_new(a,b),ans);
- <% else %>
-    return rb_ary_push(rb_assoc_new(a,b),ans);
- <% end %>
+#else
+    return rb_ary_new3(3,a,b,ans);
+#endif
 }
 
+#undef func_p
 #undef args_t
+#undef UPLO
+#undef IPIV

@@ -36,7 +36,10 @@ lapack_int LAPACKE_zgesvd_work( int matrix_layout, char jobu, char jobvt,
                                 lapack_int lwork, double* rwork )
 <% is_sdd = (/gesdd/ =~ name) %>
 */
+#define IS_SDD <%=is_sdd ? "1":"0"%>
 #define args_t <%=func_name%>_args_t
+#define func_p <%=func_name%>_p
+
 typedef struct {
     int order;
     char jobu, jobvt, jobz;
@@ -46,7 +49,6 @@ typedef struct {
     int   *iwork;
 } args_t;
 
-#define func_p <%=func_name%>_p
 static <%=func_name%>_work_t func_p = 0;
 
 static void
@@ -76,9 +78,11 @@ static void
 
     //printf("order=%d jobu=%c jobvt=%c jobz=%c m=%d n=%d lda=%d ldu=%d ldvt=%d\n",g->order,g->jobu, g->jobvt,g->jobz, m,n,lda,ldu,ldvt);
 
-    <% job = (is_sdd) ? "g->jobz" : "g->jobu, g->jobvt" %>
-    <% rwork = (is_complex) ? ", g->rwork" : "" %>
-    <% iwork = (is_sdd) ? ", g->iwork" : "" %>
+    /*<%
+      job = (is_sdd) ? "g->jobz" : "g->jobu, g->jobvt"
+      rwork = (is_complex) ? ", g->rwork" : ""
+      iwork = (is_sdd) ? ", g->iwork" : ""
+      %>*/
     *info = (*func_p)( g->order, <%=job%>,
                        m, n, a, lda, s, u, ldu, vt, ldvt,
                        g->work, g->lwork <%=rwork%> <%=iwork%> );
@@ -90,16 +94,11 @@ static void
 static VALUE
 <%=c_func(-1)%>(int argc, VALUE *argv, VALUE const mod)
 {
-    VALUE order, tmpwork=Qnil;
-  <% if is_complex %>
+#if IS_COMPLEX
     VALUE tmprwork=Qnil;
-    int lrwork;
-  <% end %>
-  <% if is_sdd %>
-    VALUE jobz, tmpiwork=Qnil;
-  <% else %>
-    VALUE jobu, jobvt;
-  <% end %>
+    int   lrwork;
+#endif
+    VALUE order, tmpwork=Qnil;
     VALUE a, ans;
     int   m, n, min_mn, lda, ldu, ldvt, info, tmp;
     dtype work_q;
@@ -112,9 +111,9 @@ static VALUE
     int i;
     args_t g = {0,0,0,0};
 
-    check_func((void*)(&func_p),"<%=func_name%>_work");
+#if IS_SDD
+    VALUE jobz, tmpiwork=Qnil;
 
-  <% if is_sdd %>
     i = rb_scan_args(argc, argv, "12", &a, &jobz, &order);
     switch (i) {
     case 3: g.order = option_order(order);
@@ -123,7 +122,9 @@ static VALUE
     // set default
     if (g.jobz==0)  {g.jobz='A';}
     g.jobu = g.jobvt = g.jobz;
-  <% else %>
+#else
+    VALUE jobu, jobvt;
+
     i = rb_scan_args(argc, argv, "13", &a, &jobu, &jobvt, &order);
     switch (i) {
     case 4: g.order = option_order(order);
@@ -136,8 +137,10 @@ static VALUE
     if (g.jobu=='O' && g.jobvt=='O') {
         rb_raise(rb_eArgError,"JOBVT and JOBU cannot both be 'O'");
     }
-  <% end %>
-    if (g.order==0) {g.order=LAPACK_ROW_MAJOR;}
+#endif
+    if (g.order==0) { g.order=LAPACK_ROW_MAJOR; }
+
+    CHECK_FUNC(func_p,"<%=func_name%>_work");
 
     if (g.jobu=='O' || g.jobvt=='O') {
         if (CLASS_OF(a) != cT) {
@@ -158,11 +161,11 @@ static VALUE
     lda = n;
     SWAP_IFCOL(g.order,m,n);
 
-  <% if is_sdd %>
+#if IS_SDD
     if (g.jobz=='O') {
         if (m >= n) { g.jobvt='A';} else { g.jobu='A';}
     }
-  <% end %>
+#endif
 
     // output S
     shape_s[0] = min_mn = (m < n) ? m : n;
@@ -212,9 +215,11 @@ static VALUE
 
     //printf("order=%d jobu=%c jobvt=%c jobz=%c m=%d n=%d lda=%d ldu=%d ldvt=%d\n",g.order,g.jobu, g.jobvt,g.jobz, m,n,lda,ldu,ldvt);
 
-    <% job = (is_sdd) ? "g.jobz" : "g.jobu, g.jobvt" %>
-    <% rwork = (is_complex) ? ", 0" : "" %>
-    <% iwork = (is_sdd) ? ", 0" : "" %>
+    /*<%
+      job = (is_sdd) ? "g.jobz" : "g.jobu, g.jobvt"
+      rwork = (is_complex) ? ", 0" : ""
+      iwork = (is_sdd) ? ", 0" : ""
+      %>*/
     info = (*func_p)( g.order, <%=job%>,
                       m, n, 0, lda, 0, 0, ldu, 0, ldvt, &work_q, -1
                       <%=rwork%> <%=iwork%> );
@@ -223,8 +228,8 @@ static VALUE
     g.lwork = m_real(work_q);
     //printf("lwork=%d\n",g.lwork);
     g.work = (dtype*)rb_alloc_tmp_buffer(&tmpwork, g.lwork*sizeof(dtype));
-   <% if is_complex %>
-    <% if is_sdd %>
+#if IS_COMPLEX
+# if IS_SDD
     if (g.jobz=='N') {
         lrwork = 7*min_mn;
     } else {
@@ -234,23 +239,23 @@ static VALUE
         int ln = 2*mx*mn + 2*mn*mn + mn;
         lrwork = (lm > ln) ? lm : ln;
     }
-    <% else %>
+# else
     lrwork = 5*min_mn;
-    <% end %>
+# endif
     g.rwork = (rtype*)rb_alloc_tmp_buffer(&tmprwork, lrwork*sizeof(rtype));
-   <% end %>
-   <% if is_sdd %>
+#endif
+#if IS_SDD
     g.iwork = (int*)rb_alloc_tmp_buffer(&tmpiwork, 8*min_mn*sizeof(int));
-   <% end %>
+#endif
 
     ans = na_ndloop3(&ndf, &g, 1, a);
 
-   <% if is_sdd %>
+#if IS_SDD
     rb_free_tmp_buffer(&tmpiwork);
-   <% end %>
-   <% if is_complex %>
+#endif
+#if IS_COMPLEX
     rb_free_tmp_buffer(&tmprwork);
-   <% end %>
+#endif
     rb_free_tmp_buffer(&tmpwork);
     if (aout[2].dim == 0) { rb_ary_delete_at(ans,2); }
     if (aout[1].dim == 0) { rb_ary_delete_at(ans,1); }
@@ -259,3 +264,4 @@ static VALUE
 
 #undef args_t
 #undef func_p
+#undef IS_SDD
