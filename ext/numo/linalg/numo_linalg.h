@@ -75,7 +75,7 @@ extern VALUE na_expand_dims(VALUE self, VALUE vdim);
     }
 
 #define CHECK_INT_EQ(sm,m,sn,n)                          \
-    if ((m) < (n)) {                                     \
+    if ((m) != (n)) {                                    \
         rb_raise(nary_eShapeError,                       \
                  "%s must be == %s: %s=%d %s=%d",        \
                  sm,sn,sm,m,sn,n);                       \
@@ -87,6 +87,17 @@ extern VALUE na_expand_dims(VALUE self, VALUE vdim);
         rb_raise(nary_eShapeError,                       \
                  "%s must be >= max(%s,1): %s=%d %s=%d", \
                  sld,sn,sld,ld,sn,n);                    \
+    }
+
+#define COPY_OR_CAST_TO(a,T)                            \
+    {                                                   \
+        if (CLASS_OF(a) == (T)) {                       \
+            if (!TEST_INPLACE(a)) {                     \
+                a = na_copy(a);                         \
+            }                                           \
+        } else {                                        \
+            a = rb_funcall(T,rb_intern("cast"),1,a);    \
+        }                                               \
     }
 
 #define swap(a,b) {tmp=a;a=b;b=tmp;}
