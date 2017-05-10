@@ -48,28 +48,28 @@ static char *lapack_prefix = 0;
 
 
 int
-numo_lapacke_option_order(VALUE trans)
+numo_lapacke_option_order(VALUE order)
 {
     int opt;
     char *ptr;
 
-    switch(TYPE(trans)) {
+    switch(TYPE(order)) {
     case T_NIL:
     case T_FALSE:
         return LAPACK_ROW_MAJOR;
     case T_TRUE:
         return LAPACK_COL_MAJOR;
     case T_FIXNUM:
-        opt = FIX2INT(trans);
+        opt = FIX2INT(order);
         if (opt == LAPACK_ROW_MAJOR || opt == LAPACK_COL_MAJOR) {
             return opt;
         }
         break;
     case T_SYMBOL:
-        trans = rb_sym2str(trans);
+        order = rb_sym2str(order);
     case T_STRING:
-        ptr = RSTRING_PTR(trans);
-        if (RSTRING_LEN(trans) > 0) {
+        ptr = RSTRING_PTR(order);
+        if (RSTRING_LEN(order) > 0) {
             switch(ptr[0]){
             case 'R': case 'r':
                 return LAPACK_ROW_MAJOR;
