@@ -147,6 +147,7 @@ static VALUE
     VALUE order, tmpwork;
 #if IS_LSS && IS_COMPLEX
     VALUE tmprwork;
+    int   lrwork;
 #endif
 #if IS_LSD
     VALUE tmpiwork;
@@ -156,18 +157,16 @@ static VALUE
     int   max_mn;
     dtype work_q;
     narray_t *na1, *na2;
-#if IS_LSS
-# if IS_LSY
+    VALUE opt1;
+#if IS_LSY
     narray_t *na3;
-    ndfunc_arg_in_t ain[3] = {{OVERWRITE,2},{OVERWRITE,2},{cInt,1}};
-    ndfunc_arg_out_t aout[2] = {{cInt,0},{cInt,0}};
-    ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 3, 2, ain, aout};
-# else
+    VALUE jpvt;
+#endif
+#if IS_LSS
     size_t shape_s[1];
-    ndfunc_arg_in_t ain[2] = {{OVERWRITE,2},{OVERWRITE,2}};
+    ndfunc_arg_in_t ain[3] = {{OVERWRITE,2},{OVERWRITE,2},{cInt,1}};
     ndfunc_arg_out_t aout[3] = {{cT,1,shape_s},{cInt,0},{cInt,0}};
     ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 2, 3, ain, aout};
-# endif
 #else
     ndfunc_arg_in_t ain[2] = {{OVERWRITE,2}, {OVERWRITE,2}};
     ndfunc_arg_out_t aout[1] = {{cInt,0}};
@@ -177,13 +176,11 @@ static VALUE
     int i;
 
 #if IS_LSY
-#define N 5
-    VALUE jpvt, opt1;
     i = rb_scan_args(argc, argv, "32", &a, &b, &jpvt, &opt1, &order);
+#define N 5
 #else
-#define N 4
-    VALUE opt1;
     i = rb_scan_args(argc, argv, "22", &a, &b, &opt1, &order);
+#define N 4
 #endif
     switch (i) {
     case N: g.order = option_order(order);
@@ -223,6 +220,9 @@ static VALUE
 
 #if IS_LSS
 # if IS_LSY
+    ndf.nin++;
+    ndf.nout--;
+    ndf.aout++;
     COPY_OR_CAST_TO(jpvt,cInt);
     GetNArray(jpvt, na3);
     CHECK_DIM_GE(na3, 1);
@@ -251,23 +251,20 @@ static VALUE
         rb_raise(nary_eShapeError,
                  "ldb should be >= max(m,n): ldb=%d m=%d n=%d",nb,m,n);
     }
-
-    lwork = -1;
     //printf("order=%d trans=%c m=%d n=%d nb=%d nrhs=%d lda=%d ldb=%d\n",g.order,g.trans,m,n,nb,nrhs,lda,ldb);
+    lwork = -1;
 #if IS_LSD
     {
+     int iwork_q;
 # if IS_COMPLEX
      rtype rwork_q;
 # endif
-     int iwork_q;
      info = (*func_p)(g.order, m, n, nrhs, 0, lda, 0, ldb, 0, g.rcond, 0,
                       &work_q, lwork <%=rwork%>, &iwork_q);
      CHECK_ERROR(info);
 # if IS_COMPLEX
-     {
-      int lrwork = rwork_q;
-      g.rwork = (rtype*)rb_alloc_tmp_buffer(&tmprwork, lrwork*sizeof(rtype));
-     }
+     lrwork = rwork_q;
+     g.rwork = (rtype*)rb_alloc_tmp_buffer(&tmprwork, lrwork*sizeof(rtype));
 # endif
      g.iwork = (int*)rb_alloc_tmp_buffer(&tmpiwork, iwork_q*sizeof(int));
     }
@@ -279,14 +276,12 @@ static VALUE
     CHECK_ERROR(info);
 
 # if IS_COMPLEX
-    {
 #  if IS_LSY
-     int lwork = 2 * n;
+    lrwork = 2 * n;
 #  else
-     int lwork = 5 * ((m < n) ? m : n);
+    lrwork = 5 * ((m < n) ? m : n);
 #  endif
-     g.rwork = (rtype*)rb_alloc_tmp_buffer(&tmprwork, lwork*sizeof(rtype));
-    }
+    g.rwork = (rtype*)rb_alloc_tmp_buffer(&tmprwork, lrwork*sizeof(rtype));
 # endif
 // end of IS_LSS
 
@@ -304,6 +299,7 @@ static VALUE
 #else
     ans = na_ndloop3(&ndf, &g, 2, a, b);
 #endif
+
     // free_tmp_buffer
     rb_free_tmp_buffer(&tmpwork);
 #if IS_LSD
@@ -313,6 +309,7 @@ static VALUE
 # if IS_COMPLEX
     rb_free_tmp_buffer(&tmprwork);
 # endif
+
     // return
 # if IS_LSY
     return rb_ary_new3(5,a,b,jpvt,RARRAY_AREF(ans,0),RARRAY_AREF(ans,1));
