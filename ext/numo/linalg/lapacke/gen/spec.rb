@@ -21,3 +21,8 @@ end
 
 def_lpk "?gesvd"
 def_lpk "?gesdd", "gesvd"
+
+def_lpk "?gels"
+def_lpk "?gelss", "gels"
+def_lpk "?gelsd", "gels"
+def_lpk "?gelsy", "gels"
