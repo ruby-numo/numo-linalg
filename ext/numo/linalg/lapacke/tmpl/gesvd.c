@@ -34,8 +34,8 @@ lapack_int LAPACKE_zgesvd_work( int matrix_layout, char jobu, char jobvt,
                                 lapack_int ldu, lapack_complex_double* vt,
                                 lapack_int ldvt, lapack_complex_double* work,
                                 lapack_int lwork, double* rwork )
-<% is_sdd = (/gesdd/ =~ name) %>
 */
+<% is_sdd = (/gesdd/ =~ name) %>
 #define IS_SDD <%=is_sdd ? "1":"0"%>
 #define args_t <%=func_name%>_args_t
 #define func_p <%=func_name%>_p
@@ -98,7 +98,10 @@ static VALUE
     VALUE tmprwork=Qnil;
     int   lrwork;
 #endif
-    VALUE order, tmpwork=Qnil;
+#if IS_SDD
+    VALUE tmpiwork=Qnil;
+#endif
+    VALUE tmpwork=Qnil;
     VALUE a, ans;
     int   m, n, min_mn, lda, ldu, ldvt, info, tmp;
     dtype work_q;
@@ -108,39 +111,27 @@ static VALUE
     ndfunc_arg_out_t aout[4] = {{cRT,1,shape_s},{cT,2,shape_u},
                                 {cT,2,shape_vt},{cInt,0}};
     ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 1, 4, ain, aout};
-    int i;
+
     args_t g = {0,0,0,0};
+    VALUE opts[4] = {Qundef,Qundef,Qundef,Qundef};
+    VALUE kw_hash = Qnil;
+    ID kw_table[4] = {id_order,id_jobu,id_jobvt,id_jobz};
 
+    CHECK_FUNC(func_p,"<%=func_name%>_work");
+
+    rb_scan_args(argc, argv, "1:", &a, &kw_hash);
+    rb_get_kwargs(kw_hash, kw_table, 0, 4, opts);
+    g.order = option_order(opts[0]);
 #if IS_SDD
-    VALUE jobz, tmpiwork=Qnil;
-
-    i = rb_scan_args(argc, argv, "12", &a, &jobz, &order);
-    switch (i) {
-    case 3: g.order = option_order(order);
-    case 2: g.jobz  = option_job(jobz);
-    }
-    // set default
-    if (g.jobz==0)  {g.jobz='A';}
+    g.jobz = option_job(opts[3],'A');
     g.jobu = g.jobvt = g.jobz;
 #else
-    VALUE jobu, jobvt;
-
-    i = rb_scan_args(argc, argv, "13", &a, &jobu, &jobvt, &order);
-    switch (i) {
-    case 4: g.order = option_order(order);
-    case 3: g.jobvt = option_job(jobvt);
-    case 2: g.jobu  = option_job(jobu);
-    }
-    // set default
-    if (g.jobu==0)  {g.jobu='A';}
-    if (g.jobvt==0) {g.jobvt='A';}
+    g.jobu  = option_job(opts[1],'A');
+    g.jobvt = option_job(opts[2],'A');
     if (g.jobu=='O' && g.jobvt=='O') {
         rb_raise(rb_eArgError,"JOBVT and JOBU cannot both be 'O'");
     }
 #endif
-    if (g.order==0) { g.order=LAPACK_ROW_MAJOR; }
-
-    CHECK_FUNC(func_p,"<%=func_name%>_work");
 
     if (g.jobu=='O' || g.jobvt=='O') {
         if (CLASS_OF(a) != cT) {

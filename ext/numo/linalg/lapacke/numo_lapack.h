@@ -6,11 +6,14 @@
 
 typedef int blasint;
 
+#define option_value numo_lapacke_option_value
+extern int numo_lapacke_option_value(VALUE value, VALUE default_value);
+
 #define option_order numo_lapacke_option_order
 extern int numo_lapacke_option_order(VALUE order);
 
 #define option_job numo_lapacke_option_job
-extern char numo_lapacke_option_job(VALUE job);
+extern char numo_lapacke_option_job(VALUE job, char default_char);
 
 #define option_trans numo_lapacke_option_trans
 extern char numo_lapacke_option_trans(VALUE trans);

@@ -144,7 +144,7 @@ static void
 static VALUE
 <%=c_func(-1)%>(int argc, VALUE *argv, VALUE const mod)
 {
-    VALUE order, tmpwork;
+    VALUE tmpwork;
 #if IS_LSS && IS_COMPLEX
     VALUE tmprwork;
     int   lrwork;
@@ -157,7 +157,6 @@ static VALUE
     int   max_mn;
     dtype work_q;
     narray_t *na1, *na2;
-    VALUE opt1;
 #if IS_LSY
     narray_t *na3;
     VALUE jpvt;
@@ -173,28 +172,24 @@ static VALUE
     ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 2, 1, ain, aout};
 #endif
     args_t g = {0,0,-1};
-    int i;
-
-#if IS_LSY
-    i = rb_scan_args(argc, argv, "32", &a, &b, &jpvt, &opt1, &order);
-#define N 5
-#else
-    i = rb_scan_args(argc, argv, "22", &a, &b, &opt1, &order);
-#define N 4
-#endif
-    switch (i) {
-    case N: g.order = option_order(order);
-#if IS_LSS
-    case N-1: if (RTEST(opt1)) {g.rcond = NUM2DBL(opt1);}
-#else
-    case N-1: g.trans = option_trans(opt1);
-#endif
-#undef N
-    }
-    if (g.trans==0) { g.trans='N'; }
-    if (g.order==0) { g.order=LAPACK_ROW_MAJOR; }
+    VALUE opts[3] = {Qundef,Qundef,Qundef};
+    ID kw_table[3] = {id_order,id_trans,id_rcond};
+    VALUE kw_hash = Qnil;
 
     CHECK_FUNC(func_p,"<%=func_name%>_work");
+
+#if IS_LSY
+    rb_scan_args(argc, argv, "3:", &a, &b, &jpvt, &kw_hash);
+#else
+    rb_scan_args(argc, argv, "2:", &a, &b, &kw_hash);
+#endif
+    rb_get_kwargs(kw_hash, kw_table, 0, 3, opts);
+    g.order = option_order(opts[0]);
+#if IS_LSS
+    if (opts[2]!=Qundef) { if (RTEST(opts[2])) {g.rcond = NUM2DBL(opts[2]);} }
+#else
+    g.trans = option_trans(opts[1]);
+#endif
 
     COPY_OR_CAST_TO(a,cT);
     COPY_OR_CAST_TO(b,cT);

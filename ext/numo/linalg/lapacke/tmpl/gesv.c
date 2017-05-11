@@ -107,31 +107,24 @@ static void
 static VALUE
 <%=c_func(-1)%>(int argc, VALUE *argv, VALUE const mod)
 {
-    VALUE a, b, order, ans;
+    VALUE a, b, ans;
     narray_t *na1, *na2;
     size_t n11, n12, n21, n22;
     ndfunc_arg_in_t ain[2] = {{OVERWRITE,2},{OVERWRITE,2}};
     size_t shape[2];
     ndfunc_arg_out_t aout[2] = {{cInt,1,shape},{cInt,0}};
     ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 2, 2, ain, aout};
-    int i;
-    args_t g = {LAPACK_ROW_MAJOR, 'U'};
-
-#if UPLO
-    VALUE uplo;
-    i = rb_scan_args(argc, argv, "22", &a, &b, &uplo, &order);
-    switch (i) {
-    case 4: g.order = option_order(order);
-    case 3: g.uplo = option_uplo(uplo);
-    }
-#else
-    i = rb_scan_args(argc, argv, "21", &a, &b, &order);
-    switch (i) {
-    case 3: g.order = option_order(order);
-    }
-#endif
+    args_t g;
+    VALUE kw_hash = Qnil;
+    ID kw_table[2] = {id_order,id_uplo};
+    VALUE opts[2] = {Qundef,Qundef};
 
     CHECK_FUNC(func_p,"<%=func_name%>");
+
+    rb_scan_args(argc, argv, "2:", &a, &b, &kw_hash);
+    rb_get_kwargs(kw_hash, kw_table, 0, 2, opts);
+    g.order = option_order(opts[0]);
+    g.uplo = option_uplo(opts[1]);
 
     a = rb_funcall(cT,rb_intern("cast"),1,a);
     if (!TEST_INPLACE(a)) {a = na_copy(a);}

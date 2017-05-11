@@ -1,3 +1,9 @@
+#if defined __clang__
+#  define UNUSED(name) __unused name
+#else
+#  define UNUSED(name) name
+#endif
+
 #if SIZEOF_INT == 4
 #define cI numo_cInt32
 #define cUI numo_cUInt32
