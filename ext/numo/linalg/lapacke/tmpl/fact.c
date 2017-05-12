@@ -10,6 +10,14 @@ aout = [
   has_tau && "{cT,1,shape_tau}",
              "{cInt,0}",
 ].select{|x| x}.join(",")
+
+func_args = [   "g->order",
+  has_uplo   && "g->uplo",
+  !symmetric && "m",
+                "n, a, lda",
+  has_piv    && "ipiv",
+  has_tau    && "tau",
+].select{|x| x}.join(", ")
 %>
 */
 <% %>
@@ -62,21 +70,7 @@ static void
 
     //printf("order=%d m=%d n=%d lda=%d \n",g->order,m,n,lda);
 
-    *info = (*func_p)( g->order,
-#if UPLO
-                       g->uplo,
-#endif
-#if !SYMMETRIC
-                       m,
-#endif
-                       n, a, lda
-#if PIV
-                       , ipiv
-#endif
-#if TAU
-                       , tau
-#endif
-                      );
+    *info = (*func_p)( <%=func_args%> );
     CHECK_ERROR(*info);
 }
 
