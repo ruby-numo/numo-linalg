@@ -248,8 +248,8 @@ static VALUE
     rb_free_tmp_buffer(&tmprwork);
 #endif
     rb_free_tmp_buffer(&tmpwork);
-    if (aout[2].dim == 0) { rb_ary_delete_at(ans,2); }
-    if (aout[1].dim == 0) { rb_ary_delete_at(ans,1); }
+    if (aout[2].dim == 0) { RARRAY_ASET(ans,2,Qnil); }
+    if (aout[1].dim == 0) { RARRAY_ASET(ans,1,Qnil); }
     return ans;
 }
 
