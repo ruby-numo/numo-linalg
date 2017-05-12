@@ -21,6 +21,8 @@ when "z"
   real_char = "d"
 end
 
+#--
+
 def_lpk "?gesv"
 def_lpk "?sysv", "gesv"
 def_lpk "?posv", "gesv"
@@ -51,4 +53,26 @@ else
   def_lpk "?syevd", "syev"
   def_lpk "?sygv"
   def_lpk "?sygvd", "sygv"
+end
+
+def_lpk "?geqrf", "fact"
+def_lpk "?gerqf", "fact"
+def_lpk "?geqlf", "fact"
+def_lpk "?gelqf", "fact"
+
+def_lpk "?geqp3", "fact"
+def_lpk "?tzrzf", "fact"
+
+def_lpk "?getrf", "fact"
+def_lpk "?sytrf", "fact"
+def_lpk "?potrf", "fact"
+
+def_lpk "?getri", "fact"
+def_lpk "?sytri", "fact"
+def_lpk "?potri", "fact"
+
+case blas_char
+when /c|z/
+  def_lpk "?hetrf", "fact"
+  def_lpk "?hetri", "fact"
 end

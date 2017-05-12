@@ -29,6 +29,9 @@
 
 extern VALUE na_expand_dims(VALUE self, VALUE vdim);
 
+#define max_(m,n) (((m)>(n)) ? (m):(n))
+#define min_(m,n) (((m)<(n)) ? (m):(n))
+
 #define CHECK_NARRAY_TYPE(x,t)                                 \
     if (CLASS_OF(x)!=(t)) {                                    \
         rb_raise(rb_eTypeError,"invalid NArray type (class)"); \
