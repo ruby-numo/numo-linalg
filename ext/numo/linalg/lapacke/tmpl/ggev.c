@@ -1,10 +1,20 @@
 /*
-lapack_int LAPACKE_dggev( int matrix_layout, char jobvl, char jobvr,
-                          lapack_int n, double* a, lapack_int lda, double* b,
-                          lapack_int ldb, double* alphar, double* alphai,
-                          double* beta, double* vl, lapack_int ldvl, double* vr,
-                          lapack_int ldvr )
+<%
+aout = [         "{cT,1,shape},{cT,1,shape}",
+  !is_complex && "{cT,1,shape}",
+                 "{cT,2,shape},{cT,2,shape},{cInt,0}"
+].select{|x| x}.join(",")
 
+func_args = [
+  "g->order, g->jobvl, g->jobvr, n, a, lda, b, ldb",
+  is_complex ? "alpha" : "alphar, alphai",
+  "beta, vl, ldvl, vr, ldvr"
+].join(",")
+
+tp = "Numo::"+class_name
+return_type = ([tp]*(is_complex ? 4 : 5) + ["Integer"]).join(", ")
+return_name = (is_complex ? "alpha,":"alphar, alphai,") + " beta, vl, vr, info"
+%>
 */
 #define args_t <%=func_name%>_args_t
 #define func_p <%=func_name%>_p
@@ -53,15 +63,9 @@ static void
     ldvr = lp->args[N+5].iter[0].step / sizeof(dtype);
     if (ldvr == 0) { ldvr = n; } // jobvr == 'N'
 
-    printf("order=%d jobvl=%c jobvr=%c n=%d lda=%d ldb=%d ldvl=%d ldvr=%d\n",g->order,g->jobvl, g->jobvr, n, lda,ldb,ldvl,ldvr);
+    //printf("order=%d jobvl=%c jobvr=%c n=%d lda=%d ldb=%d ldvl=%d ldvr=%d\n",g->order,g->jobvl, g->jobvr, n, lda,ldb,ldvl,ldvr);
 
-    *info = (*func_p)( g->order, g->jobvl, g->jobvr, n, a, lda, b, ldb,
-#if IS_COMPLEX
-                       alpha,
-#else
-                       alphar, alphai,
-#endif
-                       beta, vl, ldvl, vr, ldvr );
+    *info = (*func_p)( <%=func_args%> );
     CHECK_ERROR(*info);
 }
 
@@ -75,15 +79,7 @@ static void
   @param [String,Symbol] jobvr
     jobvr='N':  do not compute the left generalized eigenvectors;
     jobvr='V':  compute the left generalized eigenvectors.
-<% if is_complex %>
-  @return [[Numo::<%=class_name%>, Numo::<%=class_name%>,
-            Numo::<%=class_name%>, Numo::<%=class_name%>, Integer]]
-          array of [alpha, beta, vl, vr, info]
-<% else %>
-  @return [[Numo::<%=class_name%>, Numo::<%=class_name%>, Numo::<%=class_name%>,
-            Numo::<%=class_name%>, Numo::<%=class_name%>, Integer]]
-          array of [alpha.real, alpha.imag, beta, vl, vr, info]
-<% end %>
+  @return [[<%=return_type%>]] array of [<%=return_name%>]
 
  <%= name %> computes for a pair of N-by-N real nonsymmetric matrices (A,B)
  the generalized eigenvalues, and optionally, the left and/or right

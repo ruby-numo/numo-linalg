@@ -1,23 +1,42 @@
 /*
 <%
-has_uplo = (/^.(sy|he|po)/ =~ name)
-has_piv  = ((/tr(f|i)/ =~ name && /potr/ !~ name) || /geqp3/ =~ name)
-has_tau  = (/q/ =~ name || /tzrzf/ =~ name)
-symmetric = (has_uplo || /getri/=~name)
+ has_uplo = (/^.(sy|he|po)/ =~ name)
+ has_piv  = ((/tr(f|i)/ =~ name && /potr/ !~ name) || /geqp3/ =~ name)
+ has_tau  = (/q/ =~ name || /tzrzf/ =~ name)
+ symmetric = (has_uplo || /getri/=~name)
 
-aout = [
-  has_piv && "{cInt,1,shape_piv}",
-  has_tau && "{cT,1,shape_tau}",
-             "{cInt,0}",
-].select{|x| x}.join(",")
+ aout = [
+   has_piv && "{cInt,1,shape_piv}",
+   has_tau && "{cT,1,shape_tau}",
+              "{cInt,0}",
+ ].select{|x| x}.join(",")
 
-func_args = [   "g->order",
-  has_uplo   && "g->uplo",
-  !symmetric && "m",
-                "n, a, lda",
-  has_piv    && "ipiv",
-  has_tau    && "tau",
-].select{|x| x}.join(", ")
+ func_args = [   "g->order",
+   has_uplo   && "g->uplo",
+   !symmetric && "m",
+                 "n, a, lda",
+   has_piv    && "ipiv",
+   has_tau    && "tau",
+ ].select{|x| x}.join(", ")
+
+ return_type = [
+   "Numo::"+class_name,
+   has_piv && "Numo::Int",
+   has_tau && "Numo::"+class_name,
+   "Integer"
+ ].select{|x| x}.join(", ")
+
+ return_name = [
+   "a",
+   has_piv && "piv",
+   has_tau && "tau",
+   "info"
+ ].select{|x| x}.join(", ")
+
+ args_opt = [
+   "order:'r'",
+   has_uplo && "uplo:'u'",
+ ].select{|x| x}.join(", ")
 %>
 */
 <% %>
@@ -75,10 +94,9 @@ static void
 }
 
 /*
-  @overload <%=name%>(a)
+  @overload <%=name%>(a [,<%=args_opt%>])
   @param [Numo::<%=class_name%>] a >=2-dimentional NArray.
-  @return [[Numo::<%=class_name%>, Numo::<%=class_name%>, Integer]]
-          array of [a, ipiv, info]
+  @return [[<%=return_type%>]] array of [<%=return_name%>]
 
  <%=name%>
 

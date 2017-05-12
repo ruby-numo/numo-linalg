@@ -1,39 +1,27 @@
 /*
-* DGESV computes the solution to system of linear equations A * X = B
-* for GE matrices
-*
-*  Definition:
-*  ===========
-*
-*       SUBROUTINE DGESV( N, NRHS, A, LDA, IPIV, B, LDB, INFO )
-*
-*       .. Scalar Arguments ..
-*       INTEGER            INFO, LDA, LDB, N, NRHS
-*       ..
-*       .. Array Arguments ..
-*       INTEGER            IPIV( * )
-*       DOUBLE PRECISION   A( LDA, * ), B( LDB, * )
-*       ..
-*
+<%
+ uplo = (/^?ge/=~name) ? nil : "g->uplo,"
+ ipiv = (/^?po/=~name) ? nil : "ipiv,"
 
-* ZGESV computes the solution to system of linear equations A * X = B
-* for GE matrices
-*
-*  Definition:
-*  ===========
-*
-*       SUBROUTINE ZGESV( N, NRHS, A, LDA, IPIV, B, LDB, INFO )
-*
-*       .. Scalar Arguments ..
-*       INTEGER            INFO, LDA, LDB, N, NRHS
-*       ..
-*       .. Array Arguments ..
-*       INTEGER            IPIV( * )
-*       COMPLEX*16         A( LDA, * ), B( LDB, * )
-*       ..
-
-<% uplo = (/^?ge/=~name) ? nil : "g->uplo," %>
-<% ipiv = (/^?po/=~name) ? nil : "ipiv," %>
+ tp = "Numo::"+class_name
+ iary = "Numo::Int"
+ iscal = "Integer"
+ if uplo
+   a = "a, b [, order:'r', uplo:'u']"
+ else
+   a = "a, b [, order:'r']"
+ end
+ if ipiv
+   n = "lu, x, piv, info"
+   t = [tp,tp,iary,iscal]
+ else
+   n = "lu, x, info"
+   t = [tp,tp,iscal]
+ end
+ return_type = t.join(", ")
+ return_name = n
+ params = a
+%>
 */
 #define UPLO <%=(/^?ge/!~name) ? "1":"0"%>
 #define IPIV <%=(/^?po/!~name) ? "1":"0"%>
@@ -83,26 +71,12 @@ static void
 }
 
 /*
-<% if uplo %>
-  @overload <%=name%>(a, b [,uplo, order])
-<% else %>
-  @overload <%=name%>(a, b [,order])
-<% end %>
-  @param [Numo::NArray] a  >=2-dimentional NArray.
-  @param [Numo::NArray] b  >=1-dimentional NArray.
-<% if ipiv %>
-  @return [Array] array of [lu,x,piv,info]
-<% else %>
-  @return [Array] array of [lu,x,info]
-<% end %>
+  @overload <%=name%>(<%=params%>)
+  @param [<%=tp%>] a  >=2-dimentional NArray.
+  @param [<%=tp%>] b  >=1-dimentional NArray.
+  @return [[<%=return_type%>]] array of [<%=return_name%>]
 
-  <%=name%> - computes the solution to a complex system of linear equations
-     A  *  X = B,
-  where A is an N-by-N matrix and X and B are N-by-NRHS matrices.
-  The LU decomposition with partial pivoting and row interchanges is used to factor A as
-     A = P * L * U,
-  where P is a permutation matrix, L is unit lower triangular, and U is upper triangular.
-  The factored form of A is then used to solve the system of equations A * X = B.
+  <%=description%>
 */
 static VALUE
 <%=c_func(-1)%>(int argc, VALUE *argv, VALUE const mod)

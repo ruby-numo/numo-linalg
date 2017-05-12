@@ -1,51 +1,20 @@
 /*
-* DGEEV computes the eigenvalues and, optionally, the left and/or
-* right eigenvectors for GE matrices
-*
-*  Definition:
-*  ===========
-*
-*       SUBROUTINE DGEEV( JOBVL, JOBVR, N, A, LDA, WR, WI, VL, LDVL, VR,
-*                         LDVR, WORK, LWORK, INFO )
-*
-*       .. Scalar Arguments ..
-*       CHARACTER          JOBVL, JOBVR
-*       INTEGER            INFO, LDA, LDVL, LDVR, LWORK, N
-*       ..
-*       .. Array Arguments ..
-*       DOUBLE PRECISION   A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ),
-*      $                   WI( * ), WORK( * ), WR( * )
-*       ..
-*
-* ZGEEV computes the eigenvalues and, optionally, the left and/or
-* right eigenvectors for GE matrices
-*
-*  Definition:
-*  ===========
-*
-*       SUBROUTINE ZGEEV( JOBVL, JOBVR, N, A, LDA, W, VL, LDVL, VR, LDVR,
-*                         WORK, LWORK, RWORK, INFO )
-*
-*       .. Scalar Arguments ..
-*       CHARACTER          JOBVL, JOBVR
-*       INTEGER            INFO, LDA, LDVL, LDVR, LWORK, N
-*       ..
-*       .. Array Arguments ..
-*       DOUBLE PRECISION   RWORK( * )
-*       COMPLEX*16         A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ),
-*      $                   W( * ), WORK( * )
-*       ..
+<%
+aout = [         "{cT,1,shape}",
+  !is_complex && "{cT,1,shape}",
+                 "{cT,2,shape},{cT,2,shape},{cInt,0}"
+].select{|x| x}.join(",")
 
-lapack_int LAPACKE_dgeev( int matrix_layout, char jobvl, char jobvr,
-                          lapack_int n, double* a, lapack_int lda, double* wr,
-                          double* wi, double* vl, lapack_int ldvl, double* vr,
-                          lapack_int ldvr )
+func_args = [
+  "g->order, g->jobvl, g->jobvr, n, a, lda",
+  is_complex ? "w" : "wr, wi",
+  "vl, ldvl, vr, ldvr"
+].join(",")
 
-lapack_int LAPACKE_zgeev( int matrix_layout, char jobvl, char jobvr,
-                          lapack_int n, lapack_complex_double* a,
-                          lapack_int lda, lapack_complex_double* w,
-                          lapack_complex_double* vl, lapack_int ldvl,
-                          lapack_complex_double* vr, lapack_int ldvr )
+tp = "Numo::"+class_name
+return_type = ([tp]*(is_complex ? 3 : 4) + ["Integer"]).join(", ")
+return_name = (is_complex ? "w,":"wr, wi,") + " vl, vr, info"
+%>
 */
 #define args_t <%=func_name%>_args_t
 #define func_p <%=func_name%>_p
@@ -93,13 +62,7 @@ static void
 
     //printf("order=%d jobvl=%c jobvr=%c n=%d lda=%d ldvl=%d ldvr=%d\n",g->order,g->jobvl, g->jobvr, n, lda,ldvl,ldvr);
 
-    *info = (*func_p)( g->order, g->jobvl, g->jobvr, n, a, lda,
-#if IS_COMPLEX
-                       w,
-#else
-                       wr, wi,
-#endif
-                       vl, ldvl, vr, ldvr );
+    *info = (*func_p)( <%=func_args%> );
     CHECK_ERROR(*info);
 }
 
@@ -113,15 +76,7 @@ static void
   @param [String,Symbol] jobvr
     jobvr='N':  do not compute the left generalized eigenvectors;
     jobvr='V':  compute the left generalized eigenvectors.
-<% if is_complex %>
-  @return [[Numo::<%=class_name%>, Numo::<%=class_name%>,
-            Numo::<%=class_name%>, Integer]]
-          array of [w, vl, vr, info]
-<% else %>
-  @return [[Numo::<%=class_name%>, Numo::<%=class_name%>,
-            Numo::<%=class_name%>, Numo::<%=class_name%>, Integer]]
-          array of [w.real, w.imag, vl, vr, info]
-<% end %>
+  @return [[<%=return_type%>]] array of [<%=return_name%>]
 
  <%=name%> computes for an N-by-N complex nonsymmetric matrix A, the
  eigenvalues and, optionally, the left and/or right eigenvectors.
@@ -145,13 +100,8 @@ static VALUE
     narray_t *na1;
     size_t shape[2];
     ndfunc_arg_in_t ain[1] = {{OVERWRITE,2}};
-#if IS_COMPLEX
-    ndfunc_arg_out_t aout[4] = {{cT,1,shape},{cT,2,shape},{cT,2,shape},{cInt,0}};
-    ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 1, 4, ain, aout};
-#else
-    ndfunc_arg_out_t aout[5] = {{cT,1,shape},{cT,1,shape},{cT,2,shape},{cT,2,shape},{cInt,0}};
-    ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 1, 5, ain, aout};
-#endif
+    ndfunc_arg_out_t aout[N+4] = {<%=aout%>};
+    ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 1, N+4, ain, aout};
 
     args_t g = {0,0,0};
     VALUE opts[3] = {Qundef,Qundef,Qundef};
