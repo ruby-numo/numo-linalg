@@ -98,8 +98,7 @@ static void
   @param [Numo::<%=class_name%>] a >=2-dimentional NArray.
   @return [[<%=return_type%>]] array of [<%=return_name%>]
 
- <%=name%>
-
+ <%=description%>
 */
 static VALUE
 <%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -134,8 +133,8 @@ static VALUE
     COPY_OR_CAST_TO(a,cT);
     GetNArray(a, na1);
     CHECK_DIM_GE(na1, 2);
-    m = na1->shape[na1->ndim-2];
-    n = na1->shape[na1->ndim-1];
+    m = ROW_SIZE(na1);
+    n = COL_SIZE(na1);
     SWAP_IFCOL(g.order,m,n);
 #if PIV
 #if QP3

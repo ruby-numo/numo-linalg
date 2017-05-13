@@ -1,10 +1,4 @@
 /*
-lapack_int LAPACKE_chegv( int matrix_layout, lapack_int itype, char jobz,
-                          char uplo, lapack_int n, lapack_complex_float* a,
-                          lapack_int lda, lapack_complex_float* b,
-                          lapack_int ldb, float* w )
-{
-
 */
 #define args_t <%=func_name%>_args_t
 #define func_p <%=func_name%>_p
@@ -59,17 +53,13 @@ static void
   @param [String,Symbol] order
   @return [[Numo::<%=real_class_name%>,Numo::<%=real_class_name%>,Integer]]  array of [a,b,w,info].
 
-  <%=name%> computes all the eigenvalues, and optionally, the eigenvectors
-  of a complex generalized Hermitian-definite eigenproblem, of the form
-  A*x=(lambda)*B*x,  A*Bx=(lambda)*x,  or B*A*x=(lambda)*x.
-  Here A and B are assumed to be Hermitian and B is also
-  positive definite.
+  <%=description%>
 */
 static VALUE
 <%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
 {
     VALUE a, b, ans;
-    int   ma, n, mb, nb;
+    int   n, nb;
     narray_t *na1, *na2;
     size_t shape[1];
     ndfunc_arg_in_t ain[2] = {{OVERWRITE,2},{OVERWRITE,2}};
@@ -98,16 +88,10 @@ static VALUE
     GetNArray(b, na2);
     CHECK_DIM_GE(na2, 2);
 
-    ma = na1->shape[na1->ndim-2];
-    n  = na1->shape[na1->ndim-1];
-    if (ma != n) {
-        rb_raise(nary_eShapeError,"matrix a must be square");
-    }
-    mb = na2->shape[na1->ndim-2];
-    nb = na2->shape[na1->ndim-1];
-    if (mb != nb) {
-        rb_raise(nary_eShapeError,"matrix b must be square");
-    }
+    CHECK_SQUARE("matrix a",na1);
+    n  = COL_SIZE(na1);
+    CHECK_SQUARE("matrix b",na2);
+    nb = COL_SIZE(na2);
     if (n != nb) {
         rb_raise(nary_eShapeError,"matrix a and b must have same size");
     }

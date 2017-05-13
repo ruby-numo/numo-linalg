@@ -1,19 +1,19 @@
 /*
 <%
-aout = [         "{cT,1,shape}",
-  !is_complex && "{cT,1,shape}",
-                 "{cT,2,shape},{cT,2,shape},{cInt,0}"
-].select{|x| x}.join(",")
+ aout = [         "{cT,1,shape}",
+   !is_complex && "{cT,1,shape}",
+                  "{cT,2,shape},{cT,2,shape},{cInt,0}"
+ ].select{|x| x}.join(",")
 
-func_args = [
-  "g->order, g->jobvl, g->jobvr, n, a, lda",
-  is_complex ? "w" : "wr, wi",
-  "vl, ldvl, vr, ldvr"
-].join(",")
+ func_args = [
+   "g->order, g->jobvl, g->jobvr, n, a, lda",
+   is_complex ? "w" : "wr, wi",
+   "vl, ldvl, vr, ldvr"
+ ].join(",")
 
-tp = "Numo::"+class_name
-return_type = ([tp]*(is_complex ? 3 : 4) + ["Integer"]).join(", ")
-return_name = (is_complex ? "w,":"wr, wi,") + " vl, vr, info"
+ tp = "Numo::"+class_name
+ return_type = ([tp]*(is_complex ? 3 : 4) + ["Integer"]).join(", ")
+ return_name = (is_complex ? "w,":"wr, wi,") + " vl, vr, info"
 %>
 */
 #define args_t <%=func_name%>_args_t
@@ -78,19 +78,7 @@ static void
     jobvr='V':  compute the left generalized eigenvectors.
   @return [[<%=return_type%>]] array of [<%=return_name%>]
 
- <%=name%> computes for an N-by-N complex nonsymmetric matrix A, the
- eigenvalues and, optionally, the left and/or right eigenvectors.
-
- The right eigenvector v(j) of A satisfies
-                  A * v(j) = lambda(j) * v(j)
- where lambda(j) is its eigenvalue.
- The left eigenvector u(j) of A satisfies
-               u(j)**H * A = lambda(j) * u(j)**H
- where u(j)**H denotes the conjugate transpose of u(j).
-
- The computed eigenvectors are normalized to have Euclidean norm
- equal to 1 and largest component real.
-
+  <%=description%>
 */
 static VALUE
 <%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -119,8 +107,8 @@ static VALUE
     COPY_OR_CAST_TO(a,cT);
     GetNArray(a, na1);
     CHECK_DIM_GE(na1, 2);
-    m = na1->shape[na1->ndim-2];
-    n = na1->shape[na1->ndim-1];
+    m = ROW_SIZE(na1);
+    n = COL_SIZE(na1);
     if (m != n) {
         rb_raise(nary_eShapeError,"matrix must be square");
     }

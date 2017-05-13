@@ -1,11 +1,4 @@
 /*
-lapack_int LAPACKE_cheev( int matrix_layout, char jobz, char uplo, lapack_int n,
-                          lapack_complex_float* a, lapack_int lda, float* w )
-
-lapack_int LAPACKE_ssyev( int matrix_layout, char jobz, char uplo, lapack_int n,
-                          float* a, lapack_int lda, float* w )
-{
-
 */
 #define args_t <%=func_name%>_args_t
 #define func_p <%=func_name%>_p
@@ -41,7 +34,7 @@ static void
 }
 
 /*
-  @overload <%=name%>(a [,uplo:'u', order:'r'])
+  @overload <%=name%>(a [, jobz:'n', uplo:'u', order:'r'])
   @param [Numo::<%=class_name%>] a >=2-dimentional NArray.
   @param [String,Symbol] jobz
   'N':  Compute eigenvalues only;
@@ -52,15 +45,7 @@ static void
   @param [String,Symbol] order
   @return [[Numo::<%=real_class_name%>,Numo::<%=real_class_name%>,Integer]]  array of [a,w,info].
 
-  <%=name%> - computes all eigenvalues and, optionally, eigenvectors of a
-  complex Hermitian matrix A.
-
-  for an N-by-N real nonsymmetric matrix A.
-  The right eigenvector v(j) of A satisfies
-                        A * v(j) = lambda(j) * v(j)
-  where lambda(j) is its eigenvalue.
-  The computed eigenvectors are normalized to have
-  Euclidean norm equal to 1 and largest component real.
+  <%=description%>
 */
 static VALUE
 <%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -89,8 +74,8 @@ static VALUE
     COPY_OR_CAST_TO(a,cT);
     GetNArray(a, na1);
     CHECK_DIM_GE(na1, 2);
-    m = na1->shape[na1->ndim-2];
-    n = na1->shape[na1->ndim-1];
+    m = ROW_SIZE(na1);
+    n = COL_SIZE(na1);
     if (m != n) {
         rb_raise(nary_eShapeError,"matrix must be square");
     }

@@ -8,18 +8,17 @@
  iary = "Numo::Int"
  iscal = "Integer"
  if is_sdd
-   a = "a [, order:'r', jobz:'a']"
+   a = "a [, jobz:'a', order:'r']"
    n = "a, s, u, vt, info"
    t = [tp,tp,tp,tp,iscal]
  else
-   a = "a [, order:'r', jobu:'a', jobvt:'a']"
+   a = "a [, jobu:'a', jobvt:'a', order:'r']"
    n = "a, s, u, vt, info"
    t = [tp,tp,tp,tp,iscal]
  end
  return_type = t.join(", ")
  return_name = n
  params = a
-
 %>
 */
 #define SDD <%=is_sdd ? "1":"0"%>
@@ -74,7 +73,7 @@ static void
   <%=description%>
 */
 static VALUE
-<%=c_func(-1)%>(int argc, VALUE *argv, VALUE const mod)
+<%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
 {
 #if !SDD
     VALUE tmpbuf;
@@ -119,9 +118,8 @@ static VALUE
 
     GetNArray(a, na1);
     CHECK_DIM_GE(na1, 2);
-    m = na1->shape[na1->ndim-2];
-    n = na1->shape[na1->ndim-1];
-    //lda = n;
+    m = ROW_SIZE(na1);
+    n = COL_SIZE(na1);
     SWAP_IFCOL(g.order,m,n);
 
 #if SDD

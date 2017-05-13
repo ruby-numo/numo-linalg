@@ -1,19 +1,19 @@
 /*
 <%
-aout = [         "{cT,1,shape},{cT,1,shape}",
-  !is_complex && "{cT,1,shape}",
-                 "{cT,2,shape},{cT,2,shape},{cInt,0}"
-].select{|x| x}.join(",")
+ aout = [         "{cT,1,shape},{cT,1,shape}",
+   !is_complex && "{cT,1,shape}",
+                  "{cT,2,shape},{cT,2,shape},{cInt,0}"
+ ].select{|x| x}.join(",")
 
-func_args = [
-  "g->order, g->jobvl, g->jobvr, n, a, lda, b, ldb",
-  is_complex ? "alpha" : "alphar, alphai",
-  "beta, vl, ldvl, vr, ldvr"
-].join(",")
+ func_args = [
+   "g->order, g->jobvl, g->jobvr, n, a, lda, b, ldb",
+   is_complex ? "alpha" : "alphar, alphai",
+   "beta, vl, ldvl, vr, ldvr"
+ ].join(",")
 
-tp = "Numo::"+class_name
-return_type = ([tp]*(is_complex ? 4 : 5) + ["Integer"]).join(", ")
-return_name = (is_complex ? "alpha,":"alphar, alphai,") + " beta, vl, vr, info"
+ tp = "Numo::"+class_name
+ return_type = ([tp]*(is_complex ? 4 : 5)+["Integer"]).join(", ")
+ return_name = (is_complex ? "alpha,":"alphar, alphai,")+" beta, vl, vr, info"
 %>
 */
 #define args_t <%=func_name%>_args_t
@@ -70,7 +70,7 @@ static void
 }
 
 /*
-  @overload <%=name%>(a, b [,jobvl:'v', jobvr:'v'] )
+  @overload <%=name%>(a, b [,jobvl:'v', jobvr:'v', order='r'] )
   @param [Numo::<%=class_name%>] a >=2-dimentional NArray.
   @param [Numo::<%=class_name%>] b >=2-dimentional NArray.
   @param [String,Symbol] jobvl
@@ -81,33 +81,13 @@ static void
     jobvr='V':  compute the left generalized eigenvectors.
   @return [[<%=return_type%>]] array of [<%=return_name%>]
 
- <%= name %> computes for a pair of N-by-N real nonsymmetric matrices (A,B)
- the generalized eigenvalues, and optionally, the left and/or right
- generalized eigenvectors.
-
- A generalized eigenvalue for a pair of matrices (A,B) is a scalar
- lambda or a ratio alpha/beta = lambda, such that A - lambda*B is
- singular. It is usually represented as the pair (alpha,beta), as
- there is a reasonable interpretation for beta=0, and even for both
- being zero.
-
- The right eigenvector v(j) corresponding to the eigenvalue lambda(j)
- of (A,B) satisfies
-
-                  A * v(j) = lambda(j) * B * v(j).
-
- The left eigenvector u(j) corresponding to the eigenvalue lambda(j)
- of (A,B) satisfies
-
-                  u(j)**H * A  = lambda(j) * u(j)**H * B .
-
- where u(j)**H is the conjugate-transpose of u(j).
+ <%= description %>
 */
 static VALUE
 <%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
 {
     VALUE a, b, ans;
-    int   ma, n, mb, nb;
+    int   n, nb;
     narray_t *na1, *na2;
     size_t shape[2];
     ndfunc_arg_in_t ain[2] = {{OVERWRITE,2},{OVERWRITE,2}};
@@ -142,16 +122,10 @@ static VALUE
     GetNArray(b, na2);
     CHECK_DIM_GE(na2, 2);
 
-    ma = na1->shape[na1->ndim-2];
-    n  = na1->shape[na1->ndim-1];
-    if (ma != n) {
-        rb_raise(nary_eShapeError,"matrix a must be square");
-    }
-    mb = na2->shape[na1->ndim-2];
-    nb = na2->shape[na1->ndim-1];
-    if (mb != nb) {
-        rb_raise(nary_eShapeError,"matrix b must be square");
-    }
+    CHECK_SQUARE("matrix a",na1);
+    n  = COL_SIZE(na1);
+    CHECK_SQUARE("matrix b",na2);
+    nb = COL_SIZE(na2);
     if (n != nb) {
         rb_raise(nary_eShapeError,"matrix a and b must have same size");
     }

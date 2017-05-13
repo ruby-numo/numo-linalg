@@ -17,11 +17,11 @@
  iscal = "Integer"
  if is_lsy
    t = [tp,tp,iary,iscal,iscal]
-   a = "a, b, jpvt [, order:'r', rcond:-1]"
+   a = "a, b, jpvt [, rcond:-1, order:'r']"
    n = "a, b, jpvt, rank, info"
  elsif is_lss
    t = [tp,tp,tp,iscal,iscal]
-   a = "a, b, [, order:'r', rcond:-1]"
+   a = "a, b, jpvt [, rcond:-1, order:'r']"
    n = "a, b, s, rank, info"
  else
    t = [tp,tp,iscal]
@@ -112,17 +112,10 @@ static void
 <% end %>
   @return [[<%=return_type%>]] array of [<%=return_name%>]
 
-  <%=name%> - solves overdetermined or underdetermined real linear systems
-  involving an M-by-N matrix A, or its transpose, using a QR or LQ factorization of A.
-  It is assumed that A has full rank.
-
-  1. If m >= n:  find the least squares solution of an overdetermined
-     system, i.e., solve the least squares problem minimize || B - A*X ||.
-
-  2. If m < n:  find the minimum norm solution of an underdetermined system A * X = B.
+  <%=description%>
 */
 static VALUE
-<%=c_func(-1)%>(int argc, VALUE *argv, VALUE const mod)
+<%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
 {
     VALUE a, b, ans;
     int   m, n, nb, nrhs, tmp;
@@ -159,24 +152,23 @@ static VALUE
     g.trans = option_trans(opts[1]);
 #endif
 
-    COPY_OR_CAST_TO(a,cT);
-    COPY_OR_CAST_TO(b,cT);
-
     //A is DOUBLE PRECISION array, dimension (LDA,N)
     //On entry, the M-by-N matrix A.
+    COPY_OR_CAST_TO(a,cT);
     GetNArray(a, na1);
     CHECK_DIM_GE(na1, 2);
 
     //B is DOUBLE PRECISION array, dimension (LDB,NRHS)
     //B is M-by-NRHS if TRANS = 'N'
     //     N-by-NRHS if TRANS = 'T'
+    COPY_OR_CAST_TO(b,cT);
     GetNArray(b, na2);
     CHECK_DIM_GE(na2, 1);
 
     //The number of rows of the matrix A.
-    m = na1->shape[na1->ndim-2];
+    m = ROW_SIZE(na1);
     //The number of columns of the matrix A.
-    n = na1->shape[na1->ndim-1];
+    n = COL_SIZE(na1);
     max_mn = (m > n) ? m : n;
     SWAP_IFCOL(g.order,m,n);
 
@@ -187,7 +179,7 @@ static VALUE
     COPY_OR_CAST_TO(jpvt,cInt);
     GetNArray(jpvt, na3);
     CHECK_DIM_GE(na3, 1);
-    { int jpvt_sz = na3->shape[na3->ndim-1];
+    { int jpvt_sz = COL_SIZE(na3);
       CHECK_INT_EQ("jpvt_size",jpvt_sz,"n",n);
     }
 #elif LSS
@@ -195,16 +187,15 @@ static VALUE
 #endif
 
     //The number of columns of the matrix B.
-    nb = na2->shape[na2->ndim-1];
+    nb = COL_SIZE(na2);
     if (na2->ndim == 1) {
         ain[1].dim = 1; // reduce dimension
         nrhs = 1;
     } else {
         //The number of rows of the matrix B.
-        nrhs = na2->shape[na2->ndim-2];
+        nrhs = ROW_SIZE(na2);
         SWAP_IFCOL(g.order,nb,nrhs);
     }
-
     if (nb < max_mn) {
         rb_raise(nary_eShapeError,
                  "ldb should be >= max(m,n): ldb=%d m=%d n=%d",nb,m,n);

@@ -7,7 +7,7 @@
  iary = "Numo::Int"
  iscal = "Integer"
  if uplo
-   a = "a, b [, order:'r', uplo:'u']"
+   a = "a, b [, uplo:'u', order:'r']"
  else
    a = "a, b [, order:'r']"
  end
@@ -23,6 +23,7 @@
  params = a
 %>
 */
+<% %>
 #define UPLO <%=(/^?ge/!~name) ? "1":"0"%>
 #define IPIV <%=(/^?po/!~name) ? "1":"0"%>
 #define args_t <%=func_name%>_args_t
@@ -79,15 +80,15 @@ static void
   <%=description%>
 */
 static VALUE
-<%=c_func(-1)%>(int argc, VALUE *argv, VALUE const mod)
+<%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
 {
     VALUE a, b, ans;
     narray_t *na1, *na2;
-    size_t n11, n12, n21, n22;
+    size_t n, nb, nrhs;
     ndfunc_arg_in_t ain[2] = {{OVERWRITE,2},{OVERWRITE,2}};
     size_t shape[2];
     ndfunc_arg_out_t aout[2] = {{cInt,1,shape},{cInt,0}};
-    ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 2, 2, ain, aout};
+    ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 2,2, ain,aout};
     args_t g;
     VALUE kw_hash = Qnil;
     ID kw_table[2] = {id_order,id_uplo};
@@ -100,37 +101,35 @@ static VALUE
     g.order = option_order(opts[0]);
     g.uplo = option_uplo(opts[1]);
 
-    a = rb_funcall(cT,rb_intern("cast"),1,a);
-    if (!TEST_INPLACE(a)) {a = na_copy(a);}
-    b = rb_funcall(cT,rb_intern("cast"),1,b);
-    if (!TEST_INPLACE(b)) {b = na_copy(b);}
-
+    COPY_OR_CAST_TO(a,cT);
+    COPY_OR_CAST_TO(b,cT);
     GetNArray(a, na1);
     GetNArray(b, na2);
     CHECK_DIM_GE(na1, 2);
     CHECK_DIM_GE(na2, 1);
-    n11 = na1->shape[na1->ndim-2]; // n
-    n12 = na1->shape[na1->ndim-1]; // n
+    CHECK_SQUARE("matrix a",na1);
+    n = COL_SIZE(na1);
     if (NA_NDIM(na2) == 1) {
         ain[1].dim = 1;
-        n21 = na2->shape[na2->ndim-1]; // n
-        n22 = 1;                       // nrhs
+        nb = COL_SIZE(na2);
+        nrhs = 1;
     } else {
-        n21 = na2->shape[na2->ndim-2]; // n
-        n22 = na2->shape[na2->ndim-1]; // nrhs
+        nb = ROW_SIZE(na2);
+        nrhs = COL_SIZE(na2);
     }
-    if ((n11 != n12) || (n11 != n21)) {
+    if (n != nb) {
         rb_raise(nary_eShapeError, "matrix dimension mismatch: "
-                 "n11=%"SZF"u n12=%"SZF"u n21=%"SZF"u", n11, n12, n21);
+                 "a.col=a.row=%"SZF"u b.row=%"SZF"u", n, nb);
     }
-    shape[0] = n11; // n
-    shape[1] = n22; // nrhs
+    shape[0] = n;
+    shape[1] = nrhs;
 #if !IPIV
-    aout[0] = aout[1];
+    ndf.aout++;
     ndf.nout--;
 #endif
 
     ans = na_ndloop3(&ndf, &g, 2, a, b);
+
 #if IPIV
     return rb_ary_concat(rb_assoc_new(a,b),ans);
 #else
