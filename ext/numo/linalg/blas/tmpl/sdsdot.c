@@ -1,6 +1,6 @@
-#define func_p <%=cblas_func%>_p
+#define func_p <%=func_name%>_p
 
-static <%=cblas_func%>_t func_p = 0;
+static <%=func_name%>_t func_p = 0;
 
 static void
 <%=c_iter%>(na_loop_t *const lp)
@@ -21,22 +21,13 @@ static void
 }
 
 /*
-*  Definition:
-*  ===========
-*
-*       REAL FUNCTION SDSDOT(N,SB,SX,INCX,SY,INCY)
-*
-*       .. Scalar Arguments ..
-*       REAL SB
-*       INTEGER INCX,INCY,N
-*       ..
-*       .. Array Arguments ..
-*       REAL SX(*),SY(*)
-*       ..
-*
-*    PURPOSE
-*    =======
-*
+ *  @overload <%=name%>( sx, sy [, sb:0] )
+ *  @param [Float] sb
+ *  @param [Numo::NArray] sx  >= 1-dimentional NArray.
+ *  @param [Numo::NArray] sy  >= 1-dimentional NArray.
+ *  @return [Numo::NArray]
+ *  @raise
+
 *    Compute the inner product of two vectors with extended
 *    precision accumulation.
 *
@@ -44,32 +35,29 @@ static void
 *    SDSDOT = SB + sum for I = 0 to N-1 of SX(LX+I*INCX)*SY(LY+I*INCY),
 *    where LX = 1 if INCX .GE. 0, else LX = 1+(1-N)*INCX, and LY is
 *    defined in a similar way using INCY.
-*/
-/*
- *  @overload <%=name%>( sb, sx, xy )
- *  @param [Float] sb
- *  @param [Numo::NArray] sx  >= 1-dimentional NArray.
- *  @param [Numo::NArray] sy  >= 1-dimentional NArray.
- *  @return [Numo::NArray]
- *  @raise
- *
- *  <%=name%> forms the dot product of two vectors.
- *  uses unrolled loops for increments equal to one.
+
  */
 static VALUE
-<%=c_func(2)%>(VALUE mod, VALUE sb, VALUE x, VALUE y)
+<%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
 {
-    VALUE     ans;
-    dtype     g[1] = {m_zero};
+    VALUE     x, y, sb;
+    dtype     g[1];
     narray_t *na1, *na2;
-    size_t    nx, ny, shape[1]={1};
+    size_t    nx, ny;
     ndfunc_arg_in_t ain[2] = {{cT,1},{cT,1}};
-    ndfunc_arg_out_t aout[1] = {{<%=result_class%>,0,shape}};
+    ndfunc_arg_out_t aout[1] = {{cT,0}};
     ndfunc_t ndf = {<%=c_iter%>, NDF_EXTRACT, 2,1, ain,aout};
 
-    check_func((void*)(&func_p),"<%=cblas_func%>");
+    VALUE kw_hash = Qnil;
+    ID kw_table[1] = {id_sb};
+    VALUE opts[1] = {Qundef};
 
-    if (RTEST(sb)) {g[0] = m_num_to_data(sb);}
+    CHECK_FUNC(func_p,"<%=func_name%>");
+
+    rb_scan_args(argc, argv, "2:", &x, &y, &kw_hash);
+    rb_get_kwargs(kw_hash, kw_table, 0, 1, opts);
+    sb = option_value(opts[0],Qnil);
+    g[0] = RTEST(sb) ? m_num_to_data(sb) : m_zero;
 
     GetNArray(x,na1);
     GetNArray(y,na2);
@@ -81,8 +69,6 @@ static VALUE
     ny = na2->shape[na2->ndim-1];
     CHECK_SIZE_EQ(nx,ny);
 
-    ans = na_ndloop3(&ndf, g, 2, x, y);
-
-    return ans;
+    return na_ndloop3(&ndf, g, 2, x, y);
 }
 #undef func_p

@@ -1,6 +1,6 @@
-#define func_p <%=cblas_func%>_p
+#define func_p <%=func_name%>_p
 
-static <%=cblas_func%>_t func_p = 0;
+static <%=func_name%>_t func_p = 0;
 
 static void
 <%=c_iter%>(na_loop_t *const lp)
@@ -18,47 +18,23 @@ static void
 }
 
 /*
-*  Definition:
-*  ===========
-*
-*       SUBROUTINE SSWAP(N,SX,INCX,SY,INCY)
-*
-*       .. Scalar Arguments ..
-*       INTEGER INCX,INCY,N
-*       ..
-*       .. Array Arguments ..
-*       REAL SX(*),SY(*)
-*       ..
-*
-*
-*> \par Purpose:
-*  =============
-*>
-*> \verbatim
-*>
-*>    interchanges two vectors.
-*>    uses unrolled loops for increments equal to 1.
-*> \endverbatim
-*
-*/
-/*
  *  @overload <%=name%>( x, y )
  *  @param [Numo::NArray] x  1-dimentional NArray.
  *  @param [Numo::NArray] y  1-dimentional NArray.
  *  @return [nil]
  *  @raise
- *
- *    interchanges two vectors.
- *    uses unrolled loops for increments equal to 1.
- */
+
+<%=description%>
+
+*/
 static VALUE
-<%=c_func(2)%>(VALUE mod, VALUE x, VALUE y)
+<%=c_func(2)%>(VALUE UNUSED(mod), VALUE x, VALUE y)
 {
     narray_t *na1, *na2;
     ndfunc_arg_in_t ain[2] = {{OVERWRITE,0},{OVERWRITE,0}};
     ndfunc_t ndf = {<%=c_iter%>, STRIDE_LOOP, 2,0, ain,0};
 
-    check_func((void*)(&func_p),"<%=cblas_func%>");
+    CHECK_FUNC(func_p,"<%=func_name%>");
 
     CHECK_NARRAY_TYPE(x,cT);
     CHECK_NARRAY_TYPE(y,cT);

@@ -1,10 +1,10 @@
 #! /usr/bin/env ruby
 
-thisdir = File.dirname(__FILE__)
+pwd = File.dirname(__FILE__)
 #libpath = File.absolute_path(File.dirname(__FILE__))+"/../../../../lib"
 #$LOAD_PATH.unshift libpath
 
-require_relative "./blas_def"
+require_relative "./decl"
 
 while true
   if ARGV[0] == "-l"
@@ -28,7 +28,7 @@ end
 blas_char = ARGV[0]
 
 erb_dir = ["../tmpl"]
-erb_dir.map!{|d| File.join(thisdir,d)}
+erb_dir.map!{|d| File.join(pwd,d)}
 
 code = DefLib.new do
   set erb_dir: erb_dir
@@ -48,7 +48,7 @@ code = DefLib.new do
     set full_module_name: "Numo::"+mname
 
     def_module do
-      extend BlasMethod
+      extend Decl
       name = "Blas"
       base = name.downcase
       set ns_var: "m"+mname
@@ -56,10 +56,11 @@ code = DefLib.new do
       set module_name: name
       set module_var: "m"+name
       set full_module_name: "Numo::Linalg::"+name
+      set module_desc: eval(File.read(File.join(pwd,"desc.rb")))
 
       ErbPP.new(self,"def_"+blas_char)
       set blas_char: blas_char
-      eval File.read(File.join(thisdir,"spec.rb")), binding, "spec.rb"
+      eval File.read(File.join(pwd,"spec.rb")), binding, "spec.rb"
     end
   end
 end.result

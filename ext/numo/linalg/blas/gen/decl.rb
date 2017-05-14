@@ -1,7 +1,7 @@
 require_relative './erbpp2'
 
-module BlasMethod
-  def def_blas(meth, tmpl=nil, fn=nil, **h)
+module Decl
+  def decl(meth, tmpl=nil, fn=nil, **h)
     c = get(:blas_char)
     tmpl = meth.dup.gsub(/\?/,"") unless tmpl
     meth = meth.gsub(/\?/,c)

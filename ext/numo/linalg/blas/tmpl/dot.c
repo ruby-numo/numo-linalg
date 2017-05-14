@@ -1,6 +1,6 @@
-#define func_p <%=cblas_func%>_p
+#define func_p <%=func_name%>_p
 
-static <%=cblas_func%>_t func_p = 0;
+static <%=func_name%>_t func_p = 0;
 
 #undef result_dtype
 #define result_dtype <%=result_dtype%>
@@ -27,38 +27,15 @@ static void
 }
 
 /*
-*  Definition:
-*  ===========
-*
-*       DOUBLE PRECISION FUNCTION DDOT(N,DX,INCX,DY,INCY)
-*
-*       .. Scalar Arguments ..
-*       INTEGER INCX,INCY,N
-*       ..
-*       .. Array Arguments ..
-*       DOUBLE PRECISION DX(*),DY(*)
-*       ..
-*
-*
-*> \par Purpose:
-*  =============
-*>
-*> \verbatim
-*>
-*>    DDOT forms the dot product of two vectors.
-*>    uses unrolled loops for increments equal to one.
-*> \endverbatim
-*/
-/*
  *  @overload <%=name%>( x, y )
  *  @param [Numo::NArray] x  >= 1-dimentional NArray.
  *  @param [Numo::NArray] y  >= 1-dimentional NArray.
  *  @return [Numo::NArray]
  *  @raise
- *
- *  <%=name%> forms the dot product of two vectors.
- *  uses unrolled loops for increments equal to one.
- */
+
+<%=description%>
+
+*/
 static VALUE
 <%=c_func(2)%>(VALUE mod, VALUE x, VALUE y)
 {
@@ -69,7 +46,7 @@ static VALUE
     ndfunc_arg_out_t aout[1] = {{<%=result_class%>,0,shape}};
     ndfunc_t ndf = {<%=c_iter%>, NDF_EXTRACT, 2,1, ain,aout};
 
-    check_func((void*)(&func_p),"<%=cblas_func%>");
+    CHECK_FUNC(func_p,"<%=func_name%>");
 
     GetNArray(x,na1);
     GetNArray(y,na2);
@@ -77,8 +54,8 @@ static VALUE
     CHECK_DIM_GE(na2,1);
     CHECK_NON_EMPTY(na1);
     CHECK_NON_EMPTY(na2);
-    nx = na1->shape[na1->ndim-1];
-    ny = na2->shape[na2->ndim-1];
+    nx = COL_SIZE(na1);
+    ny = COL_SIZE(na2);
     CHECK_SIZE_EQ(nx,ny);
 
     ans = na_ndloop(&ndf, 2, x, y);

@@ -40,29 +40,42 @@
 static void *blas_handle = 0;
 static char *blas_prefix = 0;
 
+VALUE
+numo_cblas_option_value(VALUE order, VALUE default_value)
+{
+    switch(TYPE(order)) {
+    case T_NIL:
+    case T_FALSE:
+    case T_UNDEF:
+        return default_value;
+    }
+    return order;
+}
+
 enum CBLAS_ORDER
-numo_cblas_option_order(VALUE trans)
+numo_cblas_option_order(VALUE order)
 {
     int opt;
     char *ptr;
 
-    switch(TYPE(trans)) {
+    switch(TYPE(order)) {
     case T_NIL:
     case T_FALSE:
+    case T_UNDEF:
         return CblasRowMajor;
     case T_TRUE:
         return CblasColMajor;
     case T_FIXNUM:
-        opt = FIX2INT(trans);
+        opt = FIX2INT(order);
         if (opt >= CblasRowMajor && opt <= CblasColMajor) {
             return opt;
         }
         break;
     case T_SYMBOL:
-        trans = rb_sym2str(trans);
+        order = rb_sym2str(order);
     case T_STRING:
-        ptr = RSTRING_PTR(trans);
-        if (RSTRING_LEN(trans) > 0) {
+        ptr = RSTRING_PTR(order);
+        if (RSTRING_LEN(order) > 0) {
             switch(ptr[0]){
             case 'R': case 'r':
                 return CblasRowMajor;
@@ -85,6 +98,7 @@ numo_cblas_option_trans(VALUE trans)
     switch(TYPE(trans)) {
     case T_NIL:
     case T_FALSE:
+    case T_UNDEF:
         return CblasNoTrans;
     case T_TRUE:
         return CblasTrans;
@@ -123,6 +137,7 @@ numo_cblas_option_uplo(VALUE uplo)
     switch(TYPE(uplo)) {
     case T_NIL:
     case T_FALSE:
+    case T_UNDEF:
         return CblasUpper;
     case T_TRUE:
         return CblasLower;
@@ -161,6 +176,7 @@ numo_cblas_option_diag(VALUE diag)
     switch(TYPE(diag)) {
     case T_NIL:
     case T_FALSE:
+    case T_UNDEF:
         return CblasNonUnit;
     case T_TRUE:
         return CblasUnit;
@@ -199,6 +215,7 @@ numo_cblas_option_side(VALUE side)
     switch(TYPE(side)) {
     case T_NIL:
     case T_FALSE:
+    case T_UNDEF:
         return CblasLeft;
     case T_TRUE:
         return CblasRight;

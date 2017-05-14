@@ -1,6 +1,11 @@
-#define func_p <%=cblas_func%>_p
+#define args_t <%=name%>_args_t
 
-static <%=cblas_func%>_t func_p = 0;
+typedef struct {
+    dtype alpha;
+} args_t;
+
+#define func_p <%=func_name%>_p
+static <%=func_name%>_t func_p = 0;
 
 static void
 <%=c_iter%>(na_loop_t *const lp)
@@ -20,52 +25,36 @@ static void
 }
 
 /*
-*  Definition:
-*  ===========
-*
-*       SUBROUTINE SAXPY(N,SA,SX,INCX,SY,INCY)
-*
-*       .. Scalar Arguments ..
-*       REAL SA
-*       INTEGER INCX,INCY,N
-*       ..
-*       .. Array Arguments ..
-*       REAL SX(*),SY(*)
-*       ..
-*
-*
-*> \par Purpose:
-*  =============
-*>
-*> \verbatim
-*>
-*>    SAXPY constant times a vector plus a vector.
-*>    uses unrolled loops for increments equal to one.
-*> \endverbatim
-*/
-/*
- * @overload <%=name%>( alpha, x, y )
+ * @overload <%=name%>( x, y [, alpha:1] )
  * @param [Numo::DFloat] x  >=1-dimentional NArray.
  * @param [Numo::DFloat] y  >=1-dimentional NArray.
  * @return [Numo::DFloat]  return y
  * @raise
- *
- *    constant times a vector plus a vector.
- *    uses unrolled loops for increments equal to one.
+
+<%=description%>
+
 */
 static VALUE
-<%=c_func(3)%>(VALUE mod, VALUE alpha, VALUE x, VALUE y)
+<%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
 {
-    dtype g[1] = {m_one};
+    VALUE x, y, alpha;
     narray_t *na1, *na2;
     ndfunc_arg_in_t ain[2] = {{cT,0},{OVERWRITE,0}};
     ndfunc_t ndf = {<%=c_iter%>, STRIDE_LOOP, 2, 0, ain, 0};
 
-    check_func((void*)(&func_p),"<%=cblas_func%>");
+    dtype g;
+    VALUE kw_hash = Qnil;
+    ID kw_table[1] = {id_alpha};
+    VALUE opts[1] = {Qundef};
 
-    if (RTEST(alpha)) {g[0] = m_num_to_data(alpha);}
+    CHECK_FUNC(func_p,"<%=func_name%>");
 
-    CHECK_NARRAY_TYPE(y,cT);
+    rb_scan_args(argc, argv, "2:", &x, &y, &kw_hash);
+    rb_get_kwargs(kw_hash, kw_table, 0, 1, opts);
+    alpha = option_value(opts[0],Qnil);
+    g     = RTEST(alpha) ? m_num_to_data(alpha) : m_one;
+
+    COPY_OR_CAST_TO(y,cT);
     GetNArray(x,na1);
     GetNArray(y,na2);
     CHECK_DIM_GE(na1,1);
@@ -74,8 +63,9 @@ static VALUE
     CHECK_NON_EMPTY(na2);
     CHECK_SAME_SHAPE(na1,na2);
 
-    na_ndloop3(&ndf, g, 2, x, y);
+    na_ndloop3(&ndf, &g, 2, x, y);
     return y;
 }
 
 #undef func_p
+#undef args_t

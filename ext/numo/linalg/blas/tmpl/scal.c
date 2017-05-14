@@ -1,6 +1,6 @@
-#define func_p <%=cblas_func%>_p
+#define func_p <%=func_name%>_p
 
-static <%=cblas_func%>_t func_p = 0;
+static <%=func_name%>_t func_p = 0;
 
 <% if /^(cs|zd)scal/ =~ name %>
 #define scal_t rtype
@@ -28,37 +28,14 @@ static void
 }
 
 /*
-*  Definition:
-*  ===========
-*
-*       SUBROUTINE SSCAL(N,SA,SX,INCX)
-*
-*       .. Scalar Arguments ..
-*       REAL SA
-*       INTEGER INCX,N
-*       ..
-*       .. Array Arguments ..
-*       REAL SX(*)
-*       ..
-*
-*
-*> \par Purpose:
-*  =============
-*>
-*> \verbatim
-*>
-*>    scales a vector by a constant.
-*>    uses unrolled loops for increment equal to 1.
-*> \endverbatim
-*/
-/*
  *  @overload <%=name%>( a, x )
  *  @param [Float]        a  scale factor
  *  @param [Numo::NArray] x  1-dimentional NArray. [in/out]
  *  @return x
  *  @raise
- *
- *    applies a plane rotation.
+
+<%=description%>
+
  */
 static VALUE
 <%=c_func(2)%>(VALUE mod, VALUE a, VALUE x)
@@ -68,7 +45,7 @@ static VALUE
     ndfunc_arg_in_t ain[1] = {{OVERWRITE,0}};
     ndfunc_t ndf = {<%=c_iter%>, STRIDE_LOOP, 1,0, ain,0};
 
-    check_func((void*)(&func_p),"<%=cblas_func%>");
+    CHECK_FUNC(func_p,"<%=func_name%>");
 
   <% if /^(cs|zd)scal/ =~ name %>
     if (RTEST(a)) {g[0] = NUM2DBL(a);} else {g[0]=1;}

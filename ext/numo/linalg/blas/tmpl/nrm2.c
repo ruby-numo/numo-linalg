@@ -1,6 +1,6 @@
-#define func_p <%=cblas_func%>_p
+#define func_p <%=func_name%>_p
 
-static <%=cblas_func%>_t func_p = 0;
+static <%=func_name%>_t func_p = 0;
 
 #undef result_dtype
 #define result_dtype <%=result_dtype%>
@@ -20,75 +20,24 @@ static void
 }
 
 /*
-*  Definition:
-*  ===========
-*
-*       REAL FUNCTION SNRM2(N,X,INCX)
-*
-*       .. Scalar Arguments ..
-*       INTEGER INCX,N
-*       ..
-*       .. Array Arguments ..
-*       REAL X(*)
-*       ..
-*
-*
-*> \par Purpose:
-*  =============
-*>
-*> \verbatim
-*>
-*> SNRM2 returns the euclidean norm of a vector via the function
-*> name, so that
-*>
-*>    SNRM2 := sqrt( x'*x ).
-*> \endverbatim
-*/
-/*
-*  Definition:
-*  ===========
-*
-*       REAL FUNCTION SCNRM2(N,X,INCX)
-*
-*       .. Scalar Arguments ..
-*       INTEGER INCX,N
-*       ..
-*       .. Array Arguments ..
-*       COMPLEX X(*)
-*       ..
-*
-*
-*> \par Purpose:
-*  =============
-*>
-*> \verbatim
-*>
-*> SCNRM2 returns the euclidean norm of a vector via the function
-*> name, so that
-*>
-*>    SCNRM2 := sqrt( x**H*x )
-*> \endverbatim
-*/
-/*
  *  @overload <%=name%>( x )
  *  @param [Numo::NArray] x  >= 1-dimentional NArray.
  *  @return [Numo::NArray]
  *  @raise
- *
- *  <%=name%> returns the euclidean norm of a vector via the function
- *  name, so that <%=name%> := sqrt( x'*x ).
- */
+
+<%=description%>
+
+*/
 static VALUE
 <%=c_func(1)%>(VALUE mod, VALUE x)
 {
     VALUE     ans;
     narray_t *na1;
-    size_t    shape[1]={1};
     ndfunc_arg_in_t ain[1] = {{cT,1}};
-    ndfunc_arg_out_t aout[1] = {{<%=result_class%>,0,shape}};
+    ndfunc_arg_out_t aout[1] = {{cT,0}};
     ndfunc_t ndf = {<%=c_iter%>, NDF_EXTRACT, 1,1, ain,aout};
 
-    check_func((void*)(&func_p),"<%=cblas_func%>");
+    CHECK_FUNC(func_p,"<%=func_name%>");
 
     GetNArray(x,na1);
     CHECK_DIM_GE(na1,1);

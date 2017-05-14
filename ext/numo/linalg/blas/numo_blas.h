@@ -4,8 +4,11 @@
 
 typedef int blasint;
 
+#define option_value numo_cblas_option_value
+extern VALUE numo_cblas_option_value(VALUE value, VALUE default_value);
+
 #define option_order numo_cblas_option_order
-extern enum CBLAS_ORDER numo_cblas_option_order(VALUE trans);
+extern enum CBLAS_ORDER numo_cblas_option_order(VALUE order);
 
 #define option_trans numo_cblas_option_trans
 extern enum CBLAS_TRANSPOSE numo_cblas_option_trans(VALUE trans);
@@ -21,3 +24,18 @@ extern enum CBLAS_SIDE numo_cblas_option_side(VALUE side);
 
 #define check_func numo_cblas_check_func
 extern void numo_cblas_check_func(void **func, const char *name);
+
+#define SWAP_IFCOL(order,a,b,tmp)                               \
+    { if ((order)==CblasColMajor) {(tmp)=(a);(a)=(b);(b)=(tmp);} }
+
+#define SWAP_IFROW(order,a,b,tmp)                               \
+    { if ((order)==CblasRowMajor) {(tmp)=(a);(a)=(b);(b)=(tmp);} }
+
+#define SWAP_IFCOLTR(order,trans,a,b,tmp)                       \
+    { if (((order)==CblasRowMajor && (trans)!=CblasNoTrans) ||  \
+          ((order)!=CblasRowMajor && (trans)==CblasNoTrans))    \
+            {(tmp)=(a);(a)=(b);(b)=(tmp);}                      \
+    }
+
+#define CHECK_FUNC(fptr, fname)                                 \
+    { if ((fptr)==0) { check_func((void*)(&(fptr)),fname); } }

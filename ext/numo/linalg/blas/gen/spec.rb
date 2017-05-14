@@ -1,3 +1,14 @@
+def_id "order"
+def_id "trans"
+def_id "transa"
+def_id "transb"
+def_id "uplo"
+def_id "diag"
+def_id "side"
+def_id "alpha"
+def_id "beta"
+def_id "sb"
+
 if /[cz]/ =~ blas_char
   def_id "real"
   def_id "imag"
@@ -12,60 +23,90 @@ end
 
 case blas_char
 when /[sd]/
-  def_blas "?dot"
-  def_blas "?nrm2"
-  def_blas "?asum", "nrm2"
+  decl "?dot"
+  decl "?nrm2"
+  decl "?asum", "nrm2"
   if "s" == blas_char
-    def_blas "dsdot", "dot"
-    def_blas "sdsdot"
+    decl "dsdot", "dot"
+    decl "sdsdot"
   end
 when /[cz]/
-  def_blas "?dotc", "dot", "?dotc_sub"
-  def_blas "?dotu", "dot", "?dotu_sub"
-  def_blas real_char+"?nrm2", "nrm2"
-  def_blas real_char+"?asum", "nrm2"
+  decl "?dotc", "dot", "?dotc_sub"
+  decl "?dotu", "dot", "?dotu_sub"
+  decl real_char+"?nrm2", "nrm2"
+  decl real_char+"?asum", "nrm2"
 end
 
-def_blas "?swap"
-def_blas "?copy"
-def_blas "?axpy"
+decl "?swap"
+decl "?copy"
+decl "?axpy"
 
 case blas_char
 when /[sd]/
-  def_blas "?rot"
-  def_blas "?rotm"
+  decl "?rot"
+  decl "?rotm"
 else
-  #def_blas blas_char+real_char+"rot", "rot"
+  #decl blas_char+real_char+"rot", "rot"
 end
 
-def_blas "?scal"
+decl "?scal"
 case blas_char
 when /[cz]/
-  def_blas blas_char+real_char+"scal", "scal"
+  decl blas_char+real_char+"scal", "scal"
 end
 
 # level-2 blas
-def_blas "?gemv"
-def_blas "?trmv"
+decl "?gemv", "mv"
+decl "?trmv", "mv"
 case blas_char
 when /[sd]/
-  def_blas "?ger"
-  def_blas "?syr"
-  def_blas "?syr2"
+  decl "?symv", "mv"
+  decl "?ger"
+  decl "?syr"
+  decl "?syr2"
 when /[cz]/
-  def_blas "?hemv"
-  def_blas "?gerc", "ger"
-  def_blas "?geru", "ger"
-  def_blas "?her",  "syr"
-  def_blas "?her2", "syr2"
+  decl "?hemv", "mv"
+  decl "?gerc", "ger"
+  decl "?geru", "ger"
+  decl "?her",  "syr"
+  decl "?her2", "syr2"
 end
 
 # level-3 blas
-def_blas "?gemm"
-def_blas "?symm"
+decl "?gemm", "mm"
+decl "?symm", "mm"
 case blas_char
 when /[cz]/
-  def_blas "?hemm", "symm"
+  decl "?hemm", "mm"
 end
-def_blas "?syrk"
-def_blas "?syr2k"
+decl "?syrk"
+decl "?syr2k"
+
+
+if false
+decl "?gemm", "mm"
+decl "?symm", "mm"
+
+case blas_char
+when /[cz]/
+  decl "?hemm", "mm"
+end
+
+decl "?gemv", "mv"
+decl "?trmv", "mv"
+case blas_char
+when /[sd]/
+  decl "?symv", "mv"
+when /[cz]/
+  decl "?hemv", "mv"
+end
+
+case blas_char
+when /[sd]/
+  decl "?ger"
+  decl "?syrk"
+when /[cz]/
+  decl "?gerc", "ger"
+  decl "?herk", "syrk"
+end
+end
