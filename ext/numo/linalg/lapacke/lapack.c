@@ -48,15 +48,15 @@ static char *lapack_prefix = 0;
 
 
 VALUE
-numo_lapacke_option_value(VALUE order, VALUE default_value)
+numo_lapacke_option_value(VALUE value, VALUE default_value)
 {
-    switch(TYPE(order)) {
+    switch(TYPE(value)) {
     case T_NIL:
-    case T_FALSE:
     case T_UNDEF:
+    case T_FALSE:
         return default_value;
     }
-    return order;
+    return value;
 }
 
 int
@@ -67,8 +67,8 @@ numo_lapacke_option_order(VALUE order)
 
     switch(TYPE(order)) {
     case T_NIL:
-    case T_FALSE:
     case T_UNDEF:
+    case T_FALSE:
         return LAPACK_ROW_MAJOR;
     case T_TRUE:
         return LAPACK_COL_MAJOR;
@@ -97,15 +97,17 @@ numo_lapacke_option_order(VALUE order)
 }
 
 char
-numo_lapacke_option_job(VALUE job, char default_char)
+numo_lapacke_option_job(VALUE job, char true_char, char false_char)
 {
     char *ptr, c;
 
     switch(TYPE(job)) {
     case T_NIL:
-    case T_FALSE:
     case T_UNDEF:
-        return default_char;
+    case T_TRUE:
+        return true_char;
+    case T_FALSE:
+        return false_char;
     case T_SYMBOL:
         job = rb_sym2str(job);
     case T_STRING:
@@ -131,8 +133,8 @@ numo_lapacke_option_trans(VALUE trans)
 
     switch(TYPE(trans)) {
     case T_NIL:
-    case T_FALSE:
     case T_UNDEF:
+    case T_FALSE:
         return 'N';
     case T_TRUE:
         return 'T';
@@ -170,10 +172,10 @@ numo_lapacke_option_uplo(VALUE uplo)
 
     switch(TYPE(uplo)) {
     case T_NIL:
-    case T_FALSE:
     case T_UNDEF:
-        return 'U';
     case T_TRUE:
+        return 'U';
+    case T_FALSE:
         return 'L';
     case T_FIXNUM:
         opt = FIX2INT(uplo);
@@ -209,8 +211,8 @@ numo_lapacke_option_diag(VALUE diag)
 
     switch(TYPE(diag)) {
     case T_NIL:
-    case T_FALSE:
     case T_UNDEF:
+    case T_FALSE:
         return 'N';
     case T_TRUE:
         return 'U';
@@ -248,8 +250,8 @@ numo_lapacke_option_side(VALUE side)
 
     switch(TYPE(side)) {
     case T_NIL:
-    case T_FALSE:
     case T_UNDEF:
+    case T_FALSE:
         return 'L';
     case T_TRUE:
         return 'R';

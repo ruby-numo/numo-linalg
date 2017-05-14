@@ -1,5 +1,4 @@
-/*
-<%
+/*<%
  is_sdd = (/gesdd/ =~ name)
  job = (is_sdd) ? "g->jobz" : "g->jobu, g->jobvt"
  spb = (is_sdd) ? "" : ", g->superb"
@@ -19,8 +18,7 @@
  return_type = t.join(", ")
  return_name = n
  params = a
-%>
-*/
+%>*/
 #define SDD <%=is_sdd ? "1":"0"%>
 #define args_t <%=func_name%>_args_t
 #define func_p <%=func_name%>_p
@@ -71,6 +69,7 @@ static void
   @return [[<%=return_type%>]] array of [<%=return_name%>]
 
   <%=description%>
+
 */
 static VALUE
 <%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -98,11 +97,11 @@ static VALUE
     rb_get_kwargs(kw_hash, kw_table, 0, 4, opts);
     g.order = option_order(opts[0]);
 #if SDD
-    g.jobz = option_job(opts[3],'A');
+    g.jobz = option_job(opts[3],'A','N');
     g.jobu = g.jobvt = g.jobz;
 #else
-    g.jobu  = option_job(opts[1],'A');
-    g.jobvt = option_job(opts[2],'A');
+    g.jobu  = option_job(opts[1],'A','N');
+    g.jobvt = option_job(opts[2],'A','N');
     if (g.jobu=='O' && g.jobvt=='O') {
         rb_raise(rb_eArgError,"JOBVT and JOBU cannot both be 'O'");
     }

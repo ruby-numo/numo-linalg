@@ -1,5 +1,4 @@
-/*
-<%
+/*<%
  has_uplo = (/^.(sy|he|po)/ =~ name)
  has_piv  = ((/tr(f|i)/ =~ name && /potr/ !~ name) || /geqp3/ =~ name)
  has_tau  = (/q/ =~ name || /tzrzf/ =~ name)
@@ -34,11 +33,10 @@
  ].select{|x| x}.join(", ")
 
  args_opt = [
-   "order:'r'",
    has_uplo && "uplo:'u'",
+   "order:'r'",
  ].select{|x| x}.join(", ")
-%>
-*/
+%>*/
 <% %>
 #define UPLO <%= has_uplo ? "1":"0" %>
 #define PIV  <%= has_piv ? "1":"0" %>
@@ -99,6 +97,7 @@ static void
   @return [[<%=return_type%>]] array of [<%=return_name%>]
 
  <%=description%>
+
 */
 static VALUE
 <%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))

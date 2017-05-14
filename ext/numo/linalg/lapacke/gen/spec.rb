@@ -23,56 +23,56 @@ end
 
 #--
 
-def_lpk "?gesv"
-def_lpk "?sysv", "gesv"
-def_lpk "?posv", "gesv"
+decl "?gesv"
+decl "?sysv", "gesv"
+decl "?posv", "gesv"
 case blas_char
 when /c|z/
-  def_lpk "?hesv", "gesv"
+  decl "?hesv", "gesv"
 end
 
-def_lpk "?gesvd"
-def_lpk "?gesdd", "gesvd"
+decl "?gesvd"
+decl "?gesdd", "gesvd"
 
-def_lpk "?gels"
-def_lpk "?gelss", "gels"
-def_lpk "?gelsd", "gels"
-def_lpk "?gelsy", "gels"
+decl "?gels"
+decl "?gelss", "gels"
+decl "?gelsd", "gels"
+decl "?gelsy", "gels"
 
-def_lpk "?geev"
-def_lpk "?ggev"
+decl "?geev"
+decl "?ggev"
 
 case blas_char
 when /c|z/
-  def_lpk "?heev", "syev"
-  def_lpk "?heevd", "syev"
-  def_lpk "?hegv", "sygv"
-  def_lpk "?hegvd", "sygv"
+  decl "?heev", "syev"
+  decl "?heevd", "syev"
+  decl "?hegv", "sygv"
+  decl "?hegvd", "sygv"
 else
-  def_lpk "?syev"
-  def_lpk "?syevd", "syev"
-  def_lpk "?sygv"
-  def_lpk "?sygvd", "sygv"
+  decl "?syev"
+  decl "?syevd", "syev"
+  decl "?sygv"
+  decl "?sygvd", "sygv"
 end
 
-def_lpk "?geqrf", "fact"
-def_lpk "?gerqf", "fact"
-def_lpk "?geqlf", "fact"
-def_lpk "?gelqf", "fact"
+decl "?geqrf", "fact"
+decl "?gerqf", "fact"
+decl "?geqlf", "fact"
+decl "?gelqf", "fact"
 
-def_lpk "?geqp3", "fact"
-def_lpk "?tzrzf", "fact"
+decl "?geqp3", "fact"
+decl "?tzrzf", "fact"
 
-def_lpk "?getrf", "fact"
-def_lpk "?sytrf", "fact"
-def_lpk "?potrf", "fact"
+decl "?getrf", "fact"
+decl "?sytrf", "fact"
+decl "?potrf", "fact"
 
-def_lpk "?getri", "fact"
-def_lpk "?sytri", "fact"
-def_lpk "?potri", "fact"
+decl "?getri", "fact"
+decl "?sytri", "fact"
+decl "?potri", "fact"
 
 case blas_char
 when /c|z/
-  def_lpk "?hetrf", "fact"
-  def_lpk "?hetri", "fact"
+  decl "?hetrf", "fact"
+  decl "?hetri", "fact"
 end

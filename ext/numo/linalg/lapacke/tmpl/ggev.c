@@ -1,5 +1,4 @@
-/*
-<%
+/*<%
  aout = [         "{cT,1,shape},{cT,1,shape}",
    !is_complex && "{cT,1,shape}",
                   "{cT,2,shape},{cT,2,shape},{cInt,0}"
@@ -14,8 +13,7 @@
  tp = "Numo::"+class_name
  return_type = ([tp]*(is_complex ? 4 : 5)+["Integer"]).join(", ")
  return_name = (is_complex ? "alpha,":"alphar, alphai,")+" beta, vl, vr, info"
-%>
-*/
+%>*/
 #define args_t <%=func_name%>_args_t
 #define func_p <%=func_name%>_p
 
@@ -70,7 +68,7 @@ static void
 }
 
 /*
-  @overload <%=name%>(a, b [,jobvl:'v', jobvr:'v', order='r'] )
+  @overload <%=name%>(a, b [,jobvl:'v', jobvr:'v', order:'r'] )
   @param [Numo::<%=class_name%>] a >=2-dimentional NArray.
   @param [Numo::<%=class_name%>] b >=2-dimentional NArray.
   @param [String,Symbol] jobvl
@@ -82,6 +80,7 @@ static void
   @return [[<%=return_type%>]] array of [<%=return_name%>]
 
  <%= description %>
+
 */
 static VALUE
 <%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -111,8 +110,8 @@ static VALUE
     rb_scan_args(argc, argv, "2:", &a, &b, &kw_hash);
     rb_get_kwargs(kw_hash, kw_table, 0, 3, opts);
     g.order = option_order(opts[0]);
-    g.jobvl = option_job(opts[1],'V');
-    g.jobvr = option_job(opts[2],'V');
+    g.jobvl = option_job(opts[1],'V','N');
+    g.jobvr = option_job(opts[2],'V','N');
 
     COPY_OR_CAST_TO(a,cT);
     GetNArray(a, na1);

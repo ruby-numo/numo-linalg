@@ -1,5 +1,3 @@
-/*
-*/
 #define args_t <%=func_name%>_args_t
 #define func_p <%=func_name%>_p
 
@@ -54,6 +52,7 @@ static void
   @return [[Numo::<%=real_class_name%>,Numo::<%=real_class_name%>,Integer]]  array of [a,b,w,info].
 
   <%=description%>
+
 */
 static VALUE
 <%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -76,7 +75,7 @@ static VALUE
     rb_scan_args(argc, argv, "2:", &a, &b, &kw_hash);
     rb_get_kwargs(kw_hash, kw_table, 0, 4, opts);
     g.order = option_order(opts[0]);
-    g.jobz = option_job(opts[1],'V');
+    g.jobz = option_job(opts[1],'V','N');
     g.uplo = option_uplo(opts[2]);
     g.itype = NUM2INT(option_value(opts[3],INT2FIX(1)));
 

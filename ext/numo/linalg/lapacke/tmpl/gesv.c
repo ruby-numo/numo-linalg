@@ -1,5 +1,4 @@
-/*
-<%
+/*<%
  uplo = (/^?ge/=~name) ? nil : "g->uplo,"
  ipiv = (/^?po/=~name) ? nil : "ipiv,"
 
@@ -21,8 +20,7 @@
  return_type = t.join(", ")
  return_name = n
  params = a
-%>
-*/
+%>*/
 <% %>
 #define UPLO <%=(/^?ge/!~name) ? "1":"0"%>
 #define IPIV <%=(/^?po/!~name) ? "1":"0"%>
@@ -78,6 +76,7 @@ static void
   @return [[<%=return_type%>]] array of [<%=return_name%>]
 
   <%=description%>
+
 */
 static VALUE
 <%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))

@@ -1,5 +1,4 @@
-/*
-<%
+/*<%
  is_lss = (/gels(s|d|y)/ =~ name)
  is_lsd = (/gelsd/ =~ name)
  is_lsy = (/gelsy/ =~ name)
@@ -25,7 +24,7 @@
    n = "a, b, s, rank, info"
  else
    t = [tp,tp,iscal]
-   a = "a, b, [, order:'r']"
+   a = "a, b [, order:'r']"
    n = "a, b, info"
  end
  return_type = t.join(", ")
@@ -39,8 +38,7 @@
  aout = [
    is_lss && "{cT,1,shape_s},{cInt,0}", "{cInt,0}"
  ].select{|x| x}.join(",")
-%>
-*/
+%>*/
 <% %>
 #define LSS <%=is_lss ? "1":"0"%>
 #define LSD <%=is_lsd ? "1":"0"%>
@@ -113,6 +111,7 @@ static void
   @return [[<%=return_type%>]] array of [<%=return_name%>]
 
   <%=description%>
+
 */
 static VALUE
 <%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
