@@ -2,42 +2,6 @@
  is_lss = (/gels(s|d|y)/ =~ name)
  is_lsd = (/gelsd/ =~ name)
  is_lsy = (/gelsy/ =~ name)
-
- if is_lsy
-   out_t = "int"    # jpvt
-   cOut = "cInt"
- else
-   out_t = "rtype"  # s
-   cOut = "cRT"
- end
-
- tp = "Numo::"+class_name
- iary = "Numo::Int"
- iscal = "Integer"
- if is_lsy
-   t = [tp,tp,iary,iscal,iscal]
-   a = "a, b, jpvt [, rcond:-1, order:'r']"
-   n = "a, b, jpvt, rank, info"
- elsif is_lss
-   t = [tp,tp,tp,iscal,iscal]
-   a = "a, b, jpvt [, rcond:-1, order:'r']"
-   n = "a, b, s, rank, info"
- else
-   t = [tp,tp,iscal]
-   a = "a, b [, order:'r']"
-   n = "a, b, info"
- end
- return_type = t.join(", ")
- return_name = n
- params = a
-
- ain = [
-   "{OVERWRITE,2},{OVERWRITE,2}", is_lss && "{cInt,1}"
- ].select{|x| x}.join(",")
-
- aout = [
-   is_lss && "{cT,1,shape_s},{cInt,0}", "{cInt,0}"
- ].select{|x| x}.join(",")
 %>*/
 <% %>
 #define LSS <%=is_lss ? "1":"0"%>
@@ -62,6 +26,7 @@ static void
     int    m, n, nb, nrhs, lda, ldb, tmp;
     args_t *g;
 #if LSS
+    <% out_t = is_lsy ? "int" : "rtype" %>
     <%=out_t%> *s; // or jpvt
     int   *rank;
 #endif
@@ -75,18 +40,18 @@ static void
     info = (int*)NDL_PTR(lp,2+LSS*2);
     g = (args_t*)(lp->opt_ptr);
 
-    m = lp->args[0].shape[0];
-    n = lp->args[0].shape[1];
+    m = NDL_SHAPE(lp,0)[0];
+    n = NDL_SHAPE(lp,0)[1];
     SWAP_IFCOL(g->order,m,n);
-    lda = lp->args[0].iter[0].step / sizeof(dtype);
+    lda = NDL_STEP(lp,0) / sizeof(dtype);
 
     if (lp->args[1].ndim == 1) {
         nrhs = 1;
-        nb = lp->args[1].shape[0];
+        nb = NDL_SHAPE(lp,1)[0];
         ldb = (g->order==LAPACK_COL_MAJOR) ? nb : 1;
     } else {
-        nrhs = lp->args[1].shape[0];
-        nb = lp->args[1].shape[1];
+        nrhs = NDL_SHAPE(lp,1)[0];
+        nb = NDL_SHAPE(lp,1)[1];
         ldb = nrhs;
         SWAP_IFCOL(g->order,nb,nrhs);
     }
@@ -102,6 +67,27 @@ static void
 }
 
 /*
+<%
+ tp = "Numo::"+class_name
+ iary = "Numo::Int"
+ iscal = "Integer"
+ if is_lsy
+   t = [tp,tp,iary,iscal,iscal]
+   a = "a, b, jpvt [, rcond:-1, order:'r']"
+   n = "a, b, jpvt, rank, info"
+ elsif is_lss
+   t = [tp,tp,tp,iscal,iscal]
+   a = "a, b, jpvt [, rcond:-1, order:'r']"
+   n = "a, b, s, rank, info"
+ else
+   t = [tp,tp,iscal]
+   a = "a, b [, order:'r']"
+   n = "a, b, info"
+ end
+ return_type = t.join(", ")
+ return_name = n
+ params = a
+%>
   @overload <%=name%>(<%=params%>)
   @param [<%=tp%>] a  >=2-dimentional NArray.
   @param [<%=tp%>] b  >=2-dimentional NArray.
@@ -127,6 +113,14 @@ static VALUE
 #if LSS
     size_t shape_s[1];
 #endif
+    /*<%
+      ain = [
+        "{OVERWRITE,2},{OVERWRITE,2}", is_lss ? "{cInt,1}":nil,
+      ].compact.join(",")
+      aout = [
+        is_lss ? "{cT,1,shape_s},{cInt,0}":nil, "{cInt,0}",
+      ].compact.join(",")
+    %>*/
     ndfunc_arg_in_t ain[2+LSS] = {<%=ain%>};
     ndfunc_arg_out_t aout[1+LSS*2] = {<%=aout%>};
     ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 2, 1+LSS*2, ain, aout};

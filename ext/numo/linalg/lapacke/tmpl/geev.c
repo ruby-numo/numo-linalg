@@ -1,19 +1,3 @@
-/*<%
- aout = [         "{cT,1,shape}",
-   !is_complex && "{cT,1,shape}",
-                  "{cT,2,shape},{cT,2,shape},{cInt,0}"
- ].select{|x| x}.join(",")
-
- func_args = [
-   "g->order, g->jobvl, g->jobvr, n, a, lda",
-   is_complex ? "w" : "wr, wi",
-   "vl, ldvl, vr, ldvr"
- ].join(",")
-
- tp = "Numo::"+class_name
- return_type = ([tp]*(is_complex ? 3 : 4) + ["Integer"]).join(", ")
- return_name = (is_complex ? "w,":"wr, wi,") + " vl, vr, info"
-%>*/
 #define args_t <%=func_name%>_args_t
 #define func_p <%=func_name%>_p
 
@@ -39,33 +23,40 @@ static void
 
     a = (dtype*)NDL_PTR(lp,0);
 #if IS_COMPLEX
-#define N 0
     w = (dtype*)NDL_PTR(lp,1);
 #else
-#define N 1
     wr = (dtype*)NDL_PTR(lp,1);
     wi = (dtype*)NDL_PTR(lp,2);
 #endif
-    vl = (dtype*)NDL_PTR(lp,N+2);
-    vr = (dtype*)NDL_PTR(lp,N+3);
-    info = (int*)NDL_PTR(lp,N+4);
+    vl = (dtype*)NDL_PTR(lp,3-CZ);
+    vr = (dtype*)NDL_PTR(lp,4-CZ);
+    info = (int*)NDL_PTR(lp,5-CZ);
     g = (args_t*)(lp->opt_ptr);
 
-    n = lp->args[0].shape[1];
-    lda = lp->args[0].iter[0].step / sizeof(dtype);
-    ldvl = lp->args[N+2].iter[0].step / sizeof(dtype);
+    n = NDL_SHAPE(lp,0)[1];
+    lda = NDL_STEP(lp,0) / sizeof(dtype);
+    ldvl = NDL_STEP(lp,3-CZ) / sizeof(dtype);
     if (ldvl == 0) { ldvl = n; } // jobvt == 'N'
-    ldvr = lp->args[N+3].iter[0].step / sizeof(dtype);
+    ldvr = NDL_STEP(lp,4-CZ) / sizeof(dtype);
     if (ldvr == 0) { ldvr = n; } // jobvt == 'N'
 
     //printf("order=%d jobvl=%c jobvr=%c n=%d lda=%d ldvl=%d ldvr=%d\n",g->order,g->jobvl, g->jobvr, n, lda,ldvl,ldvr);
 
-    *info = (*func_p)( <%=func_args%> );
+    /*<% func_args = [
+      "g->order, g->jobvl, g->jobvr, n, a, lda",
+      is_complex ? "w" : "wr, wi",
+      "vl, ldvl, vr, ldvr"
+    ].join(",") %>*/
+    *info = (*func_p)(<%=func_args%>);
     CHECK_ERROR(*info);
 }
 
-/*
-  @overload <%=name%>(a, b [,jobvl:'v', jobvr:'v', order:'r'] )
+/*<%
+ tp = "Numo::"+class_name
+ return_type = ([tp]*(is_complex ? 3 : 4) + ["Integer"]).join(", ")
+ return_name = (is_complex ? "w,":"wr, wi,") + " vl, vr, info"
+%>
+  @overload <%=name%>( a, b [,jobvl:'v', jobvr:'v', order:'r'] )
   @param [Numo::<%=class_name%>] a >=2-dimentional NArray.
   @param [Numo::<%=class_name%>] b >=2-dimentional NArray.
   @param [String,Symbol] jobvl
@@ -85,10 +76,16 @@ static VALUE
     VALUE a, ans;
     int   m, n;
     narray_t *na1;
+    /*<%
+    aout = [
+      "{cT,1,shape}", !is_complex ? "{cT,1,shape}":nil,
+      "{cT,2,shape},{cT,2,shape},{cInt,0}"
+    ].compact.join(",")
+    %>*/
     size_t shape[2];
     ndfunc_arg_in_t ain[1] = {{OVERWRITE,2}};
-    ndfunc_arg_out_t aout[N+4] = {<%=aout%>};
-    ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 1, N+4, ain, aout};
+    ndfunc_arg_out_t aout[5-CZ] = {<%=aout%>};
+    ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 1, 5-CZ, ain, aout};
 
     args_t g = {0,0,0};
     VALUE opts[3] = {Qundef,Qundef,Qundef};
@@ -112,16 +109,15 @@ static VALUE
         rb_raise(nary_eShapeError,"matrix must be square");
     }
     shape[0] = shape[1] = n;
-    if (g.jobvl=='N') { aout[N+1].dim = 0; }
-    if (g.jobvr=='N') { aout[N+2].dim = 0; }
+    if (g.jobvl=='N') { aout[2-CZ].dim = 0; }
+    if (g.jobvr=='N') { aout[3-CZ].dim = 0; }
 
     ans = na_ndloop3(&ndf, &g, 1, a);
 
-    if (aout[N+2].dim == 0) { RARRAY_ASET(ans,N+2,Qnil); }
-    if (aout[N+1].dim == 0) { RARRAY_ASET(ans,N+1,Qnil); }
+    if (aout[3-CZ].dim == 0) { RARRAY_ASET(ans,3-CZ,Qnil); }
+    if (aout[2-CZ].dim == 0) { RARRAY_ASET(ans,2-CZ,Qnil); }
     return ans;
 }
 
-#undef N
 #undef args_t
 #undef func_p

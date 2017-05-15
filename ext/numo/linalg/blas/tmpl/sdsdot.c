@@ -13,7 +13,7 @@ static void
     INIT_PTR(lp,0,p1,s1);
     INIT_PTR(lp,1,p2,s2);
     p3 = NDL_PTR(lp,2);
-    n  = lp->args[0].shape[0];
+    n  = NDL_SHAPE(lp,0)[0];
     g  = (dtype*)(lp->opt_ptr);
 
     *(dtype*)p3 = (*func_p)(n, *g, (dtype*)p1, s1/sizeof(dtype),

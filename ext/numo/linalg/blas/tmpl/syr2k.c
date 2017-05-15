@@ -24,9 +24,9 @@ static void
     c = (dtype*)NDL_PTR(lp,2);
     g = (args_t*)(lp->opt_ptr);
 
-    lda = lp->args[0].iter[0].step / sizeof(dtype);
-    ldb = lp->args[1].iter[0].step / sizeof(dtype);
-    ldc = lp->args[2].iter[0].step / sizeof(dtype);
+    lda = NDL_STEP(lp,0) / sizeof(dtype);
+    ldb = NDL_STEP(lp,1) / sizeof(dtype);
+    ldc = NDL_STEP(lp,2) / sizeof(dtype);
 
     (*func_p)(g->order, g->uplo, g->trans, g->n, g->k,
               DP(g->alpha), a, lda, b, ldb, DP(g->beta), c, ldc);

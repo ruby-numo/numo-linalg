@@ -23,8 +23,8 @@ static void
     c = (dtype*)NDL_PTR(lp,1);
     g = (args_t*)(lp->opt_ptr);
 
-    lda = lp->args[0].iter[0].step / sizeof(dtype);
-    ldc = lp->args[1].iter[0].step / sizeof(dtype);
+    lda = NDL_STEP(lp,0) / sizeof(dtype);
+    ldc = NDL_STEP(lp,1) / sizeof(dtype);
 
     (*func_p)(g->order, g->uplo, g->trans, g->n, g->k,
               DP(g->alpha), a, lda, DP(g->beta), c, ldc);

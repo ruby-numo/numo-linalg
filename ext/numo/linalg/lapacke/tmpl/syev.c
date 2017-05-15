@@ -22,8 +22,8 @@ static void
     info = (int*)NDL_PTR(lp,2);
     g = (args_t*)(lp->opt_ptr);
 
-    n = lp->args[0].shape[1];
-    lda = lp->args[0].iter[0].step / sizeof(dtype);
+    n = NDL_SHAPE(lp,0)[1];
+    lda = NDL_STEP(lp,0) / sizeof(dtype);
 
     //printf("order=%d jobz=%c uplo=%c n=%d lda=%d\n",g->order,g->jobz,g->uplo,n,lda);
 

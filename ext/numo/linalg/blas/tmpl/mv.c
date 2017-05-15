@@ -44,9 +44,9 @@ static void
     g = (args_t*)(lp->opt_ptr);
 
 #if !GE
-    n = lp->args[0].shape[1];
+    n = NDL_SHAPE(lp,0)[1];
 #endif
-    lda = lp->args[0].iter[0].step / sizeof(dtype);
+    lda = NDL_STEP(lp,0) / sizeof(dtype);
 
 #if GE
     (*func_p)( g->order, g->trans, g->m, g->n,

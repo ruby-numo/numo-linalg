@@ -1,24 +1,4 @@
-/*<%
- is_sdd = (/gesdd/ =~ name)
- job = (is_sdd) ? "g->jobz" : "g->jobu, g->jobvt"
- spb = (is_sdd) ? "" : ", g->superb"
-
- tp = "Numo::"+class_name
- iary = "Numo::Int"
- iscal = "Integer"
- if is_sdd
-   a = "a [, jobz:'a', order:'r']"
-   n = "a, s, u, vt, info"
-   t = [tp,tp,tp,tp,iscal]
- else
-   a = "a [, jobu:'a', jobvt:'a', order:'r']"
-   n = "a, s, u, vt, info"
-   t = [tp,tp,tp,tp,iscal]
- end
- return_type = t.join(", ")
- return_name = n
- params = a
-%>*/
+//<% is_sdd = (/gesdd/ =~ name) %>
 #define SDD <%=is_sdd ? "1":"0"%>
 #define args_t <%=func_name%>_args_t
 #define func_p <%=func_name%>_p
@@ -47,23 +27,43 @@ static void
     info = (int*)NDL_PTR(lp,4);
     g = (args_t*)(lp->opt_ptr);
 
-    m = lp->args[0].shape[0];
-    n = lp->args[0].shape[1];
+    m = NDL_SHAPE(lp,0)[0];
+    n = NDL_SHAPE(lp,0)[1];
     SWAP_IFCOL(g->order,m,n);
-    lda = lp->args[0].iter[0].step / sizeof(dtype);
-    ldu = lp->args[2].iter[0].step / sizeof(dtype);
+    lda = NDL_STEP(lp,0) / sizeof(dtype);
+    ldu = NDL_STEP(lp,2) / sizeof(dtype);
     if (ldu == 0) { ldu = m; } // jobu == 'O' or 'N'
-    ldvt = lp->args[3].iter[0].step / sizeof(dtype);
+    ldvt = NDL_STEP(lp,3) / sizeof(dtype);
     if (ldvt == 0) { ldvt = n; } // jobvt == 'O' or 'N'
 
     //printf("order=%d jobu=%c jobvt=%c jobz=%c m=%d n=%d lda=%d ldu=%d ldvt=%d\n",g->order,g->jobu, g->jobvt,g->jobz, m,n,lda,ldu,ldvt);
 
+    /*<%
+    job = (is_sdd) ? "g->jobz" : "g->jobu, g->jobvt"
+    spb = (is_sdd) ? "" : ", g->superb"
+    %>*/
     *info = (*func_p)( g->order, <%=job%>, m, n, a, lda, s,
                        u, ldu, vt, ldvt <%=spb%> );
     CHECK_ERROR(*info);
 }
 
-/*
+/*<%
+ tp = "Numo::"+class_name
+ iary = "Numo::Int"
+ iscal = "Integer"
+ if is_sdd
+   a = "a [, jobz:'a', order:'r']"
+   n = "a, s, u, vt, info"
+   t = [tp,tp,tp,tp,iscal]
+ else
+   a = "a [, jobu:'a', jobvt:'a', order:'r']"
+   n = "a, s, u, vt, info"
+   t = [tp,tp,tp,tp,iscal]
+ end
+ return_type = t.join(", ")
+ return_name = n
+ params = a
+%>
   @overload <%=name%>(<%=params%>)
   @param [<%=tp%>] a  >=2-dimentional NArray.
   @return [[<%=return_type%>]] array of [<%=return_name%>]

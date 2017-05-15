@@ -3,39 +3,6 @@
  has_piv  = ((/tr(f|i)/ =~ name && /potr/ !~ name) || /geqp3/ =~ name)
  has_tau  = (/q/ =~ name || /tzrzf/ =~ name)
  symmetric = (has_uplo || /getri/=~name)
-
- aout = [
-   has_piv && "{cInt,1,shape_piv}",
-   has_tau && "{cT,1,shape_tau}",
-              "{cInt,0}",
- ].select{|x| x}.join(",")
-
- func_args = [   "g->order",
-   has_uplo   && "g->uplo",
-   !symmetric && "m",
-                 "n, a, lda",
-   has_piv    && "ipiv",
-   has_tau    && "tau",
- ].select{|x| x}.join(", ")
-
- return_type = [
-   "Numo::"+class_name,
-   has_piv && "Numo::Int",
-   has_tau && "Numo::"+class_name,
-   "Integer"
- ].select{|x| x}.join(", ")
-
- return_name = [
-   "a",
-   has_piv && "piv",
-   has_tau && "tau",
-   "info"
- ].select{|x| x}.join(", ")
-
- args_opt = [
-   has_uplo && "uplo:'u'",
-   "order:'r'",
- ].select{|x| x}.join(", ")
 %>*/
 <% %>
 #define UPLO <%= has_uplo ? "1":"0" %>
@@ -77,21 +44,49 @@ static void
     info = (int*)NDL_PTR(lp,1+PIV+TAU);
     g = (args_t*)(lp->opt_ptr);
 
-    m = lp->args[0].shape[0];
-    n = lp->args[0].shape[1];
+    m = NDL_SHAPE(lp,0)[0];
+    n = NDL_SHAPE(lp,0)[1];
     SWAP_IFCOL(g->order,m,n);
 #if SYMMETRIC
     n = min_(m,n);
 #endif
-    lda = lp->args[0].iter[0].step / sizeof(dtype);
+    lda = NDL_STEP(lp,0) / sizeof(dtype);
 
     //printf("order=%d m=%d n=%d lda=%d \n",g->order,m,n,lda);
 
-    *info = (*func_p)( <%=func_args%> );
+    /*<%
+    func_args = [   "g->order",
+      has_uplo   && "g->uplo",
+      !symmetric && "m",
+                    "n, a, lda",
+      has_piv    && "ipiv",
+      has_tau    && "tau",
+    ].select{|x| x}.join(", ")
+    %>*/
+    *info = (*func_p)(<%=func_args%>);
     CHECK_ERROR(*info);
 }
 
-/*
+/*<%
+ args_opt = [
+   has_uplo && "uplo:'u'",
+   "order:'r'",
+ ].select{|x| x}.join(", ")
+
+ return_type = [
+   "Numo::"+class_name,
+   has_piv && "Numo::Int",
+   has_tau && "Numo::"+class_name,
+   "Integer"
+ ].select{|x| x}.join(", ")
+
+ return_name = [
+   "a",
+   has_piv && "piv",
+   has_tau && "tau",
+   "info"
+ ].select{|x| x}.join(", ")
+%>
   @overload <%=name%>(a [,<%=args_opt%>])
   @param [Numo::<%=class_name%>] a >=2-dimentional NArray.
   @return [[<%=return_type%>]] array of [<%=return_name%>]
@@ -105,13 +100,20 @@ static VALUE
     VALUE a, ans;
     int   m, n, tmp;
     narray_t *na1;
-    ndfunc_arg_in_t ain[1] = {{OVERWRITE,2}};
+    /*<%
+    aout = [
+      has_piv && "{cInt,1,shape_piv}",
+      has_tau && "{cT,1,shape_tau}",
+                 "{cInt,0}",
+    ].select{|x| x}.join(",")
+    %>*/
 #if PIV
     size_t shape_piv[1];
 #endif
 #if TAU
     size_t shape_tau[1];
 #endif
+    ndfunc_arg_in_t ain[1] = {{OVERWRITE,2}};
     ndfunc_arg_out_t aout[PIV+TAU+1] = {<%=aout%>};
     ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 1,PIV+TAU+1,ain,aout};
 

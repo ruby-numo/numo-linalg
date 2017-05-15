@@ -1,2 +1,3 @@
 #include "numo/types/scomplex.h"
-#define IS_COMPLEX 1
+#define CZ 1
+#define IS_COMPLEX CZ

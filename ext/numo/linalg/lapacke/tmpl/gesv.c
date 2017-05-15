@@ -1,25 +1,6 @@
 /*<%
  uplo = (/^?ge/=~name) ? nil : "g->uplo,"
  ipiv = (/^?po/=~name) ? nil : "ipiv,"
-
- tp = "Numo::"+class_name
- iary = "Numo::Int"
- iscal = "Integer"
- if uplo
-   a = "a, b [, uplo:'u', order:'r']"
- else
-   a = "a, b [, order:'r']"
- end
- if ipiv
-   n = "lu, x, piv, info"
-   t = [tp,tp,iary,iscal]
- else
-   n = "lu, x, info"
-   t = [tp,tp,iscal]
- end
- return_type = t.join(", ")
- return_name = n
- params = a
 %>*/
 <% %>
 #define UPLO <%=(/^?ge/!~name) ? "1":"0"%>
@@ -53,23 +34,42 @@ static void
     b = (dtype*)NDL_PTR(lp,1);
     g = (args_t*)(lp->opt_ptr);
 
-    n = lp->args[0].shape[0];
-    lda = lp->args[0].iter[0].step / sizeof(dtype);
+    n = NDL_SHAPE(lp,0)[0];
+    lda = NDL_STEP(lp,0) / sizeof(dtype);
     if (lp->args[1].ndim == 1) {
         nrhs = 1;
         ldb = (g->order==LAPACK_COL_MAJOR) ? n : 1;
     } else {
-        nrhs = lp->args[1].shape[1];
-        ldb = lp->args[1].iter[0].step / sizeof(dtype);
+        nrhs = NDL_SHAPE(lp,1)[1];
+        ldb = NDL_STEP(lp,1) / sizeof(dtype);
     }
     //printf("order=%d n=%d nrhs=%d lda=%d ldb=%d b.ndim=%d\n",
     //       g->order,n,nrhs,lda,ldb,lp->args[1].ndim);
-    *info = (*func_p)(g->order, <%=uplo%>
-                      n, nrhs, a, lda, <%=ipiv%> b, ldb);
+    *info = (*func_p)( g->order, <%=uplo%>
+                       n, nrhs, a, lda, <%=ipiv%> b, ldb );
     CHECK_ERROR(*info);
 }
 
-/*
+/*<%
+ tp = "Numo::"+class_name
+ iary = "Numo::Int"
+ iscal = "Integer"
+ if uplo
+   a = "a, b [, uplo:'u', order:'r']"
+ else
+   a = "a, b [, order:'r']"
+ end
+ if ipiv
+   n = "lu, x, piv, info"
+   t = [tp,tp,iary,iscal]
+ else
+   n = "lu, x, info"
+   t = [tp,tp,iscal]
+ end
+ return_type = t.join(", ")
+ return_name = n
+ params = a
+%>
   @overload <%=name%>(<%=params%>)
   @param [<%=tp%>] a  >=2-dimentional NArray.
   @param [<%=tp%>] b  >=1-dimentional NArray.
