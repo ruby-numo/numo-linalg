@@ -8,6 +8,9 @@ def_id "jobvr"
 def_id "trans"
 def_id "rcond"
 def_id "itype"
+def_id "norm"
+def_id "axis"
+def_id "keepdims"
 
 if /[cz]/ =~ blas_char
   def_id "real"
@@ -23,6 +26,9 @@ end
 
 #--
 
+decl "?lange"
+
+if false
 decl "?gesv"
 decl "?sysv", "gesv"
 decl "?posv", "gesv"
@@ -75,4 +81,5 @@ case blas_char
 when /c|z/
   decl "?hetrf", "fact"
   decl "?hetri", "fact"
+end
 end
