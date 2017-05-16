@@ -62,22 +62,51 @@
 
 <p><a href="https://github.com/ruby-numo/linalg">GitHub</a></p>
 
+<p>Under development!</p>
+
 <h2 id="label-Introduction">Introduction</h2>
 
 <p>This is a binding of LAPACK with Numo::NArray .</p>
 
-<h3 id="label-Numo-3A-3ALinalg">Numo::Linalg</h3>
+<h3 id="label-Numo-3A-3ALinalg+API"><a href="http://ruby-numo.github.io/linalg/yard/">Numo::Linalg API</a></h3>
+<ul><li>
+<p>Matrix and vector products</p>
+<ul><li>
+<p>dot, matmul</p>
+</li></ul>
+</li><li>
+<p>Decomposition</p>
+<ul><li>
+<p>cholesky, qr, svd</p>
+</li></ul>
+</li><li>
+<p>Matrix eigenvalues</p>
+<ul><li>
+<p>eig, eigh, eigvals, eigvalsh</p>
+</li></ul>
+</li><li>
+<p>Norms and other numbers</p>
+<ul><li>
+<p>norm, det, matrix_rank, slogdet</p>
+</li></ul>
+</li><li>
+<p>Solving equations and inverting matrices</p>
+<ul><li>
+<p>solve, lstsq, inv</p>
+</li></ul>
+</li></ul>
 
-<p>Matrix and vector products * dot, matmul Decomposition * cholesky, qr, svd,
-Matrix eigenvalues * eig * eigh * eigvals * eigvalsh Norms and other
-numbers * norm * det * matrix_rank * slogdet Solving equations and
-inverting matrices * solve * lstsq * inv</p>
+<p>More functions to come</p>
 
 <h3 id="label-Low-level+modules">Low-level modules</h3>
 <ul><li>
-<p>Numo::Linalg.Blas - BLAS functions</p>
+<p><a
+href="http://ruby-numo.github.io/linalg/yard/Numo/Linalg/Blas.html">Numo::Linalg::Blas</a>
+- Low-level BLAS functions</p>
 </li><li>
-<p>Numo::Linalg.Lapack - LAPACK functions</p>
+<p><a
+href="http://ruby-numo.github.io/linalg/yard/Numo/Linalg/Lapack.html">Numo::Linalg::Lapack</a>
+- Low-level LAPACK functions</p>
 </li></ul>
 
 <h2 id="label-Installation">Installation</h2>
@@ -89,7 +118,7 @@ packages.</p>
 </li><li>
 <p>Numo::Linalg requires C-interface <a
 href="http://www.netlib.org/blas/#_cblas">CBLAS</a> and <a
-href="http://www.netlib.org/lapack/lapacke.html">Lapacke</a> interface.
+href="http://www.netlib.org/lapack/lapacke.html">LAPACKE</a> interface.
 These are included in LAPACK package.</p>
 </li><li>
 <p>It is recommended to use one of following faster libraries:</p>
@@ -101,10 +130,13 @@ These are included in LAPACK package.</p>
 <p><a href="https://software.intel.com/intel-mkl">Intel MKL</a></p>
 </li></ul>
 </li><li>
-<p>Install Numo::Linalg  <code>shell $ git clone
-https://github.com/ruby-numo/linalg.git $ cd linalg $ rake build $ gem
-install pkg/numo-linalg-*.gem </code></p>
+<p>Install Numo::Linalg</p>
 </li></ul>
+
+<pre class="code ruby"><code class="ruby">$ git clone https://github.com/ruby-numo/linalg.git
+$ cd linalg
+$ rake build
+$ gem install pkg/numo-linalg-*.gem</code></pre>
 
 <h2 id="label-Usage">Usage</h2>
 <ul><li>
@@ -114,20 +146,34 @@ install pkg/numo-linalg-*.gem </code></p>
 design allows you to change backend libraries without re-compiling
 Numo::Linalg.</p>
 </li><li>
-<p>Example of dynamical loading: <code>ruby require &quot;numo/linalg&quot;
-require &quot;fiddle&quot; Fiddle.dlopen(&quot;libblas.so&quot;)
-Fiddle.dlopen(&quot;liblapack.so&quot;)
-Numo::Linalg::Blas.dlopen(&quot;libcblas.so&quot;)
-Numo::Linalg::Lapack.dlopen(&quot;liblapacke.so&quot;) </code></p>
-</li><li>
-<p>This default behavior is defined in "numo/linalg/use/lapack.rb"  <code>ruby
-require &quot;numo/linalg/use/lapack&quot; </code></p>
-</li><li>
-<p>Load Atlas:  <code>ruby require &quot;numo/linalg/use/satlas&quot; </code></p>
-</li><li>
-<p>Load OpenBLAS:  <code>ruby require &quot;numo/linalg/use/openblas&quot;
-</code></p>
+<p>Example of dynamical loading:</p>
 </li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>numo/linalg</span><span class='tstring_end'>&quot;</span></span>
+<span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>fiddle</span><span class='tstring_end'>&quot;</span></span>
+<span class='const'>Fiddle</span><span class='period'>.</span><span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libblas.so</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='const'>Fiddle</span><span class='period'>.</span><span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>liblapack.so</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="Numo.html" title="Numo (module)">Numo</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Numo/Linalg.html" title="Numo::Linalg (module)">Linalg</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Numo/Linalg/Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dlopen'><span class='object_link'><a href="Numo/Linalg/Blas.html#dlopen-class_method" title="Numo::Linalg::Blas.dlopen (method)">dlopen</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libcblas.so</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='const'><span class='object_link'><a href="Numo.html" title="Numo (module)">Numo</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Numo/Linalg.html" title="Numo::Linalg (module)">Linalg</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Numo/Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dlopen'><span class='object_link'><a href="Numo/Linalg/Lapack.html#dlopen-class_method" title="Numo::Linalg::Lapack.dlopen (method)">dlopen</a></span></span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>liblapacke.so</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+</code></pre>
+<ul><li>
+<p>This default behavior is defined in “numo/linalg/use/lapack.rb”</p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>numo/linalg/use/lapack</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+<ul><li>
+<p>Load Atlas:</p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>numo/linalg/use/satlas</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+<ul><li>
+<p>Load OpenBLAS:</p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>numo/linalg/use/openblas</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
 
 <h2 id="label-Authors">Authors</h2>
 <ul><li>
@@ -140,7 +186,7 @@ require &quot;numo/linalg/use/lapack&quot; </code></p>
 
 <h2 id="label-ToDo">ToDo</h2>
 <ul><li>
-<p>wrap more functions</p>
+<p>More functions</p>
 </li><li>
 <p>write test</p>
 </li><li>
@@ -149,7 +195,7 @@ require &quot;numo/linalg/use/lapack&quot; </code></p>
 </div></div>
 
       <div id="footer">
-  Generated on Tue May 16 22:07:12 2017 by
+  Generated on Tue May 16 22:35:43 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>
