@@ -53,15 +53,11 @@ static void
  iscal = "Integer"
  if is_sdd
    a = "a [, jobz:'a', order:'r']"
-   n = "a, s, u, vt, info"
-   t = [tp,tp,tp,tp,iscal]
  else
    a = "a [, jobu:'a', jobvt:'a', order:'r']"
-   n = "a, s, u, vt, info"
-   t = [tp,tp,tp,tp,iscal]
  end
- return_type = t.join(", ")
- return_name = n
+ return_type = [tp,tp,tp,tp,iscal].join(", ")
+ return_name = "a, s, u, vt, info"
  params = a
 %>
   @overload <%=name%>(<%=params%>)

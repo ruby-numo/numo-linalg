@@ -28,7 +28,6 @@ end
 
 decl "?lange"
 
-if false
 decl "?gesv"
 decl "?sysv", "gesv"
 decl "?posv", "gesv"
@@ -81,5 +80,4 @@ case blas_char
 when /c|z/
   decl "?hetrf", "fact"
   decl "?hetri", "fact"
-end
 end
