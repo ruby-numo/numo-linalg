@@ -47,7 +47,8 @@ Solving equations and inverting matrices
     * [Intel MKL](https://software.intel.com/intel-mkl)
 
 * Install Numo::Linalg
-  ```shell
+
+```shell
 $ git clone https://github.com/ruby-numo/linalg.git
 $ cd linalg
 $ rake build
@@ -63,7 +64,8 @@ $ gem install pkg/numo-linalg-*.gem
     Numo::Linalg.
 
   * Example of dynamical loading:
-    ```ruby
+
+```ruby
 require "numo/linalg"
 require "fiddle"
 Fiddle.dlopen("libblas.so")
@@ -73,17 +75,20 @@ Numo::Linalg::Lapack.dlopen("liblapacke.so")
 ```
 
   * This default behavior is defined in "numo/linalg/use/lapack.rb"
-  ```ruby
+
+```ruby
 require "numo/linalg/use/lapack"
 ```
 
   * Load Atlas:
-  ```ruby
+
+```ruby
 require "numo/linalg/use/satlas"
 ```
 
   * Load OpenBLAS:
-  ```ruby
+
+```ruby
 require "numo/linalg/use/openblas"
 ```
 
