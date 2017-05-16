@@ -1,57 +1,100 @@
-# Numo::LAPACK : LAPACK binding with Numo::NArray
+# Numo::Linalg : Linear Algebra library with BLAS/LAPACK binding to Numo::NArray
+
+[GitHub](https://github.com/ruby-numo/linalg)
 
 ## Introduction
 
 This is a binding of LAPACK with Numo::NArray .
 
-## About 
+### Numo::Linalg
 
-* [GitHub](https://github.com/metanest/numo-lapack)
+Matrix and vector products
+* dot, matmul
+Decomposition
+* cholesky, qr, svd,
+Matrix eigenvalues
+* eig
+* eigh
+* eigvals
+* eigvalsh
+Norms and other numbers
+* norm
+* det
+* matrix_rank
+* slogdet
+Solving equations and inverting matrices
+* solve
+* lstsq
+* inv
 
-## About column-major order of LAPACK
+### Low-level modules
 
-Numo::LAPACK doesn't change of matrix row or column-major order.
-NArray uses row-major, LAPACK uses column-major, user script must
-convert the argument matrix and returned matrix.
-
-(except for norm)
-
-Or see lib/numo/linalg-compat.rb , this is a tiny sample compatible layer.
-
-## Usage
-
-See lib/numo/linalg-compat.rb .
-
-## Implemented Methods
-
-* geev, heev, heevd - eigenvalues (for complex Hermitian matrix / using divide and conquer algorithm)
-* gels - finding a least squares solution / minimum norm solution
-* gemm - matrix multiplication
-* gesv - solves linear systems
-* gesvd, gesdd - singular value decomposition (using divide and conquer algorithm)
-* geqrf - QR Factorization
-* getrf, potrf - linear equations
-* matrix_rank - matrix rank
-* norm - various norm of a vector or matrix, with optional axes
+* Numo::Linalg.Blas - BLAS functions
+* Numo::Linalg.Lapack - LAPACK functions
 
 ## Installation
 
 * Install [Numo::NArray](https://github.com/ruby-numo/narray)
-* Install [LAPACK](http://www.netlib.org/lapack/) or [OpenBLAS](http://www.openblas.net/)
-  * Yum intall:
-  ```shell
-$ yum install openblas-devel
-```
-  * or, install OpenBLAS from source and enjoy multithread acceleration.
 
-* Install Numo::LAPACK
+* Install [LAPACK](http://www.netlib.org/lapack/) or compatible packages.
+  * Numo::Linalg requires C-interface
+    [CBLAS](http://www.netlib.org/blas/#_cblas) and
+    [Lapacke](http://www.netlib.org/lapack/lapacke.html) interface.
+    These are included in LAPACK package.
+  * It is recommended to use one of following faster libraries:
+    * [ATLAS](https://sourceforge.net/projects/math-atlas/)
+    * [OpenBLAS](http://www.openblas.net/)
+    * [Intel MKL](https://software.intel.com/intel-mkl)
+
+* Install Numo::Linalg
   ```shell
-$ git clone git://github.com/metanest/numo-lapack.git
-$ cd numo-lapack
+$ git clone https://github.com/ruby-numo/linalg.git
+$ cd linalg
 $ rake build
-$ gem install pkg/numo-lapack-*.gem -- --with-openblas --with-opt-dir=/opt/OpenBLAS
+$ gem install pkg/numo-linalg-*.gem
 ```
+
+## Usage
+
+* Loading backend library
+
+  * Numo::Linalg loads BLAS,LAPACK libraries dynamically at runtime.
+    This design allows you to change backend libraries without re-compiling
+    Numo::Linalg.
+
+  * Example of dynamical loading:
+    ```ruby
+require "numo/linalg"
+require "fiddle"
+Fiddle.dlopen("libblas.so")
+Fiddle.dlopen("liblapack.so")
+Numo::Linalg::Blas.dlopen("libcblas.so")
+Numo::Linalg::Lapack.dlopen("liblapacke.so")
+```
+
+  * This default behavior is defined in "numo/linalg/use/lapack.rb"
+  ```ruby
+require "numo/linalg/use/lapack"
+```
+
+  * Load Atlas:
+  ```ruby
+require "numo/linalg/use/satlas"
+```
+
+  * Load OpenBLAS:
+  ```ruby
+require "numo/linalg/use/openblas"
+```
+
+## Authors
+
+* Masahiro TANAKA
+* Makoto KISHIMOTO
+* This work is partially supported by 2016 Ruby Association Grant.
 
 ## ToDo
 
-* Documentation complete
+* wrap more functions
+* write test
+* Documentation
