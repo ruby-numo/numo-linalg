@@ -8,25 +8,25 @@ Under development!
 
 This is a binding of LAPACK with Numo::NArray .
 
-### Numo::Linalg
+### [Numo::Linalg API](http://ruby-numo.github.io/linalg/yard/)
 
 * Matrix and vector products
-  * dot, matmul
+    * dot, matmul
 * Decomposition
-  * cholesky, qr, svd
+    * cholesky, qr, svd
 * Matrix eigenvalues
-  * eig, eigh, eigvals, eigvalsh
+    * eig, eigh, eigvals, eigvalsh
 * Norms and other numbers
-  * norm, det, matrix_rank, slogdet
+    * norm, det, matrix_rank, slogdet
 * Solving equations and inverting matrices
-  * solve, lstsq, inv
+    * solve, lstsq, inv
 
 More functions to come
 
 ### Low-level modules
 
-* Numo::Linalg.Blas - BLAS functions
-* Numo::Linalg.Lapack - LAPACK functions
+* [Numo::Linalg::Blas](http://ruby-numo.github.io/linalg/yard/Numo/Linalg/Blas.html) - Low-level BLAS functions
+* [Numo::Linalg::Lapack](http://ruby-numo.github.io/linalg/yard/Numo/Linalg/Lapack.html) - Low-level LAPACK functions
 
 ## Installation
 
@@ -45,6 +45,7 @@ More functions to come
     * [Intel MKL](https://software.intel.com/intel-mkl)
 
 * Install Numo::Linalg
+
 ```shell
 $ git clone https://github.com/ruby-numo/linalg.git
 $ cd linalg
@@ -59,6 +60,7 @@ $ gem install pkg/numo-linalg-*.gem
     This design allows you to change backend libraries without re-compiling
     Numo::Linalg.
   * Example of dynamical loading:
+
 ```ruby
 require "numo/linalg"
 require "fiddle"
@@ -67,17 +69,21 @@ Fiddle.dlopen("liblapack.so")
 Numo::Linalg::Blas.dlopen("libcblas.so")
 Numo::Linalg::Lapack.dlopen("liblapacke.so")
 ```
-  * This default behavior is defined in "numo/linalg/use/lapack.rb"
+
+* This default behavior is defined in "numo/linalg/use/lapack.rb"
+
 ```ruby
 require "numo/linalg/use/lapack"
 ```
 
   * Load Atlas:
+
 ```ruby
 require "numo/linalg/use/satlas"
 ```
 
   * Load OpenBLAS:
+
 ```ruby
 require "numo/linalg/use/openblas"
 ```

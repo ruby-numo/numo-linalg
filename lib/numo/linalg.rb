@@ -142,8 +142,7 @@ module Numo; module Linalg
 
   ## Matrix eigenvalues
 
-  # :nodoc:
-  def _make_complex_eigvecs(w, vin)
+  def _make_complex_eigvecs(w, vin) # :nodoc:
     v = w.class.cast(vin)
     # broadcast to vin.shape
     m = (w.imag > 0 | Bit.zeros(*vin.shape)).where
@@ -373,6 +372,10 @@ module Numo; module Linalg
     Lapack.call(:gesv, a, b)[0]
   end
 
+  def tensorinv(a, *_)
+    raise NotImplementedError
+  end
+
 =begin
   # numpy.linalg.pinv and scipy.linalg.pinv are different
   def pinv(a, turbo:false)
@@ -393,10 +396,6 @@ module Numo; module Linalg
     vt.dot(s_mat).dot(u)
   end
 =end
-
-  def tensorinv(a, *_)
-    raise NotImplementedError
-  end
 
 end
 end
