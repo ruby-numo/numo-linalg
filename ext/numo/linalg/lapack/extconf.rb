@@ -1,35 +1,6 @@
-require 'rbconfig.rb'
-require 'numo/narray'
-
-#RbConfig::MAKEFILE_CONFIG["optflags"] = "-g3 -gdwarf-2"
-
 require 'mkmf'
-
-# configure options: --with-lapack-lib=path
-dir_config("lapack")
-
-# configure options: --with-blas-lib=path
-dir_config("blas")
-
-# configure options: --with-openblas-dir=/opt/OpenBLAS
-dir_config("openblas")
-
-if with_config("openblas")
-  # configure options: --with-openblas
-  exit(-1) unless have_library("openblas")
-elsif with_config("lapack")
-  # configure options: --with-lapack
-  exit(-1) unless have_library("blas") && have_library("lapack")
-elsif have_library("openblas")
-  # check openblas
-elsif have_library("blas") && have_library("lapack")
-  # check lapack
-else
-  puts "LAPACK library was not found."
-  exit(-1)
-end
-
-#$CFLAGS="-g -O0"
+require 'numo/narray'
+require 'erb'
 
 $LOAD_PATH.each do |x|
   if File.exist? File.join(x,'numo/numo/narray.h')
@@ -40,51 +11,35 @@ end
 
 srcs = %w(
 lapack
-lapack_d
 lapack_s
-lapack_z
+lapack_d
 lapack_c
+lapack_z
 )
 $objs = srcs.collect{|i| i+".o"}
-fflags = ""
-
-# # GNU FORTRAN v4
-# if have_library("gfortran")
-#   $defs.push "-fPIC -DGNU_FORTRAN"
-#   fc = "gfortran"
-#   if false # have_library("gomp")
-#     fflags += "-fopenmp"
-#   end
-# #
-# # GNU FORTRAN v3
-# elsif have_library("g77")
-#   $defs.push "-fPIC -DGNU_FORTRAN"
-#   fc = "g77"
-# elsif have_library('f2c')
-#   $defs.push "-DF2C"
-# else
-#   puts "failed"
-#   exit
-# end
 
 if !have_header('numo/narray.h')
-  print <<EOL
+  puts "
   Header numo/narray.h was not found. Give pathname as follows:
-  % ruby extconf.rb --with-narray-include=narray_h_dir
-EOL
-  exit(-1)
+  % ruby extconf.rb --with-narray-include=narray_h_dir"
+  exit(1)
 end
 
-system "rm -f depend; erb depend.erb > depend"
+if have_header("dlfcn.h")
+  exit(1) unless have_library("dl")
+  exit(1) unless have_func("dlopen")
+elsif have_header("windows.h")
+  exit(1) unless have_func("LoadLibrary")
+end
 
-create_makefile('numo/lapack')
+dep_path = File.join(__dir__, "depend")
+File.open(dep_path, "w") do |dep|
+  dep_erb_path = File.join(__dir__, "depend.erb")
+  File.open(dep_erb_path, "r") do |dep_erb|
+    erb = ERB.new(dep_erb.read)
+    erb.filename = dep_erb_path
+    dep.print(erb.result)
+  end
+end
 
-# if $makefile_created
-#   puts "appending extra install tasks to Makefile"
-#   File.open("Makefile","a") do |w|
-#     w.print <<EOL
-# F77 = #{fc}
-# FFLAGS = -O3 -fPIC -Iffte-5.0 #{fflags} -fomit-frame-pointer
-# EOL
-#   end
-# end
+create_makefile('numo/linalg/lapack')

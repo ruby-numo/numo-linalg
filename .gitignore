@@ -26,7 +26,7 @@ ext/numo/linalg/*/extconf.h
 ext/numo/linalg/*/Makefile
 ext/numo/linalg/*/depend
 ext/numo/linalg/blas/blas_?.c
-ext/numo/linalg/lapacke/lapack_?.c
+ext/numo/linalg/lapack/lapack_?.c
 
 t.rb
 t.py

@@ -1,15 +1,23 @@
-doc :
-	yard doc dummy_for_yard.c lapack*.c
-
 COGEN=ruby gen/cogen.rb -l
-DEPS=gen/lapack.erb.c gen/tmpl/*.c
+GENDEPS=gen/*.rb tmpl/*.c
 
-<% tmap={d:"dfloat", s:"sfloat", z:"dcomplex", c:"scomplex"}
-   tmap.each do |c,t| %>
-
-lapack_<%=c%>.c: $(DEPS) gen/def/<%=t%>.rb
-	$(COGEN) gen/lapack.erb.c gen/def/<%=t%>.rb > $@
-
+<%
+srcs = %w[s d c z].map{|c| [c, "lapack_#{c}.c"]}
+srcs.each do |c,s|
+%>
+<%=s%>: $(GENDEPS)
+	$(COGEN) -o $@ <%=c%>
 <% end %>
 
-CLEANOBJS = *.o *.bak lapack_?.c
+GENSRC=<%= srcs.map{|x| x[1]}.join(" ") %>
+
+src : lapack.c $(GENSRC)
+
+doc : $(GENSRC)
+	yard doc $(GENSRC)
+
+clean: cleansrc cleandoc
+cleansrc:
+	-$(Q)$(RM) $(GENSRC)
+cleandoc:
+	-$(Q)$(RM_RF) doc .yardoc
