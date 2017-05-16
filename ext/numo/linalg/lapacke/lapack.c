@@ -53,7 +53,6 @@ numo_lapacke_option_value(VALUE value, VALUE default_value)
     switch(TYPE(value)) {
     case T_NIL:
     case T_UNDEF:
-    case T_FALSE:
         return default_value;
     }
     return value;
@@ -211,8 +210,8 @@ numo_lapacke_option_diag(VALUE diag)
 
     switch(TYPE(diag)) {
     case T_NIL:
-    case T_UNDEF:
     case T_FALSE:
+    case T_UNDEF:
         return 'N';
     case T_TRUE:
         return 'U';

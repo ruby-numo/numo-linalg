@@ -8,6 +8,8 @@ def_id "side"
 def_id "alpha"
 def_id "beta"
 def_id "sb"
+def_id "axis"
+def_id "keepdims"
 
 if /[cz]/ =~ blas_char
   def_id "real"

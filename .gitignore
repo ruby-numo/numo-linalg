@@ -30,6 +30,7 @@ ext/numo/linalg/lapacke/lapack_?.c
 
 t.rb
 t.py
+t
 bak
 *.bak
 #*

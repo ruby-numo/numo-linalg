@@ -25,7 +25,7 @@ static void
     SWAP_IFCOL(g->order,m,n);
     lda = NDL_STEP(lp,0) / sizeof(dtype);
 
-    //printf("order=%d m=%d n=%d lda=%d\n",g->order,m,n,lda);
+    //printf("order=%d norm=%c m=%d n=%d lda=%d\n",g->order,g->norm,m,n,lda);
 
     *norm = (*func_p)(g->order, g->norm, m, n, a, lda);
 }
@@ -47,8 +47,7 @@ static void
 static VALUE
 <%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
 {
-    VALUE a, norm, reduce, ans;
-    int   m, n, tmp;
+    VALUE a, norm, ans;
     narray_t *na1;
     ndfunc_arg_in_t ain[1] = {{cT,2}};
     ndfunc_arg_out_t aout[1] = {{cRT,0}};

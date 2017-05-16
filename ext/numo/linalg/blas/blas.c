@@ -45,7 +45,6 @@ numo_cblas_option_value(VALUE order, VALUE default_value)
 {
     switch(TYPE(order)) {
     case T_NIL:
-    case T_FALSE:
     case T_UNDEF:
         return default_value;
     }
@@ -60,8 +59,8 @@ numo_cblas_option_order(VALUE order)
 
     switch(TYPE(order)) {
     case T_NIL:
-    case T_FALSE:
     case T_UNDEF:
+    case T_FALSE:
         return CblasRowMajor;
     case T_TRUE:
         return CblasColMajor;
@@ -97,8 +96,8 @@ numo_cblas_option_trans(VALUE trans)
 
     switch(TYPE(trans)) {
     case T_NIL:
-    case T_FALSE:
     case T_UNDEF:
+    case T_FALSE:
         return CblasNoTrans;
     case T_TRUE:
         return CblasTrans;
@@ -136,8 +135,8 @@ numo_cblas_option_uplo(VALUE uplo)
 
     switch(TYPE(uplo)) {
     case T_NIL:
-    case T_FALSE:
     case T_UNDEF:
+    case T_FALSE:
         return CblasUpper;
     case T_TRUE:
         return CblasLower;
@@ -175,8 +174,8 @@ numo_cblas_option_diag(VALUE diag)
 
     switch(TYPE(diag)) {
     case T_NIL:
-    case T_FALSE:
     case T_UNDEF:
+    case T_FALSE:
         return CblasNonUnit;
     case T_TRUE:
         return CblasUnit;
@@ -214,8 +213,8 @@ numo_cblas_option_side(VALUE side)
 
     switch(TYPE(side)) {
     case T_NIL:
-    case T_FALSE:
     case T_UNDEF:
+    case T_FALSE:
         return CblasLeft;
     case T_TRUE:
         return CblasRight;

@@ -49,15 +49,14 @@ static void
 
 /*<%
  tp = "Numo::"+class_name
- iary = "Numo::Int"
  iscal = "Integer"
  if is_sdd
    a = "a [, jobz:'a', order:'r']"
  else
    a = "a [, jobu:'a', jobvt:'a', order:'r']"
  end
- return_type = [tp,tp,tp,tp,iscal].join(", ")
- return_name = "a, s, u, vt, info"
+ return_type = [tp,tp,tp,iscal].join(", ")
+ return_name = "s, u, vt, info"
  params = a
 %>
   @overload <%=name%>(<%=params%>)
@@ -172,8 +171,10 @@ static VALUE
     rb_free_tmp_buffer(&tmpbuf);
 #endif
 
-    if (aout[2].dim == 0) { RARRAY_ASET(ans,2,Qnil); }
+    if (g.jobu=='O')      { RARRAY_ASET(ans,1,a); } else
     if (aout[1].dim == 0) { RARRAY_ASET(ans,1,Qnil); }
+    if (g.jobvt=='O')     { RARRAY_ASET(ans,2,a); } else
+    if (aout[2].dim == 0) { RARRAY_ASET(ans,2,Qnil); }
     return ans;
 }
 
