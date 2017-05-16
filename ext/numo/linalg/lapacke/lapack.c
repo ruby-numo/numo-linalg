@@ -338,29 +338,6 @@ lapack_s_dlopen(int argc, VALUE *argv, VALUE mod)
 }
 
 static VALUE
-lapack_s_require(int argc, VALUE *argv, VALUE mod)
-{
-    int i, f;
-    VALUE lib, flag;
-    char *error;
-
-    i = rb_scan_args(argc, argv, "11", &lib, &flag);
-    if (i==2) {
-        f = NUM2INT(flag);
-    } else {
-        f = RTLD_NOW | RTLD_GLOBAL | RTLD_DEEPBIND;
-    }
-    dlerror();
-    dlopen(StringValueCStr(lib), f);
-    error = dlerror();
-    if (error != NULL) {
-        rb_raise(rb_eRuntimeError, "%s", error);
-    }
-    return Qnil;
-}
-
-
-static VALUE
 lapack_s_prefix_set(VALUE mod, VALUE prefix)
 {
     long len;
@@ -396,7 +373,6 @@ Init_lapack(void)
     mLapack = rb_define_module_under(mLinalg, "Lapack");
 
     rb_define_module_function(mLapack, "dlopen", lapack_s_dlopen, -1);
-    rb_define_module_function(mLapack, "require", lapack_s_require, -1);
     rb_define_module_function(mLapack, "prefix=", lapack_s_prefix_set, 1);
 
     lapack_prefix = malloc(strlen("LAPACKE_")+1); // default prefix
