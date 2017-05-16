@@ -29,15 +29,27 @@ static void
 
 */
 static VALUE
-<%=c_func(1)%>(VALUE mod, VALUE x)
+<%=c_func(-1)%>(int argc, VALUE const argv[], VALUE UNUSED(mod))
 {
-    VALUE     ans;
+    VALUE     x, keepdims, ans;
     narray_t *na1;
     ndfunc_arg_in_t ain[1] = {{cT,1}};
     ndfunc_arg_out_t aout[1] = {{cT,0}};
     ndfunc_t ndf = {<%=c_iter%>, NDF_EXTRACT, 1,1, ain,aout};
 
+    VALUE opts[1] = {Qundef};
+    ID    kw_table[1] = {id_keepdims};
+    VALUE kw_hash = Qnil;
+
     CHECK_FUNC(func_p,"<%=func_name%>");
+
+    rb_scan_args(argc, argv, "1:", &x, &kw_hash);
+    rb_get_kwargs(kw_hash, kw_table, 0, 1, opts);
+    keepdims = option_value(opts[0],Qfalse);
+
+    if (RTEST(keepdims)) {
+        ndf.flag |= NDF_KEEP_DIM;
+    }
 
     GetNArray(x,na1);
     CHECK_DIM_GE(na1,1);
