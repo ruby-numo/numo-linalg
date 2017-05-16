@@ -1,19 +1,11 @@
-# coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-open("ext/numo/linalg/version.h") do |f|
-  f.each_line do |l|
-    if /NUMO_LINALG_VERSION "([\d.]+)"/ =~ l
-      VERSION = $1
-      break
-    end
-  end
-end
+require_relative "lib/numo/linalg/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "numo-linalg"
-  spec.version       = VERSION
+  spec.version       = Numo::Linalg::VERSION
   spec.authors       = ["Masahiro TANAKA"]
   spec.email         = ["masa16.tanaka@gmail.com"]
   spec.description   = %q{Linalg development version.}
@@ -25,7 +17,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
-  spec.extensions    = ["ext/numo/linalg/extconf.rb"]
+  spec.extensions    = ["ext/numo/linalg/blas/extconf.rb",
+                        "ext/numo/linalg/lapack/extconf.rb"]
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake", "~> 0"

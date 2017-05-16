@@ -1,1 +1,0 @@
-#define NUMO_LINALG_VERSION "0.0.1"
