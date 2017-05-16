@@ -2,30 +2,37 @@
 
 [GitHub](https://github.com/ruby-numo/linalg)
 
+Under development!
+
 ## Introduction
 
 This is a binding of LAPACK with Numo::NArray .
 
 ### Numo::Linalg
 
-Matrix and vector products
-* dot, matmul
-Decomposition
-* cholesky, qr, svd,
-Matrix eigenvalues
-* eig
-* eigh
-* eigvals
-* eigvalsh
-Norms and other numbers
-* norm
-* det
-* matrix_rank
-* slogdet
-Solving equations and inverting matrices
-* solve
-* lstsq
-* inv
+* Matrix and vector products
+ * dot
+ * matmul
+* Decomposition
+ * cholesky
+ * qr
+ * svd
+* Matrix eigenvalues
+ * eig
+ * eigh
+ * eigvals
+ * eigvalsh
+* Norms and other numbers
+ * norm
+ * det
+ * matrix_rank
+ * slogdet
+* Solving equations and inverting matrices
+ * solve
+ * lstsq
+ * inv
+
+More functions to come
 
 ### Low-level modules
 
@@ -37,14 +44,16 @@ Solving equations and inverting matrices
 * Install [Numo::NArray](https://github.com/ruby-numo/narray)
 
 * Install [LAPACK](http://www.netlib.org/lapack/) or compatible packages.
-  * Numo::Linalg requires C-interface
+
+ * Numo::Linalg requires C-interface
     [CBLAS](http://www.netlib.org/blas/#_cblas) and
     [Lapacke](http://www.netlib.org/lapack/lapacke.html) interface.
     These are included in LAPACK package.
-  * It is recommended to use one of following faster libraries:
-    * [ATLAS](https://sourceforge.net/projects/math-atlas/)
-    * [OpenBLAS](http://www.openblas.net/)
-    * [Intel MKL](https://software.intel.com/intel-mkl)
+
+ * It is recommended to use one of following faster libraries:
+   * [ATLAS](https://sourceforge.net/projects/math-atlas/)
+   * [OpenBLAS](http://www.openblas.net/)
+   * [Intel MKL](https://software.intel.com/intel-mkl)
 
 * Install Numo::Linalg
 
