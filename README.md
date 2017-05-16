@@ -11,26 +11,15 @@ This is a binding of LAPACK with Numo::NArray .
 ### Numo::Linalg
 
 * Matrix and vector products
-  * dot
-  * matmul
+  * dot, matmul
 * Decomposition
-  * cholesky
-  * qr
-  * svd
+  * cholesky, qr, svd
 * Matrix eigenvalues
-  * eig
-  * eigh
-  * eigvals
-  * eigvalsh
+  * eig, eigh, eigvals, eigvalsh
 * Norms and other numbers
-  * norm
-  * det
-  * matrix_rank
-  * slogdet
+  * norm, det, matrix_rank, slogdet
 * Solving equations and inverting matrices
-  * solve
-  * lstsq
-  * inv
+  * solve, lstsq, inv
 
 More functions to come
 
@@ -101,6 +90,6 @@ require "numo/linalg/use/openblas"
 
 ## ToDo
 
-* wrap more functions
+* More functions
 * write test
 * Documentation
