@@ -36,7 +36,7 @@ More functions to come
 
   * Numo::Linalg requires C-interface
     [CBLAS](http://www.netlib.org/blas/#_cblas) and
-    [Lapacke](http://www.netlib.org/lapack/lapacke.html) interface.
+    [LAPACKE](http://www.netlib.org/lapack/lapacke.html) interface.
     These are included in LAPACK package.
 
   * It is recommended to use one of following faster libraries:
