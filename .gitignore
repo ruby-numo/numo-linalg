@@ -25,6 +25,7 @@ ext/numo/linalg/*/types/*.c
 ext/numo/linalg/*/extconf.h
 ext/numo/linalg/*/Makefile
 ext/numo/linalg/*/depend
+ext/numo/linalg/*/doc
 ext/numo/linalg/blas/blas_?.c
 ext/numo/linalg/lapack/lapack_?.c
 

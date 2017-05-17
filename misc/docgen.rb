@@ -96,5 +96,5 @@ def gendoc(outfile,dir)
   open(outfile,"w"){|f| PP.pp(doc,f) }
 end
 
-gendoc("../ext/numo/linalg/lapacke/gen/desc.rb","src/lapack-3.7.0/SRC")
+gendoc("../ext/numo/linalg/lapack/gen/desc.rb","src/lapack-3.7.0/SRC")
 gendoc("../ext/numo/linalg/blas/gen/desc.rb","src/lapack-3.7.0/BLAS/SRC")

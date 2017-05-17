@@ -78,7 +78,7 @@ module Numo; module Linalg
 
   # not linalg
   def inner(a, b)
-    a.mulsum b
+    Blas.call(:gemv, a, b)
   end
 
   # not linalg
@@ -88,16 +88,6 @@ module Numo; module Linalg
 
   def matmul(a, b)
     Blas.call(:gemm, a, b)
-  end
-
-  # not linalg
-  def tensordot(a, b) #, axes
-    raise NotImplementedError
-  end
-
-  # not linalg
-  def einsum(*a)
-    raise NotImplementedError
   end
 
   # not linalg
@@ -142,6 +132,7 @@ module Numo; module Linalg
 
   ## Matrix eigenvalues
 
+  # @private
   def _make_complex_eigvecs(w, vin) # :nodoc:
     v = w.class.cast(vin)
     # broadcast to vin.shape
@@ -359,10 +350,6 @@ module Numo; module Linalg
     Lapack.call(:gesv, a, b)[0]
   end
 
-  def tensorsolve(a, b, *_)
-    raise NotImplementedError
-  end
-
   def lstsq(a, b)
     Lapack.call(:gels, a, b)[0]
   end
@@ -370,10 +357,6 @@ module Numo; module Linalg
   def inv(a)
     b = a.new_zeros.eye
     Lapack.call(:gesv, a, b)[0]
-  end
-
-  def tensorinv(a, *_)
-    raise NotImplementedError
   end
 
 =begin
