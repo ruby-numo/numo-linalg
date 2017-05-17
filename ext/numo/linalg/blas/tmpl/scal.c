@@ -27,10 +27,14 @@ static void
   <% end %>
 }
 
-/*
+/*<%
+ params = [
+   param("x",1,inplace:""),
+ ].select{|x| x}.join("\n  ")
+%>
   @overload <%=name%>( a, x )
   @param [Float]        a  scale factor
-  @param [<%=class_name%>] x  vector (>=1-dimentional NArray, inplace allowed)
+  <%=params%>
   @return [<%=class_name%>] returns x.
 
 <%=description%>

@@ -20,11 +20,15 @@ static void
                                    (dtype*)p2, s2/sizeof(dtype));
 }
 
-/*
-  @overload <%=name%>( sx, sy [, sb:0] )
+/*<%
+ params = [
+   param("sx",1,inplace:""),
+   param("sy",1),
+ ].select{|x| x}.join("\n  ")
+%>
+  @overload <%=name%>( sx, sy, [sb:0] )
+  <%=params%>
   @param [Float] sb
-  @param [<%=class_name%>] sx  >= 1-dimentional NArray.
-  @param [<%=class_name%>] sy  >= 1-dimentional NArray.
   @return [<%=class_name%>] returns result
 
   Compute the inner product of two vectors with extended

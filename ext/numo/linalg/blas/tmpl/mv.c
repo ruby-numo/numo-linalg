@@ -62,34 +62,29 @@ static void
 #endif
 }
 
-/*
-<% params =
-if is_ge
- "a, x, [y, alpha:1, beta:0, trans:'N'"
-elsif is_tr
- "a, x, [uplo:'U', trans:'N', diag:'U'"
-else
- "a, x, [y, alpha:1, beta:0, uplo:'U'"
-end + ", order:'R'"
+/*<%
+ args_v =
+   if is_ge
+    "a, x, [y, alpha:1, beta:0, trans:'N'"
+   elsif is_tr
+    "a, x, [uplo:'U', trans:'N', diag:'U'"
+   else
+    "a, x, [y, alpha:1, beta:0, uplo:'U'"
+   end + ", order:'R'"
+ params = [
+   param("a",2,inplace:""),
+   param("x",1,inplace:""),
+   !is_tr && param("y",1,inplace:"optional, inplace allowed"),
+   param("alpha"),
+   param("beta"),
+   !is_ge && param("side"),
+   !is_ge && param("uplo"),
+   is_ge || is_tr && param("trans"),
+   param("order")
+ ].select{|x| x}.join("\n  ")
 %>
-  @overload <%=name%>(<%=params%>)
-  @param [<%=class_name%>] a  m-by-n matrix (>=2-dimentional NArray)
-  @param [<%=class_name%>] x  vector (>=1-dimentional NArray)
-<% if !is_tr %>
-  @param [<%=class_name%>] y  vector (>=1-dimentional NArray, optional, inplace allowed ).
-<% end %>
-  @param [Numeric]      alpha (default=1)
-<% if !is_tr %>
-  @param [Numeric]      beta (default=0)
-<% end; if !is_ge %>
-  @param [option] side  (default='left')
-  @param [option] uplo  (default='upper')
-<% end; if is_ge || is_tr %>
-  @param [option] trans transpose a (default='notrans')
-<% end; if is_tr %>
-  @param [option] diag  (default='unit', A is assumed to be unit triangular.)
-<% end %>
-  @param [option] order (default='rowmajor')
+  @overload <%=name%>(<%=args_v%>)
+  <%=params%>
   @return [<%=class_name%>] returns c.
 
 <%=description%>

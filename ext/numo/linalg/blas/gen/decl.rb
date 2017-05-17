@@ -28,6 +28,10 @@ class DefLinalgFunction < DefModuleFunction
     when /^job(\w+)?$/
       a = dim || $1
       "@param [#{optp}] #{v}  if 'V': Compute #{a}, if 'N': Not compute #{a} (default='V')"
+    when "alpha"
+      "@param [Float] #{v}  (default=1.0)"
+    when "beta"
+      "@param [Float] #{v}  (default=0.0)"
     else
       raise "param not found: #{v}"
     end

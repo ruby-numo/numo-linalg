@@ -17,12 +17,15 @@ static void
                  (dtype*)p2, s2/sizeof(dtype));
 }
 
-/*
+/*<%
+ params = [
+   param("x",1),
+   param("y",1),
+ ].select{|x| x}.join("\n  ")
+%>
   @overload <%=name%>( x, y )
-  @param [<%=class_name%>] x  1-dimentional NArray.
-  @param [<%=class_name%>] y  1-dimentional NArray.
+  <%=params%>
   @return [nil]
-
 
 <%=description%>
 

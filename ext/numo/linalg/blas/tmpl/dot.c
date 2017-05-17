@@ -26,10 +26,14 @@ static void
   <% end %>
 }
 
-/*
+/*<%
+ params = [
+   param("x",1,inplace:""),
+   param("y",1,inplace:""),
+ ].select{|x| x}.join("\n  ")
+%>
   @overload <%=name%>( x, y )
-  @param [<%=class_name%>] x  >= 1-dimentional NArray.
-  @param [<%=class_name%>] y  >= 1-dimentional NArray.
+  <%=params%>
   @return [<%=class_name%>] x dot y
 
 <%=description%>

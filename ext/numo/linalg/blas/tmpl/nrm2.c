@@ -21,20 +21,23 @@ static void
 
 /*
 <%
-case name
-when /^dz/
-  arg_class = "Numo::DComplex"
-  retT = "cRT"
-when /^sc/
-  arg_class = "Numo::SComplex"
-  retT = "cRT"
-else
-  arg_class = class_name
-  retT = "cT"
-end
+ case name
+ when /^dz/
+   arg_class = "Numo::DComplex"
+   retT = "cRT"
+ when /^sc/
+   arg_class = "Numo::SComplex"
+   retT = "cRT"
+ else
+   arg_class = class_name
+   retT = "cT"
+ end
+ params = [
+   param("x",1,inplace:""),
+ ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>( x )
-  @param [<%=arg_class%>] x  >= 1-dimentional NArray.
+  <%=params%>
   @return [<%=class_name%>]
 
 <%=description%>

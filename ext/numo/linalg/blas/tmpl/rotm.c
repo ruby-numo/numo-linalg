@@ -19,10 +19,14 @@ static void
                  (dtype*)p2, s2/sizeof(dtype), g);
 }
 
-/*
+/*<%
+ params = [
+   param("x",1),
+   param("y",1),
+ ].select{|x| x}.join("\n  ")
+%>
   @overload <%=name%>( x, y, param )
-  @param [<%=class_name%>] x  vector (>=1-dimentional NArray, inplace allowed)
-  @param [<%=class_name%>] y  vector (>=1-dimentional NArray, inplace allowed)
+  <%=params%>
   @param [Array,NArray]  array of [DFLAG,DH11,DH21,DH12,DH22]
   @return [<%=class_name%>,<%=class_name%>] returns [x,y]
 

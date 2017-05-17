@@ -24,11 +24,15 @@ static void
                          (dtype*)p2, s2/sizeof(dtype));
 }
 
-/*
+/*<%
+ params = [
+   param("x",1,inplace:""),
+   param("y",1),
+   param("alpha"),
+ ].select{|x| x}.join("\n  ")
+%>
   @overload <%=name%>( x, y, [alpha:1] )
-  @param [<%=class_name%>] x  vector (>=1-dimentional NArray).
-  @param [<%=class_name%>] y  vector (>=1-dimentional NArray, inplace allowed)
-  @param [Numeric]         alpha (default=1)
+  <%=params%>
   @return [<%=class_name%>] y = alpha * x + y
 
 <%=description%>

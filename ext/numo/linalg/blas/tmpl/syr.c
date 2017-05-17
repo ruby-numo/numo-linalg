@@ -30,15 +30,18 @@ static void
               (dtype*)p1, s1/sizeof(dtype), a, lda);
 }
 
-/*
+/*<%
+ params = [
+   param("x",1,inplace:""),
+   param("a",2),
+   param("alpha"),
+   param("uplo"),
+   param("order")
+ ].select{|x| x}.join("\n  ")
+%>
   @overload <%=name%>( x, [a, alpha:1, uplo:'U', order:'R'] )
-  @param [<%=class_name%>] x  vector (>=1-dimentional NArray)
-  @param [<%=class_name%>] a  n-by-n symmetric matrix [in/out] (>=2-dimentional NArray)
-  @param [Numeric]      alpha
-  @param [option] uplo  (default='upper')
-  @param [option] order (default='rowmajor')
+  <%=params%>
   @return [<%=class_name%>] return a
-
 <%=description%>
 
  */

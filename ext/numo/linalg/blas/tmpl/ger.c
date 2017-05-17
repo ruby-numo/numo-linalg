@@ -31,13 +31,17 @@ static void
               (dtype*)p2, s2/sizeof(dtype), a, lda);
 }
 
-/*
+/*<%
+ params = [
+   param("x",1),
+   param("y",1),
+   param("a",2,inplace:", m-by-n symmetric matrix, optional, inplace allowed"),
+   param("alpha"),
+   param("order"),
+ ].select{|x| x}.join("\n  ")
+%>
   @overload <%=name%>( x, y, [a, alpha:1, order:'R'] )
-  @param [<%=class_name%>] x  vector (>=1-dimentional NArray)
-  @param [<%=class_name%>] y  vector (>=1-dimentional NArray)
-  @param [<%=class_name%>] a  m-by-n symmetric matrix (>=2-dimentional NArray, optional, inplace allowed)
-  @param [Numeric]        alpha
-  @param [String,Symbol]  order (default='rowmajor')
+  <%=params%>
   @return [<%=class_name%>] returns a.
 
   <%=description%>

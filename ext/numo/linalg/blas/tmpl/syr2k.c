@@ -32,16 +32,20 @@ static void
               DP(g->alpha), a, lda, b, ldb, DP(g->beta), c, ldc);
 }
 
-/*
+/*<%
+ params = [
+   param("a",2,inplace:", n-by-k"),
+   param("b",2,inplace:", n-by-k"),
+   param("c",2,inplace:", n-by-n, optional, inpace allowed"),
+   param("alpha"),
+   param("beta"),
+   param("uplo"),
+   param("trans"),
+   param("order")
+ ].select{|x| x}.join("\n  ")
+%>
   @overload <%=name%>( a, b, [c, alpha:1, beta:0, uplo:'U', trans:'N', order:'R'] )
-  @param [<%=class_name%>] a  n-by-k matrix (>=2-dimentional NArray)
-  @param [<%=class_name%>] b  n-by-k matrix (>=2-dimentional NArray)
-  @param [<%=class_name%>] c  n-by-n matrix (>=2-dimentional NArray, optional, inplace allowed)
-  @param [Numeric]      alpha (default=1)
-  @param [Numeric]      beta (default=0)
-  @param [option] uplo  (default='upper')
-  @param [option] trans (default='notrans')
-  @param [option] order (default='rowmajor')
+  <%=params%>
   @return [<%=class_name%>] returns c.
 
 <%=description%>

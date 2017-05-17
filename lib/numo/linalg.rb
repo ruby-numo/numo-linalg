@@ -9,6 +9,12 @@ module Numo; module Linalg
     {
      znrm2: :dznrm2, cnrm2: :csnrm2,
     }
+    # Call BLAS function prefixed with BLAS char ([sdcz])
+    # defined from data-types of arguments.
+    # @param [Symbol] func  function name without BLAS char.
+    # @param args  arguments passed to Blas function.
+    # @example
+    #    c = Numo::Linalg::Blas.call(:gemm, a, b)
     def self.call(func,*args)
       fn = (Linalg.blas_char(*args) + func.to_s).to_sym
       fn = FIXNAME[fn] || fn
@@ -17,6 +23,12 @@ module Numo; module Linalg
   end
 
   module Lapack
+    # Call LAPACK function prefixed with BLAS char ([sdcz])
+    # defined from data-types of arguments.
+    # @param [Symbol,String] func  function name without BLAS char.
+    # @param args  arguments passed to Lapack function.
+    # @example
+    #    s = Numo::Linalg::Lapack.call(:gesv, a)
     def self.call(func,*args)
       fn = (Linalg.blas_char(*args) + func.to_s).to_sym
       send(fn,*args)

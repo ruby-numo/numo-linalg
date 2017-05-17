@@ -61,37 +61,32 @@ static void
 }
 
 /*
-<% params =
-if is_ge
- "a, b, [c, alpha:1, beta:0, transa:'N', transb:'N'"
-elsif is_tr
- "a, b, [alpha:1, side:'L', uplo:'U', transa:'N', diag:'U'"
-else
- "a, b, [c, alpha:1, beta:0, side:'L', uplo:'U'"
-end + ", order:'R'"
-%>
-  @overload <%=name%>(<%=params%>)
-  @param [<%=class_name%>] a  matrix (>=2-dimentional NArray).
-  @param [<%=class_name%>] b  matrix (>=2-dimentional NArray).
-<% if !is_tr %>
-  @param [<%=class_name%>] c  matrix (>=2-dimentional NArray, optional, inplace allowed ).
-<% end %>
-  @param [Numeric]      alpha (default=1)
-<% if !is_tr %>
-  @param [Numeric]      beta (default=0)
-<% end; if !is_ge %>
-  @param [option] side  (default='left')
-  @param [option] uplo  (default='upper')
-<% end; if is_ge || is_tr %>
-  @param [option] transa transpose a (default='notrans')
-<% end; if is_ge %>
-  @param [option] transb transpose b (default='notrans')
-<% end; if is_tr %>
-  @param [option] diag  (default='unit', A is assumed to be unit triangular.)
-<% end %>
-  @param [option] order (default='rowmajor')
-  @return [<%=class_name%>] returns c.
+<%
+ args_v =
+  if is_ge
+   "a, b, [c, alpha:1, beta:0, transa:'N', transb:'N'"
+  elsif is_tr
+   "a, b, [alpha:1, side:'L', uplo:'U', transa:'N', diag:'U'"
+  else
+   "a, b, [c, alpha:1, beta:0, side:'L', uplo:'U'"
+  end + ", order:'R'"
 
+ params = [
+   param("a",2,inplace:""),
+   param("b",2,inplace:""),
+   !is_tr && param("c",2,inplace:"optional, inplace allowed"),
+   param("alpha"),
+   param("beta"),
+   !is_ge && param("side"),
+   !is_ge && param("uplo"),
+   (is_ge || is_tr) && param("transa"),
+   is_ge            && param("transb"),
+   param("order")
+ ].select{|x| x}.join("\n  ")
+%>
+  @overload <%=name%>(<%=args_v%>)
+  <%=params%>
+  @return [<%=class_name%>] returns c.
 <%=description%>
 
 */
