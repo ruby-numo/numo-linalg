@@ -1,5 +1,39 @@
 require_relative './erbpp2'
 
+class DefLinalgFunction < DefModuleFunction
+  def param(v,dim=nil,tp=nil,**h)
+    tp ||= class_name
+    inpl = h[:inplace] || ", inplace allowed"
+
+    case dim
+    when 2
+      return "@param [#{tp}] #{v}  matrix (>=2-dimentional NArray#{inpl})."
+    when 1
+      return "@param [#{tp}] #{v}  vector (>=1-dimentional NArray#{inpl})."
+    end
+
+    optp = "String,Symbol"
+    case v
+    when /^order$/
+      "@param [#{optp}] #{v}  if 'R': Row-major, if 'C': Column-major. (default='R')"
+    when /^uplo$/
+      "@param [#{optp}] #{v}  if 'U': Upper triangle, if 'L': Lower triangle. (default='U')"
+    when /^side$/
+      "@param [#{optp}] #{v}  if 'L': op(A)*B (left-side op), if 'R': B*op(A) (right-side op). (default='L')"
+    when /^diag$/
+      "@param [#{optp}] #{v}  if 'U': assumed to be unit triangular, if 'N': not assumed to be unit triangular. (default='U')"
+    when /^trans(\w+)?$/
+      a = dim || $1
+      "@param [#{optp}] #{v}  if 'N': Not transpose #{a}, if 'T': Transpose #{a}. (default='N')"
+    when /^job(\w+)?$/
+      a = dim || $1
+      "@param [#{optp}] #{v}  if 'V': Compute #{a}, if 'N': Not compute #{a} (default='V')"
+    else
+      raise "param not found: #{v}"
+    end
+  end
+end
+
 module Decl
   def decl(meth, tmpl=nil, fn=nil, **h)
     c = get(:blas_char)
@@ -47,7 +81,7 @@ module Decl
       h[:is_complex] ||= false
     end
 
-    def_module_function(meth, tmpl, **h)
+    DefLinalgFunction.new(self, tmpl, name:meth, **h)
   end
 
   def get_desc(meth)
