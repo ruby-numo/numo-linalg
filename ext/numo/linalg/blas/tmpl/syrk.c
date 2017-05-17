@@ -1,10 +1,20 @@
+/*<%
+is_he = (/^.he/=~name)
+stype = is_he ? "rtype" : "dtype"
+%>*/
+<% if is_he %>
+#define P(a) (a)
+<% else %>
+#define P(a) DP(a)
+<% end %>
+
 #define args_t <%=name%>_args_t
 
 typedef struct {
     enum CBLAS_ORDER order;
     enum CBLAS_UPLO uplo;
     enum CBLAS_TRANSPOSE trans;
-    dtype alpha, beta;
+    <%=stype%> alpha, beta;
     blasint n, k;
 } args_t;
 
@@ -27,20 +37,19 @@ static void
     ldc = NDL_STEP(lp,1) / sizeof(dtype);
 
     (*func_p)(g->order, g->uplo, g->trans, g->n, g->k,
-              DP(g->alpha), a, lda, DP(g->beta), c, ldc);
+              P(g->alpha), a, lda, P(g->beta), c, ldc);
 }
 
 /*
- * @overload <%=name%>( a [, c, alpha:1, beta:0, uplo:'u', trans:'t', order:'r'] )
- * @param [Numo::DFloat] a  n-by-k matrix (>=2-dimentional NArray)
- * @param [Numo::DFloat] c  n-by-n matrix [in/out] (>=2-dimentional NArray)
- * @param [Numeric]      alpha (default=1)
- * @param [Numeric]      beta (default=0)
- * @param [option] uplo  (default='upper')
- * @param [option] trans (default='notrans')
- * @param [option] order (default='rowmajor')
- * @return [Numo::DFloat]
- * @raise
+  @overload <%=name%>( a, [c, alpha:1, beta:0, uplo:'U', trans:'N', order:'R'] )
+  @param [<%=class_name%>] a  n-by-k matrix (>=2-dimentional NArray)
+  @param [<%=class_name%>] c  n-by-n matrix (>=2-dimentional NArray, optional, inpace allowed)
+  @param [Numeric]      alpha (default=1)
+  @param [Numeric]      beta (default=0)
+  @param [option] uplo  (default='upper')
+  @param [option] trans (default='notrans')
+  @param [option] order (default='rowmajor')
+  @return [<%=class_name%>] returns c.
 
 <%=description%>
 
@@ -67,9 +76,14 @@ static VALUE
     rb_scan_args(argc, argv, "11:", &a, &c, &kw_hash);
     rb_get_kwargs(kw_hash, kw_table, 0, 5, opts);
     alpha   = option_value(opts[0],Qnil);
-    g.alpha = RTEST(alpha) ? m_num_to_data(alpha) : m_one;
     beta    = option_value(opts[1],Qnil);
+<% if is_he %>
+    g.alpha = RTEST(alpha) ? DBL2NUM(alpha) : 1;
+    g.beta  = RTEST(beta)  ? DBL2NUM(beta)  : 0;
+<% else %>
+    g.alpha = RTEST(alpha) ? m_num_to_data(alpha) : m_one;
     g.beta  = RTEST(beta)  ? m_num_to_data(beta)  : m_zero;
+<% end %>
     g.order = option_order(opts[2]);
     g.uplo  = option_uplo(opts[3]);
     g.trans = option_trans(opts[4]);
@@ -111,3 +125,4 @@ static VALUE
 
 #undef func_p
 #undef args_t
+#undef P

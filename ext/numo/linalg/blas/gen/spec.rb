@@ -23,6 +23,8 @@ when "z"
   real_char = "d"
 end
 
+# level-1 blas
+
 case blas_char
 when /[sd]/
   decl "?dot"
@@ -58,13 +60,15 @@ when /[cz]/
 end
 
 # level-2 blas
+
 decl "?gemv", "mv"
 decl "?trmv", "mv"
+
 case blas_char
 when /[sd]/
-  decl "?symv", "mv"
+  decl "?symv", "mv"  # [cz]symv missing in CBLAS
+  decl "?syr"         # [cz]syr  missing in CBLAS
   decl "?ger"
-  decl "?syr"
   decl "?syr2"
 when /[cz]/
   decl "?hemv", "mv"
@@ -72,43 +76,18 @@ when /[cz]/
   decl "?geru", "ger"
   decl "?her",  "syr"
   decl "?her2", "syr2"
+  decl "?herk", "syrk"
 end
 
 # level-3 blas
+
 decl "?gemm", "mm"
 decl "?symm", "mm"
+decl "?trmm", "mm"
+
 case blas_char
 when /[cz]/
   decl "?hemm", "mm"
 end
 decl "?syrk"
 decl "?syr2k"
-
-
-if false
-decl "?gemm", "mm"
-decl "?symm", "mm"
-
-case blas_char
-when /[cz]/
-  decl "?hemm", "mm"
-end
-
-decl "?gemv", "mv"
-decl "?trmv", "mv"
-case blas_char
-when /[sd]/
-  decl "?symv", "mv"
-when /[cz]/
-  decl "?hemv", "mv"
-end
-
-case blas_char
-when /[sd]/
-  decl "?ger"
-  decl "?syrk"
-when /[cz]/
-  decl "?gerc", "ger"
-  decl "?herk", "syrk"
-end
-end

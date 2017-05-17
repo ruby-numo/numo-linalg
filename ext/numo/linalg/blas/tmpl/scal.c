@@ -28,11 +28,10 @@ static void
 }
 
 /*
- *  @overload <%=name%>( a, x )
- *  @param [Float]        a  scale factor
- *  @param [Numo::NArray] x  1-dimentional NArray. [in/out]
- *  @return x
- *  @raise
+  @overload <%=name%>( a, x )
+  @param [Float]        a  scale factor
+  @param [<%=class_name%>] x  vector (>=1-dimentional NArray, inplace allowed)
+  @return [<%=class_name%>] returns x.
 
 <%=description%>
 
@@ -52,7 +51,7 @@ static VALUE
   <% else %>
     if (RTEST(a)) {g[0] = m_num_to_data(a);} else {g[0]=m_one;}
   <% end %>
-    CHECK_NARRAY_TYPE(x,cT);
+    COPY_OR_CAST_TO(x,cT);
     GetNArray(x,na1);
     CHECK_DIM_GE(na1,1);
     CHECK_NON_EMPTY(na1);

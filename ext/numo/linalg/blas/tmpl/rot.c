@@ -20,13 +20,12 @@ static void
 }
 
 /*
- *  @overload <%=name%>( x, y, c, s )
- *  @param [Numo::NArray] x  1-dimentional NArray. [in/out]
- *  @param [Numo::NArray] y  1-dimentional NArray. [in/out]
- *  @param [Float] c
- *  @param [Float] s
- *  @return [nil]
- *  @raise
+  @overload <%=name%>( x, y, c, s )
+  @param [<%=class_name%>] x  vector (>=1-dimentional NArray, inplace allowed)
+  @param [<%=class_name%>] y  vector (>=1-dimentional NArray, inplace allowed)
+  @param [Float] c
+  @param [Float] s
+  @return [[<%=class_name%>,<%=class_name%>]] returns [x,y]
 
 <%=description%>
 
@@ -44,8 +43,8 @@ static VALUE
     if (RTEST(c)) {g[0] = NUM2DBL(c);}
     if (RTEST(s)) {g[1] = NUM2DBL(s);}
 
-    CHECK_NARRAY_TYPE(x,cT);
-    CHECK_NARRAY_TYPE(y,cT);
+    COPY_OR_CAST_TO(x,cT);
+    COPY_OR_CAST_TO(y,cT);
     GetNArray(x,na1);
     GetNArray(y,na2);
     CHECK_DIM_GE(na1,1);
@@ -56,7 +55,7 @@ static VALUE
 
     na_ndloop3(&ndf, g, 2, x, y);
 
-    return Qnil;
+    return rb_assoc_new(x,y);
 }
 
 #undef func_p

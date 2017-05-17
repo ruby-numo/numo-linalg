@@ -14,7 +14,7 @@ GENSRC=<%= srcs.map{|x| x[1]}.join(" ") %>
 src : blas.c $(GENSRC)
 
 doc : $(GENSRC)
-	yard doc $(GENSRC)
+	yard doc -m markdown $(GENSRC)
 
 clean: cleansrc cleandoc
 cleansrc:

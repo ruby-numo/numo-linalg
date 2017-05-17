@@ -27,11 +27,10 @@ static void
 }
 
 /*
- *  @overload <%=name%>( x, y )
- *  @param [Numo::NArray] x  >= 1-dimentional NArray.
- *  @param [Numo::NArray] y  >= 1-dimentional NArray.
- *  @return [Numo::NArray]
- *  @raise
+  @overload <%=name%>( x, y )
+  @param [<%=class_name%>] x  >= 1-dimentional NArray.
+  @param [<%=class_name%>] y  >= 1-dimentional NArray.
+  @return [<%=class_name%>] x dot y
 
 <%=description%>
 

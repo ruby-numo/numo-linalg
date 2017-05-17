@@ -33,17 +33,16 @@ static void
 }
 
 /*
- * @overload <%=name%>( a, b [, c, alpha:1, beta:0, uplo:'u', trans:'n', order:'r'] )
- * @param [Numo::DFloat] a  n-by-k matrix (>=2-dimentional NArray)
- * @param [Numo::DFloat] b  n-by-k matrix (>=2-dimentional NArray)
- * @param [Numo::DFloat] c  [optional] n-by-n matrix [in/out] (>=2-dimentional NArray)
- * @param [Numeric]      alpha (default=1)
- * @param [Numeric]      beta (default=0)
- * @param [option] uplo  (default='upper')
- * @param [option] trans (default='notrans')
- * @param [option] order (default='rowmajor')
- * @return [Numo::DFloat]
- * @raise
+  @overload <%=name%>( a, b, [c, alpha:1, beta:0, uplo:'U', trans:'N', order:'R'] )
+  @param [<%=class_name%>] a  n-by-k matrix (>=2-dimentional NArray)
+  @param [<%=class_name%>] b  n-by-k matrix (>=2-dimentional NArray)
+  @param [<%=class_name%>] c  n-by-n matrix (>=2-dimentional NArray, optional, inplace allowed)
+  @param [Numeric]      alpha (default=1)
+  @param [Numeric]      beta (default=0)
+  @param [option] uplo  (default='upper')
+  @param [option] trans (default='notrans')
+  @param [option] order (default='rowmajor')
+  @return [<%=class_name%>] returns c.
 
 <%=description%>
 

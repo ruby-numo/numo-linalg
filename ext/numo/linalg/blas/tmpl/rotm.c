@@ -20,12 +20,11 @@ static void
 }
 
 /*
- *  @overload <%=name%>( x, y, param )
- *  @param [Numo::NArray] x  1-dimentional NArray. [in/out]
- *  @param [Numo::NArray] y  1-dimentional NArray. [in/out]
- *  @param [Array,NArray] param
- *  @return [nil]
- *  @raise
+  @overload <%=name%>( x, y, param )
+  @param [<%=class_name%>] x  vector (>=1-dimentional NArray, inplace allowed)
+  @param [<%=class_name%>] y  vector (>=1-dimentional NArray, inplace allowed)
+  @param [Array,NArray]  array of [DFLAG,DH11,DH21,DH12,DH22]
+  @return [<%=class_name%>,<%=class_name%>] returns [x,y]
 
 <%=description%>
 
@@ -40,8 +39,8 @@ static VALUE
 
     CHECK_FUNC(func_p,"<%=func_name%>");
 
-    CHECK_NARRAY_TYPE(x,cT);
-    CHECK_NARRAY_TYPE(y,cT);
+    COPY_OR_CAST_TO(x,cT);
+    COPY_OR_CAST_TO(y,cT);
     GetNArray(x,na1);
     GetNArray(y,na2);
     CHECK_DIM_GE(na1,1);
@@ -59,7 +58,7 @@ static VALUE
     na_ndloop3(&ndf, g, 2, x, y);
 
     RB_GC_GUARD(param);
-    return Qnil;
+    return rb_assoc_new(x,y);
 }
 
 #undef func_p

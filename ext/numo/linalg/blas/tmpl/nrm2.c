@@ -20,10 +20,22 @@ static void
 }
 
 /*
- *  @overload <%=name%>( x )
- *  @param [Numo::NArray] x  >= 1-dimentional NArray.
- *  @return [Numo::NArray]
- *  @raise
+<%
+case name
+when /^dz/
+  arg_class = "Numo::DComplex"
+  retT = "cRT"
+when /^sc/
+  arg_class = "Numo::SComplex"
+  retT = "cRT"
+else
+  arg_class = class_name
+  retT = "cT"
+end
+%>
+  @overload <%=name%>( x )
+  @param [<%=arg_class%>] x  >= 1-dimentional NArray.
+  @return [<%=class_name%>]
 
 <%=description%>
 
@@ -34,7 +46,7 @@ static VALUE
     VALUE     x, keepdims, ans;
     narray_t *na1;
     ndfunc_arg_in_t ain[1] = {{cT,1}};
-    ndfunc_arg_out_t aout[1] = {{cT,0}};
+    ndfunc_arg_out_t aout[1] = {{<%=retT%>,0}};
     ndfunc_t ndf = {<%=c_iter%>, NDF_EXTRACT, 1,1, ain,aout};
 
     VALUE opts[1] = {Qundef};

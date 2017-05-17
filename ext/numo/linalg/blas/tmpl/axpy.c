@@ -25,11 +25,11 @@ static void
 }
 
 /*
- * @overload <%=name%>( x, y [, alpha:1] )
- * @param [Numo::DFloat] x  >=1-dimentional NArray.
- * @param [Numo::DFloat] y  >=1-dimentional NArray.
- * @return [Numo::DFloat]  return y
- * @raise
+  @overload <%=name%>( x, y, [alpha:1] )
+  @param [<%=class_name%>] x  vector (>=1-dimentional NArray).
+  @param [<%=class_name%>] y  vector (>=1-dimentional NArray, inplace allowed)
+  @param [Numeric]         alpha (default=1)
+  @return [<%=class_name%>] y = alpha * x + y
 
 <%=description%>
 

@@ -1,6 +1,7 @@
 /*<%
   is_ge = (/^.ge/ =~ name)
   is_tr = (/^.tr/ =~ name)
+  is_tr = (/^.tr/ =~ name)
 %>*/
 <% %>
 #define GE <%= is_ge ? "1":"0" %>
@@ -24,18 +25,26 @@ static <%=func_name%>_t func_p = 0;
 static void
 <%=c_iter%>(na_loop_t *const lp)
 {
-    dtype *a, *b, *c;
-    int    lda, ldb, ldc;
+    dtype *a, *b;
+    int    lda, ldb;
+#if !TR
+    dtype *c;
+    int    ldc;
+#endif
     args_t *g;
 
     a = (dtype*)NDL_PTR(lp,0);
     b = (dtype*)NDL_PTR(lp,1);
+#if !TR
     c = (dtype*)NDL_PTR(lp,2);
+#endif
     g = (args_t*)(lp->opt_ptr);
 
     lda = NDL_STEP(lp,0) / sizeof(dtype);
     ldb = NDL_STEP(lp,1) / sizeof(dtype);
+#if !TR
     ldc = NDL_STEP(lp,2) / sizeof(dtype);
+#endif
 
     //printf("m=%d n=%d k=%d\n",g->m,g->n,g->k);
 
@@ -43,7 +52,7 @@ static void
     (*func_p)( g->order, g->transa, g->transb, g->m, g->n, g->k,
               DP(g->alpha), a, lda, b, ldb, DP(g->beta), c, ldc);
 #elif TR
-    (*func_p)( g->order, g->side, g->uplo, g->transa, g->m, g->n,
+    (*func_p)( g->order, g->side, g->uplo, g->transa, g->diag, g->m, g->n,
                DP(g->alpha), a, lda, b, ldb);
 #else // SY,HE
     (*func_p)( g->order, g->side, g->uplo, g->m, g->n,
@@ -52,12 +61,36 @@ static void
 }
 
 /*
-  @overload <%=name%>( a, b [, c, alpha:1, beta:0, transa:'n', transb:'n', order:'r'] )
-  @param [Numo::DFloat] a  >=2-dimentional NArray.
-  @param [Numo::DFloat] b  >=2-dimentional NArray.
-  @param [Numo::DFloat] c  [optional, inplace applilcable] >=2-dimentional NArray.
-  @return [Numo::DFloat]
-  @raise
+<% params =
+if is_ge
+ "a, b, [c, alpha:1, beta:0, transa:'N', transb:'N'"
+elsif is_tr
+ "a, b, [alpha:1, side:'L', uplo:'U', transa:'N', diag:'U'"
+else
+ "a, b, [c, alpha:1, beta:0, side:'L', uplo:'U'"
+end + ", order:'R'"
+%>
+  @overload <%=name%>(<%=params%>)
+  @param [<%=class_name%>] a  matrix (>=2-dimentional NArray).
+  @param [<%=class_name%>] b  matrix (>=2-dimentional NArray).
+<% if !is_tr %>
+  @param [<%=class_name%>] c  matrix (>=2-dimentional NArray, optional, inplace allowed ).
+<% end %>
+  @param [Numeric]      alpha (default=1)
+<% if !is_tr %>
+  @param [Numeric]      beta (default=0)
+<% end; if !is_ge %>
+  @param [option] side  (default='left')
+  @param [option] uplo  (default='upper')
+<% end; if is_ge || is_tr %>
+  @param [option] transa transpose a (default='notrans')
+<% end; if is_ge %>
+  @param [option] transb transpose b (default='notrans')
+<% end; if is_tr %>
+  @param [option] diag  (default='unit', A is assumed to be unit triangular.)
+<% end %>
+  @param [option] order (default='rowmajor')
+  @return [<%=class_name%>] returns c.
 
 <%=description%>
 
@@ -136,6 +169,8 @@ static VALUE
     }
 #endif
 
+    SWAP_IFROW(g.order, ma,nb, tmp);
+
 #if TR
     if (c != Qnil) {
         rb_raise(rb_eArgError,"wrong number of arguments (3 for 2)");
@@ -146,8 +181,6 @@ static VALUE
     na_ndloop3(&ndf, &g, 2, a, b);
     return b;
 #else
-
-    SWAP_IFROW(g.order, ma,nb, tmp);
 
     if (c == Qnil) { // c is not given.
         ndfunc_arg_in_t ain_init = {sym_init,0};

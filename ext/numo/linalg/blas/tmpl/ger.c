@@ -32,14 +32,13 @@ static void
 }
 
 /*
- * @overload <%=name%>( x, y [, a, alpha:1, order:'r'] )
- * @param [Numo::DFloat] x  vector (>=1-dimentional NArray)
- * @param [Numo::DFloat] y  vector (>=1-dimentional NArray)
- * @param [Numo::DFloat] a  m-by-n symmetric matrix [in/out] (>=2-dimentional NArray)
- * @param [Numeric]      alpha
- * @param [option] order (default='rowmajor')
- * @return [Numo::DFloat]
- * @raise
+  @overload <%=name%>( x, y, [a, alpha:1, order:'R'] )
+  @param [<%=class_name%>] x  vector (>=1-dimentional NArray)
+  @param [<%=class_name%>] y  vector (>=1-dimentional NArray)
+  @param [<%=class_name%>] a  m-by-n symmetric matrix (>=2-dimentional NArray, optional, inplace allowed)
+  @param [Numeric]        alpha
+  @param [String,Symbol]  order (default='rowmajor')
+  @return [<%=class_name%>] returns a.
 
   <%=description%>
 
