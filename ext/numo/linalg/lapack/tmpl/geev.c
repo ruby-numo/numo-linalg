@@ -52,19 +52,18 @@ static void
 }
 
 /*<%
- tp = "Numo::"+class_name
+ tp = class_name
  return_type = ([tp]*(is_complex ? 3 : 4) + ["Integer"]).join(", ")
  return_name = (is_complex ? "w,":"wr, wi,") + " vl, vr, info"
+ params = [
+   param("a",2),
+   param("jobvl","left eigenvectors"),
+   param("jobvr","right eigenvectors"),
+   param("order"),
+ ].select{|x| x}.join("\n  ")
 %>
-  @overload <%=name%>( a, b [,jobvl:'v', jobvr:'v', order:'r'] )
-  @param [Numo::<%=class_name%>] a >=2-dimentional NArray.
-  @param [Numo::<%=class_name%>] b >=2-dimentional NArray.
-  @param [String,Symbol] jobvl
-    jobvl='N':  do not compute the left generalized eigenvectors;
-    jobvl='V':  compute the left generalized eigenvectors.
-  @param [String,Symbol] jobvr
-    jobvr='N':  do not compute the left generalized eigenvectors;
-    jobvr='V':  compute the left generalized eigenvectors.
+  @overload <%=name%>( a,, [jobvl:'V', jobvr:'V', order:'R'] )
+  <%=params%>
   @return [[<%=return_type%>]] array of [<%=return_name%>]
 
   <%=description%>

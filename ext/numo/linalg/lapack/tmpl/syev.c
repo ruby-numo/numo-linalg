@@ -31,17 +31,17 @@ static void
     CHECK_ERROR(*info);
 }
 
-/*
-  @overload <%=name%>(a [, jobz:'n', uplo:'u', order:'r'])
-  @param [Numo::<%=class_name%>] a >=2-dimentional NArray.
-  @param [String,Symbol] jobz
-  'N':  Compute eigenvalues only;
-  'V':  Compute eigenvalues and eigenvectors.
-  @param [String,Symbol] uplo
-  'U':  Upper triangle of A is stored;
-  'L':  Lower triangle of A is stored.
-  @param [String,Symbol] order
-  @return [[Numo::<%=real_class_name%>,Numo::<%=real_class_name%>,Integer]]  array of [a,w,info].
+/*<%
+ params = [
+   param("a",2),
+   param("jobz","eigenvectors"),
+   param("uplo"),
+   param("order"),
+ ].select{|x| x}.join("\n  ")
+%>
+  @overload <%=name%>(a, [jobz:'N', uplo:'U', order:'R'])
+  <%=params%>
+  @return [[<%=real_class_name%>,<%=real_class_name%>,Integer]]  array of [a,w,info].
 
   <%=description%>
 

@@ -69,14 +69,20 @@ static void
 
 /*<%
  args_opt = [
-   has_uplo && "uplo:'u'",
-   "order:'r'",
+   has_uplo && "uplo:'U'",
+   "order:'R'",
  ].select{|x| x}.join(", ")
 
+ params = [
+   param("a",2),
+   has_uplo && param("uplo"),
+   param("order"),
+ ].select{|x| x}.join("\n  ")
+
  return_type = [
-   "Numo::"+class_name,
+   class_name,
    has_piv && "Numo::Int",
-   has_tau && "Numo::"+class_name,
+   has_tau && class_name,
    "Integer"
  ].select{|x| x}.join(", ")
 
@@ -87,8 +93,8 @@ static void
    "info"
  ].select{|x| x}.join(", ")
 %>
-  @overload <%=name%>(a [,<%=args_opt%>])
-  @param [Numo::<%=class_name%>] a >=2-dimentional NArray.
+  @overload <%=name%>(a, [<%=args_opt%>])
+  <%=params%>
   @return [[<%=return_type%>]] array of [<%=return_name%>]
 
  <%=description%>

@@ -48,19 +48,24 @@ static void
 }
 
 /*<%
- tp = "Numo::"+class_name
+ tp = class_name
  iscal = "Integer"
  if is_sdd
-   a = "a [, jobz:'a', order:'r']"
+   a = "a, [jobz:'A', order:'R']"
  else
-   a = "a [, jobu:'a', jobvt:'a', order:'r']"
+   a = "a, [jobu:'A', jobvt:'A', order:'R']"
  end
  return_type = [tp,tp,tp,iscal].join(", ")
  return_name = "s, u, vt, info"
- params = a
+ args_v = a
+ params = [
+   param("a",2, inplace:", inplace allowed if jobu=='O' or jobvt=='O'"),
+   *(is_sdd ? [param("jobz")] : [param("jobu"),param("jobvt")]),
+   param("order"),
+ ].select{|x| x}.join("\n  ")
 %>
-  @overload <%=name%>(<%=params%>)
-  @param [<%=tp%>] a  >=2-dimentional NArray.
+  @overload <%=name%>(<%=args_v%>)
+  <%=params%>
   @return [[<%=return_type%>]] array of [<%=return_name%>]
 
   <%=description%>

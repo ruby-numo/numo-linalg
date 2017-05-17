@@ -68,32 +68,38 @@ static void
 
 /*
 <%
- tp = "Numo::"+class_name
+ tp = class_name
  iary = "Numo::Int"
  iscal = "Integer"
  if is_lsy
    t = [tp,tp,iary,iscal,iscal]
-   a = "a, b, jpvt [, rcond:-1, order:'r']"
+   a = "a, b, jpvt, [rcond:-1, order:'R']"
    n = "a, b, jpvt, rank, info"
  elsif is_lss
    t = [tp,tp,tp,iscal,iscal]
-   a = "a, b, jpvt [, rcond:-1, order:'r']"
+   a = "a, b, jpvt, [rcond:-1, order:'R']"
    n = "a, b, s, rank, info"
  else
    t = [tp,tp,iscal]
-   a = "a, b [, order:'r']"
+   a = "a, b, [order:'R']"
    n = "a, b, info"
  end
  return_type = t.join(", ")
  return_name = n
- params = a
+ args_v = a
+ params = [
+   param("a",2),
+   param("b",2),
+   is_lsy && param("jpvt",2,iary),
+   is_lss && "@param [Float] rcond "+
+     " RCOND is used to determine the effective rank of A."+
+     " Singular values S(i) <= RCOND*S(1) are treated as zero."+
+     " If RCOND < 0, machine precision is used instead.",
+   param("order"),
+ ].select{|x| x}.join("\n  ")
 %>
-  @overload <%=name%>(<%=params%>)
-  @param [<%=tp%>] a  >=2-dimentional NArray.
-  @param [<%=tp%>] b  >=2-dimentional NArray.
-<% if is_lsy %>
-  @param [<%=iary%>] jpvt  >=2-dimentional NArray.
-<% end %>
+  @overload <%=name%>(<%=args_v%>)
+  <%=params%>
   @return [[<%=return_type%>]] array of [<%=return_name%>]
 
   <%=description%>

@@ -24,9 +24,11 @@ when "z"
   real_char = "d"
 end
 
-#--
+# norm
 
 decl "?lange"
+
+# linear system
 
 decl "?gesv"
 decl "?sysv", "gesv"
@@ -44,6 +46,8 @@ decl "?gelss", "gels"
 decl "?gelsd", "gels"
 decl "?gelsy", "gels"
 
+# eigenvalue
+
 decl "?geev"
 decl "?ggev"
 
@@ -59,6 +63,8 @@ else
   decl "?sygv"
   decl "?sygvd", "sygv"
 end
+
+# factorize
 
 decl "?geqrf", "fact"
 decl "?gerqf", "fact"

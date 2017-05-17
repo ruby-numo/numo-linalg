@@ -30,16 +30,16 @@ static void
     *norm = (*func_p)(g->order, g->norm, m, n, a, lda);
 }
 
-/*
-<% tp = "Numo::"+class_name %>
-  @overload <%=name%>(a, norm, [axis:nil, keepdims:false, order:'r'])
-  @param [<%=tp%>]  a  >=2-dimentional NArray.
-  @return [String or Symbol] norm option
-  @return [<%=tp%>] <%=name%> =
-                        ( max(abs(A(i,j))), NORM = 'M' or 'm'
-                        ( norm1(A),         NORM = '1', 'O' or 'o'
-                        ( normI(A),         NORM = 'I' or 'i'
-                        ( normF(A),         NORM = 'F', 'f', 'E' or 'e'
+/*<%
+ params = [
+   param("a",2),
+   "@param [String]  norm  Kind of norm: 'M',('1','O'),'I',('F','E')",
+   param("order"),
+ ].select{|x| x}.join("\n  ")
+%>
+  @overload <%=name%>(a, norm, [order:'R'])
+  <%=params%>
+  @return [<%=class_name%>] returns <%=name%>.
 
   <%=description%>
 
@@ -54,8 +54,8 @@ static VALUE
     ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 1, 1, ain, aout};
 
     args_t g;
-    VALUE opts[3] = {Qundef,Qundef,Qundef};
-    ID kw_table[3] = {id_order};
+    VALUE opts[1] = {Qundef};
+    ID kw_table[1] = {id_order};
     VALUE kw_hash = Qnil;
 
     CHECK_FUNC(func_p,"<%=func_name%>");

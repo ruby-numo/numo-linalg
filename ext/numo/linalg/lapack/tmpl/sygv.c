@@ -34,22 +34,19 @@ static void
     CHECK_ERROR(*info);
 }
 
-/*
-  @overload <%=name%>(a, b [,itype:1, uplo:'u', order:'r'])
-  @param [Numo::<%=class_name%>] a >=2-dimentional NArray.
-  @param [Integer] itype
-  Specifies the problem type to be solved:
-  itype=1:  A*x = (lambda)*B*x;
-  itype=2:  A*B*x = (lambda)*x;
-  itype=3:  B*A*x = (lambda)*x.
-  @param [String,Symbol] jobz
-  jobz='N':  Compute eigenvalues only;
-  jobz='V':  Compute eigenvalues and eigenvectors.
-  @param [String,Symbol] uplo
-  uplo='U':  Upper triangle of A is stored;
-  uplo='L':  Lower triangle of A is stored.
-  @param [String,Symbol] order
-  @return [[Numo::<%=real_class_name%>,Numo::<%=real_class_name%>,Integer]]  array of [a,b,w,info].
+/*<%
+ params = [
+   param("a",2),
+   param("b",2),
+   "@param [Integer] itype Specifies the problem type to be solved. If 1:  A*x = (lambda)*B*x, If 2:  A*B*x = (lambda)*x, If 3:  B*A*x = (lambda)*x.",
+   param("jobz","eigenvectors"),
+   param("uplo"),
+   param("order"),
+ ].select{|x| x}.join("\n  ")
+%>
+  @overload <%=name%>(a, b, [itype:1, jobz:'V', uplo:'U', order:'R'])
+  <%=params%>
+  @return [[<%=real_class_name%>,<%=real_class_name%>,Integer]]  array of [a,b,w,info].
 
   <%=description%>
 

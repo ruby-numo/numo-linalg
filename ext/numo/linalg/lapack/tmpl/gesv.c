@@ -51,13 +51,13 @@ static void
 }
 
 /*<%
- tp = "Numo::"+class_name
+ tp = class_name
  iary = "Numo::Int"
  iscal = "Integer"
  if uplo
-   a = "a, b [, uplo:'u', order:'r']"
+   a = "a, b, [uplo:'U', order:'R']"
  else
-   a = "a, b [, order:'r']"
+   a = "a, b, [order:'R']"
  end
  if ipiv
    n = "lu, x, piv, info"
@@ -68,11 +68,17 @@ static void
  end
  return_type = t.join(", ")
  return_name = n
- params = a
+ args_v = a
+
+ params = [
+   param("a",2),
+   param("b",1),
+   uplo && param("uplo"),
+   param("order"),
+ ].select{|x| x}.join("\n  ")
 %>
-  @overload <%=name%>(<%=params%>)
-  @param [<%=tp%>] a  >=2-dimentional NArray.
-  @param [<%=tp%>] b  >=1-dimentional NArray.
+  @overload <%=name%>(<%=args_v%>)
+  <%=params%>
   @return [[<%=return_type%>]] array of [<%=return_name%>]
 
   <%=description%>
