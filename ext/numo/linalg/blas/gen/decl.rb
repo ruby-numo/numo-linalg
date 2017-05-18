@@ -1,50 +1,13 @@
 require_relative './erbpp2'
 
-class DefLinalgFunction < DefModuleFunction
-  def param(v,dim=nil,tp=nil,**h)
-    tp ||= class_name
-    inpl = h[:inplace] || ", inplace allowed"
-
-    case dim
-    when 2
-      return "@param [#{tp}] #{v}  matrix (>=2-dimentional NArray#{inpl})."
-    when 1
-      return "@param [#{tp}] #{v}  vector (>=1-dimentional NArray#{inpl})."
-    end
-
-    optp = "String,Symbol"
-    case v
-    when /^order$/
-      "@param [#{optp}] #{v}  if 'R': Row-major, if 'C': Column-major. (default='R')"
-    when /^uplo$/
-      "@param [#{optp}] #{v}  if 'U': Upper triangle, if 'L': Lower triangle. (default='U')"
-    when /^side$/
-      "@param [#{optp}] #{v}  if 'L': op(A)*B (left-side op), if 'R': B*op(A) (right-side op). (default='L')"
-    when /^diag$/
-      "@param [#{optp}] #{v}  if 'U': assumed to be unit triangular, if 'N': not assumed to be unit triangular. (default='U')"
-    when /^trans(\w+)?$/
-      a = dim || $1
-      "@param [#{optp}] #{v}  if 'N': Not transpose #{a}, if 'T': Transpose #{a}. (default='N')"
-    when /^job(\w+)?$/
-      a = dim || $1
-      "@param [#{optp}] #{v}  if 'V': Compute #{a}, if 'N': Not compute #{a} (default='V')"
-    when "alpha"
-      "@param [Float] #{v}  (default=1.0)"
-    when "beta"
-      "@param [Float] #{v}  (default=0.0)"
-    else
-      raise "param not found: #{v}"
-    end
-  end
-end
-
 module Decl
+
   def decl(meth, tmpl=nil, fn=nil, **h)
     c = get(:blas_char)
     tmpl = meth.dup.gsub(/\?/,"") unless tmpl
     meth = meth.gsub(/\?/,c)
     h[:func_name] ||= (fn && fn.gsub(/\?/,c)) || meth
-    h[:description] ||= get_desc(meth)
+    #h[:description] ||= get_desc(meth)
 
     case meth
     when /^s/
@@ -87,13 +50,40 @@ module Decl
 
     DefLinalgFunction.new(self, tmpl, name:meth, **h)
   end
+end
 
-  def get_desc(meth)
+
+class DefLinalgFunction < DefModuleFunction
+
+  def escape!(s)
+    s.gsub!(/\*/,"\\*")
+    s.gsub!(/_/,"\\_")
+    s
+  end
+
+  def outparam(vars)
+    m = get(:module_desc)[name]
+    h = m && m['param']
+    return "" if h.nil?
+    result = ["### Output Parameters:\n"]
+    v = vars.split(/,\s*/)
+    v.each do |var|
+      if content = h[var.upcase]
+        result << "- ***#{var}*** --- "
+        content[1..-1].each{|s| result << "  "+escape!(s)}
+      end
+      result << ""
+    end
+    result.join("\n")
+  end
+
+  def description
     indent = false
     lines = []
-    input = get(:module_desc)[meth]
+    h = get(:module_desc)[name]
+    input = h && h['summary']
     if input.nil?
-      puts "no description: #{meth}"
+      puts "no description: #{name}"
       return ""
     end
     re_trim = /^(\s+)/=~input[0] ? /^#{$1}/ : nil
@@ -118,10 +108,82 @@ module Decl
         end
       end
       if /^\s{8,}/ !~ line
-        line.gsub!(/\*/,"\\*")
+        escape!(line)
       end
       lines << line
     end
     lines.join("\n")+"\n"
+  end
+
+  def vec(v,*a,**h)
+    tp = h[:type] || class_name
+    a.map!{|x| x==:inplace ? "inplace allowed" : x}
+    a.unshift ">=1-dimentional NArray"
+    "@param #{v} [#{tp}]  vector (#{a.join(', ')})."
+  end
+
+  def mat(v,*a,**h)
+    tp = h[:type] || class_name
+    a.map!{|x| x==:inplace ? "inplace allowed" : x}
+    a.unshift ">=2-dimentional NArray"
+    "@param #{v} [#{tp}]  matrix (#{a.join(', ')})."
+  end
+
+  def opt(v,tp=nil,*a)
+    tp ||= "String or Symbol"
+    case v
+    when /^order$/
+      "@param #{v} [#{tp}]  if 'R': Row-major, if 'C': Column-major. (default='R')"
+    when /^uplo$/
+      "@param #{v} [#{tp}]  if 'U': Upper triangle, if 'L': Lower triangle. (default='U')"
+    when /^side$/
+      "@param #{v} [#{tp}]  if 'L': op(A)\\*B (left-side op), if 'R': B\\*op(A) (right-side op). (default='L')"
+    when /^diag$/
+      "@param #{v} [#{tp}]  if 'U': assumed to be unit triangular, if 'N': not assumed to be unit triangular. (default='U')"
+    when /^trans(\w+)?$/
+      b = a[0] || $1
+      "@param #{v} [#{tp}]  if 'N': Not transpose #{b}, if 'T': Transpose #{b}. (default='N')"
+    when "alpha"
+      "@param #{v} [Float]  (default=1.0)"
+    when "beta"
+      "@param #{v} [Float]  (default=0.0)"
+    else
+      "@param #{v} [#{tp}]  #{a[0]}"
+    end
+  end
+
+  def job(v)
+    tp = "String or Symbol"
+
+    a =
+      case v
+      when /jobvl$/i; "left eigenvectors"
+      when /jobvr$/i; "right eigenvectors"
+      when /jobz$/i ; "eigenvectors"
+      end
+    if a
+      return "@param #{v} [#{tp}]  if 'V': Compute #{a}, if 'N': Not compute #{a} (default='V')"
+    end
+
+    a =
+      case v
+      when /jobu/
+        "If 'A': all M columns of U are returned in array U, " +
+          "If 'S': the first min(m,n) columns of U (the left " +
+          "singular vectors) are returned in the array U, " +
+          "If 'O': the first min(m,n) columns of U (the left " +
+          "singular vectors) are overwritten on the array A, " +
+          "If 'N': no columns of U (no left singular vectors) are computed. " +
+          "(default='A')"
+      when /jobvt/
+        "If 'A': all N rows of V\\*\\*T are returned in the array VT;" +
+          "If 'S': the first min(m,n) rows of V\\*\\*T (the right singular" +
+          " vectors) are returned in the array VT;" +
+          "If 'O': the first min(m,n) rows of V\\*\\*T (the right singular" +
+          " vectors) are overwritten on the array A;" +
+          "If 'N': no rows of V\\*\\*T (no right singular vectors) are" +
+          " computed. (default='A')"
+      end
+    "@param #{v} [#{tp}]  #{a}"
   end
 end
