@@ -60,10 +60,10 @@ static void
    a = "a, b, [order:'R']"
  end
  if ipiv
-   n = "lu, x, piv, info"
+   n = "a, b, ipiv, info"
    t = [tp,tp,iary,iscal]
  else
-   n = "lu, x, info"
+   n = "a, b, info"
    t = [tp,tp,iscal]
  end
  return_type = t.join(", ")
@@ -71,17 +71,18 @@ static void
  args_v = a
 
  params = [
-   param("a",2),
-   param("b",1),
-   uplo && param("uplo"),
-   param("order"),
+   mat("a",:inplace,"output: lu"),
+   vec("b",:inplace,"output: x"),
+   uplo && opt("uplo"),
+   opt("order"),
  ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>(<%=args_v%>)
   <%=params%>
-  @return [[<%=return_type%>]] array of [<%=return_name%>]
+  @return [[<%=return_name%>]] Array<<%=return_type%>>
 
-  <%=description%>
+<%=description%>
+<%=outparam(return_name)%>
 
 */
 static VALUE

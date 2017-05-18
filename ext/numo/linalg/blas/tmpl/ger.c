@@ -33,11 +33,11 @@ static void
 
 /*<%
  params = [
-   param("x",1),
-   param("y",1),
-   param("a",2,inplace:", m-by-n symmetric matrix, optional, inplace allowed"),
-   param("alpha"),
-   param("order"),
+   vec("x"),
+   vec("y"),
+   mat("a","m-by-n symmetric matrix","optional",:inplace),
+   opt("alpha"),
+   opt("order"),
  ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>( x, y, [a, alpha:1, order:'R'] )

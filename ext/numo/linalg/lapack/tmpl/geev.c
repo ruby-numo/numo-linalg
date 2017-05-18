@@ -56,17 +56,18 @@ static void
  return_type = ([tp]*(is_complex ? 3 : 4) + ["Integer"]).join(", ")
  return_name = (is_complex ? "w,":"wr, wi,") + " vl, vr, info"
  params = [
-   param("a",2),
-   param("jobvl","left eigenvectors"),
-   param("jobvr","right eigenvectors"),
-   param("order"),
+   mat("a",:inplace),
+   job("jobvl"),
+   job("jobvr"),
+   opt("order"),
  ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>( a,, [jobvl:'V', jobvr:'V', order:'R'] )
   <%=params%>
-  @return [[<%=return_type%>]] array of [<%=return_name%>]
+  @return [[<%=return_name%>]] Array<<%=return_type%>>
 
-  <%=description%>
+<%=description%>
+<%=outparam(return_name)%>
 
 */
 static VALUE

@@ -33,17 +33,19 @@ static void
 
 /*<%
  params = [
-   param("a",2),
-   param("jobz","eigenvectors"),
-   param("uplo"),
-   param("order"),
+   mat("a",:inplace),
+   job("jobz"),
+   opt("uplo"),
+   opt("order"),
  ].select{|x| x}.join("\n  ")
+ return_name = "a, w, info"
 %>
   @overload <%=name%>(a, [jobz:'N', uplo:'U', order:'R'])
   <%=params%>
-  @return [[<%=real_class_name%>,<%=real_class_name%>,Integer]]  array of [a,w,info].
+  @return [[<%=return_name%>]]  Array<<%=real_class_name%>,<%=real_class_name%>,Integer>
 
-  <%=description%>
+<%=description%>
+<%=outparam(return_name)%>
 
 */
 static VALUE

@@ -26,9 +26,9 @@ static void
 
 /*<%
  params = [
-   param("x",1,inplace:""),
-   param("y",1),
-   param("alpha"),
+   vec("x"),
+   vec("y",:inplace),
+   opt("alpha"),
  ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>( x, y, [alpha:1] )

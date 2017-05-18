@@ -28,13 +28,13 @@ static void
 
 /*<%
  params = [
-   param("x",1,inplace:""),
-   param("y",1,inplace:""),
+   vec("x"),
+   vec("y"),
  ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>( x, y )
   <%=params%>
-  @return [<%=class_name%>] x dot y
+  @return [<%=class_name%>] op(x) dot y
 
 <%=description%>
 

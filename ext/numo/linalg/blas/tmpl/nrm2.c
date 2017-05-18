@@ -33,12 +33,13 @@ static void
    retT = "cT"
  end
  params = [
-   param("x",1,inplace:""),
+   vec("x",type:arg_class),
+   opt("keepdims"),
  ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>( x )
   <%=params%>
-  @return [<%=class_name%>]
+  @return [<%=class_name%>] euclidean norm of x
 
 <%=description%>
 

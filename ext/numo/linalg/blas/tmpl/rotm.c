@@ -21,16 +21,30 @@ static void
 
 /*<%
  params = [
-   param("x",1),
-   param("y",1),
+   vec("x",:inplace),
+   vec("y",:inplace),
  ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>( x, y, param )
   <%=params%>
-  @param [Array,NArray]  array of [DFLAG,DH11,DH21,DH12,DH22]
-  @return [<%=class_name%>,<%=class_name%>] returns [x,y]
+  @param param [<%=class_name%>]  array of [FLAG,H11,H21,H12,H22]
+  @return [Array<<%=class_name%>,<%=class_name%>>] returns [x,y]
 
-<%=description%>
+Apply the modified givens transformation, H,
+to the 2 by N matrix (X\*\*T), where \*\*T indicates transpose.
+The elements of X are in (Y\*\*T)
+
+X(LX+I\*INCX), I = 0 to N-1, where LX = 1 if INCX .GE. 0, else
+LX = (-INCX)\*N, and similarly for Y using LY and INCY.
+With PARAM(1)=FLAG, H has one of the following forms..
+
+        FLAG=-1.0     FLAG=0.0        FLAG=1.0     FLAG=-2.0
+
+          (H11  H12)    (1.0  H12)    (H11  1.0)    (1.0  0.0)
+        H=(        )    (        )    (        )    (        )
+          (H21  H22),   (H21  1.0),   (-1.0 H22),   (0.0  1.0).
+
+see <%=name.upcase%>G for a description of data storage in param.
 
  */
 static VALUE

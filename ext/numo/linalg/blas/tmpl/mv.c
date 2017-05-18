@@ -72,20 +72,20 @@ static void
     "a, x, [y, alpha:1, beta:0, uplo:'U'"
    end + ", order:'R'"
  params = [
-   param("a",2,inplace:""),
-   param("x",1,inplace:""),
-   !is_tr && param("y",1,inplace:"optional, inplace allowed"),
-   param("alpha"),
-   param("beta"),
-   !is_ge && param("side"),
-   !is_ge && param("uplo"),
-   is_ge || is_tr && param("trans"),
-   param("order")
+   mat("a"),
+   vec("x"),
+   !is_tr && vec("y","optional",:inplace),
+   opt("alpha"),
+   opt("beta"),
+   !is_ge && opt("side"),
+   !is_ge && opt("uplo"),
+   is_ge || is_tr && opt("trans"),
+   opt("order")
  ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>(<%=args_v%>)
   <%=params%>
-  @return [<%=class_name%>] returns c.
+  @return [<%=class_name%>] returns y = alpha*op(A)\*x + beta\*y.
 
 <%=description%>
 

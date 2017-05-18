@@ -32,16 +32,16 @@ static void
 
 /*<%
  params = [
-   param("a",2),
+   mat("a"),
    "@param [String]  norm  Kind of norm: 'M',('1','O'),'I',('F','E')",
-   param("order"),
+   opt("order"),
  ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>(a, norm, [order:'R'])
   <%=params%>
-  @return [<%=class_name%>] returns <%=name%>.
+  @return [<%=real_class_name%>] returns <%=name%>.
 
-  <%=description%>
+<%=description%>
 
 */
 static VALUE

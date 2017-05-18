@@ -21,15 +21,15 @@ static void
 
 /*<%
  params = [
-   param("x",1),
-   param("y",1),
+   vec("x",:inplace),
+   vec("y",:inplace),
  ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>( x, y, c, s )
   <%=params%>
   @param [Float] c
   @param [Float] s
-  @return [[<%=class_name%>,<%=class_name%>]] returns [x,y]
+  @return [Array<<%=class_name%>,<%=class_name%>>] returns [x,y]
 
 <%=description%>
 

@@ -56,19 +56,20 @@ static void
    a = "a, [jobu:'A', jobvt:'A', order:'R']"
  end
  return_type = [tp,tp,tp,iscal].join(", ")
- return_name = "s, u, vt, info"
+ return_name = "sigma, u, vt, info"
  args_v = a
  params = [
-   param("a",2, inplace:", inplace allowed if jobu=='O' or jobvt=='O'"),
-   *(is_sdd ? [param("jobz")] : [param("jobu"),param("jobvt")]),
-   param("order"),
+   mat("a","inplace allowed if job\\*=='O'"),
+   *(is_sdd ? [job("jobz")] : [job("jobu"),job("jobvt")]),
+   opt("order"),
  ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>(<%=args_v%>)
   <%=params%>
-  @return [[<%=return_type%>]] array of [<%=return_name%>]
+  @return [[<%=return_name%>]] Array<<%=return_type%>>
 
-  <%=description%>
+<%=description%>
+<%=outparam(return_name)%>
 
 */
 static VALUE

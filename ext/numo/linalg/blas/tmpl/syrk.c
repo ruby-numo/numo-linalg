@@ -42,13 +42,13 @@ static void
 
 /*<%
  params = [
-   param("a",2,inplace:", n-by-k, inpace allowed"),
-   param("c",2,inplace:", n-by-n, optional, inpace allowed"),
-   param("alpha"),
-   param("beta"),
-   param("uplo"),
-   param("trans"),
-   param("order")
+   mat("a","n-by-k",:inpace),
+   mat("c","n-by-n, optional",:inpace),
+   opt("alpha"),
+   opt("beta"),
+   opt("uplo"),
+   opt("trans"),
+   opt("order")
  ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>( a, [c, alpha:1, beta:0, uplo:'U', trans:'N', order:'R'] )

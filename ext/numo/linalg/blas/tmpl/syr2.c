@@ -34,12 +34,12 @@ static void
 
 /*<%
  params = [
-   param("x",1,inplace:""),
-   param("y",1,inplace:""),
-   param("a",2),
-   param("alpha"),
-   param("uplo"),
-   param("order")
+   vec("x"),
+   vec("y"),
+   mat("a",:inplace),
+   opt("alpha"),
+   opt("uplo"),
+   opt("order")
  ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>( x, y, [a, alpha:1, uplo:'U', order:'R'] )

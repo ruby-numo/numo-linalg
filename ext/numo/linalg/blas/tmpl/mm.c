@@ -72,21 +72,21 @@ static void
   end + ", order:'R'"
 
  params = [
-   param("a",2,inplace:""),
-   param("b",2,inplace:""),
-   !is_tr && param("c",2,inplace:"optional, inplace allowed"),
-   param("alpha"),
-   param("beta"),
-   !is_ge && param("side"),
-   !is_ge && param("uplo"),
-   (is_ge || is_tr) && param("transa"),
-   is_ge            && param("transb"),
-   param("order")
+   mat("a"),
+   mat("b"),
+   !is_tr && mat("c","optional",:inplace),
+   opt("alpha"),
+   opt("beta"),
+   !is_ge && opt("side"),
+   !is_ge && opt("uplo"),
+   (is_ge || is_tr) && opt("transa"),
+   is_ge            && opt("transb"),
+   opt("order")
  ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>(<%=args_v%>)
   <%=params%>
-  @return [<%=class_name%>] returns c.
+  @return [<%=class_name%>] returns c = alpha\*op( A )\*op( B ) + beta\*C.
 <%=description%>
 
 */

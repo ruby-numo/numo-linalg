@@ -29,13 +29,13 @@ static void
 
 /*<%
  params = [
-   param("x",1,inplace:""),
+   vec("x"),
  ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>( a, x )
   @param [Float]        a  scale factor
   <%=params%>
-  @return [<%=class_name%>] returns x.
+  @return [<%=class_name%>] returns a*x.
 
 <%=description%>
 

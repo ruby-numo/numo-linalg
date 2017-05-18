@@ -22,14 +22,14 @@ static void
 
 /*<%
  params = [
-   param("sx",1,inplace:""),
-   param("sy",1),
+   vec("sx"),
+   vec("sy",:inplace),
  ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>( sx, sy, [sb:0] )
   <%=params%>
   @param [Float] sb
-  @return [<%=class_name%>] returns result
+  @return [<%=class_name%>] returns inner product.
 
   Compute the inner product of two vectors with extended
   precision accumulation.

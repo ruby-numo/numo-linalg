@@ -88,21 +88,22 @@ static void
  return_name = n
  args_v = a
  params = [
-   param("a",2),
-   param("b",2),
-   is_lsy && param("jpvt",2,iary),
+   mat("a",:inplace),
+   mat("b",:inplace),
+   is_lsy && mat("jpvt",type:iary),
    is_lss && "@param [Float] rcond "+
      " RCOND is used to determine the effective rank of A."+
      " Singular values S(i) <= RCOND*S(1) are treated as zero."+
      " If RCOND < 0, machine precision is used instead.",
-   param("order"),
+   opt("order"),
  ].select{|x| x}.join("\n  ")
 %>
   @overload <%=name%>(<%=args_v%>)
   <%=params%>
-  @return [[<%=return_type%>]] array of [<%=return_name%>]
+  @return [[<%=return_name%>]] Array<<%=return_type%>>
 
-  <%=description%>
+<%=description%>
+<%=outparam(return_name)%>
 
 */
 static VALUE

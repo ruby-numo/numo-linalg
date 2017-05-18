@@ -36,19 +36,21 @@ static void
 
 /*<%
  params = [
-   param("a",2),
-   param("b",2),
+   mat("a",:inplace),
+   mat("b",:inplace),
    "@param [Integer] itype Specifies the problem type to be solved. If 1:  A*x = (lambda)*B*x, If 2:  A*B*x = (lambda)*x, If 3:  B*A*x = (lambda)*x.",
-   param("jobz","eigenvectors"),
-   param("uplo"),
-   param("order"),
+   job("jobz"),
+   opt("uplo"),
+   opt("order"),
  ].select{|x| x}.join("\n  ")
+return_name="a, b, w, info"
 %>
   @overload <%=name%>(a, b, [itype:1, jobz:'V', uplo:'U', order:'R'])
   <%=params%>
-  @return [[<%=real_class_name%>,<%=real_class_name%>,Integer]]  array of [a,b,w,info].
+  @return [[<%=return_name%>]] Array<<%=real_class_name%>,<%=real_class_name%>,Integer>
 
-  <%=description%>
+<%=description%>
+<%=outparam(return_name)%>
 
 */
 static VALUE
