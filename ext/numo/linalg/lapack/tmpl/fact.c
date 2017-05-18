@@ -1,14 +1,15 @@
 /*<%
  has_uplo = (/^.(sy|he|po)/ =~ name)
- has_piv  = ((/tr(f|i)/ =~ name && /potr/ !~ name) || /geqp3/ =~ name)
+ has_ipiv  = (/tr(f|i)/ =~ name && /potr/ !~ name)
+ has_jpvt = (/geqp3/ =~ name)
  has_tau  = (/q/ =~ name || /tzrzf/ =~ name)
  symmetric = (has_uplo || /getri/=~name)
 %>*/
 <% %>
 #define UPLO <%= has_uplo ? "1":"0" %>
-#define PIV  <%= has_piv ? "1":"0" %>
+#define IPIV  <%= has_ipiv ? "1":"0" %>
+#define JPVT <%= has_jpvt ? "1":"0" %>
 #define TAU  <%= has_tau ? "1":"0" %>
-#define QP3  <%= /geqp3/ =~ name ? "1":"0" %>
 #define SYMMETRIC <%= symmetric ? "1":"0" %>
 #define args_t <%=func_name%>_args_t
 #define func_p <%=func_name%>_p
@@ -24,8 +25,8 @@ static void
 <%=c_iter%>(na_loop_t * const lp)
 {
     dtype *a;
-#if PIV
-    int   *ipiv;
+#if IPIV || JPVT
+    int   *pv;
 #endif
 #if TAU
     dtype *tau;
@@ -35,13 +36,13 @@ static void
     args_t *g;
 
     a = (dtype*)NDL_PTR(lp,0);
-#if PIV
-    ipiv = (int*)NDL_PTR(lp,1);
+#if IPIV || JPVT
+    pv = (int*)NDL_PTR(lp,1);
 #endif
 #if TAU
-    tau = (dtype*)NDL_PTR(lp,1+PIV);
+    tau = (dtype*)NDL_PTR(lp,1+IPIV+JPVT);
 #endif
-    info = (int*)NDL_PTR(lp,1+PIV+TAU);
+    info = (int*)NDL_PTR(lp,1+IPIV+JPVT+TAU);
     g = (args_t*)(lp->opt_ptr);
 
     m = NDL_SHAPE(lp,0)[0];
@@ -59,7 +60,8 @@ static void
       has_uplo   && "g->uplo",
       !symmetric && "m",
                     "n, a, lda",
-      has_piv    && "ipiv",
+      has_ipiv    && "pv",
+      has_jpvt    && "pv",
       has_tau    && "tau",
     ].select{|x| x}.join(", ")
     %>*/
@@ -68,36 +70,44 @@ static void
 }
 
 /*<%
+ args_v = [
+   "a",
+   has_jpvt && "jpvt",
+ ].select{|x| x}.join(", ")
+
  args_opt = [
    has_uplo && "uplo:'U'",
    "order:'R'",
  ].select{|x| x}.join(", ")
 
  params = [
-   param("a",2),
-   has_uplo && param("uplo"),
-   param("order"),
+   mat("a",:inplace),
+   has_uplo && opt("uplo"),
+   opt("order"),
  ].select{|x| x}.join("\n  ")
 
  return_type = [
    class_name,
-   has_piv && "Numo::Int",
+   has_ipiv && "Numo::Int",
+   has_jpvt && "Numo::Int",
    has_tau && class_name,
    "Integer"
  ].select{|x| x}.join(", ")
 
  return_name = [
    "a",
-   has_piv && "piv",
+   has_ipiv && "ipiv",
+   has_jpvt && "jpvt",
    has_tau && "tau",
    "info"
  ].select{|x| x}.join(", ")
 %>
-  @overload <%=name%>(a, [<%=args_opt%>])
+  @overload <%=name%>(<%=args_v%>, [<%=args_opt%>])
   <%=params%>
-  @return [[<%=return_type%>]] array of [<%=return_name%>]
+  @return [[<%=return_name%>]] Array<<%=return_type%>>
 
- <%=description%>
+<%=description%>
+<%=outparam(return_name)%>
 
 */
 static VALUE
@@ -106,22 +116,29 @@ static VALUE
     VALUE a, ans;
     int   m, n, tmp;
     narray_t *na1;
+#if JPVT
+    VALUE jpvt;
+#endif
     /*<%
+    ain = [       "{OVERWRITE,2}",
+      has_jpvt && "{OVERWRITE,1}",
+    ].select{|x| x}.join(",")
     aout = [
-      has_piv && "{cInt,1,shape_piv}",
-      has_tau && "{cT,1,shape_tau}",
-                 "{cInt,0}",
+      has_ipiv && "{cInt,1,shape_piv}",
+      has_tau  && "{cT,1,shape_tau}",
+                  "{cInt,0}",
     ].select{|x| x}.join(",")
     %>*/
-#if PIV
+#if IPIV
     size_t shape_piv[1];
 #endif
 #if TAU
     size_t shape_tau[1];
 #endif
-    ndfunc_arg_in_t ain[1] = {{OVERWRITE,2}};
-    ndfunc_arg_out_t aout[PIV+TAU+1] = {<%=aout%>};
-    ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT, 1,PIV+TAU+1,ain,aout};
+    ndfunc_arg_in_t ain[1+JPVT] = {<%=ain%>};
+    ndfunc_arg_out_t aout[1+IPIV+TAU] = {<%=aout%>};
+    ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT,
+                    1+JPVT, IPIV+TAU+1, ain,aout};
 
     args_t g = {0,1};
     VALUE opts[2] = {Qundef,Qundef};
@@ -130,7 +147,11 @@ static VALUE
 
     CHECK_FUNC(func_p,"<%=func_name%>");
 
+#if JPVT
+    rb_scan_args(argc, argv, "2:", &a, &jpvt, &kw_hash);
+#else
     rb_scan_args(argc, argv, "1:", &a, &kw_hash);
+#endif
     rb_get_kwargs(kw_hash, kw_table, 0, 1+UPLO, opts);
     g.order = option_order(opts[0]);
 #if UPLO
@@ -143,27 +164,29 @@ static VALUE
     m = ROW_SIZE(na1);
     n = COL_SIZE(na1);
     SWAP_IFCOL(g.order,m,n);
-#if PIV
-#if QP3
-    shape_piv[0] = n;
-#else
+#if IPIV
     shape_piv[0] = min_(m,n);
-#endif
 #endif
 #if TAU
     shape_tau[0] = min_(m,n);
 #endif
 
+#if JPVT
+    COPY_OR_CAST_TO(jpvt,cInt);
+    ans = na_ndloop3(&ndf, &g, 2, a, jpvt);
+    rb_ary_unshift(ans, jpvt);
+#else
     ans = na_ndloop3(&ndf, &g, 1, a);
-
+#endif
     rb_ary_unshift(ans, a);
+
     return ans;
 }
 
 #undef args_t
 #undef func_p
 #undef UPLO
-#undef PIV
+#undef IPIV
+#undef JPVT
 #undef TAU
-#undef QP3
 #undef SYMMETRIC
