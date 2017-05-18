@@ -17,8 +17,10 @@ class Par
       @verb = true
     when "endverbatim"
       @verb = false
-    when /^param/
-      @docs["#{cmd} #{param}"] = @doc = []
+    when /^param(.*)$/
+      inout = $1
+      h = (@docs["param"] ||= {})
+      h[param.upcase] = @doc = [inout]
     end
   end
 
@@ -83,7 +85,10 @@ def docread(dir)
     end
     dg.finish
     if d = dg['Purpose:']
-      docs[dg.name] = d['summary']
+      #docs[dg.name] = d['summary']
+      docs[dg.name] = h = {}
+      h['summary'] = d['summary']
+      h['param'] = d['param']
     end
   end
   docs
