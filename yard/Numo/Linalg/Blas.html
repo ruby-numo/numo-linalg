@@ -859,7 +859,7 @@ that.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#drot-class_method" title="drot (class method)">.<strong>drot</strong>(x, y, c, s)  &#x21d2; [Numo::DFloat,Numo::DFloat] </a>
+      <a href="#drot-class_method" title="drot (class method)">.<strong>drot</strong>(x, y, c, s)  &#x21d2; Array&lt;Numo::DFloat,Numo::DFloat&gt; </a>
     
 
     
@@ -883,7 +883,7 @@ that.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#drotm-class_method" title="drotm (class method)">.<strong>drotm</strong>(x, y, param)  &#x21d2; Numo::DFloat </a>
+      <a href="#drotm-class_method" title="drotm (class method)">.<strong>drotm</strong>(x, y, param)  &#x21d2; Array&lt;Numo::DFloat,Numo::DFloat&gt; </a>
     
 
     
@@ -898,8 +898,8 @@ that.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>APPLY THE MODIFIED GIVENS TRANSFORMATION, H, TO THE 2 BY N MATRIX (DX**T) ,
-WHERE **T INDICATES TRANSPOSE.</p>
+<p>Apply the modified givens transformation, H, to the 2 by N matrix (X**T),
+where **T indicates transpose.</p>
 </div></span>
   
 </li>
@@ -1513,7 +1513,7 @@ that.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#srot-class_method" title="srot (class method)">.<strong>srot</strong>(x, y, c, s)  &#x21d2; [Numo::SFloat,Numo::SFloat] </a>
+      <a href="#srot-class_method" title="srot (class method)">.<strong>srot</strong>(x, y, c, s)  &#x21d2; Array&lt;Numo::SFloat,Numo::SFloat&gt; </a>
     
 
     
@@ -1537,7 +1537,7 @@ that.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#srotm-class_method" title="srotm (class method)">.<strong>srotm</strong>(x, y, param)  &#x21d2; Numo::SFloat </a>
+      <a href="#srotm-class_method" title="srotm (class method)">.<strong>srotm</strong>(x, y, param)  &#x21d2; Array&lt;Numo::SFloat,Numo::SFloat&gt; </a>
     
 
     
@@ -1552,8 +1552,8 @@ that.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>APPLY THE MODIFIED GIVENS TRANSFORMATION, H, TO THE 2 BY N MATRIX (SX**T) ,
-WHERE **T INDICATES TRANSPOSE.</p>
+<p>Apply the modified givens transformation, H, to the 2 by N matrix (X**T),
+where **T indicates transpose.</p>
 </div></span>
   
 </li>
@@ -2500,6 +2500,12 @@ of arguments.</p>
       <pre class="lines">
 
 
+481
+482
+483
+484
+485
+486
 487
 488
 489
@@ -2525,16 +2531,10 @@ of arguments.</p>
 509
 510
 511
-512
-513
-514
-515
-516
-517
-518</pre>
+512</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 487</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 481</span>
 
 static VALUE
 blas_s_caxpy(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -2607,7 +2607,7 @@ blas_s_caxpy(int argc, VALUE const argv[], VALUE UNUSED(mod))
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -2623,7 +2623,7 @@ blas_s_caxpy(int argc, VALUE const argv[], VALUE UNUSED(mod))
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -2650,6 +2650,12 @@ blas_s_caxpy(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <pre class="lines">
 
 
+417
+418
+419
+420
+421
+422
 423
 424
 425
@@ -2666,16 +2672,10 @@ blas_s_caxpy(int argc, VALUE const argv[], VALUE UNUSED(mod))
 436
 437
 438
-439
-440
-441
-442
-443
-444
-445</pre>
+439</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 423</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 417</span>
 
 static VALUE
 blas_s_ccopy(VALUE UNUSED(mod), VALUE x, VALUE y)
@@ -2777,7 +2777,7 @@ blas_s_ccopy(VALUE UNUSED(mod), VALUE x, VALUE y)
       
         &mdash;
         <div class='inline'>
-<p>x dot y</p>
+<p>op(x) dot y</p>
 </div>
       
     </li>
@@ -2790,6 +2790,14 @@ blas_s_ccopy(VALUE UNUSED(mod), VALUE x, VALUE y)
       <pre class="lines">
 
 
+98
+99
+100
+101
+102
+103
+104
+105
 106
 107
 108
@@ -2807,18 +2815,10 @@ blas_s_ccopy(VALUE UNUSED(mod), VALUE x, VALUE y)
 120
 121
 122
-123
-124
-125
-126
-127
-128
-129
-130
-131</pre>
+123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 106</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 98</span>
 
 static VALUE
 blas_s_cdotc(VALUE mod, VALUE x, VALUE y)
@@ -2923,7 +2923,7 @@ blas_s_cdotc(VALUE mod, VALUE x, VALUE y)
       
         &mdash;
         <div class='inline'>
-<p>x dot y</p>
+<p>op(x) dot y</p>
 </div>
       
     </li>
@@ -2936,6 +2936,14 @@ blas_s_cdotc(VALUE mod, VALUE x, VALUE y)
       <pre class="lines">
 
 
+165
+166
+167
+168
+169
+170
+171
+172
 173
 174
 175
@@ -2953,18 +2961,10 @@ blas_s_cdotc(VALUE mod, VALUE x, VALUE y)
 187
 188
 189
-190
-191
-192
-193
-194
-195
-196
-197
-198</pre>
+190</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 173</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 165</span>
 
 static VALUE
 blas_s_cdotu(VALUE mod, VALUE x, VALUE y)
@@ -3072,7 +3072,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArrayoptional, inplace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -3114,7 +3114,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
         <span class='name'>transa</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -3131,7 +3131,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
         <span class='name'>transb</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -3148,7 +3148,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -3174,7 +3174,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns c = alpha*op( A )*op( B ) + beta*C.</p>
 </div>
       
     </li>
@@ -3187,6 +3187,12 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
       <pre class="lines">
 
 
+1878
+1879
+1880
+1881
+1882
+1883
 1884
 1885
 1886
@@ -3297,16 +3303,10 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
 1991
 1992
 1993
-1994
-1995
-1996
-1997
-1998
-1999
-2000</pre>
+1994</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 1884</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 1878</span>
 
 static VALUE
 blas_s_cgemm(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -3502,7 +3502,7 @@ matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArrayoptional, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -3544,7 +3544,7 @@ matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -3570,7 +3570,7 @@ matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns y = alpha*op(A)*x + beta*y.</p>
 </div>
       
     </li>
@@ -3583,6 +3583,12 @@ matrix.</p>
       <pre class="lines">
 
 
+728
+729
+730
+731
+732
+733
 734
 735
 736
@@ -3673,16 +3679,10 @@ matrix.</p>
 821
 822
 823
-824
-825
-826
-827
-828
-829
-830</pre>
+824</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 734</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 728</span>
 
 static VALUE
 blas_s_cgemv(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -3825,7 +3825,7 @@ and A is an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -3841,7 +3841,7 @@ and A is an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -3884,7 +3884,7 @@ inplace allowed).</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -3923,6 +3923,12 @@ inplace allowed).</p>
       <pre class="lines">
 
 
+1256
+1257
+1258
+1259
+1260
+1261
 1262
 1263
 1264
@@ -3978,16 +3984,10 @@ inplace allowed).</p>
 1314
 1315
 1316
-1317
-1318
-1319
-1320
-1321
-1322
-1323</pre>
+1317</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 1262</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 1256</span>
 
 static VALUE
 blas_s_cgerc(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -4095,7 +4095,7 @@ and A is an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -4111,7 +4111,7 @@ and A is an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -4154,7 +4154,7 @@ inplace allowed).</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -4193,6 +4193,12 @@ inplace allowed).</p>
       <pre class="lines">
 
 
+1375
+1376
+1377
+1378
+1379
+1380
 1381
 1382
 1383
@@ -4248,16 +4254,10 @@ inplace allowed).</p>
 1433
 1434
 1435
-1436
-1437
-1438
-1439
-1440
-1441
-1442</pre>
+1436</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 1381</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 1375</span>
 
 static VALUE
 blas_s_cgeru(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -4401,7 +4401,7 @@ m by n matrices.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArrayoptional, inplace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -4443,14 +4443,14 @@ m by n matrices.</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -4460,7 +4460,7 @@ m by n matrices.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -4477,7 +4477,7 @@ m by n matrices.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -4503,7 +4503,7 @@ m by n matrices.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns c = alpha*op( A )*op( B ) + beta*C.</p>
 </div>
       
     </li>
@@ -4516,6 +4516,12 @@ m by n matrices.</p>
       <pre class="lines">
 
 
+2497
+2498
+2499
+2500
+2501
+2502
 2503
 2504
 2505
@@ -4626,16 +4632,10 @@ m by n matrices.</p>
 2610
 2611
 2612
-2613
-2614
-2615
-2616
-2617
-2618
-2619</pre>
+2613</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 2503</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 2497</span>
 
 static VALUE
 blas_s_chemm(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -4830,7 +4830,7 @@ n by n hermitian matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArrayoptional, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -4872,14 +4872,14 @@ n by n hermitian matrix.</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -4889,7 +4889,7 @@ n by n hermitian matrix.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -4906,7 +4906,7 @@ n by n hermitian matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -4932,7 +4932,7 @@ n by n hermitian matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns y = alpha*op(A)*x + beta*y.</p>
 </div>
       
     </li>
@@ -4945,6 +4945,12 @@ n by n hermitian matrix.</p>
       <pre class="lines">
 
 
+1100
+1101
+1102
+1103
+1104
+1105
 1106
 1107
 1108
@@ -5035,16 +5041,10 @@ n by n hermitian matrix.</p>
 1193
 1194
 1195
-1196
-1197
-1198
-1199
-1200
-1201
-1202</pre>
+1196</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 1106</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 1100</span>
 
 static VALUE
 blas_s_chemv(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -5229,7 +5229,7 @@ hermitian matrix.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -5246,7 +5246,7 @@ hermitian matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -5285,6 +5285,12 @@ hermitian matrix.</p>
       <pre class="lines">
 
 
+1491
+1492
+1493
+1494
+1495
+1496
 1497
 1498
 1499
@@ -5330,16 +5336,10 @@ hermitian matrix.</p>
 1539
 1540
 1541
-1542
-1543
-1544
-1545
-1546
-1547
-1548</pre>
+1542</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 1497</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 1491</span>
 
 static VALUE
 blas_s_cher(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -5495,7 +5495,7 @@ hermitian matrix.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -5512,7 +5512,7 @@ hermitian matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -5551,6 +5551,12 @@ hermitian matrix.</p>
       <pre class="lines">
 
 
+1601
+1602
+1603
+1604
+1605
+1606
 1607
 1608
 1609
@@ -5600,16 +5606,10 @@ hermitian matrix.</p>
 1653
 1654
 1655
-1656
-1657
-1658
-1659
-1660
-1661
-1662</pre>
+1656</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 1607</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 1601</span>
 
 static VALUE
 blas_s_cher2(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -5716,7 +5716,7 @@ case.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, n-by-k, inpace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, n-by-k, inpace).</p>
 </div>
       
     </li>
@@ -5732,7 +5732,7 @@ case.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace).</p>
 </div>
       
     </li>
@@ -5774,7 +5774,7 @@ case.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -5791,7 +5791,7 @@ case.</p>
         <span class='name'>trans</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -5808,7 +5808,7 @@ case.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -5847,6 +5847,12 @@ case.</p>
       <pre class="lines">
 
 
+1724
+1725
+1726
+1727
+1728
+1729
 1730
 1731
 1732
@@ -5905,16 +5911,10 @@ case.</p>
 1785
 1786
 1787
-1788
-1789
-1790
-1791
-1792
-1793
-1794</pre>
+1788</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 1730</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 1724</span>
 
 static VALUE
 blas_s_cherk(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -6055,7 +6055,7 @@ blas_s_cherk(int argc, VALUE const argv[], VALUE UNUSED(mod))
       
         &mdash;
         <div class='inline'>
-<p>returns x.</p>
+<p>returns a*x.</p>
 </div>
       
     </li>
@@ -6068,6 +6068,12 @@ blas_s_cherk(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <pre class="lines">
 
 
+554
+555
+556
+557
+558
+559
 560
 561
 562
@@ -6084,16 +6090,10 @@ blas_s_cherk(int argc, VALUE const argv[], VALUE UNUSED(mod))
 573
 574
 575
-576
-577
-578
-579
-580
-581
-582</pre>
+576</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 560</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 554</span>
 
 static VALUE
 blas_s_cscal(VALUE mod, VALUE a, VALUE x)
@@ -6192,7 +6192,7 @@ blas_s_cscal(VALUE mod, VALUE a, VALUE x)
       
         &mdash;
         <div class='inline'>
-<p>returns x.</p>
+<p>returns a*x.</p>
 </div>
       
     </li>
@@ -6205,6 +6205,12 @@ blas_s_cscal(VALUE mod, VALUE a, VALUE x)
       <pre class="lines">
 
 
+618
+619
+620
+621
+622
+623
 624
 625
 626
@@ -6221,16 +6227,10 @@ blas_s_cscal(VALUE mod, VALUE a, VALUE x)
 637
 638
 639
-640
-641
-642
-643
-644
-645
-646</pre>
+640</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 624</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 618</span>
 
 static VALUE
 blas_s_csscal(VALUE mod, VALUE a, VALUE x)
@@ -6294,7 +6294,7 @@ blas_s_csscal(VALUE mod, VALUE a, VALUE x)
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -6310,7 +6310,7 @@ blas_s_csscal(VALUE mod, VALUE a, VALUE x)
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -6337,6 +6337,12 @@ blas_s_csscal(VALUE mod, VALUE a, VALUE x)
       <pre class="lines">
 
 
+361
+362
+363
+364
+365
+366
 367
 368
 369
@@ -6353,16 +6359,10 @@ blas_s_csscal(VALUE mod, VALUE a, VALUE x)
 380
 381
 382
-383
-384
-385
-386
-387
-388
-389</pre>
+383</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 367</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 361</span>
 
 static VALUE
 blas_s_cswap(VALUE UNUSED(mod), VALUE x, VALUE y)
@@ -6467,7 +6467,7 @@ by n matrices.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArrayoptional, inplace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -6509,14 +6509,14 @@ by n matrices.</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -6526,7 +6526,7 @@ by n matrices.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -6543,7 +6543,7 @@ by n matrices.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -6569,7 +6569,7 @@ by n matrices.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns c = alpha*op( A )*op( B ) + beta*C.</p>
 </div>
       
     </li>
@@ -6582,6 +6582,12 @@ by n matrices.</p>
       <pre class="lines">
 
 
+2085
+2086
+2087
+2088
+2089
+2090
 2091
 2092
 2093
@@ -6692,16 +6698,10 @@ by n matrices.</p>
 2198
 2199
 2200
-2201
-2202
-2203
-2204
-2205
-2206
-2207</pre>
+2201</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 2091</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 2085</span>
 
 static VALUE
 blas_s_csymm(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -6901,7 +6901,7 @@ case.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace).</p>
 </div>
       
     </li>
@@ -6943,7 +6943,7 @@ case.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -6960,7 +6960,7 @@ case.</p>
         <span class='name'>trans</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -6977,7 +6977,7 @@ case.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -7016,6 +7016,12 @@ case.</p>
       <pre class="lines">
 
 
+2814
+2815
+2816
+2817
+2818
+2819
 2820
 2821
 2822
@@ -7082,16 +7088,10 @@ case.</p>
 2883
 2884
 2885
-2886
-2887
-2888
-2889
-2890
-2891
-2892</pre>
+2886</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 2820</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 2814</span>
 
 static VALUE
 blas_s_csyr2k(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -7214,7 +7214,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, n-by-k, inpace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, n-by-k, inpace).</p>
 </div>
       
     </li>
@@ -7230,7 +7230,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace).</p>
 </div>
       
     </li>
@@ -7272,7 +7272,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -7289,7 +7289,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
         <span class='name'>trans</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -7306,7 +7306,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -7345,6 +7345,12 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
       <pre class="lines">
 
 
+2683
+2684
+2685
+2686
+2687
+2688
 2689
 2690
 2691
@@ -7403,16 +7409,10 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
 2744
 2745
 2746
-2747
-2748
-2749
-2750
-2751
-2752
-2753</pre>
+2747</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 2689</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 2683</span>
 
 static VALUE
 blas_s_csyrk(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -7583,14 +7583,14 @@ upper or lower triangular matrix and op( A ) is one of</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -7600,7 +7600,7 @@ upper or lower triangular matrix and op( A ) is one of</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -7617,7 +7617,7 @@ upper or lower triangular matrix and op( A ) is one of</p>
         <span class='name'>transa</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -7634,7 +7634,7 @@ upper or lower triangular matrix and op( A ) is one of</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -7660,7 +7660,7 @@ upper or lower triangular matrix and op( A ) is one of</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns c = alpha*op( A )*op( B ) + beta*C.</p>
 </div>
       
     </li>
@@ -7673,6 +7673,12 @@ upper or lower triangular matrix and op( A ) is one of</p>
       <pre class="lines">
 
 
+2290
+2291
+2292
+2293
+2294
+2295
 2296
 2297
 2298
@@ -7783,16 +7789,10 @@ upper or lower triangular matrix and op( A ) is one of</p>
 2403
 2404
 2405
-2406
-2407
-2408
-2409
-2410
-2411
-2412</pre>
+2406</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 2296</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 2290</span>
 
 static VALUE
 blas_s_ctrmm(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -8013,14 +8013,14 @@ or lower triangular matrix.</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -8030,7 +8030,7 @@ or lower triangular matrix.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -8047,7 +8047,7 @@ or lower triangular matrix.</p>
         <span class='name'>trans</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -8064,7 +8064,7 @@ or lower triangular matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -8090,7 +8090,7 @@ or lower triangular matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns y = alpha*op(A)*x + beta*y.</p>
 </div>
       
     </li>
@@ -8103,6 +8103,12 @@ or lower triangular matrix.</p>
       <pre class="lines">
 
 
+914
+915
+916
+917
+918
+919
 920
 921
 922
@@ -8193,16 +8199,10 @@ or lower triangular matrix.</p>
 1007
 1008
 1009
-1010
-1011
-1012
-1013
-1014
-1015
-1016</pre>
+1010</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 920</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 914</span>
 
 static VALUE
 blas_s_ctrmv(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -8345,6 +8345,17 @@ blas_s_ctrmv(int argc, VALUE const argv[], VALUE UNUSED(mod))
       
     </li>
   
+    <li>
+      
+        <span class='name'>keepdims</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+    </li>
+  
 </ul>
 
 <p class="tag_title">Returns:</p>
@@ -8357,6 +8368,11 @@ blas_s_ctrmv(int argc, VALUE const argv[], VALUE UNUSED(mod))
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>euclidean norm of x</p>
+</div>
+      
     </li>
   
 </ul>
@@ -8367,6 +8383,12 @@ blas_s_ctrmv(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <pre class="lines">
 
 
+226
+227
+228
+229
+230
+231
 232
 233
 234
@@ -8391,16 +8413,10 @@ blas_s_ctrmv(int argc, VALUE const argv[], VALUE UNUSED(mod))
 253
 254
 255
-256
-257
-258
-259
-260
-261
-262</pre>
+256</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 232</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 226</span>
 
 static VALUE
 blas_s_dasum(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -8537,6 +8553,12 @@ increments equal to one.</p>
       <pre class="lines">
 
 
+413
+414
+415
+416
+417
+418
 419
 420
 421
@@ -8562,16 +8584,10 @@ increments equal to one.</p>
 441
 442
 443
-444
-445
-446
-447
-448
-449
-450</pre>
+444</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 419</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 413</span>
 
 static VALUE
 blas_s_daxpy(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -8645,7 +8661,7 @@ increments equal to one.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -8661,7 +8677,7 @@ increments equal to one.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -8688,6 +8704,12 @@ increments equal to one.</p>
       <pre class="lines">
 
 
+348
+349
+350
+351
+352
+353
 354
 355
 356
@@ -8704,16 +8726,10 @@ increments equal to one.</p>
 367
 368
 369
-370
-371
-372
-373
-374
-375
-376</pre>
+370</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 354</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 348</span>
 
 static VALUE
 blas_s_dcopy(VALUE UNUSED(mod), VALUE x, VALUE y)
@@ -8813,7 +8829,7 @@ increments equal to one.</p>
       
         &mdash;
         <div class='inline'>
-<p>x dot y</p>
+<p>op(x) dot y</p>
 </div>
       
     </li>
@@ -8826,6 +8842,14 @@ increments equal to one.</p>
       <pre class="lines">
 
 
+95
+96
+97
+98
+99
+100
+101
+102
 103
 104
 105
@@ -8843,18 +8867,10 @@ increments equal to one.</p>
 117
 118
 119
-120
-121
-122
-123
-124
-125
-126
-127
-128</pre>
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 103</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 95</span>
 
 static VALUE
 blas_s_ddot(VALUE mod, VALUE x, VALUE y)
@@ -8962,7 +8978,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArrayoptional, inplace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -9004,7 +9020,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
         <span class='name'>transa</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -9021,7 +9037,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
         <span class='name'>transb</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -9038,7 +9054,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -9064,7 +9080,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns c = alpha*op( A )*op( B ) + beta*C.</p>
 </div>
       
     </li>
@@ -9077,6 +9093,12 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
       <pre class="lines">
 
 
+1639
+1640
+1641
+1642
+1643
+1644
 1645
 1646
 1647
@@ -9187,16 +9209,10 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
 1752
 1753
 1754
-1755
-1756
-1757
-1758
-1759
-1760
-1761</pre>
+1755</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 1645</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 1639</span>
 
 static VALUE
 blas_s_dgemm(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -9391,7 +9407,7 @@ matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArrayoptional, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -9433,7 +9449,7 @@ matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -9459,7 +9475,7 @@ matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns y = alpha*op(A)*x + beta*y.</p>
 </div>
       
     </li>
@@ -9472,6 +9488,12 @@ matrix.</p>
       <pre class="lines">
 
 
+741
+742
+743
+744
+745
+746
 747
 748
 749
@@ -9562,16 +9584,10 @@ matrix.</p>
 834
 835
 836
-837
-838
-839
-840
-841
-842
-843</pre>
+837</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 747</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 741</span>
 
 static VALUE
 blas_s_dgemv(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -9714,7 +9730,7 @@ and A is an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -9730,7 +9746,7 @@ and A is an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -9773,7 +9789,7 @@ inplace allowed).</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -9812,6 +9828,12 @@ inplace allowed).</p>
       <pre class="lines">
 
 
+1375
+1376
+1377
+1378
+1379
+1380
 1381
 1382
 1383
@@ -9867,16 +9889,10 @@ inplace allowed).</p>
 1433
 1434
 1435
-1436
-1437
-1438
-1439
-1440
-1441
-1442</pre>
+1436</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 1381</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 1375</span>
 
 static VALUE
 blas_s_dger(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -10052,6 +10068,17 @@ blas_s_dlopen(int argc, VALUE *argv, VALUE mod)
       
     </li>
   
+    <li>
+      
+        <span class='name'>keepdims</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+    </li>
+  
 </ul>
 
 <p class="tag_title">Returns:</p>
@@ -10064,6 +10091,11 @@ blas_s_dlopen(int argc, VALUE *argv, VALUE mod)
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>euclidean norm of x</p>
+</div>
+      
     </li>
   
 </ul>
@@ -10074,6 +10106,13 @@ blas_s_dlopen(int argc, VALUE *argv, VALUE mod)
       <pre class="lines">
 
 
+159
+160
+161
+162
+163
+164
+165
 166
 167
 168
@@ -10097,17 +10136,10 @@ blas_s_dlopen(int argc, VALUE *argv, VALUE mod)
 186
 187
 188
-189
-190
-191
-192
-193
-194
-195
-196</pre>
+189</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 166</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 159</span>
 
 static VALUE
 blas_s_dnrm2(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -10148,7 +10180,7 @@ blas_s_dnrm2(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="drot-class_method">
   
-    .<strong>drot</strong>(x, y, c, s)  &#x21d2; <tt>[Numo::DFloat,Numo::DFloat]</tt> 
+    .<strong>drot</strong>(x, y, c, s)  &#x21d2; <tt>Array&lt;Numo::DFloat,Numo::DFloat&gt;</tt> 
   
 
   
@@ -10230,7 +10262,7 @@ blas_s_dnrm2(int argc, VALUE const argv[], VALUE UNUSED(mod))
     <li>
       
       
-        <span class='type'>(<tt>[Numo::DFloat,Numo::DFloat]</tt>)</span>
+        <span class='type'>(<tt>Array&lt;Numo::DFloat,Numo::DFloat&gt;</tt>)</span>
       
       
       
@@ -10249,6 +10281,12 @@ blas_s_dnrm2(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <pre class="lines">
 
 
+483
+484
+485
+486
+487
+488
 489
 490
 491
@@ -10269,16 +10307,10 @@ blas_s_dnrm2(int argc, VALUE const argv[], VALUE UNUSED(mod))
 506
 507
 508
-509
-510
-511
-512
-513
-514
-515</pre>
+509</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 489</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 483</span>
 
 static VALUE
 blas_s_drot(VALUE UNUSED(mod), VALUE x, VALUE y, VALUE c, VALUE s)
@@ -10315,7 +10347,7 @@ blas_s_drot(VALUE UNUSED(mod), VALUE x, VALUE y, VALUE c, VALUE s)
       <div class="method_details ">
   <h3 class="signature " id="drotm-class_method">
   
-    .<strong>drotm</strong>(x, y, param)  &#x21d2; <tt>Numo::DFloat</tt> 
+    .<strong>drotm</strong>(x, y, param)  &#x21d2; <tt>Array&lt;Numo::DFloat,Numo::DFloat&gt;</tt> 
   
 
   
@@ -10324,20 +10356,20 @@ blas_s_drot(VALUE UNUSED(mod), VALUE x, VALUE y, VALUE c, VALUE s)
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>APPLY THE MODIFIED GIVENS TRANSFORMATION, H, TO THE 2 BY N MATRIX (DX**T) ,
-WHERE **T INDICATES TRANSPOSE. THE ELEMENTS OF DX ARE IN (DY**T)
-DX(LX+I*INCX), I = 0 TO N-1, WHERE LX = 1 IF INCX .GE. 0, ELSE LX =
-(-INCX)*N, AND SIMILARLY FOR SY USING LY AND INCY. WITH DPARAM(1)=DFLAG, H
-HAS ONE OF THE FOLLOWING FORMS.. DFLAG=-1.D0 DFLAG=0.D0 DFLAG=1.D0
-DFLAG=-2.D0</p>
+<p>Apply the modified givens transformation, H, to the 2 by N matrix (X**T),
+where **T indicates transpose. The elements of X are in (Y**T)</p>
 
-<pre class="code"><code class="">  (DH11  DH12)    (1.D0  DH12)    (DH11  1.D0)    (1.D0  0.D0)</code></pre>
+<p>X(LX+I*INCX), I = 0 to N-1, where LX = 1 if INCX .GE. 0, else LX =
+(-INCX)*N, and similarly for Y using LY and INCY. With PARAM(1)=FLAG, H has
+one of the following forms..</p>
 
-<p>H=( ) ( ) ( ) ( )</p>
+<pre class="code"><code class="">  FLAG=-1.0     FLAG=0.0        FLAG=1.0     FLAG=-2.0
 
-<pre class="code"><code class="">  (DH21  DH22),   (DH21  1.D0),   (-1.D0 DH22),   (0.D0  1.D0).</code></pre>
+    (H11  H12)    (1.0  H12)    (H11  1.0)    (1.0  0.0)
+  H=(        )    (        )    (        )    (        )
+    (H21  H22),   (H21  1.0),   (-1.0 H22),   (0.0  1.0).</code></pre>
 
-<p>SEE DROTMG FOR A DESCRIPTION OF DATA STORAGE IN DPARAM.</p>
+<p>see DROTMG for a description of data storage in param.</p>
 
 
   </div>
@@ -10382,16 +10414,16 @@ DFLAG=-2.D0</p>
   
     <li>
       
-        <span class='name'>array</span>
+        <span class='name'>param</span>
       
       
-        <span class='type'>(<tt>Array</tt>, <tt>NArray</tt>)</span>
+        <span class='type'>(<tt>Numo::DFloat</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>of [DFLAG,DH11,DH21,DH12,DH22]</p>
+<p>array of [FLAG,H11,H21,H12,H22]</p>
 </div>
       
     </li>
@@ -10404,7 +10436,7 @@ DFLAG=-2.D0</p>
     <li>
       
       
-        <span class='type'>(<tt>Numo::DFloat</tt>, <tt>Numo::DFloat</tt>)</span>
+        <span class='type'>(<tt>Array&lt;Numo::DFloat,Numo::DFloat&gt;</tt>)</span>
       
       
       
@@ -10423,6 +10455,12 @@ DFLAG=-2.D0</p>
       <pre class="lines">
 
 
+560
+561
+562
+563
+564
+565
 566
 567
 568
@@ -10447,16 +10485,10 @@ DFLAG=-2.D0</p>
 587
 588
 589
-590
-591
-592
-593
-594
-595
-596</pre>
+590</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 566</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 560</span>
 
 static VALUE
 blas_s_drotm(VALUE UNUSED(mod), VALUE x, VALUE y, VALUE param)
@@ -10564,7 +10596,7 @@ equal to one.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns x.</p>
+<p>returns a*x.</p>
 </div>
       
     </li>
@@ -10577,6 +10609,12 @@ equal to one.</p>
       <pre class="lines">
 
 
+632
+633
+634
+635
+636
+637
 638
 639
 640
@@ -10593,16 +10631,10 @@ equal to one.</p>
 651
 652
 653
-654
-655
-656
-657
-658
-659
-660</pre>
+654</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 638</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 632</span>
 
 static VALUE
 blas_s_dscal(VALUE mod, VALUE a, VALUE x)
@@ -10705,7 +10737,7 @@ is defined in a similar way using INCY.</p>
       
         &mdash;
         <div class='inline'>
-<p>x dot y</p>
+<p>op(x) dot y</p>
 </div>
       
     </li>
@@ -10718,6 +10750,12 @@ is defined in a similar way using INCY.</p>
       <pre class="lines">
 
 
+303
+304
+305
+306
+307
+308
 309
 310
 311
@@ -10737,16 +10775,10 @@ is defined in a similar way using INCY.</p>
 325
 326
 327
-328
-329
-330
-331
-332
-333
-334</pre>
+328</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 309</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 303</span>
 
 static VALUE
 blas_s_dsdot(VALUE mod, VALUE x, VALUE y)
@@ -10813,7 +10845,7 @@ blas_s_dsdot(VALUE mod, VALUE x, VALUE y)
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -10829,7 +10861,7 @@ blas_s_dsdot(VALUE mod, VALUE x, VALUE y)
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -10856,6 +10888,12 @@ blas_s_dsdot(VALUE mod, VALUE x, VALUE y)
       <pre class="lines">
 
 
+291
+292
+293
+294
+295
+296
 297
 298
 299
@@ -10872,16 +10910,10 @@ blas_s_dsdot(VALUE mod, VALUE x, VALUE y)
 310
 311
 312
-313
-314
-315
-316
-317
-318
-319</pre>
+313</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 297</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 291</span>
 
 static VALUE
 blas_s_dswap(VALUE UNUSED(mod), VALUE x, VALUE y)
@@ -10986,7 +11018,7 @@ by n matrices.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArrayoptional, inplace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -11028,14 +11060,14 @@ by n matrices.</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -11045,7 +11077,7 @@ by n matrices.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -11062,7 +11094,7 @@ by n matrices.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -11088,7 +11120,7 @@ by n matrices.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns c = alpha*op( A )*op( B ) + beta*C.</p>
 </div>
       
     </li>
@@ -11101,6 +11133,12 @@ by n matrices.</p>
       <pre class="lines">
 
 
+1846
+1847
+1848
+1849
+1850
+1851
 1852
 1853
 1854
@@ -11211,16 +11249,10 @@ by n matrices.</p>
 1959
 1960
 1961
-1962
-1963
-1964
-1965
-1966
-1967
-1968</pre>
+1962</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 1852</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 1846</span>
 
 static VALUE
 blas_s_dsymm(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -11415,7 +11447,7 @@ n by n symmetric matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArrayoptional, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -11457,14 +11489,14 @@ n by n symmetric matrix.</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -11474,7 +11506,7 @@ n by n symmetric matrix.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -11491,7 +11523,7 @@ n by n symmetric matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -11517,7 +11549,7 @@ n by n symmetric matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns y = alpha*op(A)*x + beta*y.</p>
 </div>
       
     </li>
@@ -11530,6 +11562,12 @@ n by n symmetric matrix.</p>
       <pre class="lines">
 
 
+1113
+1114
+1115
+1116
+1117
+1118
 1119
 1120
 1121
@@ -11620,16 +11658,10 @@ n by n symmetric matrix.</p>
 1206
 1207
 1208
-1209
-1210
-1211
-1212
-1213
-1214
-1215</pre>
+1209</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 1119</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 1113</span>
 
 static VALUE
 blas_s_dsymv(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -11814,7 +11846,7 @@ symmetric matrix.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -11831,7 +11863,7 @@ symmetric matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -11870,6 +11902,12 @@ symmetric matrix.</p>
       <pre class="lines">
 
 
+1266
+1267
+1268
+1269
+1270
+1271
 1272
 1273
 1274
@@ -11915,16 +11953,10 @@ symmetric matrix.</p>
 1314
 1315
 1316
-1317
-1318
-1319
-1320
-1321
-1322
-1323</pre>
+1317</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 1272</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 1266</span>
 
 static VALUE
 blas_s_dsyr(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -12080,7 +12112,7 @@ symmetric matrix.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -12097,7 +12129,7 @@ symmetric matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -12136,6 +12168,12 @@ symmetric matrix.</p>
       <pre class="lines">
 
 
+1495
+1496
+1497
+1498
+1499
+1500
 1501
 1502
 1503
@@ -12185,16 +12223,10 @@ symmetric matrix.</p>
 1547
 1548
 1549
-1550
-1551
-1552
-1553
-1554
-1555
-1556</pre>
+1550</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 1501</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 1495</span>
 
 static VALUE
 blas_s_dsyr2(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -12333,7 +12365,7 @@ case.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace).</p>
 </div>
       
     </li>
@@ -12375,7 +12407,7 @@ case.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -12392,7 +12424,7 @@ case.</p>
         <span class='name'>trans</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -12409,7 +12441,7 @@ case.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -12448,6 +12480,12 @@ case.</p>
       <pre class="lines">
 
 
+2368
+2369
+2370
+2371
+2372
+2373
 2374
 2375
 2376
@@ -12514,16 +12552,10 @@ case.</p>
 2437
 2438
 2439
-2440
-2441
-2442
-2443
-2444
-2445
-2446</pre>
+2440</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 2374</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 2368</span>
 
 static VALUE
 blas_s_dsyr2k(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -12646,7 +12678,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, n-by-k, inpace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, n-by-k, inpace).</p>
 </div>
       
     </li>
@@ -12662,7 +12694,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace).</p>
 </div>
       
     </li>
@@ -12704,7 +12736,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -12721,7 +12753,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
         <span class='name'>trans</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -12738,7 +12770,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -12777,6 +12809,12 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
       <pre class="lines">
 
 
+2237
+2238
+2239
+2240
+2241
+2242
 2243
 2244
 2245
@@ -12835,16 +12873,10 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
 2298
 2299
 2300
-2301
-2302
-2303
-2304
-2305
-2306
-2307</pre>
+2301</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 2243</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 2237</span>
 
 static VALUE
 blas_s_dsyrk(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -13015,14 +13047,14 @@ upper or lower triangular matrix and op( A ) is one of</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -13032,7 +13064,7 @@ upper or lower triangular matrix and op( A ) is one of</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -13049,7 +13081,7 @@ upper or lower triangular matrix and op( A ) is one of</p>
         <span class='name'>transa</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -13066,7 +13098,7 @@ upper or lower triangular matrix and op( A ) is one of</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -13092,7 +13124,7 @@ upper or lower triangular matrix and op( A ) is one of</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns c = alpha*op( A )*op( B ) + beta*C.</p>
 </div>
       
     </li>
@@ -13105,6 +13137,12 @@ upper or lower triangular matrix and op( A ) is one of</p>
       <pre class="lines">
 
 
+2051
+2052
+2053
+2054
+2055
+2056
 2057
 2058
 2059
@@ -13215,16 +13253,10 @@ upper or lower triangular matrix and op( A ) is one of</p>
 2164
 2165
 2166
-2167
-2168
-2169
-2170
-2171
-2172
-2173</pre>
+2167</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 2057</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 2051</span>
 
 static VALUE
 blas_s_dtrmm(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -13445,14 +13477,14 @@ or lower triangular matrix.</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -13462,7 +13494,7 @@ or lower triangular matrix.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -13479,7 +13511,7 @@ or lower triangular matrix.</p>
         <span class='name'>trans</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -13496,7 +13528,7 @@ or lower triangular matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -13522,7 +13554,7 @@ or lower triangular matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns y = alpha*op(A)*x + beta*y.</p>
 </div>
       
     </li>
@@ -13535,6 +13567,12 @@ or lower triangular matrix.</p>
       <pre class="lines">
 
 
+927
+928
+929
+930
+931
+932
 933
 934
 935
@@ -13625,16 +13663,10 @@ or lower triangular matrix.</p>
 1020
 1021
 1022
-1023
-1024
-1025
-1026
-1027
-1028
-1029</pre>
+1023</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 933</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_d.c', line 927</span>
 
 static VALUE
 blas_s_dtrmv(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -13767,7 +13799,7 @@ and returns a single precision result.</p>
         <span class='name'>x</span>
       
       
-        <span class='type'>(<tt>Numo::DFloat</tt>)</span>
+        <span class='type'>(<tt>Numo::DComplex</tt>)</span>
       
       
       
@@ -13775,6 +13807,17 @@ and returns a single precision result.</p>
         <div class='inline'>
 <p>vector (&gt;=1-dimentional NArray).</p>
 </div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>keepdims</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
       
     </li>
   
@@ -13790,6 +13833,11 @@ and returns a single precision result.</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>euclidean norm of x</p>
+</div>
+      
     </li>
   
 </ul>
@@ -13800,6 +13848,12 @@ and returns a single precision result.</p>
       <pre class="lines">
 
 
+297
+298
+299
+300
+301
+302
 303
 304
 305
@@ -13824,16 +13878,10 @@ and returns a single precision result.</p>
 324
 325
 326
-327
-328
-329
-330
-331
-332
-333</pre>
+327</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 303</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 297</span>
 
 static VALUE
 blas_s_dzasum(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -13902,7 +13950,7 @@ that</p>
         <span class='name'>x</span>
       
       
-        <span class='type'>(<tt>Numo::DFloat</tt>)</span>
+        <span class='type'>(<tt>Numo::DComplex</tt>)</span>
       
       
       
@@ -13910,6 +13958,17 @@ that</p>
         <div class='inline'>
 <p>vector (&gt;=1-dimentional NArray).</p>
 </div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>keepdims</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
       
     </li>
   
@@ -13925,6 +13984,11 @@ that</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>euclidean norm of x</p>
+</div>
+      
     </li>
   
 </ul>
@@ -13935,6 +13999,13 @@ that</p>
       <pre class="lines">
 
 
+229
+230
+231
+232
+233
+234
+235
 236
 237
 238
@@ -13958,17 +14029,10 @@ that</p>
 256
 257
 258
-259
-260
-261
-262
-263
-264
-265
-266</pre>
+259</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 236</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 229</span>
 
 static VALUE
 blas_s_dznrm2(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -14102,6 +14166,17 @@ increment equal to one.</p>
       
     </li>
   
+    <li>
+      
+        <span class='name'>keepdims</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+    </li>
+  
 </ul>
 
 <p class="tag_title">Returns:</p>
@@ -14114,6 +14189,11 @@ increment equal to one.</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>euclidean norm of x</p>
+</div>
+      
     </li>
   
 </ul>
@@ -14124,6 +14204,12 @@ increment equal to one.</p>
       <pre class="lines">
 
 
+227
+228
+229
+230
+231
+232
 233
 234
 235
@@ -14148,16 +14234,10 @@ increment equal to one.</p>
 254
 255
 256
-257
-258
-259
-260
-261
-262
-263</pre>
+257</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 233</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 227</span>
 
 static VALUE
 blas_s_sasum(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -14294,6 +14374,12 @@ increments equal to one.</p>
       <pre class="lines">
 
 
+560
+561
+562
+563
+564
+565
 566
 567
 568
@@ -14319,16 +14405,10 @@ increments equal to one.</p>
 588
 589
 590
-591
-592
-593
-594
-595
-596
-597</pre>
+591</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 566</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 560</span>
 
 static VALUE
 blas_s_saxpy(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -14396,7 +14476,7 @@ and returns a single precision result.</p>
         <span class='name'>x</span>
       
       
-        <span class='type'>(<tt>Numo::SFloat</tt>)</span>
+        <span class='type'>(<tt>Numo::SComplex</tt>)</span>
       
       
       
@@ -14404,6 +14484,17 @@ and returns a single precision result.</p>
         <div class='inline'>
 <p>vector (&gt;=1-dimentional NArray).</p>
 </div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>keepdims</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
       
     </li>
   
@@ -14419,6 +14510,11 @@ and returns a single precision result.</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>euclidean norm of x</p>
+</div>
+      
     </li>
   
 </ul>
@@ -14429,6 +14525,12 @@ and returns a single precision result.</p>
       <pre class="lines">
 
 
+297
+298
+299
+300
+301
+302
 303
 304
 305
@@ -14453,16 +14555,10 @@ and returns a single precision result.</p>
 324
 325
 326
-327
-328
-329
-330
-331
-332
-333</pre>
+327</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 303</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 297</span>
 
 static VALUE
 blas_s_scasum(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -14531,7 +14627,7 @@ that</p>
         <span class='name'>x</span>
       
       
-        <span class='type'>(<tt>Numo::SFloat</tt>)</span>
+        <span class='type'>(<tt>Numo::SComplex</tt>)</span>
       
       
       
@@ -14539,6 +14635,17 @@ that</p>
         <div class='inline'>
 <p>vector (&gt;=1-dimentional NArray).</p>
 </div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>keepdims</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
       
     </li>
   
@@ -14554,6 +14661,11 @@ that</p>
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>euclidean norm of x</p>
+</div>
+      
     </li>
   
 </ul>
@@ -14564,6 +14676,13 @@ that</p>
       <pre class="lines">
 
 
+229
+230
+231
+232
+233
+234
+235
 236
 237
 238
@@ -14587,17 +14706,10 @@ that</p>
 256
 257
 258
-259
-260
-261
-262
-263
-264
-265
-266</pre>
+259</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 236</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_c.c', line 229</span>
 
 static VALUE
 blas_s_scnrm2(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -14670,7 +14782,7 @@ increments equal to 1.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -14686,7 +14798,7 @@ increments equal to 1.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -14713,6 +14825,12 @@ increments equal to 1.</p>
       <pre class="lines">
 
 
+495
+496
+497
+498
+499
+500
 501
 502
 503
@@ -14729,16 +14847,10 @@ increments equal to 1.</p>
 514
 515
 516
-517
-518
-519
-520
-521
-522
-523</pre>
+517</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 501</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 495</span>
 
 static VALUE
 blas_s_scopy(VALUE UNUSED(mod), VALUE x, VALUE y)
@@ -14838,7 +14950,7 @@ increments equal to one.</p>
       
         &mdash;
         <div class='inline'>
-<p>x dot y</p>
+<p>op(x) dot y</p>
 </div>
       
     </li>
@@ -14851,6 +14963,14 @@ increments equal to one.</p>
       <pre class="lines">
 
 
+95
+96
+97
+98
+99
+100
+101
+102
 103
 104
 105
@@ -14868,18 +14988,10 @@ increments equal to one.</p>
 117
 118
 119
-120
-121
-122
-123
-124
-125
-126
-127
-128</pre>
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 103</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 95</span>
 
 static VALUE
 blas_s_sdot(VALUE mod, VALUE x, VALUE y)
@@ -14998,7 +15110,7 @@ using INCY.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns result</p>
+<p>returns inner product.</p>
 </div>
       
     </li>
@@ -15011,6 +15123,12 @@ using INCY.</p>
       <pre class="lines">
 
 
+371
+372
+373
+374
+375
+376
 377
 378
 379
@@ -15038,16 +15156,10 @@ using INCY.</p>
 401
 402
 403
-404
-405
-406
-407
-408
-409
-410</pre>
+404</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 377</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 371</span>
 
 static VALUE
 blas_s_sdsdot(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -15163,7 +15275,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArrayoptional, inplace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -15205,7 +15317,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
         <span class='name'>transa</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -15222,7 +15334,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
         <span class='name'>transb</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -15239,7 +15351,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -15265,7 +15377,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns c = alpha*op( A )*op( B ) + beta*C.</p>
 </div>
       
     </li>
@@ -15278,6 +15390,12 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
       <pre class="lines">
 
 
+1786
+1787
+1788
+1789
+1790
+1791
 1792
 1793
 1794
@@ -15388,16 +15506,10 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
 1899
 1900
 1901
-1902
-1903
-1904
-1905
-1906
-1907
-1908</pre>
+1902</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 1792</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 1786</span>
 
 static VALUE
 blas_s_sgemm(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -15592,7 +15704,7 @@ matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArrayoptional, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -15634,7 +15746,7 @@ matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -15660,7 +15772,7 @@ matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns y = alpha*op(A)*x + beta*y.</p>
 </div>
       
     </li>
@@ -15673,6 +15785,12 @@ matrix.</p>
       <pre class="lines">
 
 
+888
+889
+890
+891
+892
+893
 894
 895
 896
@@ -15763,16 +15881,10 @@ matrix.</p>
 981
 982
 983
-984
-985
-986
-987
-988
-989
-990</pre>
+984</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 894</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 888</span>
 
 static VALUE
 blas_s_sgemv(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -15915,7 +16027,7 @@ and A is an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -15931,7 +16043,7 @@ and A is an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -15974,7 +16086,7 @@ inplace allowed).</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -16013,6 +16125,12 @@ inplace allowed).</p>
       <pre class="lines">
 
 
+1522
+1523
+1524
+1525
+1526
+1527
 1528
 1529
 1530
@@ -16068,16 +16186,10 @@ inplace allowed).</p>
 1580
 1581
 1582
-1583
-1584
-1585
-1586
-1587
-1588
-1589</pre>
+1583</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 1528</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 1522</span>
 
 static VALUE
 blas_s_sger(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -16187,6 +16299,17 @@ blas_s_sger(int argc, VALUE const argv[], VALUE UNUSED(mod))
       
     </li>
   
+    <li>
+      
+        <span class='name'>keepdims</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+    </li>
+  
 </ul>
 
 <p class="tag_title">Returns:</p>
@@ -16199,6 +16322,11 @@ blas_s_sger(int argc, VALUE const argv[], VALUE UNUSED(mod))
       
       
       
+        &mdash;
+        <div class='inline'>
+<p>euclidean norm of x</p>
+</div>
+      
     </li>
   
 </ul>
@@ -16209,6 +16337,13 @@ blas_s_sger(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <pre class="lines">
 
 
+159
+160
+161
+162
+163
+164
+165
 166
 167
 168
@@ -16232,17 +16367,10 @@ blas_s_sger(int argc, VALUE const argv[], VALUE UNUSED(mod))
 186
 187
 188
-189
-190
-191
-192
-193
-194
-195
-196</pre>
+189</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 166</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 159</span>
 
 static VALUE
 blas_s_snrm2(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -16283,7 +16411,7 @@ blas_s_snrm2(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="srot-class_method">
   
-    .<strong>srot</strong>(x, y, c, s)  &#x21d2; <tt>[Numo::SFloat,Numo::SFloat]</tt> 
+    .<strong>srot</strong>(x, y, c, s)  &#x21d2; <tt>Array&lt;Numo::SFloat,Numo::SFloat&gt;</tt> 
   
 
   
@@ -16365,7 +16493,7 @@ blas_s_snrm2(int argc, VALUE const argv[], VALUE UNUSED(mod))
     <li>
       
       
-        <span class='type'>(<tt>[Numo::SFloat,Numo::SFloat]</tt>)</span>
+        <span class='type'>(<tt>Array&lt;Numo::SFloat,Numo::SFloat&gt;</tt>)</span>
       
       
       
@@ -16384,6 +16512,12 @@ blas_s_snrm2(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <pre class="lines">
 
 
+630
+631
+632
+633
+634
+635
 636
 637
 638
@@ -16404,16 +16538,10 @@ blas_s_snrm2(int argc, VALUE const argv[], VALUE UNUSED(mod))
 653
 654
 655
-656
-657
-658
-659
-660
-661
-662</pre>
+656</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 636</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 630</span>
 
 static VALUE
 blas_s_srot(VALUE UNUSED(mod), VALUE x, VALUE y, VALUE c, VALUE s)
@@ -16450,7 +16578,7 @@ blas_s_srot(VALUE UNUSED(mod), VALUE x, VALUE y, VALUE c, VALUE s)
       <div class="method_details ">
   <h3 class="signature " id="srotm-class_method">
   
-    .<strong>srotm</strong>(x, y, param)  &#x21d2; <tt>Numo::SFloat</tt> 
+    .<strong>srotm</strong>(x, y, param)  &#x21d2; <tt>Array&lt;Numo::SFloat,Numo::SFloat&gt;</tt> 
   
 
   
@@ -16459,20 +16587,20 @@ blas_s_srot(VALUE UNUSED(mod), VALUE x, VALUE y, VALUE c, VALUE s)
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>APPLY THE MODIFIED GIVENS TRANSFORMATION, H, TO THE 2 BY N MATRIX (SX**T) ,
-WHERE **T INDICATES TRANSPOSE. THE ELEMENTS OF SX ARE IN (SX**T)
-SX(LX+I*INCX), I = 0 TO N-1, WHERE LX = 1 IF INCX .GE. 0, ELSE LX =
-(-INCX)*N, AND SIMILARLY FOR SY USING USING LY AND INCY. WITH
-SPARAM(1)=SFLAG, H HAS ONE OF THE FOLLOWING FORMS.. SFLAG=-1.E0 SFLAG=0.E0
-SFLAG=1.E0 SFLAG=-2.E0</p>
+<p>Apply the modified givens transformation, H, to the 2 by N matrix (X**T),
+where **T indicates transpose. The elements of X are in (Y**T)</p>
 
-<pre class="code"><code class="">  (SH11  SH12)    (1.E0  SH12)    (SH11  1.E0)    (1.E0  0.E0)</code></pre>
+<p>X(LX+I*INCX), I = 0 to N-1, where LX = 1 if INCX .GE. 0, else LX =
+(-INCX)*N, and similarly for Y using LY and INCY. With PARAM(1)=FLAG, H has
+one of the following forms..</p>
 
-<p>H=( ) ( ) ( ) ( )</p>
+<pre class="code"><code class="">  FLAG=-1.0     FLAG=0.0        FLAG=1.0     FLAG=-2.0
 
-<pre class="code"><code class="">  (SH21  SH22),   (SH21  1.E0),   (-1.E0 SH22),   (0.E0  1.E0).</code></pre>
+    (H11  H12)    (1.0  H12)    (H11  1.0)    (1.0  0.0)
+  H=(        )    (        )    (        )    (        )
+    (H21  H22),   (H21  1.0),   (-1.0 H22),   (0.0  1.0).</code></pre>
 
-<p>SEE SROTMG FOR A DESCRIPTION OF DATA STORAGE IN SPARAM.</p>
+<p>see SROTMG for a description of data storage in param.</p>
 
 
   </div>
@@ -16517,16 +16645,16 @@ SFLAG=1.E0 SFLAG=-2.E0</p>
   
     <li>
       
-        <span class='name'>array</span>
+        <span class='name'>param</span>
       
       
-        <span class='type'>(<tt>Array</tt>, <tt>NArray</tt>)</span>
+        <span class='type'>(<tt>Numo::SFloat</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>of [DFLAG,DH11,DH21,DH12,DH22]</p>
+<p>array of [FLAG,H11,H21,H12,H22]</p>
 </div>
       
     </li>
@@ -16539,7 +16667,7 @@ SFLAG=1.E0 SFLAG=-2.E0</p>
     <li>
       
       
-        <span class='type'>(<tt>Numo::SFloat</tt>, <tt>Numo::SFloat</tt>)</span>
+        <span class='type'>(<tt>Array&lt;Numo::SFloat,Numo::SFloat&gt;</tt>)</span>
       
       
       
@@ -16558,6 +16686,12 @@ SFLAG=1.E0 SFLAG=-2.E0</p>
       <pre class="lines">
 
 
+707
+708
+709
+710
+711
+712
 713
 714
 715
@@ -16582,16 +16716,10 @@ SFLAG=1.E0 SFLAG=-2.E0</p>
 734
 735
 736
-737
-738
-739
-740
-741
-742
-743</pre>
+737</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 713</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 707</span>
 
 static VALUE
 blas_s_srotm(VALUE UNUSED(mod), VALUE x, VALUE y, VALUE param)
@@ -16699,7 +16827,7 @@ blas_s_srotm(VALUE UNUSED(mod), VALUE x, VALUE y, VALUE param)
       
         &mdash;
         <div class='inline'>
-<p>returns x.</p>
+<p>returns a*x.</p>
 </div>
       
     </li>
@@ -16712,6 +16840,12 @@ blas_s_srotm(VALUE UNUSED(mod), VALUE x, VALUE y, VALUE param)
       <pre class="lines">
 
 
+779
+780
+781
+782
+783
+784
 785
 786
 787
@@ -16728,16 +16862,10 @@ blas_s_srotm(VALUE UNUSED(mod), VALUE x, VALUE y, VALUE param)
 798
 799
 800
-801
-802
-803
-804
-805
-806
-807</pre>
+801</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 785</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 779</span>
 
 static VALUE
 blas_s_sscal(VALUE mod, VALUE a, VALUE x)
@@ -16801,7 +16929,7 @@ blas_s_sscal(VALUE mod, VALUE a, VALUE x)
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -16817,7 +16945,7 @@ blas_s_sscal(VALUE mod, VALUE a, VALUE x)
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -16844,6 +16972,12 @@ blas_s_sscal(VALUE mod, VALUE a, VALUE x)
       <pre class="lines">
 
 
+438
+439
+440
+441
+442
+443
 444
 445
 446
@@ -16860,16 +16994,10 @@ blas_s_sscal(VALUE mod, VALUE a, VALUE x)
 457
 458
 459
-460
-461
-462
-463
-464
-465
-466</pre>
+460</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 444</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 438</span>
 
 static VALUE
 blas_s_sswap(VALUE UNUSED(mod), VALUE x, VALUE y)
@@ -16974,7 +17102,7 @@ by n matrices.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArrayoptional, inplace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -17016,14 +17144,14 @@ by n matrices.</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -17033,7 +17161,7 @@ by n matrices.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -17050,7 +17178,7 @@ by n matrices.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -17076,7 +17204,7 @@ by n matrices.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns c = alpha*op( A )*op( B ) + beta*C.</p>
 </div>
       
     </li>
@@ -17089,6 +17217,12 @@ by n matrices.</p>
       <pre class="lines">
 
 
+1993
+1994
+1995
+1996
+1997
+1998
 1999
 2000
 2001
@@ -17199,16 +17333,10 @@ by n matrices.</p>
 2106
 2107
 2108
-2109
-2110
-2111
-2112
-2113
-2114
-2115</pre>
+2109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 1999</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 1993</span>
 
 static VALUE
 blas_s_ssymm(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -17403,7 +17531,7 @@ n by n symmetric matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArrayoptional, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -17445,14 +17573,14 @@ n by n symmetric matrix.</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -17462,7 +17590,7 @@ n by n symmetric matrix.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -17479,7 +17607,7 @@ n by n symmetric matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -17505,7 +17633,7 @@ n by n symmetric matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns y = alpha*op(A)*x + beta*y.</p>
 </div>
       
     </li>
@@ -17518,6 +17646,12 @@ n by n symmetric matrix.</p>
       <pre class="lines">
 
 
+1260
+1261
+1262
+1263
+1264
+1265
 1266
 1267
 1268
@@ -17608,16 +17742,10 @@ n by n symmetric matrix.</p>
 1353
 1354
 1355
-1356
-1357
-1358
-1359
-1360
-1361
-1362</pre>
+1356</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 1266</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 1260</span>
 
 static VALUE
 blas_s_ssymv(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -17802,7 +17930,7 @@ symmetric matrix.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -17819,7 +17947,7 @@ symmetric matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -17858,6 +17986,12 @@ symmetric matrix.</p>
       <pre class="lines">
 
 
+1413
+1414
+1415
+1416
+1417
+1418
 1419
 1420
 1421
@@ -17903,16 +18037,10 @@ symmetric matrix.</p>
 1461
 1462
 1463
-1464
-1465
-1466
-1467
-1468
-1469
-1470</pre>
+1464</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 1419</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 1413</span>
 
 static VALUE
 blas_s_ssyr(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -18068,7 +18196,7 @@ symmetric matrix.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -18085,7 +18213,7 @@ symmetric matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -18124,6 +18252,12 @@ symmetric matrix.</p>
       <pre class="lines">
 
 
+1642
+1643
+1644
+1645
+1646
+1647
 1648
 1649
 1650
@@ -18173,16 +18307,10 @@ symmetric matrix.</p>
 1694
 1695
 1696
-1697
-1698
-1699
-1700
-1701
-1702
-1703</pre>
+1697</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 1648</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 1642</span>
 
 static VALUE
 blas_s_ssyr2(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -18321,7 +18449,7 @@ case.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace).</p>
 </div>
       
     </li>
@@ -18363,7 +18491,7 @@ case.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -18380,7 +18508,7 @@ case.</p>
         <span class='name'>trans</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -18397,7 +18525,7 @@ case.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -18436,6 +18564,12 @@ case.</p>
       <pre class="lines">
 
 
+2515
+2516
+2517
+2518
+2519
+2520
 2521
 2522
 2523
@@ -18502,16 +18636,10 @@ case.</p>
 2584
 2585
 2586
-2587
-2588
-2589
-2590
-2591
-2592
-2593</pre>
+2587</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 2521</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 2515</span>
 
 static VALUE
 blas_s_ssyr2k(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -18634,7 +18762,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, n-by-k, inpace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, n-by-k, inpace).</p>
 </div>
       
     </li>
@@ -18650,7 +18778,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace).</p>
 </div>
       
     </li>
@@ -18692,7 +18820,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -18709,7 +18837,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
         <span class='name'>trans</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -18726,7 +18854,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -18765,6 +18893,12 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
       <pre class="lines">
 
 
+2384
+2385
+2386
+2387
+2388
+2389
 2390
 2391
 2392
@@ -18823,16 +18957,10 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
 2445
 2446
 2447
-2448
-2449
-2450
-2451
-2452
-2453
-2454</pre>
+2448</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 2390</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 2384</span>
 
 static VALUE
 blas_s_ssyrk(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -19003,14 +19131,14 @@ upper or lower triangular matrix and op( A ) is one of</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -19020,7 +19148,7 @@ upper or lower triangular matrix and op( A ) is one of</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -19037,7 +19165,7 @@ upper or lower triangular matrix and op( A ) is one of</p>
         <span class='name'>transa</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -19054,7 +19182,7 @@ upper or lower triangular matrix and op( A ) is one of</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -19080,7 +19208,7 @@ upper or lower triangular matrix and op( A ) is one of</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns c = alpha*op( A )*op( B ) + beta*C.</p>
 </div>
       
     </li>
@@ -19093,6 +19221,12 @@ upper or lower triangular matrix and op( A ) is one of</p>
       <pre class="lines">
 
 
+2198
+2199
+2200
+2201
+2202
+2203
 2204
 2205
 2206
@@ -19203,16 +19337,10 @@ upper or lower triangular matrix and op( A ) is one of</p>
 2311
 2312
 2313
-2314
-2315
-2316
-2317
-2318
-2319
-2320</pre>
+2314</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 2204</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 2198</span>
 
 static VALUE
 blas_s_strmm(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -19433,14 +19561,14 @@ or lower triangular matrix.</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -19450,7 +19578,7 @@ or lower triangular matrix.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -19467,7 +19595,7 @@ or lower triangular matrix.</p>
         <span class='name'>trans</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -19484,7 +19612,7 @@ or lower triangular matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -19510,7 +19638,7 @@ or lower triangular matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns y = alpha*op(A)*x + beta*y.</p>
 </div>
       
     </li>
@@ -19523,6 +19651,12 @@ or lower triangular matrix.</p>
       <pre class="lines">
 
 
+1074
+1075
+1076
+1077
+1078
+1079
 1080
 1081
 1082
@@ -19613,16 +19747,10 @@ or lower triangular matrix.</p>
 1167
 1168
 1169
-1170
-1171
-1172
-1173
-1174
-1175
-1176</pre>
+1170</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 1080</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_s.c', line 1074</span>
 
 static VALUE
 blas_s_strmv(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -19824,6 +19952,12 @@ blas_s_strmv(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <pre class="lines">
 
 
+481
+482
+483
+484
+485
+486
 487
 488
 489
@@ -19849,16 +19983,10 @@ blas_s_strmv(int argc, VALUE const argv[], VALUE UNUSED(mod))
 509
 510
 511
-512
-513
-514
-515
-516
-517
-518</pre>
+512</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 487</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 481</span>
 
 static VALUE
 blas_s_zaxpy(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -19931,7 +20059,7 @@ blas_s_zaxpy(int argc, VALUE const argv[], VALUE UNUSED(mod))
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -19947,7 +20075,7 @@ blas_s_zaxpy(int argc, VALUE const argv[], VALUE UNUSED(mod))
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -19974,6 +20102,12 @@ blas_s_zaxpy(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <pre class="lines">
 
 
+417
+418
+419
+420
+421
+422
 423
 424
 425
@@ -19990,16 +20124,10 @@ blas_s_zaxpy(int argc, VALUE const argv[], VALUE UNUSED(mod))
 436
 437
 438
-439
-440
-441
-442
-443
-444
-445</pre>
+439</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 423</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 417</span>
 
 static VALUE
 blas_s_zcopy(VALUE UNUSED(mod), VALUE x, VALUE y)
@@ -20101,7 +20229,7 @@ blas_s_zcopy(VALUE UNUSED(mod), VALUE x, VALUE y)
       
         &mdash;
         <div class='inline'>
-<p>x dot y</p>
+<p>op(x) dot y</p>
 </div>
       
     </li>
@@ -20114,6 +20242,14 @@ blas_s_zcopy(VALUE UNUSED(mod), VALUE x, VALUE y)
       <pre class="lines">
 
 
+98
+99
+100
+101
+102
+103
+104
+105
 106
 107
 108
@@ -20131,18 +20267,10 @@ blas_s_zcopy(VALUE UNUSED(mod), VALUE x, VALUE y)
 120
 121
 122
-123
-124
-125
-126
-127
-128
-129
-130
-131</pre>
+123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 106</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 98</span>
 
 static VALUE
 blas_s_zdotc(VALUE mod, VALUE x, VALUE y)
@@ -20247,7 +20375,7 @@ blas_s_zdotc(VALUE mod, VALUE x, VALUE y)
       
         &mdash;
         <div class='inline'>
-<p>x dot y</p>
+<p>op(x) dot y</p>
 </div>
       
     </li>
@@ -20260,6 +20388,14 @@ blas_s_zdotc(VALUE mod, VALUE x, VALUE y)
       <pre class="lines">
 
 
+165
+166
+167
+168
+169
+170
+171
+172
 173
 174
 175
@@ -20277,18 +20413,10 @@ blas_s_zdotc(VALUE mod, VALUE x, VALUE y)
 187
 188
 189
-190
-191
-192
-193
-194
-195
-196
-197
-198</pre>
+190</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 173</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 165</span>
 
 static VALUE
 blas_s_zdotu(VALUE mod, VALUE x, VALUE y)
@@ -20390,7 +20518,7 @@ blas_s_zdotu(VALUE mod, VALUE x, VALUE y)
       
         &mdash;
         <div class='inline'>
-<p>returns x.</p>
+<p>returns a*x.</p>
 </div>
       
     </li>
@@ -20403,6 +20531,12 @@ blas_s_zdotu(VALUE mod, VALUE x, VALUE y)
       <pre class="lines">
 
 
+618
+619
+620
+621
+622
+623
 624
 625
 626
@@ -20419,16 +20553,10 @@ blas_s_zdotu(VALUE mod, VALUE x, VALUE y)
 637
 638
 639
-640
-641
-642
-643
-644
-645
-646</pre>
+640</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 624</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 618</span>
 
 static VALUE
 blas_s_zdscal(VALUE mod, VALUE a, VALUE x)
@@ -20533,7 +20661,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArrayoptional, inplace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -20575,7 +20703,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
         <span class='name'>transa</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -20592,7 +20720,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
         <span class='name'>transb</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -20609,7 +20737,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -20635,7 +20763,7 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns c = alpha*op( A )*op( B ) + beta*C.</p>
 </div>
       
     </li>
@@ -20648,6 +20776,12 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
       <pre class="lines">
 
 
+1878
+1879
+1880
+1881
+1882
+1883
 1884
 1885
 1886
@@ -20758,16 +20892,10 @@ by k matrix, op( B ) a k by n matrix and C an m by n matrix.</p>
 1991
 1992
 1993
-1994
-1995
-1996
-1997
-1998
-1999
-2000</pre>
+1994</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 1884</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 1878</span>
 
 static VALUE
 blas_s_zgemm(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -20963,7 +21091,7 @@ matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArrayoptional, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -21005,7 +21133,7 @@ matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -21031,7 +21159,7 @@ matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns y = alpha*op(A)*x + beta*y.</p>
 </div>
       
     </li>
@@ -21044,6 +21172,12 @@ matrix.</p>
       <pre class="lines">
 
 
+728
+729
+730
+731
+732
+733
 734
 735
 736
@@ -21134,16 +21268,10 @@ matrix.</p>
 821
 822
 823
-824
-825
-826
-827
-828
-829
-830</pre>
+824</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 734</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 728</span>
 
 static VALUE
 blas_s_zgemv(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -21286,7 +21414,7 @@ and A is an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -21302,7 +21430,7 @@ and A is an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -21345,7 +21473,7 @@ inplace allowed).</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -21384,6 +21512,12 @@ inplace allowed).</p>
       <pre class="lines">
 
 
+1256
+1257
+1258
+1259
+1260
+1261
 1262
 1263
 1264
@@ -21439,16 +21573,10 @@ inplace allowed).</p>
 1314
 1315
 1316
-1317
-1318
-1319
-1320
-1321
-1322
-1323</pre>
+1317</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 1262</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 1256</span>
 
 static VALUE
 blas_s_zgerc(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -21556,7 +21684,7 @@ and A is an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -21572,7 +21700,7 @@ and A is an m by n matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -21615,7 +21743,7 @@ inplace allowed).</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -21654,6 +21782,12 @@ inplace allowed).</p>
       <pre class="lines">
 
 
+1375
+1376
+1377
+1378
+1379
+1380
 1381
 1382
 1383
@@ -21709,16 +21843,10 @@ inplace allowed).</p>
 1433
 1434
 1435
-1436
-1437
-1438
-1439
-1440
-1441
-1442</pre>
+1436</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 1381</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 1375</span>
 
 static VALUE
 blas_s_zgeru(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -21862,7 +21990,7 @@ m by n matrices.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArrayoptional, inplace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -21904,14 +22032,14 @@ m by n matrices.</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -21921,7 +22049,7 @@ m by n matrices.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -21938,7 +22066,7 @@ m by n matrices.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -21964,7 +22092,7 @@ m by n matrices.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns c = alpha*op( A )*op( B ) + beta*C.</p>
 </div>
       
     </li>
@@ -21977,6 +22105,12 @@ m by n matrices.</p>
       <pre class="lines">
 
 
+2497
+2498
+2499
+2500
+2501
+2502
 2503
 2504
 2505
@@ -22087,16 +22221,10 @@ m by n matrices.</p>
 2610
 2611
 2612
-2613
-2614
-2615
-2616
-2617
-2618
-2619</pre>
+2613</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 2503</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 2497</span>
 
 static VALUE
 blas_s_zhemm(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -22291,7 +22419,7 @@ n by n hermitian matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArrayoptional, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -22333,14 +22461,14 @@ n by n hermitian matrix.</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -22350,7 +22478,7 @@ n by n hermitian matrix.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -22367,7 +22495,7 @@ n by n hermitian matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -22393,7 +22521,7 @@ n by n hermitian matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns y = alpha*op(A)*x + beta*y.</p>
 </div>
       
     </li>
@@ -22406,6 +22534,12 @@ n by n hermitian matrix.</p>
       <pre class="lines">
 
 
+1100
+1101
+1102
+1103
+1104
+1105
 1106
 1107
 1108
@@ -22496,16 +22630,10 @@ n by n hermitian matrix.</p>
 1193
 1194
 1195
-1196
-1197
-1198
-1199
-1200
-1201
-1202</pre>
+1196</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 1106</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 1100</span>
 
 static VALUE
 blas_s_zhemv(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -22690,7 +22818,7 @@ hermitian matrix.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -22707,7 +22835,7 @@ hermitian matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -22746,6 +22874,12 @@ hermitian matrix.</p>
       <pre class="lines">
 
 
+1491
+1492
+1493
+1494
+1495
+1496
 1497
 1498
 1499
@@ -22791,16 +22925,10 @@ hermitian matrix.</p>
 1539
 1540
 1541
-1542
-1543
-1544
-1545
-1546
-1547
-1548</pre>
+1542</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 1497</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 1491</span>
 
 static VALUE
 blas_s_zher(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -22956,7 +23084,7 @@ hermitian matrix.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -22973,7 +23101,7 @@ hermitian matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -23012,6 +23140,12 @@ hermitian matrix.</p>
       <pre class="lines">
 
 
+1601
+1602
+1603
+1604
+1605
+1606
 1607
 1608
 1609
@@ -23061,16 +23195,10 @@ hermitian matrix.</p>
 1653
 1654
 1655
-1656
-1657
-1658
-1659
-1660
-1661
-1662</pre>
+1656</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 1607</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 1601</span>
 
 static VALUE
 blas_s_zher2(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -23177,7 +23305,7 @@ case.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, n-by-k, inpace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, n-by-k, inpace).</p>
 </div>
       
     </li>
@@ -23193,7 +23321,7 @@ case.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace).</p>
 </div>
       
     </li>
@@ -23235,7 +23363,7 @@ case.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -23252,7 +23380,7 @@ case.</p>
         <span class='name'>trans</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -23269,7 +23397,7 @@ case.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -23308,6 +23436,12 @@ case.</p>
       <pre class="lines">
 
 
+1724
+1725
+1726
+1727
+1728
+1729
 1730
 1731
 1732
@@ -23366,16 +23500,10 @@ case.</p>
 1785
 1786
 1787
-1788
-1789
-1790
-1791
-1792
-1793
-1794</pre>
+1788</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 1730</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 1724</span>
 
 static VALUE
 blas_s_zherk(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -23516,7 +23644,7 @@ blas_s_zherk(int argc, VALUE const argv[], VALUE UNUSED(mod))
       
         &mdash;
         <div class='inline'>
-<p>returns x.</p>
+<p>returns a*x.</p>
 </div>
       
     </li>
@@ -23529,6 +23657,12 @@ blas_s_zherk(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <pre class="lines">
 
 
+554
+555
+556
+557
+558
+559
 560
 561
 562
@@ -23545,16 +23679,10 @@ blas_s_zherk(int argc, VALUE const argv[], VALUE UNUSED(mod))
 573
 574
 575
-576
-577
-578
-579
-580
-581
-582</pre>
+576</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 560</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 554</span>
 
 static VALUE
 blas_s_zscal(VALUE mod, VALUE a, VALUE x)
@@ -23618,7 +23746,7 @@ blas_s_zscal(VALUE mod, VALUE a, VALUE x)
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -23634,7 +23762,7 @@ blas_s_zscal(VALUE mod, VALUE a, VALUE x)
       
         &mdash;
         <div class='inline'>
-<p>vector (&gt;=1-dimentional NArray, inplace allowed).</p>
+<p>vector (&gt;=1-dimentional NArray).</p>
 </div>
       
     </li>
@@ -23661,6 +23789,12 @@ blas_s_zscal(VALUE mod, VALUE a, VALUE x)
       <pre class="lines">
 
 
+361
+362
+363
+364
+365
+366
 367
 368
 369
@@ -23677,16 +23811,10 @@ blas_s_zscal(VALUE mod, VALUE a, VALUE x)
 380
 381
 382
-383
-384
-385
-386
-387
-388
-389</pre>
+383</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 367</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 361</span>
 
 static VALUE
 blas_s_zswap(VALUE UNUSED(mod), VALUE x, VALUE y)
@@ -23791,7 +23919,7 @@ by n matrices.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArrayoptional, inplace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, optional, inplace allowed).</p>
 </div>
       
     </li>
@@ -23833,14 +23961,14 @@ by n matrices.</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -23850,7 +23978,7 @@ by n matrices.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -23867,7 +23995,7 @@ by n matrices.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -23893,7 +24021,7 @@ by n matrices.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns c = alpha*op( A )*op( B ) + beta*C.</p>
 </div>
       
     </li>
@@ -23906,6 +24034,12 @@ by n matrices.</p>
       <pre class="lines">
 
 
+2085
+2086
+2087
+2088
+2089
+2090
 2091
 2092
 2093
@@ -24016,16 +24150,10 @@ by n matrices.</p>
 2198
 2199
 2200
-2201
-2202
-2203
-2204
-2205
-2206
-2207</pre>
+2201</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 2091</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 2085</span>
 
 static VALUE
 blas_s_zsymm(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -24225,7 +24353,7 @@ case.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace).</p>
 </div>
       
     </li>
@@ -24267,7 +24395,7 @@ case.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -24284,7 +24412,7 @@ case.</p>
         <span class='name'>trans</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -24301,7 +24429,7 @@ case.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -24340,6 +24468,12 @@ case.</p>
       <pre class="lines">
 
 
+2814
+2815
+2816
+2817
+2818
+2819
 2820
 2821
 2822
@@ -24406,16 +24540,10 @@ case.</p>
 2883
 2884
 2885
-2886
-2887
-2888
-2889
-2890
-2891
-2892</pre>
+2886</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 2820</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 2814</span>
 
 static VALUE
 blas_s_zsyr2k(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -24538,7 +24666,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, n-by-k, inpace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, n-by-k, inpace).</p>
 </div>
       
     </li>
@@ -24554,7 +24682,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
       
         &mdash;
         <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace allowed).</p>
+<p>matrix (&gt;=2-dimentional NArray, n-by-n, optional, inpace).</p>
 </div>
       
     </li>
@@ -24596,7 +24724,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -24613,7 +24741,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
         <span class='name'>trans</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -24630,7 +24758,7 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -24669,6 +24797,12 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
       <pre class="lines">
 
 
+2683
+2684
+2685
+2686
+2687
+2688
 2689
 2690
 2691
@@ -24727,16 +24861,10 @@ an n by k matrix in the first case and a k by n matrix in the second case.</p>
 2744
 2745
 2746
-2747
-2748
-2749
-2750
-2751
-2752
-2753</pre>
+2747</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 2689</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 2683</span>
 
 static VALUE
 blas_s_zsyrk(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -24907,14 +25035,14 @@ upper or lower triangular matrix and op( A ) is one of</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -24924,7 +25052,7 @@ upper or lower triangular matrix and op( A ) is one of</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -24941,7 +25069,7 @@ upper or lower triangular matrix and op( A ) is one of</p>
         <span class='name'>transa</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -24958,7 +25086,7 @@ upper or lower triangular matrix and op( A ) is one of</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -24984,7 +25112,7 @@ upper or lower triangular matrix and op( A ) is one of</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns c = alpha*op( A )*op( B ) + beta*C.</p>
 </div>
       
     </li>
@@ -24997,6 +25125,12 @@ upper or lower triangular matrix and op( A ) is one of</p>
       <pre class="lines">
 
 
+2290
+2291
+2292
+2293
+2294
+2295
 2296
 2297
 2298
@@ -25107,16 +25241,10 @@ upper or lower triangular matrix and op( A ) is one of</p>
 2403
 2404
 2405
-2406
-2407
-2408
-2409
-2410
-2411
-2412</pre>
+2406</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 2296</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 2290</span>
 
 static VALUE
 blas_s_ztrmm(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -25337,14 +25465,14 @@ or lower triangular matrix.</p>
         <span class='name'>side</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>if &#39;L&#39;: op(A)<em>B (left-side op), if &#39;R&#39;: B</em>op(A)
-(right-side op). (default=&#39;L&#39;)</p>
+<p>if &#39;L&#39;: op(A)*B (left-side op), if &#39;R&#39;: B*op(A) (right-side
+op). (default=&#39;L&#39;)</p>
 </div>
       
     </li>
@@ -25354,7 +25482,7 @@ or lower triangular matrix.</p>
         <span class='name'>uplo</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -25371,7 +25499,7 @@ or lower triangular matrix.</p>
         <span class='name'>trans</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -25388,7 +25516,7 @@ or lower triangular matrix.</p>
         <span class='name'>order</span>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Symbol</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -25414,7 +25542,7 @@ or lower triangular matrix.</p>
       
         &mdash;
         <div class='inline'>
-<p>returns c.</p>
+<p>returns y = alpha*op(A)*x + beta*y.</p>
 </div>
       
     </li>
@@ -25427,6 +25555,12 @@ or lower triangular matrix.</p>
       <pre class="lines">
 
 
+914
+915
+916
+917
+918
+919
 920
 921
 922
@@ -25517,16 +25651,10 @@ or lower triangular matrix.</p>
 1007
 1008
 1009
-1010
-1011
-1012
-1013
-1014
-1015
-1016</pre>
+1010</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 920</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas_z.c', line 914</span>
 
 static VALUE
 blas_s_ztrmv(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -25635,7 +25763,7 @@ blas_s_ztrmv(int argc, VALUE const argv[], VALUE UNUSED(mod))
 </div>
 
       <div id="footer">
-  Generated on Wed May 17 22:26:36 2017 by
+  Generated on Thu May 18 19:56:36 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>
