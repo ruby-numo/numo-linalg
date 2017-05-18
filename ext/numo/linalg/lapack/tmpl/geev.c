@@ -57,8 +57,8 @@ static void
  return_name = (is_complex ? "w,":"wr, wi,") + " vl, vr, info"
  params = [
    mat("a",:inplace),
-   job("jobvl"),
-   job("jobvr"),
+   jobe("jobvl"),
+   jobe("jobvr"),
    opt("order"),
  ].select{|x| x}.join("\n  ")
 %>

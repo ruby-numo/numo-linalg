@@ -34,13 +34,13 @@ static void
 /*<%
  params = [
    mat("a",:inplace),
-   job("jobz"),
+   jobe("jobz"),
    opt("uplo"),
    opt("order"),
  ].select{|x| x}.join("\n  ")
  return_name = "a, w, info"
 %>
-  @overload <%=name%>(a, [jobz:'N', uplo:'U', order:'R'])
+  @overload <%=name%>(a, [jobz:'V', uplo:'U', order:'R'])
   <%=params%>
   @return [[<%=return_name%>]]  Array<<%=real_class_name%>,<%=real_class_name%>,Integer>
 

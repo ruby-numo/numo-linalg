@@ -152,9 +152,8 @@ class DefLinalgFunction < DefModuleFunction
     end
   end
 
-  def job(v)
+  def jobe(v)
     tp = "String or Symbol"
-
     a =
       case v
       when /jobvl$/i; "left eigenvectors"
@@ -164,7 +163,10 @@ class DefLinalgFunction < DefModuleFunction
     if a
       return "@param #{v} [#{tp}]  if 'V': Compute #{a}, if 'N': Not compute #{a} (default='V')"
     end
+  end
 
+  def jobs(v)
+    tp = "String or Symbol"
     a =
       case v
       when /jobu/
@@ -173,8 +175,7 @@ class DefLinalgFunction < DefModuleFunction
           "singular vectors) are returned in the array U, " +
           "If 'O': the first min(m,n) columns of U (the left " +
           "singular vectors) are overwritten on the array A, " +
-          "If 'N': no columns of U (no left singular vectors) are computed. " +
-          "(default='A')"
+          "If 'N': no columns of U (no left singular vectors) are computed."
       when /jobvt/
         "If 'A': all N rows of V\\*\\*T are returned in the array VT;" +
           "If 'S': the first min(m,n) rows of V\\*\\*T (the right singular" +
@@ -182,8 +183,21 @@ class DefLinalgFunction < DefModuleFunction
           "If 'O': the first min(m,n) rows of V\\*\\*T (the right singular" +
           " vectors) are overwritten on the array A;" +
           "If 'N': no rows of V\\*\\*T (no right singular vectors) are" +
-          " computed. (default='A')"
+          " computed."
+      when /jobz/
+        "If 'A':  all M columns of U and all N rows of V\\*\\*H are" +
+          " returned in the arrays U and VT;" +
+          " If 'S':  the first min(M,N) columns of U and the first" +
+          " min(M,N) rows of V\\*\\*H are returned in the arrays U" +
+          " and VT;" +
+          "If 'O':  If M >= N, the first N columns of U are overwritten" +
+          " in the array A and all rows of V\\*\\*H are returned in" +
+          " the array VT;" +
+          " otherwise, all columns of U are returned in the" +
+          " array U and the first M rows of V\\*\\*H are overwritten" +
+          " in the array A;" +
+          "If 'N':  no columns of U or rows of V\\*\\*H are computed."
       end
-    "@param #{v} [#{tp}]  #{a}"
+    "@param #{v} [#{tp}]  #{a} (default='A')"
   end
 end

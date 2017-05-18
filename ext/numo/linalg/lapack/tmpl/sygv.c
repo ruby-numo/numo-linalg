@@ -39,7 +39,7 @@ static void
    mat("a",:inplace),
    mat("b",:inplace),
    "@param [Integer] itype Specifies the problem type to be solved. If 1:  A*x = (lambda)*B*x, If 2:  A*B*x = (lambda)*x, If 3:  B*A*x = (lambda)*x.",
-   job("jobz"),
+   jobe("jobz"),
    opt("uplo"),
    opt("order"),
  ].select{|x| x}.join("\n  ")

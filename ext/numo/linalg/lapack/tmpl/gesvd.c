@@ -60,7 +60,7 @@ static void
  args_v = a
  params = [
    mat("a","inplace allowed if job\\*=='O'"),
-   *(is_sdd ? [job("jobz")] : [job("jobu"),job("jobvt")]),
+   *(is_sdd ? [jobs("jobz")] : [jobs("jobu"),jobs("jobvt")]),
    opt("order"),
  ].select{|x| x}.join("\n  ")
 %>

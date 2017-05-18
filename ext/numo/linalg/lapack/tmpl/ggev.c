@@ -64,8 +64,8 @@ static void
  params = [
    mat("a",:inplace),
    mat("b",:inplace),
-   job("jobvl"),
-   job("jobvr"),
+   jobe("jobvl"),
+   jobe("jobvr"),
    opt("order"),
  ].select{|x| x}.join("\n  ")
 %>
