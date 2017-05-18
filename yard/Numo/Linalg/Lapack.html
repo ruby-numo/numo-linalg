@@ -526,7 +526,7 @@ generalized eigenvectors.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#cheev-class_method" title="cheev (class method)">.<strong>cheev</strong>(a, [jobz: &#39;N&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; [a, w, info] </a>
+      <a href="#cheev-class_method" title="cheev (class method)">.<strong>cheev</strong>(a, [jobz: &#39;V&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; [a, w, info] </a>
     
 
     
@@ -551,7 +551,7 @@ Hermitian matrix A.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#cheevd-class_method" title="cheevd (class method)">.<strong>cheevd</strong>(a, [jobz: &#39;N&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; [a, w, info] </a>
+      <a href="#cheevd-class_method" title="cheevd (class method)">.<strong>cheevd</strong>(a, [jobz: &#39;V&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; [a, w, info] </a>
     
 
     
@@ -1421,7 +1421,7 @@ DPOTRF.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#dsyev-class_method" title="dsyev (class method)">.<strong>dsyev</strong>(a, [jobz: &#39;N&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; [a, w, info] </a>
+      <a href="#dsyev-class_method" title="dsyev (class method)">.<strong>dsyev</strong>(a, [jobz: &#39;V&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; [a, w, info] </a>
     
 
     
@@ -1446,7 +1446,7 @@ symmetric matrix A.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#dsyevd-class_method" title="dsyevd (class method)">.<strong>dsyevd</strong>(a, [jobz: &#39;N&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; [a, w, info] </a>
+      <a href="#dsyevd-class_method" title="dsyevd (class method)">.<strong>dsyevd</strong>(a, [jobz: &#39;V&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; [a, w, info] </a>
     
 
     
@@ -2141,7 +2141,7 @@ SPOTRF.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#ssyev-class_method" title="ssyev (class method)">.<strong>ssyev</strong>(a, [jobz: &#39;N&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; [a, w, info] </a>
+      <a href="#ssyev-class_method" title="ssyev (class method)">.<strong>ssyev</strong>(a, [jobz: &#39;V&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; [a, w, info] </a>
     
 
     
@@ -2166,7 +2166,7 @@ symmetric matrix A.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#ssyevd-class_method" title="ssyevd (class method)">.<strong>ssyevd</strong>(a, [jobz: &#39;N&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; [a, w, info] </a>
+      <a href="#ssyevd-class_method" title="ssyevd (class method)">.<strong>ssyevd</strong>(a, [jobz: &#39;V&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; [a, w, info] </a>
     
 
     
@@ -2742,7 +2742,7 @@ generalized eigenvectors.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#zheev-class_method" title="zheev (class method)">.<strong>zheev</strong>(a, [jobz: &#39;N&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; [a, w, info] </a>
+      <a href="#zheev-class_method" title="zheev (class method)">.<strong>zheev</strong>(a, [jobz: &#39;V&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; [a, w, info] </a>
     
 
     
@@ -2767,7 +2767,7 @@ Hermitian matrix A.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#zheevd-class_method" title="zheevd (class method)">.<strong>zheevd</strong>(a, [jobz: &#39;N&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; [a, w, info] </a>
+      <a href="#zheevd-class_method" title="zheevd (class method)">.<strong>zheevd</strong>(a, [jobz: &#39;V&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; [a, w, info] </a>
     
 
     
@@ -6261,8 +6261,14 @@ updating process of SBDSDC did not converge.</p>
       
         &mdash;
         <div class='inline'>
-<p>if &#39;V&#39;: Compute eigenvectors, if &#39;N&#39;: Not compute
-eigenvectors (default=&#39;V&#39;)</p>
+<p>If &#39;A&#39;: all M columns of U and all N rows of V**H are returned in
+the arrays U and VT; If &#39;S&#39;: the first min(M,N) columns of U and
+the first min(M,N) rows of V**H are returned in the arrays U and VT;If
+&#39;O&#39;: If M &gt;= N, the first N columns of U are overwritten in the
+array A and all rows of V**H are returned in the array VT; otherwise, all
+columns of U are returned in the array U and the first M rows of V**H are
+overwritten in the array A;If &#39;N&#39;: no columns of U or rows of V**H
+are computed. (default=&#39;A&#39;)</p>
 </div>
       
     </li>
@@ -7859,7 +7865,7 @@ lapack_s_cggev(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="cheev-class_method">
   
-    .<strong>cheev</strong>(a, [jobz: &#39;N&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, w, info]</tt> 
+    .<strong>cheev</strong>(a, [jobz: &#39;V&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, w, info]</tt> 
   
 
   
@@ -8083,7 +8089,7 @@ lapack_s_cheev(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="cheevd-class_method">
   
-    .<strong>cheevd</strong>(a, [jobz: &#39;N&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, w, info]</tt> 
+    .<strong>cheevd</strong>(a, [jobz: &#39;V&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, w, info]</tt> 
   
 
   
@@ -14799,8 +14805,14 @@ DBDSDC did not converge, updating process failed.</p>
       
         &mdash;
         <div class='inline'>
-<p>if &#39;V&#39;: Compute eigenvectors, if &#39;N&#39;: Not compute
-eigenvectors (default=&#39;V&#39;)</p>
+<p>If &#39;A&#39;: all M columns of U and all N rows of V**H are returned in
+the arrays U and VT; If &#39;S&#39;: the first min(M,N) columns of U and
+the first min(M,N) rows of V**H are returned in the arrays U and VT;If
+&#39;O&#39;: If M &gt;= N, the first N columns of U are overwritten in the
+array A and all rows of V**H are returned in the array VT; otherwise, all
+columns of U are returned in the array U and the first M rows of V**H are
+overwritten in the array A;If &#39;N&#39;: no columns of U or rows of V**H
+are computed. (default=&#39;A&#39;)</p>
 </div>
       
     </li>
@@ -17550,7 +17562,7 @@ lapack_s_dpotri(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="dsyev-class_method">
   
-    .<strong>dsyev</strong>(a, [jobz: &#39;N&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, w, info]</tt> 
+    .<strong>dsyev</strong>(a, [jobz: &#39;V&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, w, info]</tt> 
   
 
   
@@ -17774,7 +17786,7 @@ lapack_s_dsyev(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="dsyevd-class_method">
   
-    .<strong>dsyevd</strong>(a, [jobz: &#39;N&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, w, info]</tt> 
+    .<strong>dsyevd</strong>(a, [jobz: &#39;V&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, w, info]</tt> 
   
 
   
@@ -22760,8 +22772,14 @@ SBDSDC did not converge, updating process failed.</p>
       
         &mdash;
         <div class='inline'>
-<p>if &#39;V&#39;: Compute eigenvectors, if &#39;N&#39;: Not compute
-eigenvectors (default=&#39;V&#39;)</p>
+<p>If &#39;A&#39;: all M columns of U and all N rows of V**H are returned in
+the arrays U and VT; If &#39;S&#39;: the first min(M,N) columns of U and
+the first min(M,N) rows of V**H are returned in the arrays U and VT;If
+&#39;O&#39;: If M &gt;= N, the first N columns of U are overwritten in the
+array A and all rows of V**H are returned in the array VT; otherwise, all
+columns of U are returned in the array U and the first M rows of V**H are
+overwritten in the array A;If &#39;N&#39;: no columns of U or rows of V**H
+are computed. (default=&#39;A&#39;)</p>
 </div>
       
     </li>
@@ -25438,7 +25456,7 @@ lapack_s_spotri(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="ssyev-class_method">
   
-    .<strong>ssyev</strong>(a, [jobz: &#39;N&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, w, info]</tt> 
+    .<strong>ssyev</strong>(a, [jobz: &#39;V&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, w, info]</tt> 
   
 
   
@@ -25662,7 +25680,7 @@ lapack_s_ssyev(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="ssyevd-class_method">
   
-    .<strong>ssyevd</strong>(a, [jobz: &#39;N&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, w, info]</tt> 
+    .<strong>ssyevd</strong>(a, [jobz: &#39;V&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, w, info]</tt> 
   
 
   
@@ -30590,8 +30608,14 @@ updating process of DBDSDC did not converge.</p>
       
         &mdash;
         <div class='inline'>
-<p>if &#39;V&#39;: Compute eigenvectors, if &#39;N&#39;: Not compute
-eigenvectors (default=&#39;V&#39;)</p>
+<p>If &#39;A&#39;: all M columns of U and all N rows of V**H are returned in
+the arrays U and VT; If &#39;S&#39;: the first min(M,N) columns of U and
+the first min(M,N) rows of V**H are returned in the arrays U and VT;If
+&#39;O&#39;: If M &gt;= N, the first N columns of U are overwritten in the
+array A and all rows of V**H are returned in the array VT; otherwise, all
+columns of U are returned in the array U and the first M rows of V**H are
+overwritten in the array A;If &#39;N&#39;: no columns of U or rows of V**H
+are computed. (default=&#39;A&#39;)</p>
 </div>
       
     </li>
@@ -32293,7 +32317,7 @@ lapack_s_zggev(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="zheev-class_method">
   
-    .<strong>zheev</strong>(a, [jobz: &#39;N&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, w, info]</tt> 
+    .<strong>zheev</strong>(a, [jobz: &#39;V&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, w, info]</tt> 
   
 
   
@@ -32517,7 +32541,7 @@ lapack_s_zheev(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="zheevd-class_method">
   
-    .<strong>zheevd</strong>(a, [jobz: &#39;N&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, w, info]</tt> 
+    .<strong>zheevd</strong>(a, [jobz: &#39;V&#39;, uplo:&#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, w, info]</tt> 
   
 
   
@@ -36177,7 +36201,7 @@ lapack_s_ztzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 </div>
 
       <div id="footer">
-  Generated on Thu May 18 19:56:32 2017 by
+  Generated on Thu May 18 20:35:17 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>
