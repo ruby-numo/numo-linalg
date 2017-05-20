@@ -50,8 +50,8 @@ static void
         nb = NDL_SHAPE(lp,1)[0];
         ldb = (g->order==LAPACK_COL_MAJOR) ? nb : 1;
     } else {
-        nrhs = NDL_SHAPE(lp,1)[0];
-        nb = NDL_SHAPE(lp,1)[1];
+        nb = NDL_SHAPE(lp,1)[0];
+        nrhs = NDL_SHAPE(lp,1)[1];
         ldb = nrhs;
         SWAP_IFCOL(g->order,nb,nrhs);
     }
@@ -72,20 +72,20 @@ static void
  iary = "Numo::Int"
  iscal = "Integer"
  if is_lsy
-   t = [tp,tp,iary,iscal,iscal]
    a = "a, b, jpvt, [rcond:-1, order:'R']"
+   t = [tp,tp,iary,iscal,iscal]
    n = "a, b, jpvt, rank, info"
  elsif is_lsd
+   a = "a, b, [rcond:-1, order:'R']"
    t = [tp,tp,iscal,iscal]
-   a = "b, jpvt, [rcond:-1, order:'R']"
    n = "b, s, rank, info"
  elsif is_lss
+   a = "a, b, [rcond:-1, order:'R']"
    t = [tp,tp,tp,iscal,iscal]
-   a = "a, b, jpvt, [rcond:-1, order:'R']"
    n = "a, b, s, rank, info"
  else
-   t = [tp,tp,iscal]
    a = "a, b, [order:'R']"
+   t = [tp,tp,iscal]
    n = "a, b, info"
  end
  return_type = t.join(", ")
@@ -191,13 +191,14 @@ static VALUE
 #endif
 
     //The number of columns of the matrix B.
-    nb = COL_SIZE(na2);
     if (na2->ndim == 1) {
         ain[1].dim = 1; // reduce dimension
+        nb = COL_SIZE(na2);
         nrhs = 1;
     } else {
         //The number of rows of the matrix B.
-        nrhs = ROW_SIZE(na2);
+        nb = ROW_SIZE(na2);
+        nrhs = COL_SIZE(na2);
         SWAP_IFCOL(g.order,nb,nrhs);
     }
     if (nb < max_mn) {
