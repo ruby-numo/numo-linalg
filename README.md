@@ -8,7 +8,7 @@ Under development!
 
 This is a binding of LAPACK with Numo::NArray .
 
-### [Numo::Linalg API](http://ruby-numo.github.io/linalg/yard/)
+### [Numo::Linalg API](http://ruby-numo.github.io/linalg/yard/Numo/Linalg.html)
 
 * Matrix and vector products
     * dot, matmul
