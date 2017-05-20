@@ -79,7 +79,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>ext/numo/linalg/lapack/lapack.c<span class="defines">,<br />
-  ext/numo/linalg/lapack/lapack_c.c,<br /> ext/numo/linalg/lapack/lapack_d.c,<br /> ext/numo/linalg/lapack/lapack_s.c,<br /> ext/numo/linalg/lapack/lapack_z.c,<br /> ext/numo/linalg/lapack/test.c,<br /> lib/numo/linalg.rb</span>
+  ext/numo/linalg/lapack/lapack_c.c,<br /> ext/numo/linalg/lapack/lapack_d.c,<br /> ext/numo/linalg/lapack/lapack_s.c,<br /> ext/numo/linalg/lapack/lapack_z.c</span>
 </dd>
   </dl>
   
@@ -99,31 +99,6 @@
     </h2>
 
     <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#call-class_method" title="call (class method)">.<strong>call</strong>(func, *args)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Call LAPACK function prefixed with BLAS char ([sdcz]) defined from
-data-types of arguments.</p>
-</div></span>
-  
-</li>
-
       
         <li class="public ">
   <span class="summary_signature">
@@ -204,7 +179,7 @@ factorization of A.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#cgelsd-class_method" title="cgelsd (class method)">.<strong>cgelsd</strong>(a, b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [a, b, s, rank, info] </a>
+      <a href="#cgelsd-class_method" title="cgelsd (class method)">.<strong>cgelsd</strong>(b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [b, s, rank, info] </a>
     
 
     
@@ -403,7 +378,7 @@ using divide-and-conquer method.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#cgesv-class_method" title="cgesv (class method)">.<strong>cgesv</strong>(opts = {})  &#x21d2; Object </a>
+      <a href="#cgesv-class_method" title="cgesv (class method)">.<strong>cgesv</strong>(a, b, [order: &#39;R&#39;])  &#x21d2; [a, b, ipiv, info] </a>
     
 
     
@@ -417,7 +392,9 @@ using divide-and-conquer method.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>CGESV computes the solution to a complex system of linear equations.</p>
+</div></span>
   
 </li>
 
@@ -977,7 +954,7 @@ factorization of A.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#dgelsd-class_method" title="dgelsd (class method)">.<strong>dgelsd</strong>(a, b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [a, b, s, rank, info] </a>
+      <a href="#dgelsd-class_method" title="dgelsd (class method)">.<strong>dgelsd</strong>(b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [b, s, rank, info] </a>
     
 
     
@@ -1719,7 +1696,7 @@ factorization of A.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#sgelsd-class_method" title="sgelsd (class method)">.<strong>sgelsd</strong>(a, b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [a, b, s, rank, info] </a>
+      <a href="#sgelsd-class_method" title="sgelsd (class method)">.<strong>sgelsd</strong>(b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [b, s, rank, info] </a>
     
 
     
@@ -2418,7 +2395,7 @@ factorization of A.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#zgelsd-class_method" title="zgelsd (class method)">.<strong>zgelsd</strong>(a, b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [a, b, s, rank, info] </a>
+      <a href="#zgelsd-class_method" title="zgelsd (class method)">.<strong>zgelsd</strong>(b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [b, s, rank, info] </a>
     
 
     
@@ -3125,95 +3102,7 @@ upper triangular form by means of unitary transformations.</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="call-class_method">
-  
-    .<strong>call</strong>(func, *args)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Call LAPACK function prefixed with BLAS char ([sdcz]) defined from
-data-types of arguments.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  <div class="examples">
-    <p class="tag_title">Examples:</p>
-    
-      
-      <pre class="example code"><code><span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Numo.html" title="Numo (module)">Numo</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Linalg.html" title="Numo::Linalg (module)">Linalg</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='symbol'>:gesv</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span></code></pre>
-    
-  </div>
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>func</span>
-      
-      
-        <span class='type'>(<tt>Symbol</tt>, <tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>function name without BLAS char.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>args</span>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>arguments passed to Lapack function.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-32
-33
-34
-35</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg.rb', line 32</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_func'>func</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_fn'>fn</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Linalg.html" title="Numo::Linalg (module)">Linalg</a></span></span><span class='period'>.</span><span class='id identifier rubyid_blas_char'><span class='object_link'><a href="../Linalg.html#blas_char-class_method" title="Numo::Linalg.blas_char (method)">blas_char</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_func'>func</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
-  <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fn'>fn</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="cgeev-class_method">
+  <h3 class="signature first" id="cgeev-class_method">
   
     .<strong>cgeev</strong>(a, [jobvl: &#39;V&#39;, jobvr:&#39;V&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[w, vl, vr, info]</tt> 
   
@@ -3366,8 +3255,6 @@ right eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-2366
-2367
 2368
 2369
 2370
@@ -3408,10 +3295,12 @@ right eigenvectors (default=&#39;V&#39;)</p>
 2405
 2406
 2407
-2408</pre>
+2408
+2409
+2410</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 2366</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 2368</span>
 
 static VALUE
 lapack_s_cgeev(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -3561,8 +3450,6 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
       <pre class="lines">
 
 
-3723
-3724
 3725
 3726
 3727
@@ -3623,10 +3510,12 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
 3782
 3783
 3784
-3785</pre>
+3785
+3786
+3787</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3723</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3725</span>
 
 static VALUE
 lapack_s_cgelqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -3949,7 +3838,9 @@ computed.</p>
 1506
 1507
 1508
-1509</pre>
+1509
+1510
+1511</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 1406</span>
@@ -4052,6 +3943,8 @@ lapack_s_cgels(int argc, VALUE const argv[], VALUE UNUSED(mod))
     // return
 #if LSY
     return rb_ary_concat(rb_ary_new3(3,a,b,jpvt),ans);
+#elif LSD
+    rb_ary_unshift(ans,b); return ans;
 #elif LSS
     return rb_ary_concat(rb_ary_new3(2,a,b),ans);
 #else
@@ -4066,7 +3959,7 @@ lapack_s_cgels(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="cgelsd-class_method">
   
-    .<strong>cgelsd</strong>(a, b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[a, b, s, rank, info]</tt> 
+    .<strong>cgelsd</strong>(b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[b, s, rank, info]</tt> 
   
 
   
@@ -4106,9 +3999,6 @@ but we know of none.</p>
 
 <h3 id="label-Output+Parameters-3A">Output Parameters:</h3>
 <ul><li>
-<p><strong><em>a</em></strong> —  A is COMPLEX array, dimension (LDA,N)  On
-entry, the M-by-N matrix A.  On exit, A has been destroyed.</p>
-</li><li>
 <p><strong><em>b</em></strong> —  B is COMPLEX array, dimension (LDB,NRHS)  On
 entry, the M-by-NRHS right hand side matrix B.  On exit, B is overwritten
 by the N-by-NRHS solution matrix X.  If m &gt;= n and RANK = n, the
@@ -4137,22 +4027,6 @@ to zero.</p>
   
 <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
-    <li>
-      
-        <span class='name'>a</span>
-      
-      
-        <span class='type'>(<tt>Numo::SComplex</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, inplace allowed).</p>
-</div>
-      
-    </li>
   
     <li>
       
@@ -4213,14 +4087,13 @@ used instead.</p>
     <li>
       
       
-        <span class='type'>(<tt>[a, b, s, rank, info]</tt>)</span>
+        <span class='type'>(<tt>[b, s, rank, info]</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>Array&lt;Numo::SComplex, Numo::SComplex, Numo::SComplex, Integer,
-Integer&gt;</p>
+<p>Array&lt;Numo::SComplex, Numo::SComplex, Integer, Integer&gt;</p>
 </div>
       
     </li>
@@ -4233,6 +4106,8 @@ Integer&gt;</p>
       <pre class="lines">
 
 
+1888
+1889
 1890
 1891
 1892
@@ -4339,7 +4214,7 @@ Integer&gt;</p>
 1993</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 1890</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 1888</span>
 
 static VALUE
 lapack_s_cgelsd(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -4439,6 +4314,8 @@ lapack_s_cgelsd(int argc, VALUE const argv[], VALUE UNUSED(mod))
     // return
 #if LSY
     return rb_ary_concat(rb_ary_new3(3,a,b,jpvt),ans);
+#elif LSD
+    rb_ary_unshift(ans,b); return ans;
 #elif LSS
     return rb_ary_concat(rb_ary_new3(2,a,b),ans);
 #else
@@ -4601,8 +4478,6 @@ Integer&gt;</p>
       <pre class="lines">
 
 
-1639
-1640
 1641
 1642
 1643
@@ -4704,10 +4579,14 @@ Integer&gt;</p>
 1739
 1740
 1741
-1742</pre>
+1742
+1743
+1744
+1745
+1746</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 1639</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 1641</span>
 
 static VALUE
 lapack_s_cgelss(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -4807,6 +4686,8 @@ lapack_s_cgelss(int argc, VALUE const argv[], VALUE UNUSED(mod))
     // return
 #if LSY
     return rb_ary_concat(rb_ary_new3(3,a,b,jpvt),ans);
+#elif LSD
+    rb_ary_unshift(ans,b); return ans;
 #elif LSS
     return rb_ary_concat(rb_ary_new3(2,a,b),ans);
 #else
@@ -5113,7 +4994,9 @@ used instead.</p>
 2250
 2251
 2252
-2253</pre>
+2253
+2254
+2255</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 2150</span>
@@ -5216,6 +5099,8 @@ lapack_s_cgelsy(int argc, VALUE const argv[], VALUE UNUSED(mod))
     // return
 #if LSY
     return rb_ary_concat(rb_ary_new3(3,a,b,jpvt),ans);
+#elif LSD
+    rb_ary_unshift(ans,b); return ans;
 #elif LSS
     return rb_ary_concat(rb_ary_new3(2,a,b),ans);
 #else
@@ -5327,8 +5212,6 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
       <pre class="lines">
 
 
-3563
-3564
 3565
 3566
 3567
@@ -5389,10 +5272,12 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
 3622
 3623
 3624
-3625</pre>
+3625
+3626
+3627</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3563</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3565</span>
 
 static VALUE
 lapack_s_cgeqlf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -5567,8 +5452,6 @@ The scalar factors of the elementary reflectors.</p>
       <pre class="lines">
 
 
-3890
-3891
 3892
 3893
 3894
@@ -5629,10 +5512,12 @@ The scalar factors of the elementary reflectors.</p>
 3949
 3950
 3951
-3952</pre>
+3952
+3953
+3954</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3890</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3892</span>
 
 static VALUE
 lapack_s_cgeqp3(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -5801,8 +5686,6 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
       <pre class="lines">
 
 
-3237
-3238
 3239
 3240
 3241
@@ -5863,10 +5746,12 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
 3296
 3297
 3298
-3299</pre>
+3299
+3300
+3301</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3237</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3239</span>
 
 static VALUE
 lapack_s_cgeqrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -6037,8 +5922,6 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
       <pre class="lines">
 
 
-3400
-3401
 3402
 3403
 3404
@@ -6099,10 +5982,12 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
 3459
 3460
 3461
-3462</pre>
+3462
+3463
+3464</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3400</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3402</span>
 
 static VALUE
 lapack_s_cgerqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -6551,7 +6436,7 @@ lapack_s_cgesdd(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="cgesv-class_method">
   
-    .<strong>cgesv</strong>(opts = {})  &#x21d2; <tt>Object</tt> 
+    .<strong>cgesv</strong>(a, b, [order: &#39;R&#39;])  &#x21d2; <tt>[a, b, ipiv, info]</tt> 
   
 
   
@@ -6560,15 +6445,120 @@ lapack_s_cgesdd(int argc, VALUE const argv[], VALUE UNUSED(mod))
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>CGESV computes the solution to a complex system of linear equations</p>
+
+<pre class="code"><code class="">  A * X = B,</code></pre>
+
+<p>where A is an N-by-N matrix and X and B are N-by-NRHS matrices. The LU
+decomposition with partial pivoting and row interchanges is used to factor
+A as</p>
+
+<pre class="code"><code class="">  A = P * L * U,</code></pre>
+
+<p>where P is a permutation matrix, L is unit lower triangular, and U is upper
+triangular. The factored form of A is then used to solve the system of
+equations A * X = B.</p>
+
+<h3 id="label-Output+Parameters-3A">Output Parameters:</h3>
+<ul><li>
+<p><strong><em>a</em></strong> —  A is COMPLEX array, dimension (LDA,N)  On
+entry, the N-by-N coefficient matrix A.  On exit, the factors L and U from
+the factorization  A = P*L*U; the unit diagonal elements of L are not
+stored.</p>
+</li><li>
+<p><strong><em>b</em></strong> —  B is COMPLEX array, dimension (LDB,NRHS)  On
+entry, the N-by-NRHS matrix of right hand side matrix B.  On exit, if INFO
+= 0, the N-by-NRHS solution matrix X.</p>
+</li><li>
+<p><strong><em>ipiv</em></strong> —  IPIV is INTEGER array, dimension (N)  The
+pivot indices that define the permutation matrix P;  row i of the matrix
+was interchanged with row IPIV(i).</p>
+</li><li>
+<p><strong><em>info</em></strong> —  INFO is INTEGER  = 0: successful exit 
+&lt; 0: if INFO = -i, the i-th argument had an illegal value  &gt; 0: if
+INFO = i, U(i,i) is exactly zero. The factorization  has been completed,
+but the factor U is exactly  singular, so the solution could not be
+computed.</p>
+</li></ul>
+
 
   </div>
 </div>
 <div class="tags">
   
   
-
+<p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>Numo::SComplex</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>matrix (&gt;=2-dimentional NArray, inplace allowed, output: lu).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>b</span>
+      
+      
+        <span class='type'>(<tt>Numo::SComplex</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>vector (&gt;=1-dimentional NArray, inplace allowed, output: x).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>order</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if &#39;R&#39;: Row-major, if &#39;C&#39;: Column-major.
+(default=&#39;R&#39;)</p>
+</div>
+      
+    </li>
+  
+</ul>
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>[a, b, ipiv, info]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Array&lt;Numo::SComplex, Numo::SComplex, Numo::Int, Integer&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -7198,8 +7188,6 @@ it is used  to solve a system of equations.</p>
       <pre class="lines">
 
 
-4224
-4225
 4226
 4227
 4228
@@ -7260,10 +7248,12 @@ it is used  to solve a system of equations.</p>
 4283
 4284
 4285
-4286</pre>
+4286
+4287
+4288</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4224</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4226</span>
 
 static VALUE
 lapack_s_cgetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -7434,8 +7424,6 @@ could not be computed.</p>
       <pre class="lines">
 
 
-4736
-4737
 4738
 4739
 4740
@@ -7496,10 +7484,12 @@ could not be computed.</p>
 4795
 4796
 4797
-4798</pre>
+4798
+4799
+4800</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4736</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4738</span>
 
 static VALUE
 lapack_s_cgetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -7753,8 +7743,6 @@ Integer&gt;</p>
       <pre class="lines">
 
 
-2542
-2543
 2544
 2545
 2546
@@ -7802,10 +7790,12 @@ Integer&gt;</p>
 2588
 2589
 2590
-2591</pre>
+2591
+2592
+2593</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 2542</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 2544</span>
 
 static VALUE
 lapack_s_cggev(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -8001,8 +7991,6 @@ eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-2669
-2670
 2671
 2672
 2673
@@ -8038,10 +8026,12 @@ eigenvectors (default=&#39;V&#39;)</p>
 2703
 2704
 2705
-2706</pre>
+2706
+2707
+2708</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 2669</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 2671</span>
 
 static VALUE
 lapack_s_cheev(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -8234,8 +8224,6 @@ eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-2795
-2796
 2797
 2798
 2799
@@ -8271,10 +8259,12 @@ eigenvectors (default=&#39;V&#39;)</p>
 2829
 2830
 2831
-2832</pre>
+2832
+2833
+2834</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 2795</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 2797</span>
 
 static VALUE
 lapack_s_cheevd(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -8508,8 +8498,6 @@ eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-2937
-2938
 2939
 2940
 2941
@@ -8553,10 +8541,12 @@ eigenvectors (default=&#39;V&#39;)</p>
 2979
 2980
 2981
-2982</pre>
+2982
+2983
+2984</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 2937</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 2939</span>
 
 static VALUE
 lapack_s_chegv(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -8807,8 +8797,6 @@ eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-3098
-3099
 3100
 3101
 3102
@@ -8852,10 +8840,12 @@ eigenvectors (default=&#39;V&#39;)</p>
 3140
 3141
 3142
-3143</pre>
+3143
+3144
+3145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3098</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3100</span>
 
 static VALUE
 lapack_s_chegvd(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -9330,8 +9320,6 @@ will occur if it  is used to solve a system of equations.</p>
       <pre class="lines">
 
 
-5242
-5243
 5244
 5245
 5246
@@ -9392,10 +9380,12 @@ will occur if it  is used to solve a system of equations.</p>
 5301
 5302
 5303
-5304</pre>
+5304
+5305
+5306</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 5242</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 5244</span>
 
 static VALUE
 lapack_s_chetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -9587,8 +9577,6 @@ computed.</p>
       <pre class="lines">
 
 
-5408
-5409
 5410
 5411
 5412
@@ -9649,10 +9637,12 @@ computed.</p>
 5467
 5468
 5469
-5470</pre>
+5470
+5471
+5472</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 5408</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 5410</span>
 
 static VALUE
 lapack_s_chetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -10303,8 +10293,6 @@ factorization could not be  completed.</p>
       <pre class="lines">
 
 
-4575
-4576
 4577
 4578
 4579
@@ -10365,10 +10353,12 @@ factorization could not be  completed.</p>
 4634
 4635
 4636
-4637</pre>
+4637
+4638
+4639</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4575</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4577</span>
 
 static VALUE
 lapack_s_cpotrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -10554,8 +10544,6 @@ could not be computed.</p>
       <pre class="lines">
 
 
-5060
-5061
 5062
 5063
 5064
@@ -10616,10 +10604,12 @@ could not be computed.</p>
 5119
 5120
 5121
-5122</pre>
+5122
+5123
+5124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 5060</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 5062</span>
 
 static VALUE
 lapack_s_cpotri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -11111,8 +11101,6 @@ will occur if it  is used to solve a system of equations.</p>
       <pre class="lines">
 
 
-4406
-4407
 4408
 4409
 4410
@@ -11173,10 +11161,12 @@ will occur if it  is used to solve a system of equations.</p>
 4465
 4466
 4467
-4468</pre>
+4468
+4469
+4470</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4406</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4408</span>
 
 static VALUE
 lapack_s_csytrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -11368,8 +11358,6 @@ computed.</p>
       <pre class="lines">
 
 
-4902
-4903
 4904
 4905
 4906
@@ -11430,10 +11418,12 @@ computed.</p>
 4961
 4962
 4963
-4964</pre>
+4964
+4965
+4966</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4902</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4904</span>
 
 static VALUE
 lapack_s_csytri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -11609,8 +11599,6 @@ scalar factors of the elementary reflectors.</p>
       <pre class="lines">
 
 
-4055
-4056
 4057
 4058
 4059
@@ -11671,10 +11659,12 @@ scalar factors of the elementary reflectors.</p>
 4114
 4115
 4116
-4117</pre>
+4117
+4118
+4119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4055</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4057</span>
 
 static VALUE
 lapack_s_ctzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -11908,8 +11898,6 @@ Integer&gt;</p>
       <pre class="lines">
 
 
-2207
-2208
 2209
 2210
 2211
@@ -11950,10 +11938,12 @@ Integer&gt;</p>
 2246
 2247
 2248
-2249</pre>
+2249
+2250
+2251</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 2207</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 2209</span>
 
 static VALUE
 lapack_s_dgeev(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -12103,8 +12093,6 @@ Details).</p>
       <pre class="lines">
 
 
-3578
-3579
 3580
 3581
 3582
@@ -12165,10 +12153,12 @@ Details).</p>
 3637
 3638
 3639
-3640</pre>
+3640
+3641
+3642</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3578</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3580</span>
 
 static VALUE
 lapack_s_dgelqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -12492,7 +12482,9 @@ computed.</p>
 1332
 1333
 1334
-1335</pre>
+1335
+1336
+1337</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 1232</span>
@@ -12595,6 +12587,8 @@ lapack_s_dgels(int argc, VALUE const argv[], VALUE UNUSED(mod))
     // return
 #if LSY
     return rb_ary_concat(rb_ary_new3(3,a,b,jpvt),ans);
+#elif LSD
+    rb_ary_unshift(ans,b); return ans;
 #elif LSS
     return rb_ary_concat(rb_ary_new3(2,a,b),ans);
 #else
@@ -12609,7 +12603,7 @@ lapack_s_dgels(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="dgelsd-class_method">
   
-    .<strong>dgelsd</strong>(a, b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[a, b, s, rank, info]</tt> 
+    .<strong>dgelsd</strong>(b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[b, s, rank, info]</tt> 
   
 
   
@@ -12649,9 +12643,6 @@ but we know of none.</p>
 
 <h3 id="label-Output+Parameters-3A">Output Parameters:</h3>
 <ul><li>
-<p><strong><em>a</em></strong> —  A is DOUBLE PRECISION array, dimension
-(LDA,N)  On entry, the M-by-N matrix A.  On exit, A has been destroyed.</p>
-</li><li>
 <p><strong><em>b</em></strong> —  B is DOUBLE PRECISION array, dimension
 (LDB,NRHS)  On entry, the M-by-NRHS right hand side matrix B.  On exit, B
 is overwritten by the N-by-NRHS solution  matrix X. If m &gt;= n and RANK =
@@ -12680,22 +12671,6 @@ to zero.</p>
   
 <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
-    <li>
-      
-        <span class='name'>a</span>
-      
-      
-        <span class='type'>(<tt>Numo::DFloat</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, inplace allowed).</p>
-</div>
-      
-    </li>
   
     <li>
       
@@ -12756,13 +12731,13 @@ used instead.</p>
     <li>
       
       
-        <span class='type'>(<tt>[a, b, s, rank, info]</tt>)</span>
+        <span class='type'>(<tt>[b, s, rank, info]</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>Array&lt;Numo::DFloat, Numo::DFloat, Numo::DFloat, Integer, Integer&gt;</p>
+<p>Array&lt;Numo::DFloat, Numo::DFloat, Integer, Integer&gt;</p>
 </div>
       
     </li>
@@ -12775,6 +12750,8 @@ used instead.</p>
       <pre class="lines">
 
 
+1714
+1715
 1716
 1717
 1718
@@ -12881,7 +12858,7 @@ used instead.</p>
 1819</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 1716</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 1714</span>
 
 static VALUE
 lapack_s_dgelsd(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -12981,6 +12958,8 @@ lapack_s_dgelsd(int argc, VALUE const argv[], VALUE UNUSED(mod))
     // return
 #if LSY
     return rb_ary_concat(rb_ary_new3(3,a,b,jpvt),ans);
+#elif LSD
+    rb_ary_unshift(ans,b); return ans;
 #elif LSS
     return rb_ary_concat(rb_ary_new3(2,a,b),ans);
 #else
@@ -13142,8 +13121,6 @@ used instead.</p>
       <pre class="lines">
 
 
-1465
-1466
 1467
 1468
 1469
@@ -13245,10 +13222,14 @@ used instead.</p>
 1565
 1566
 1567
-1568</pre>
+1568
+1569
+1570
+1571
+1572</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 1465</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 1467</span>
 
 static VALUE
 lapack_s_dgelss(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -13348,6 +13329,8 @@ lapack_s_dgelss(int argc, VALUE const argv[], VALUE UNUSED(mod))
     // return
 #if LSY
     return rb_ary_concat(rb_ary_new3(3,a,b,jpvt),ans);
+#elif LSD
+    rb_ary_unshift(ans,b); return ans;
 #elif LSS
     return rb_ary_concat(rb_ary_new3(2,a,b),ans);
 #else
@@ -13654,7 +13637,9 @@ used instead.</p>
 2076
 2077
 2078
-2079</pre>
+2079
+2080
+2081</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 1976</span>
@@ -13757,6 +13742,8 @@ lapack_s_dgelsy(int argc, VALUE const argv[], VALUE UNUSED(mod))
     // return
 #if LSY
     return rb_ary_concat(rb_ary_new3(3,a,b,jpvt),ans);
+#elif LSD
+    rb_ary_unshift(ans,b); return ans;
 #elif LSS
     return rb_ary_concat(rb_ary_new3(2,a,b),ans);
 #else
@@ -13869,8 +13856,6 @@ Details).</p>
       <pre class="lines">
 
 
-3418
-3419
 3420
 3421
 3422
@@ -13931,10 +13916,12 @@ Details).</p>
 3477
 3478
 3479
-3480</pre>
+3480
+3481
+3482</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3418</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3420</span>
 
 static VALUE
 lapack_s_dgeqlf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -14109,8 +14096,6 @@ K-th column of A.</p>
       <pre class="lines">
 
 
-3745
-3746
 3747
 3748
 3749
@@ -14171,10 +14156,12 @@ K-th column of A.</p>
 3804
 3805
 3806
-3807</pre>
+3807
+3808
+3809</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3745</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3747</span>
 
 static VALUE
 lapack_s_dgeqp3(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -14344,8 +14331,6 @@ Details).</p>
       <pre class="lines">
 
 
-3092
-3093
 3094
 3095
 3096
@@ -14406,10 +14391,12 @@ Details).</p>
 3151
 3152
 3153
-3154</pre>
+3154
+3155
+3156</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3092</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3094</span>
 
 static VALUE
 lapack_s_dgeqrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -14580,8 +14567,6 @@ Details).</p>
       <pre class="lines">
 
 
-3255
-3256
 3257
 3258
 3259
@@ -14642,10 +14627,12 @@ Details).</p>
 3314
 3315
 3316
-3317</pre>
+3317
+3318
+3319</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3255</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3257</span>
 
 static VALUE
 lapack_s_dgerqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -15847,8 +15834,6 @@ it is used  to solve a system of equations.</p>
       <pre class="lines">
 
 
-4079
-4080
 4081
 4082
 4083
@@ -15909,10 +15894,12 @@ it is used  to solve a system of equations.</p>
 4138
 4139
 4140
-4141</pre>
+4141
+4142
+4143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4079</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4081</span>
 
 static VALUE
 lapack_s_dgetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -16084,8 +16071,6 @@ could not be computed.</p>
       <pre class="lines">
 
 
-4591
-4592
 4593
 4594
 4595
@@ -16146,10 +16131,12 @@ could not be computed.</p>
 4650
 4651
 4652
-4653</pre>
+4653
+4654
+4655</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4591</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4593</span>
 
 static VALUE
 lapack_s_dgetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -16416,8 +16403,6 @@ Numo::DFloat, Integer&gt;</p>
       <pre class="lines">
 
 
-2395
-2396
 2397
 2398
 2399
@@ -16465,10 +16450,12 @@ Numo::DFloat, Integer&gt;</p>
 2441
 2442
 2443
-2444</pre>
+2444
+2445
+2446</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 2395</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 2397</span>
 
 static VALUE
 lapack_s_dggev(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -17173,8 +17160,6 @@ factorization could not be  completed.</p>
       <pre class="lines">
 
 
-4430
-4431
 4432
 4433
 4434
@@ -17235,10 +17220,12 @@ factorization could not be  completed.</p>
 4489
 4490
 4491
-4492</pre>
+4492
+4493
+4494</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4430</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4432</span>
 
 static VALUE
 lapack_s_dpotrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -17424,8 +17411,6 @@ could not be computed.</p>
       <pre class="lines">
 
 
-4915
-4916
 4917
 4918
 4919
@@ -17486,10 +17471,12 @@ could not be computed.</p>
 4974
 4975
 4976
-4977</pre>
+4977
+4978
+4979</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4915</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4917</span>
 
 static VALUE
 lapack_s_dpotri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -17698,8 +17685,6 @@ eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-2522
-2523
 2524
 2525
 2526
@@ -17735,10 +17720,12 @@ eigenvectors (default=&#39;V&#39;)</p>
 2556
 2557
 2558
-2559</pre>
+2559
+2560
+2561</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 2522</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 2524</span>
 
 static VALUE
 lapack_s_dsyev(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -17932,8 +17919,6 @@ eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-2650
-2651
 2652
 2653
 2654
@@ -17969,10 +17954,12 @@ eigenvectors (default=&#39;V&#39;)</p>
 2684
 2685
 2686
-2687</pre>
+2687
+2688
+2689</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 2650</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 2652</span>
 
 static VALUE
 lapack_s_dsyevd(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -18206,8 +18193,6 @@ eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-2792
-2793
 2794
 2795
 2796
@@ -18251,10 +18236,12 @@ eigenvectors (default=&#39;V&#39;)</p>
 2834
 2835
 2836
-2837</pre>
+2837
+2838
+2839</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 2792</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 2794</span>
 
 static VALUE
 lapack_s_dsygv(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -18505,8 +18492,6 @@ eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-2953
-2954
 2955
 2956
 2957
@@ -18550,10 +18535,12 @@ eigenvectors (default=&#39;V&#39;)</p>
 2995
 2996
 2997
-2998</pre>
+2998
+2999
+3000</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 2953</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 2955</span>
 
 static VALUE
 lapack_s_dsygvd(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -19028,8 +19015,6 @@ will occur if it  is used to solve a system of equations.</p>
       <pre class="lines">
 
 
-4261
-4262
 4263
 4264
 4265
@@ -19090,10 +19075,12 @@ will occur if it  is used to solve a system of equations.</p>
 4320
 4321
 4322
-4323</pre>
+4323
+4324
+4325</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4261</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4263</span>
 
 static VALUE
 lapack_s_dsytrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -19285,8 +19272,6 @@ computed.</p>
       <pre class="lines">
 
 
-4757
-4758
 4759
 4760
 4761
@@ -19347,10 +19332,12 @@ computed.</p>
 4816
 4817
 4818
-4819</pre>
+4819
+4820
+4821</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4757</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4759</span>
 
 static VALUE
 lapack_s_dsytri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -19526,8 +19513,6 @@ the  orthogonal matrix Z as a product of M elementary reflectors.</p>
       <pre class="lines">
 
 
-3910
-3911
 3912
 3913
 3914
@@ -19588,10 +19573,12 @@ the  orthogonal matrix Z as a product of M elementary reflectors.</p>
 3969
 3970
 3971
-3972</pre>
+3972
+3973
+3974</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3910</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3912</span>
 
 static VALUE
 lapack_s_dtzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -19880,8 +19867,6 @@ Integer&gt;</p>
       <pre class="lines">
 
 
-2207
-2208
 2209
 2210
 2211
@@ -19922,10 +19907,12 @@ Integer&gt;</p>
 2246
 2247
 2248
-2249</pre>
+2249
+2250
+2251</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 2207</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 2209</span>
 
 static VALUE
 lapack_s_sgeev(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -20074,8 +20061,6 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
       <pre class="lines">
 
 
-3578
-3579
 3580
 3581
 3582
@@ -20136,10 +20121,12 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
 3637
 3638
 3639
-3640</pre>
+3640
+3641
+3642</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3578</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3580</span>
 
 static VALUE
 lapack_s_sgelqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -20462,7 +20449,9 @@ computed.</p>
 1332
 1333
 1334
-1335</pre>
+1335
+1336
+1337</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 1232</span>
@@ -20565,6 +20554,8 @@ lapack_s_sgels(int argc, VALUE const argv[], VALUE UNUSED(mod))
     // return
 #if LSY
     return rb_ary_concat(rb_ary_new3(3,a,b,jpvt),ans);
+#elif LSD
+    rb_ary_unshift(ans,b); return ans;
 #elif LSS
     return rb_ary_concat(rb_ary_new3(2,a,b),ans);
 #else
@@ -20579,7 +20570,7 @@ lapack_s_sgels(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="sgelsd-class_method">
   
-    .<strong>sgelsd</strong>(a, b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[a, b, s, rank, info]</tt> 
+    .<strong>sgelsd</strong>(b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[b, s, rank, info]</tt> 
   
 
   
@@ -20619,9 +20610,6 @@ but we know of none.</p>
 
 <h3 id="label-Output+Parameters-3A">Output Parameters:</h3>
 <ul><li>
-<p><strong><em>a</em></strong> —  A is REAL array, dimension (LDA,N)  On
-entry, the M-by-N matrix A.  On exit, A has been destroyed.</p>
-</li><li>
 <p><strong><em>b</em></strong> —  B is REAL array, dimension (LDB,NRHS)  On
 entry, the M-by-NRHS right hand side matrix B.  On exit, B is overwritten
 by the N-by-NRHS solution  matrix X. If m &gt;= n and RANK = n, the
@@ -20650,22 +20638,6 @@ to zero.</p>
   
 <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
-    <li>
-      
-        <span class='name'>a</span>
-      
-      
-        <span class='type'>(<tt>Numo::SFloat</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, inplace allowed).</p>
-</div>
-      
-    </li>
   
     <li>
       
@@ -20726,13 +20698,13 @@ used instead.</p>
     <li>
       
       
-        <span class='type'>(<tt>[a, b, s, rank, info]</tt>)</span>
+        <span class='type'>(<tt>[b, s, rank, info]</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>Array&lt;Numo::SFloat, Numo::SFloat, Numo::SFloat, Integer, Integer&gt;</p>
+<p>Array&lt;Numo::SFloat, Numo::SFloat, Integer, Integer&gt;</p>
 </div>
       
     </li>
@@ -20745,6 +20717,8 @@ used instead.</p>
       <pre class="lines">
 
 
+1714
+1715
 1716
 1717
 1718
@@ -20851,7 +20825,7 @@ used instead.</p>
 1819</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 1716</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 1714</span>
 
 static VALUE
 lapack_s_sgelsd(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -20951,6 +20925,8 @@ lapack_s_sgelsd(int argc, VALUE const argv[], VALUE UNUSED(mod))
     // return
 #if LSY
     return rb_ary_concat(rb_ary_new3(3,a,b,jpvt),ans);
+#elif LSD
+    rb_ary_unshift(ans,b); return ans;
 #elif LSS
     return rb_ary_concat(rb_ary_new3(2,a,b),ans);
 #else
@@ -21112,8 +21088,6 @@ used instead.</p>
       <pre class="lines">
 
 
-1465
-1466
 1467
 1468
 1469
@@ -21215,10 +21189,14 @@ used instead.</p>
 1565
 1566
 1567
-1568</pre>
+1568
+1569
+1570
+1571
+1572</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 1465</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 1467</span>
 
 static VALUE
 lapack_s_sgelss(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -21318,6 +21296,8 @@ lapack_s_sgelss(int argc, VALUE const argv[], VALUE UNUSED(mod))
     // return
 #if LSY
     return rb_ary_concat(rb_ary_new3(3,a,b,jpvt),ans);
+#elif LSD
+    rb_ary_unshift(ans,b); return ans;
 #elif LSS
     return rb_ary_concat(rb_ary_new3(2,a,b),ans);
 #else
@@ -21624,7 +21604,9 @@ used instead.</p>
 2076
 2077
 2078
-2079</pre>
+2079
+2080
+2081</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 1976</span>
@@ -21727,6 +21709,8 @@ lapack_s_sgelsy(int argc, VALUE const argv[], VALUE UNUSED(mod))
     // return
 #if LSY
     return rb_ary_concat(rb_ary_new3(3,a,b,jpvt),ans);
+#elif LSD
+    rb_ary_unshift(ans,b); return ans;
 #elif LSS
     return rb_ary_concat(rb_ary_new3(2,a,b),ans);
 #else
@@ -21838,8 +21822,6 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
       <pre class="lines">
 
 
-3418
-3419
 3420
 3421
 3422
@@ -21900,10 +21882,12 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
 3477
 3478
 3479
-3480</pre>
+3480
+3481
+3482</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3418</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3420</span>
 
 static VALUE
 lapack_s_sgeqlf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -22078,8 +22062,6 @@ The scalar factors of the elementary reflectors.</p>
       <pre class="lines">
 
 
-3745
-3746
 3747
 3748
 3749
@@ -22140,10 +22122,12 @@ The scalar factors of the elementary reflectors.</p>
 3804
 3805
 3806
-3807</pre>
+3807
+3808
+3809</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3745</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3747</span>
 
 static VALUE
 lapack_s_sgeqp3(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -22312,8 +22296,6 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
       <pre class="lines">
 
 
-3092
-3093
 3094
 3095
 3096
@@ -22374,10 +22356,12 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
 3151
 3152
 3153
-3154</pre>
+3154
+3155
+3156</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3092</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3094</span>
 
 static VALUE
 lapack_s_sgeqrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -22547,8 +22531,6 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
       <pre class="lines">
 
 
-3255
-3256
 3257
 3258
 3259
@@ -22609,10 +22591,12 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
 3314
 3315
 3316
-3317</pre>
+3317
+3318
+3319</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3255</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3257</span>
 
 static VALUE
 lapack_s_sgerqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -23814,8 +23798,6 @@ it is used  to solve a system of equations.</p>
       <pre class="lines">
 
 
-4079
-4080
 4081
 4082
 4083
@@ -23876,10 +23858,12 @@ it is used  to solve a system of equations.</p>
 4138
 4139
 4140
-4141</pre>
+4141
+4142
+4143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4079</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4081</span>
 
 static VALUE
 lapack_s_sgetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -24050,8 +24034,6 @@ could not be computed.</p>
       <pre class="lines">
 
 
-4591
-4592
 4593
 4594
 4595
@@ -24112,10 +24094,12 @@ could not be computed.</p>
 4650
 4651
 4652
-4653</pre>
+4653
+4654
+4655</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4591</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4593</span>
 
 static VALUE
 lapack_s_sgetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -24378,8 +24362,6 @@ Numo::SFloat, Integer&gt;</p>
       <pre class="lines">
 
 
-2395
-2396
 2397
 2398
 2399
@@ -24427,10 +24409,12 @@ Numo::SFloat, Integer&gt;</p>
 2441
 2442
 2443
-2444</pre>
+2444
+2445
+2446</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 2395</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 2397</span>
 
 static VALUE
 lapack_s_sggev(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -25067,8 +25051,6 @@ factorization could not be  completed.</p>
       <pre class="lines">
 
 
-4430
-4431
 4432
 4433
 4434
@@ -25129,10 +25111,12 @@ factorization could not be  completed.</p>
 4489
 4490
 4491
-4492</pre>
+4492
+4493
+4494</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4430</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4432</span>
 
 static VALUE
 lapack_s_spotrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -25318,8 +25302,6 @@ could not be computed.</p>
       <pre class="lines">
 
 
-4915
-4916
 4917
 4918
 4919
@@ -25380,10 +25362,12 @@ could not be computed.</p>
 4974
 4975
 4976
-4977</pre>
+4977
+4978
+4979</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4915</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4917</span>
 
 static VALUE
 lapack_s_spotri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -25592,8 +25576,6 @@ eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-2522
-2523
 2524
 2525
 2526
@@ -25629,10 +25611,12 @@ eigenvectors (default=&#39;V&#39;)</p>
 2556
 2557
 2558
-2559</pre>
+2559
+2560
+2561</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 2522</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 2524</span>
 
 static VALUE
 lapack_s_ssyev(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -25826,8 +25810,6 @@ eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-2650
-2651
 2652
 2653
 2654
@@ -25863,10 +25845,12 @@ eigenvectors (default=&#39;V&#39;)</p>
 2684
 2685
 2686
-2687</pre>
+2687
+2688
+2689</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 2650</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 2652</span>
 
 static VALUE
 lapack_s_ssyevd(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -26100,8 +26084,6 @@ eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-2792
-2793
 2794
 2795
 2796
@@ -26145,10 +26127,12 @@ eigenvectors (default=&#39;V&#39;)</p>
 2834
 2835
 2836
-2837</pre>
+2837
+2838
+2839</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 2792</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 2794</span>
 
 static VALUE
 lapack_s_ssygv(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -26399,8 +26383,6 @@ eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-2953
-2954
 2955
 2956
 2957
@@ -26444,10 +26426,12 @@ eigenvectors (default=&#39;V&#39;)</p>
 2995
 2996
 2997
-2998</pre>
+2998
+2999
+3000</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 2953</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 2955</span>
 
 static VALUE
 lapack_s_ssygvd(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -26922,8 +26906,6 @@ will occur if it  is used to solve a system of equations.</p>
       <pre class="lines">
 
 
-4261
-4262
 4263
 4264
 4265
@@ -26984,10 +26966,12 @@ will occur if it  is used to solve a system of equations.</p>
 4320
 4321
 4322
-4323</pre>
+4323
+4324
+4325</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4261</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4263</span>
 
 static VALUE
 lapack_s_ssytrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -27179,8 +27163,6 @@ computed.</p>
       <pre class="lines">
 
 
-4757
-4758
 4759
 4760
 4761
@@ -27241,10 +27223,12 @@ computed.</p>
 4816
 4817
 4818
-4819</pre>
+4819
+4820
+4821</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4757</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4759</span>
 
 static VALUE
 lapack_s_ssytri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -27420,8 +27404,6 @@ scalar factors of the elementary reflectors.</p>
       <pre class="lines">
 
 
-3910
-3911
 3912
 3913
 3914
@@ -27482,10 +27464,12 @@ scalar factors of the elementary reflectors.</p>
 3969
 3970
 3971
-3972</pre>
+3972
+3973
+3974</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3910</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3912</span>
 
 static VALUE
 lapack_s_stzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -27709,8 +27693,6 @@ right eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-2366
-2367
 2368
 2369
 2370
@@ -27751,10 +27733,12 @@ right eigenvectors (default=&#39;V&#39;)</p>
 2405
 2406
 2407
-2408</pre>
+2408
+2409
+2410</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 2366</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 2368</span>
 
 static VALUE
 lapack_s_zgeev(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -27905,8 +27889,6 @@ Details).</p>
       <pre class="lines">
 
 
-3723
-3724
 3725
 3726
 3727
@@ -27967,10 +27949,12 @@ Details).</p>
 3782
 3783
 3784
-3785</pre>
+3785
+3786
+3787</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3723</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3725</span>
 
 static VALUE
 lapack_s_zgelqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -28293,7 +28277,9 @@ computed.</p>
 1506
 1507
 1508
-1509</pre>
+1509
+1510
+1511</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 1406</span>
@@ -28396,6 +28382,8 @@ lapack_s_zgels(int argc, VALUE const argv[], VALUE UNUSED(mod))
     // return
 #if LSY
     return rb_ary_concat(rb_ary_new3(3,a,b,jpvt),ans);
+#elif LSD
+    rb_ary_unshift(ans,b); return ans;
 #elif LSS
     return rb_ary_concat(rb_ary_new3(2,a,b),ans);
 #else
@@ -28410,7 +28398,7 @@ lapack_s_zgels(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="zgelsd-class_method">
   
-    .<strong>zgelsd</strong>(a, b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[a, b, s, rank, info]</tt> 
+    .<strong>zgelsd</strong>(b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[b, s, rank, info]</tt> 
   
 
   
@@ -28450,9 +28438,6 @@ but we know of none.</p>
 
 <h3 id="label-Output+Parameters-3A">Output Parameters:</h3>
 <ul><li>
-<p><strong><em>a</em></strong> —  A is COMPLEX*16 array, dimension (LDA,N)  On
-entry, the M-by-N matrix A.  On exit, A has been destroyed.</p>
-</li><li>
 <p><strong><em>b</em></strong> —  B is COMPLEX*16 array, dimension (LDB,NRHS) 
 On entry, the M-by-NRHS right hand side matrix B.  On exit, B is
 overwritten by the N-by-NRHS solution matrix X.  If m &gt;= n and RANK = n,
@@ -28481,22 +28466,6 @@ to zero.</p>
   
 <p class="tag_title">Parameters:</p>
 <ul class="param">
-  
-    <li>
-      
-        <span class='name'>a</span>
-      
-      
-        <span class='type'>(<tt>Numo::DComplex</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>matrix (&gt;=2-dimentional NArray, inplace allowed).</p>
-</div>
-      
-    </li>
   
     <li>
       
@@ -28557,14 +28526,13 @@ used instead.</p>
     <li>
       
       
-        <span class='type'>(<tt>[a, b, s, rank, info]</tt>)</span>
+        <span class='type'>(<tt>[b, s, rank, info]</tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>Array&lt;Numo::DComplex, Numo::DComplex, Numo::DComplex, Integer,
-Integer&gt;</p>
+<p>Array&lt;Numo::DComplex, Numo::DComplex, Integer, Integer&gt;</p>
 </div>
       
     </li>
@@ -28577,6 +28545,8 @@ Integer&gt;</p>
       <pre class="lines">
 
 
+1888
+1889
 1890
 1891
 1892
@@ -28683,7 +28653,7 @@ Integer&gt;</p>
 1993</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 1890</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 1888</span>
 
 static VALUE
 lapack_s_zgelsd(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -28783,6 +28753,8 @@ lapack_s_zgelsd(int argc, VALUE const argv[], VALUE UNUSED(mod))
     // return
 #if LSY
     return rb_ary_concat(rb_ary_new3(3,a,b,jpvt),ans);
+#elif LSD
+    rb_ary_unshift(ans,b); return ans;
 #elif LSS
     return rb_ary_concat(rb_ary_new3(2,a,b),ans);
 #else
@@ -28945,8 +28917,6 @@ Integer&gt;</p>
       <pre class="lines">
 
 
-1639
-1640
 1641
 1642
 1643
@@ -29048,10 +29018,14 @@ Integer&gt;</p>
 1739
 1740
 1741
-1742</pre>
+1742
+1743
+1744
+1745
+1746</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 1639</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 1641</span>
 
 static VALUE
 lapack_s_zgelss(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -29151,6 +29125,8 @@ lapack_s_zgelss(int argc, VALUE const argv[], VALUE UNUSED(mod))
     // return
 #if LSY
     return rb_ary_concat(rb_ary_new3(3,a,b,jpvt),ans);
+#elif LSD
+    rb_ary_unshift(ans,b); return ans;
 #elif LSS
     return rb_ary_concat(rb_ary_new3(2,a,b),ans);
 #else
@@ -29457,7 +29433,9 @@ used instead.</p>
 2250
 2251
 2252
-2253</pre>
+2253
+2254
+2255</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 2150</span>
@@ -29560,6 +29538,8 @@ lapack_s_zgelsy(int argc, VALUE const argv[], VALUE UNUSED(mod))
     // return
 #if LSY
     return rb_ary_concat(rb_ary_new3(3,a,b,jpvt),ans);
+#elif LSD
+    rb_ary_unshift(ans,b); return ans;
 #elif LSS
     return rb_ary_concat(rb_ary_new3(2,a,b),ans);
 #else
@@ -29672,8 +29652,6 @@ Details).</p>
       <pre class="lines">
 
 
-3563
-3564
 3565
 3566
 3567
@@ -29734,10 +29712,12 @@ Details).</p>
 3622
 3623
 3624
-3625</pre>
+3625
+3626
+3627</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3563</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3565</span>
 
 static VALUE
 lapack_s_zgeqlf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -29912,8 +29892,6 @@ K-th column of A.</p>
       <pre class="lines">
 
 
-3890
-3891
 3892
 3893
 3894
@@ -29974,10 +29952,12 @@ K-th column of A.</p>
 3949
 3950
 3951
-3952</pre>
+3952
+3953
+3954</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3890</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3892</span>
 
 static VALUE
 lapack_s_zgeqp3(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -30147,8 +30127,6 @@ Details).</p>
       <pre class="lines">
 
 
-3237
-3238
 3239
 3240
 3241
@@ -30209,10 +30187,12 @@ Details).</p>
 3296
 3297
 3298
-3299</pre>
+3299
+3300
+3301</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3237</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3239</span>
 
 static VALUE
 lapack_s_zgeqrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -30384,8 +30364,6 @@ Details).</p>
       <pre class="lines">
 
 
-3400
-3401
 3402
 3403
 3404
@@ -30446,10 +30424,12 @@ Details).</p>
 3459
 3460
 3461
-3462</pre>
+3462
+3463
+3464</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3400</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3402</span>
 
 static VALUE
 lapack_s_zgerqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -31650,8 +31630,6 @@ it is used  to solve a system of equations.</p>
       <pre class="lines">
 
 
-4224
-4225
 4226
 4227
 4228
@@ -31712,10 +31690,12 @@ it is used  to solve a system of equations.</p>
 4283
 4284
 4285
-4286</pre>
+4286
+4287
+4288</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4224</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4226</span>
 
 static VALUE
 lapack_s_zgetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -31886,8 +31866,6 @@ could not be computed.</p>
       <pre class="lines">
 
 
-4736
-4737
 4738
 4739
 4740
@@ -31948,10 +31926,12 @@ could not be computed.</p>
 4795
 4796
 4797
-4798</pre>
+4798
+4799
+4800</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4736</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4738</span>
 
 static VALUE
 lapack_s_zgetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -32205,8 +32185,6 @@ Integer&gt;</p>
       <pre class="lines">
 
 
-2542
-2543
 2544
 2545
 2546
@@ -32254,10 +32232,12 @@ Integer&gt;</p>
 2588
 2589
 2590
-2591</pre>
+2591
+2592
+2593</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 2542</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 2544</span>
 
 static VALUE
 lapack_s_zggev(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -32453,8 +32433,6 @@ eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-2669
-2670
 2671
 2672
 2673
@@ -32490,10 +32468,12 @@ eigenvectors (default=&#39;V&#39;)</p>
 2703
 2704
 2705
-2706</pre>
+2706
+2707
+2708</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 2669</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 2671</span>
 
 static VALUE
 lapack_s_zheev(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -32686,8 +32666,6 @@ eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-2795
-2796
 2797
 2798
 2799
@@ -32723,10 +32701,12 @@ eigenvectors (default=&#39;V&#39;)</p>
 2829
 2830
 2831
-2832</pre>
+2832
+2833
+2834</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 2795</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 2797</span>
 
 static VALUE
 lapack_s_zheevd(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -32960,8 +32940,6 @@ eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-2937
-2938
 2939
 2940
 2941
@@ -33005,10 +32983,12 @@ eigenvectors (default=&#39;V&#39;)</p>
 2979
 2980
 2981
-2982</pre>
+2982
+2983
+2984</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 2937</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 2939</span>
 
 static VALUE
 lapack_s_zhegv(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -33259,8 +33239,6 @@ eigenvectors (default=&#39;V&#39;)</p>
       <pre class="lines">
 
 
-3098
-3099
 3100
 3101
 3102
@@ -33304,10 +33282,12 @@ eigenvectors (default=&#39;V&#39;)</p>
 3140
 3141
 3142
-3143</pre>
+3143
+3144
+3145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3098</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3100</span>
 
 static VALUE
 lapack_s_zhegvd(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -33782,8 +33762,6 @@ will occur if it  is used to solve a system of equations.</p>
       <pre class="lines">
 
 
-5242
-5243
 5244
 5245
 5246
@@ -33844,10 +33822,12 @@ will occur if it  is used to solve a system of equations.</p>
 5301
 5302
 5303
-5304</pre>
+5304
+5305
+5306</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 5242</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 5244</span>
 
 static VALUE
 lapack_s_zhetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -34039,8 +34019,6 @@ computed.</p>
       <pre class="lines">
 
 
-5408
-5409
 5410
 5411
 5412
@@ -34101,10 +34079,12 @@ computed.</p>
 5467
 5468
 5469
-5470</pre>
+5470
+5471
+5472</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 5408</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 5410</span>
 
 static VALUE
 lapack_s_zhetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -34755,8 +34735,6 @@ factorization could not be  completed.</p>
       <pre class="lines">
 
 
-4575
-4576
 4577
 4578
 4579
@@ -34817,10 +34795,12 @@ factorization could not be  completed.</p>
 4634
 4635
 4636
-4637</pre>
+4637
+4638
+4639</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4575</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4577</span>
 
 static VALUE
 lapack_s_zpotrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -35006,8 +34986,6 @@ could not be computed.</p>
       <pre class="lines">
 
 
-5060
-5061
 5062
 5063
 5064
@@ -35068,10 +35046,12 @@ could not be computed.</p>
 5119
 5120
 5121
-5122</pre>
+5122
+5123
+5124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 5060</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 5062</span>
 
 static VALUE
 lapack_s_zpotri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -35563,8 +35543,6 @@ will occur if it  is used to solve a system of equations.</p>
       <pre class="lines">
 
 
-4406
-4407
 4408
 4409
 4410
@@ -35625,10 +35603,12 @@ will occur if it  is used to solve a system of equations.</p>
 4465
 4466
 4467
-4468</pre>
+4468
+4469
+4470</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4406</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4408</span>
 
 static VALUE
 lapack_s_zsytrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -35820,8 +35800,6 @@ computed.</p>
       <pre class="lines">
 
 
-4902
-4903
 4904
 4905
 4906
@@ -35882,10 +35860,12 @@ computed.</p>
 4961
 4962
 4963
-4964</pre>
+4964
+4965
+4966</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4902</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4904</span>
 
 static VALUE
 lapack_s_zsytri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -36061,8 +36041,6 @@ The scalar factors of the elementary reflectors.</p>
       <pre class="lines">
 
 
-4055
-4056
 4057
 4058
 4059
@@ -36123,10 +36101,12 @@ The scalar factors of the elementary reflectors.</p>
 4114
 4115
 4116
-4117</pre>
+4117
+4118
+4119</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4055</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4057</span>
 
 static VALUE
 lapack_s_ztzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -36201,7 +36181,7 @@ lapack_s_ztzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 </div>
 
       <div id="footer">
-  Generated on Thu May 18 20:35:17 2017 by
+  Generated on Fri May 19 15:29:05 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>
