@@ -75,6 +75,10 @@ static void
    t = [tp,tp,iary,iscal,iscal]
    a = "a, b, jpvt, [rcond:-1, order:'R']"
    n = "a, b, jpvt, rank, info"
+ elsif is_lsd
+   t = [tp,tp,iscal,iscal]
+   a = "b, jpvt, [rcond:-1, order:'R']"
+   n = "b, s, rank, info"
  elsif is_lss
    t = [tp,tp,tp,iscal,iscal]
    a = "a, b, jpvt, [rcond:-1, order:'R']"
@@ -88,10 +92,10 @@ static void
  return_name = n
  args_v = a
  params = [
-   mat("a",:inplace),
-   mat("b",:inplace),
-   is_lsy && mat("jpvt",type:iary),
-   is_lss && "@param [Float] rcond "+
+   !is_lsd && mat("a",:inplace),
+              mat("b",:inplace),
+   is_lsy  && mat("jpvt",type:iary),
+   is_lss  && "@param [Float] rcond "+
      " RCOND is used to determine the effective rank of A."+
      " Singular values S(i) <= RCOND*S(1) are treated as zero."+
      " If RCOND < 0, machine precision is used instead.",
@@ -211,6 +215,8 @@ static VALUE
     // return
 #if LSY
     return rb_ary_concat(rb_ary_new3(3,a,b,jpvt),ans);
+#elif LSD
+    rb_ary_unshift(ans,b); return ans;
 #elif LSS
     return rb_ary_concat(rb_ary_new3(2,a,b),ans);
 #else
