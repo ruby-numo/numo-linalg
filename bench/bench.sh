@@ -24,7 +24,7 @@ echo "
 n=1; echo "
 OMP_NUM_THREADS=$n"
 
-OMP_NUM_THREADS=$n ruby dgels.rb blas-build cap
+OMP_NUM_THREADS=$n ruby dgels.rb lapack-build cap
 OMP_NUM_THREADS=$n ruby dgels.rb satlas-pkg
 OMP_NUM_THREADS=$n ruby dgels.rb satlas-build
 OMP_NUM_THREADS=$n ruby dgels.rb openblas-pkg
