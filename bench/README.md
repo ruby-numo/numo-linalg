@@ -53,5 +53,5 @@ openblas-build     1.930000   1.430000   3.360000 (  0.842967)
 
 ## Conclusion
 
-Libraries built on your machine show better performance than
-distributed packages.
+OpenBLAS and ATLAS libraries built on your machine yield
+higher performance than distributed packages.
