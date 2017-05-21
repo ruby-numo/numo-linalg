@@ -50,3 +50,8 @@ tatlas-build       1.610000   0.260000   1.870000 (  0.889226)
 openblas-pkg       1.350000   0.020000   1.370000 (  1.370657)
 openblas-build     1.930000   1.430000   3.360000 (  0.842967)
 ```
+
+## Conclusion
+
+Libraries built on your machine show better performance than
+distributed packages.
