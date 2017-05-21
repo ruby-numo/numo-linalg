@@ -1,4 +1,4 @@
-= Numo::Linalg benchmark
+# Numo::Linalg benchmark
 
 * Environment:
     * VirtualBox 5.1.22 r115126
@@ -9,7 +9,11 @@
 * -pkg : yum-installed package
 * -build : build & installed from source code
 
+### Result
+
 ```
+$ sh bench.sh
+
 == DGEMM benchmark ==
 
 OMP_NUM_THREADS=1

@@ -88,11 +88,13 @@ require "numo/linalg/use/satlas"
 require "numo/linalg/use/openblas"
 ```
 
+## [Benchmark](https://github.com/ruby-numo/linalg/tree/master/bench)
+
 ## Authors
 
 * Masahiro TANAKA
 * Makoto KISHIMOTO
-* This work is partially supported by 2016 Ruby Association Grant.
+* This work is partly supported by 2016 Ruby Association Grant.
 
 ## ToDo
 
