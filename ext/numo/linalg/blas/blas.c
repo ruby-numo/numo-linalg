@@ -285,19 +285,21 @@ blas_s_dlopen(int argc, VALUE *argv, VALUE mod)
     int i, f;
     VALUE lib, flag;
     char *error;
+    void *handle;
 
     i = rb_scan_args(argc, argv, "11", &lib, &flag);
     if (i==2) {
         f = NUM2INT(flag);
     } else {
-        f = RTLD_NOW | RTLD_LOCAL | RTLD_DEEPBIND;
+        f = RTLD_LAZY | RTLD_LOCAL;
     }
     dlerror();
-    blas_handle = dlopen(StringValueCStr(lib), f);
+    handle = dlopen(StringValueCStr(lib), f);
     error = dlerror();
     if (error != NULL) {
         rb_raise(rb_eRuntimeError, "%s", error);
     }
+    blas_handle = handle;
     return Qnil;
 }
 
