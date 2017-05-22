@@ -9,6 +9,7 @@ task :doc do
     end
   end
   srcs << "lib/numo/linalg.rb"
+  srcs << "lib/numo/linalg/*.rb"
   sh "yard -m markdown -o yard -r README.md #{srcs.join(' ')}"
 end
 
