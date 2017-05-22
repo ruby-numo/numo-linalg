@@ -79,7 +79,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>ext/numo/linalg/lapack/lapack.c<span class="defines">,<br />
-  ext/numo/linalg/lapack/lapack_c.c,<br /> ext/numo/linalg/lapack/lapack_d.c,<br /> ext/numo/linalg/lapack/lapack_s.c,<br /> ext/numo/linalg/lapack/lapack_z.c,<br /> ext/numo/linalg/blas/blas.c,<br /> ext/numo/linalg/blas/blas_c.c,<br /> ext/numo/linalg/blas/blas_d.c,<br /> ext/numo/linalg/blas/blas_s.c,<br /> ext/numo/linalg/blas/blas_z.c</span>
+  ext/numo/linalg/lapack/lapack_c.c,<br /> ext/numo/linalg/lapack/lapack_d.c,<br /> ext/numo/linalg/lapack/lapack_s.c,<br /> ext/numo/linalg/lapack/lapack_z.c,<br /> ext/numo/linalg/blas/blas.c,<br /> ext/numo/linalg/blas/blas_c.c,<br /> ext/numo/linalg/blas/blas_d.c,<br /> ext/numo/linalg/blas/blas_s.c,<br /> ext/numo/linalg/blas/blas_z.c,<br /> lib/numo/linalg/function.rb,<br /> lib/numo/linalg/version.rb</span>
 </dd>
   </dl>
   
@@ -98,6 +98,25 @@
   
 </p>
 
+  <h2>Constant Summary</h2>
+  <dl class="constants">
+    
+      <dt id="BLAS_CHAR-constant" class="">BLAS_CHAR =
+        
+      </dt>
+      <dd><pre class="code"><span class='lbrace'>{</span>
+ <span class='const'>SFloat</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>s</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+ <span class='const'>DFloat</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>d</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+ <span class='const'>SComplex</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>c</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+ <span class='const'>DComplex</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>z</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+<span class='rbrace'>}</span></pre></dd>
+    
+      <dt id="VERSION-constant" class="">VERSION =
+        
+      </dt>
+      <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.0.1</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+    
+  </dl>
 
 
 
@@ -105,11 +124,2556 @@
 
 
 
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#blas_char-class_method" title="blas_char (class method)">.<strong>blas_char</strong>(*args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#cholesky-class_method" title="cholesky (class method)">.<strong>cholesky</strong>(a, uplo: false)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Cholesky decomposition.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#cond-class_method" title="cond (class method)">.<strong>cond</strong>(*x)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#det-class_method" title="det (class method)">.<strong>det</strong>(a)  &#x21d2; Float or Complex or Numo::NArray </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Determinant of a matrix.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#dot-class_method" title="dot (class method)">.<strong>dot</strong>(a, b)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>dot product.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#eig-class_method" title="eig (class method)">.<strong>eig</strong>(a, left: false, right: true)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Computes the eigenvalues and, optionally, the left and/or right
+eigenvectors for a square nonsymmetric matrix A.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#eigh-class_method" title="eigh (class method)">.<strong>eigh</strong>(a, vals_only: false, uplo: false, turbo: false)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Computes the eigenvalues and, optionally, the left and/or right
+eigenvectors for a square symmetric/hermitian matrix A.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#eigvals-class_method" title="eigvals (class method)">.<strong>eigvals</strong>(a)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Computes the eigenvalues for a square nonsymmetric matrix A.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#eigvalsh-class_method" title="eigvalsh (class method)">.<strong>eigvalsh</strong>(a, uplo: false, turbo: false)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Computes the eigenvalues for a square symmetric/hermitian matrix A.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#inner-class_method" title="inner (class method)">.<strong>inner</strong>(a, b)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#inv-class_method" title="inv (class method)">.<strong>inv</strong>(a, driver: &quot;gen&quot;, uplo: &#39;U&#39;)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Inverse matrix from square matrix <code>a</code>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#kron-class_method" title="kron (class method)">.<strong>kron</strong>(a, b)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#lstsq-class_method" title="lstsq (class method)">.<strong>lstsq</strong>(a, b, driver: &#39;lsd&#39;, rcond: -1))  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#lu-class_method" title="lu (class method)">.<strong>lu</strong>(a)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>LU decomposition.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#matmul-class_method" title="matmul (class method)">.<strong>matmul</strong>(a, b)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Matrix product.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#matrix_power-class_method" title="matrix_power (class method)">.<strong>matrix_power</strong>(m, n)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#matrix_rank-class_method" title="matrix_rank (class method)">.<strong>matrix_rank</strong>(m, tol: nil, driver: &#39;svd&#39;)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>matrix rank using SVD method.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#norm-class_method" title="norm (class method)">.<strong>norm</strong>(a, ord = nil, axis: nil, keepdims: false)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Norms and other numbers.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#outer-class_method" title="outer (class method)">.<strong>outer</strong>(a, b)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#qr-class_method" title="qr (class method)">.<strong>qr</strong>(a)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>QR factorization.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#slogdet-class_method" title="slogdet (class method)">.<strong>slogdet</strong>(a)  &#x21d2; [sign,logdet] </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Natural logarithm of the determinant of a matrix.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#solve-class_method" title="solve (class method)">.<strong>solve</strong>(a, b, driver: &quot;gen&quot;, uplo: &#39;U&#39;)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Solves linear equation <code>a * x = b</code> for <code>x</code> from
+square matrix <code>a</code>.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#svd-class_method" title="svd (class method)">.<strong>svd</strong>(a, driver: &#39;svd&#39;)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Singular Value Decomposition.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#svdvals-class_method" title="svdvals (class method)">.<strong>svdvals</strong>(a, driver: &#39;svd&#39;)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Singular values.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#trace-class_method" title="trace (class method)">.<strong>trace</strong>(*a)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#vdot-class_method" title="vdot (class method)">.<strong>vdot</strong>(a, b)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="blas_char-class_method">
+  
+    .<strong>blas_char</strong>(*args)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 49</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_blas_char'>blas_char</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_t'>t</span> <span class='op'>=</span> <span class='const'>Float</span>
+  <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_a'>a</span><span class='op'>|</span>
+    <span class='id identifier rubyid_k'>k</span> <span class='op'>=</span>
+      <span class='kw'>case</span> <span class='id identifier rubyid_a'>a</span>
+      <span class='kw'>when</span> <span class='const'>NArray</span>
+        <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span>
+      <span class='kw'>when</span> <span class='const'>Array</span>
+        <span class='const'>NArray</span><span class='period'>.</span><span class='id identifier rubyid_array_type'>array_type</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_k'>k</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_k'>k</span> <span class='op'>&lt;</span> <span class='const'>NArray</span>
+      <span class='id identifier rubyid_t'>t</span> <span class='op'>=</span> <span class='id identifier rubyid_k'>k</span><span class='op'>::</span><span class='const'>UPCAST</span><span class='lbracket'>[</span><span class='id identifier rubyid_t'>t</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='const'><span class='object_link'><a href="#BLAS_CHAR-constant" title="Numo::Linalg::BLAS_CHAR (constant)">BLAS_CHAR</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_t'>t</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_raise'>raise</span><span class='lparen'>(</span><span class='const'>TypeError</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid data type for BLAS/LAPACK</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="cholesky-class_method">
+  
+    .<strong>cholesky</strong>(a, uplo: false)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Cholesky decomposition</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+121
+122
+123</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 121</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_cholesky'>cholesky</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:potrf</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='kw'>false</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="cond-class_method">
+  
+    .<strong>cond</strong>(*x)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NotImplementedError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+334
+335
+336</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 334</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_cond'>cond</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_x'>x</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="det-class_method">
+  
+    .<strong>det</strong>(a)  &#x21d2; <tt>Float or Complex or Numo::NArray</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Determinant of a matrix</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>matrix (&gt;= 2-dimensional NArray)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Float or Complex or Numo::NArray</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+342
+343
+344
+345
+346
+347
+348</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 342</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_det'>det</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_lu'>lu</span><span class='comma'>,</span> <span class='id identifier rubyid_piv'>piv</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:getrf</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_idx'>idx</span> <span class='op'>=</span> <span class='id identifier rubyid_piv'>piv</span><span class='period'>.</span><span class='id identifier rubyid_new_narray'>new_narray</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span><span class='id identifier rubyid_piv'>piv</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_piv'>piv</span><span class='period'>.</span><span class='id identifier rubyid_shape'>shape</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_seq'>seq</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_m'>m</span> <span class='op'>=</span> <span class='id identifier rubyid_piv'>piv</span><span class='period'>.</span><span class='id identifier rubyid_eq'>eq</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_count_false'>count_false</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span> <span class='op'>%</span> <span class='int'>2</span>
+  <span class='id identifier rubyid_sign'>sign</span> <span class='op'>=</span> <span class='id identifier rubyid_m'>m</span> <span class='op'>*</span> <span class='op'>-</span><span class='int'>2</span> <span class='op'>+</span> <span class='int'>1</span>
+  <span class='id identifier rubyid_lu'>lu</span><span class='period'>.</span><span class='id identifier rubyid_diagonal'>diagonal</span><span class='period'>.</span><span class='id identifier rubyid_prod'>prod</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span> <span class='op'>*</span> <span class='id identifier rubyid_sign'>sign</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="dot-class_method">
+  
+    .<strong>dot</strong>(a, b)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>dot product</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 71</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_dot'>dot</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_ndim'>ndim</span> <span class='op'>&gt;=</span> <span class='int'>2</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_ndim'>ndim</span> <span class='op'>&gt;=</span> <span class='int'>2</span>
+      <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="Linalg/Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Blas.html#call-class_method" title="Numo::Linalg::Blas.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:gemm</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="Linalg/Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Blas.html#call-class_method" title="Numo::Linalg::Blas.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:gemv</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>else</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_ndim'>ndim</span> <span class='op'>&gt;=</span> <span class='int'>2</span>
+      <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="Linalg/Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Blas.html#call-class_method" title="Numo::Linalg::Blas.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:gemv</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>trans:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>t</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="Linalg/Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Blas.html#call-class_method" title="Numo::Linalg::Blas.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:dot</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="eig-class_method">
+  
+    .<strong>eig</strong>(a, left: false, right: true)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Computes the eigenvalues and, optionally, the left and/or right
+eigenvectors for a square nonsymmetric matrix A.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 164</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_eig'>eig</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>left:</span><span class='kw'>false</span><span class='comma'>,</span> <span class='label'>right:</span><span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_jobvl'>jobvl</span><span class='comma'>,</span> <span class='id identifier rubyid_jobvr'>jobvr</span> <span class='op'>=</span> <span class='id identifier rubyid_left'>left</span><span class='comma'>,</span> <span class='id identifier rubyid_right'>right</span>
+  <span class='kw'>case</span> <span class='id identifier rubyid_blas_char'>blas_char</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>cz</span><span class='regexp_end'>/</span></span>
+    <span class='id identifier rubyid_w'>w</span><span class='comma'>,</span> <span class='id identifier rubyid_vl'>vl</span><span class='comma'>,</span> <span class='id identifier rubyid_vr'>vr</span><span class='comma'>,</span> <span class='id identifier rubyid_info'>info</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:geev</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>jobvl:</span><span class='id identifier rubyid_jobvl'>jobvl</span><span class='comma'>,</span> <span class='label'>jobvr:</span><span class='id identifier rubyid_jobvr'>jobvr</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_wr'>wr</span><span class='comma'>,</span> <span class='id identifier rubyid_wi'>wi</span><span class='comma'>,</span> <span class='id identifier rubyid_vl'>vl</span><span class='comma'>,</span> <span class='id identifier rubyid_vr'>vr</span><span class='comma'>,</span> <span class='id identifier rubyid_info'>info</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:geev</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>jobvl:</span><span class='id identifier rubyid_jobvl'>jobvl</span><span class='comma'>,</span> <span class='label'>jobvr:</span><span class='id identifier rubyid_jobvr'>jobvr</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_w'>w</span>  <span class='op'>=</span> <span class='id identifier rubyid_wr'>wr</span> <span class='op'>+</span> <span class='id identifier rubyid_wi'>wi</span> <span class='op'>*</span> <span class='const'>Complex</span><span class='op'>::</span><span class='const'>I</span>
+    <span class='id identifier rubyid_vl'>vl</span> <span class='op'>=</span> <span class='id identifier rubyid__make_complex_eigvecs'>_make_complex_eigvecs</span><span class='lparen'>(</span><span class='id identifier rubyid_w'>w</span><span class='comma'>,</span><span class='id identifier rubyid_vl'>vl</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_left'>left</span>
+    <span class='id identifier rubyid_vr'>vr</span> <span class='op'>=</span> <span class='id identifier rubyid__make_complex_eigvecs'>_make_complex_eigvecs</span><span class='lparen'>(</span><span class='id identifier rubyid_w'>w</span><span class='comma'>,</span><span class='id identifier rubyid_vr'>vr</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_right'>right</span>
+  <span class='kw'>end</span>
+  <span class='lbracket'>[</span><span class='id identifier rubyid_w'>w</span><span class='comma'>,</span><span class='id identifier rubyid_vl'>vl</span><span class='comma'>,</span><span class='id identifier rubyid_vr'>vr</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="eigh-class_method">
+  
+    .<strong>eigh</strong>(a, vals_only: false, uplo: false, turbo: false)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Computes the eigenvalues and, optionally, the left and/or right
+eigenvectors for a square symmetric/hermitian matrix A.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 180</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_eigh'>eigh</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>vals_only:</span><span class='kw'>false</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='kw'>false</span><span class='comma'>,</span> <span class='label'>turbo:</span><span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_jobz'>jobz</span> <span class='op'>=</span> <span class='id identifier rubyid_vals_only'>vals_only</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>V</span><span class='tstring_end'>&#39;</span></span> <span class='comment'># jobz: Compute eigenvalues and eigenvectors.
+</span>  <span class='kw'>case</span> <span class='id identifier rubyid_blas_char'>blas_char</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>cz</span><span class='regexp_end'>/</span></span>
+    <span class='id identifier rubyid_func'>func</span> <span class='op'>=</span> <span class='id identifier rubyid_turbo'>turbo</span> <span class='op'>?</span> <span class='symbol'>:hegv</span> <span class='op'>:</span> <span class='symbol'>:heev</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_func'>func</span> <span class='op'>=</span> <span class='id identifier rubyid_turbo'>turbo</span> <span class='op'>?</span> <span class='symbol'>:sygv</span> <span class='op'>:</span> <span class='symbol'>:syev</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_w'>w</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_func'>func</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='id identifier rubyid_uplo'>uplo</span><span class='comma'>,</span> <span class='label'>jobz:</span><span class='id identifier rubyid_jobz'>jobz</span><span class='rparen'>)</span>
+  <span class='lbracket'>[</span><span class='id identifier rubyid_w'>w</span><span class='comma'>,</span><span class='id identifier rubyid_v'>v</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="eigvals-class_method">
+  
+    .<strong>eigvals</strong>(a)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Computes the eigenvalues for a square nonsymmetric matrix A.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 194</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_eigvals'>eigvals</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_jobvl'>jobvl</span><span class='comma'>,</span> <span class='id identifier rubyid_jobvr'>jobvr</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span>
+  <span class='kw'>case</span> <span class='id identifier rubyid_blas_char'>blas_char</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>cz</span><span class='regexp_end'>/</span></span>
+    <span class='id identifier rubyid_w'>w</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:geev</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>jobvl:</span><span class='id identifier rubyid_jobvl'>jobvl</span><span class='comma'>,</span> <span class='label'>jobvr:</span><span class='id identifier rubyid_jobvr'>jobvr</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_wr'>wr</span><span class='comma'>,</span> <span class='id identifier rubyid_wi'>wi</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:geev</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>jobvl:</span><span class='id identifier rubyid_jobvl'>jobvl</span><span class='comma'>,</span> <span class='label'>jobvr:</span><span class='id identifier rubyid_jobvr'>jobvr</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_w'>w</span>  <span class='op'>=</span> <span class='id identifier rubyid_wr'>wr</span> <span class='op'>+</span> <span class='id identifier rubyid_wi'>wi</span> <span class='op'>*</span> <span class='const'>Complex</span><span class='op'>::</span><span class='const'>I</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_w'>w</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="eigvalsh-class_method">
+  
+    .<strong>eigvalsh</strong>(a, uplo: false, turbo: false)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Computes the eigenvalues for a square symmetric/hermitian matrix A.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 208</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_eigvalsh'>eigvalsh</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='kw'>false</span><span class='comma'>,</span> <span class='label'>turbo:</span><span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_jobz'>jobz</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span> <span class='comment'># jobz: Compute eigenvalues and eigenvectors.
+</span>  <span class='kw'>case</span> <span class='id identifier rubyid_blas_char'>blas_char</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>cz</span><span class='regexp_end'>/</span></span>
+    <span class='id identifier rubyid_func'>func</span> <span class='op'>=</span> <span class='id identifier rubyid_turbo'>turbo</span> <span class='op'>?</span> <span class='symbol'>:hegv</span> <span class='op'>:</span> <span class='symbol'>:heev</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_func'>func</span> <span class='op'>=</span> <span class='id identifier rubyid_turbo'>turbo</span> <span class='op'>?</span> <span class='symbol'>:sygv</span> <span class='op'>:</span> <span class='symbol'>:syev</span>
+  <span class='kw'>end</span>
+  <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_func'>func</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='id identifier rubyid_uplo'>uplo</span><span class='comma'>,</span> <span class='label'>jobz:</span><span class='id identifier rubyid_jobz'>jobz</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="inner-class_method">
+  
+    .<strong>inner</strong>(a, b)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+93
+94
+95</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 93</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_inner'>inner</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Linalg/Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Blas.html#call-class_method" title="Numo::Linalg::Blas.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:gemv</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="inv-class_method">
+  
+    .<strong>inv</strong>(a, driver: &quot;gen&quot;, uplo: &#39;U&#39;)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Inverse matrix from square matrix <code>a</code></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>n-by-n square matrix</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>b</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>n-by-nrhs right-hand-side matrix</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>driver</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>optional, default=&#39;gen&#39;. one of
+&#39;gen&#39;,&#39;sym&#39;,&#39;her&#39;,&#39;pos&#39;</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>uplo</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>optional, default=&#39;U&#39;. Access upper or (&#39;U&#39;) lower
+(&#39;L&#39;) triangle.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+427
+428
+429
+430</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 427</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_inv'>inv</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gen</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>U</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_b'>b</span> <span class='op'>=</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_new_zeros'>new_zeros</span><span class='period'>.</span><span class='id identifier rubyid_eye'>eye</span>
+  <span class='id identifier rubyid_solve'>solve</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='id identifier rubyid_driver'>driver</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='id identifier rubyid_uplo'>uplo</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="kron-class_method">
+  
+    .<strong>kron</strong>(a, b)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NotImplementedError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+113
+114
+115</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 113</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_kron'>kron</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="lstsq-class_method">
+  
+    .<strong>lstsq</strong>(a, b, driver: &#39;lsd&#39;, rcond: -1))  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>m-by-n matrix</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>b</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>m-by-nrhs right-hand-side matrix</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>driver</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>(optional, default=&#39;lsd&#39;) one of
+&#39;lsd&#39;,&#39;lss&#39;,&#39;lsy&#39;</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>rcond</span>
+      
+      
+        <span class='type'>(<tt>Float</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>(optional, default=-1) RCOND is used to determine the effective rank of A.
+Singular values S(i) &lt;= RCOND*S(1) are treated as zero. If RCOND &lt; 0,
+machine precision is used instead.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 444</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_lstsq'>lstsq</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lsd</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>rcond:</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='const'>NArray</span><span class='period'>.</span><span class='id identifier rubyid_asarray'>asarray</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_b'>b</span> <span class='op'>=</span> <span class='const'>NArray</span><span class='period'>.</span><span class='id identifier rubyid_asarray'>asarray</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_b_orig'>b_orig</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_shape'>shape</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>==</span><span class='int'>1</span>
+    <span class='id identifier rubyid_b_orig'>b_orig</span> <span class='op'>=</span> <span class='id identifier rubyid_b'>b</span>
+    <span class='id identifier rubyid_b'>b</span> <span class='op'>=</span> <span class='id identifier rubyid_b_orig'>b_orig</span><span class='lbracket'>[</span><span class='kw'>true</span><span class='comma'>,</span><span class='symbol'>:new</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_m'>m</span> <span class='op'>=</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_shape'>shape</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>2</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_n'>n</span> <span class='op'>=</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_shape'>shape</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span>
+  <span class='comment'>#nrhs = b.shape[-1]
+</span>  <span class='kw'>if</span> <span class='id identifier rubyid_m'>m</span> <span class='op'>!=</span> <span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_shape'>shape</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>2</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NArray</span><span class='op'>::</span><span class='const'>ShapeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>size mismatch: A-row and B-row</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_m'>m</span> <span class='op'>&lt;</span> <span class='id identifier rubyid_n'>n</span>   <span class='comment'># need to extend b matrix
+</span>    <span class='id identifier rubyid_shp'>shp</span> <span class='op'>=</span> <span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_shape'>shape</span>
+    <span class='id identifier rubyid_shp'>shp</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>2</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_n'>n</span>
+    <span class='id identifier rubyid_b2'>b2</span> <span class='op'>=</span> <span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_zeros'>zeros</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_shp'>shp</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_b2'>b2</span><span class='lbracket'>[</span><span class='kw'>false</span><span class='comma'>,</span><span class='int'>0</span><span class='op'>...</span><span class='id identifier rubyid_m'>m</span><span class='comma'>,</span><span class='kw'>true</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_b'>b</span>
+    <span class='id identifier rubyid_b'>b</span> <span class='op'>=</span> <span class='id identifier rubyid_b2'>b2</span>
+  <span class='kw'>end</span>
+  <span class='kw'>case</span> <span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^(ge)?lsd$</span><span class='regexp_end'>/i</span></span>
+    <span class='comment'># x, s, rank, info
+</span>    <span class='id identifier rubyid_x'>x</span><span class='comma'>,</span> <span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_rank'>rank</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:gelsd</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>rcond:</span><span class='id identifier rubyid_rcond'>rcond</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^(ge)?lss$</span><span class='regexp_end'>/i</span></span>
+    <span class='comment'># v, x, s, rank, info
+</span>    <span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='id identifier rubyid_x'>x</span><span class='comma'>,</span> <span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_rank'>rank</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:gelss</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>rcond:</span><span class='id identifier rubyid_rcond'>rcond</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^(ge)?lsy$</span><span class='regexp_end'>/i</span></span>
+    <span class='id identifier rubyid_jpvt'>jpvt</span> <span class='op'>=</span> <span class='const'>Int32</span><span class='period'>.</span><span class='id identifier rubyid_zeros'>zeros</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_a'>a</span><span class='lbracket'>[</span><span class='kw'>false</span><span class='comma'>,</span><span class='int'>0</span><span class='comma'>,</span><span class='kw'>true</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_shape'>shape</span><span class='rparen'>)</span>
+    <span class='comment'># v, x, jpvt, rank, info
+</span>    <span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='id identifier rubyid_x'>x</span><span class='comma'>,</span> <span class='id identifier rubyid__'>_</span><span class='comma'>,</span> <span class='id identifier rubyid_rank'>rank</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:gelsy</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='id identifier rubyid_jpvt'>jpvt</span><span class='comma'>,</span> <span class='label'>rcond:</span><span class='id identifier rubyid_rcond'>rcond</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid driver: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_driver'>driver</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_resids'>resids</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_m'>m</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_n'>n</span>
+    <span class='kw'>if</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>ls(d|s)$</span><span class='regexp_end'>/i</span></span> <span class='op'>=~</span> <span class='id identifier rubyid_driver'>driver</span>
+      <span class='kw'>case</span> <span class='id identifier rubyid_rank'>rank</span>
+      <span class='kw'>when</span> <span class='id identifier rubyid_n'>n</span>
+        <span class='id identifier rubyid_resids'>resids</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_x'>x</span><span class='lbracket'>[</span><span class='id identifier rubyid_n'>n</span><span class='op'>..</span><span class='op'>-</span><span class='int'>1</span><span class='comma'>,</span><span class='kw'>true</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_abs'>abs</span><span class='op'>**</span><span class='int'>2</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_sum'>sum</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='int'>0</span><span class='rparen'>)</span>
+      <span class='kw'>when</span> <span class='const'>NArray</span>
+        <span class='kw'>if</span> <span class='kw'>true</span>
+          <span class='id identifier rubyid_resids'>resids</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_x'>x</span><span class='lbracket'>[</span><span class='kw'>false</span><span class='comma'>,</span><span class='id identifier rubyid_n'>n</span><span class='op'>..</span><span class='op'>-</span><span class='int'>1</span><span class='comma'>,</span><span class='kw'>true</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_abs'>abs</span><span class='op'>**</span><span class='int'>2</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_sum'>sum</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>2</span><span class='rparen'>)</span>
+        <span class='kw'>else</span>
+          <span class='id identifier rubyid_resids'>resids</span> <span class='op'>=</span> <span class='id identifier rubyid_x'>x</span><span class='lbracket'>[</span><span class='kw'>false</span><span class='comma'>,</span><span class='int'>0</span><span class='comma'>,</span><span class='kw'>true</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_new_zeros'>new_zeros</span>
+          <span class='id identifier rubyid_mask'>mask</span> <span class='op'>=</span> <span class='id identifier rubyid_rank'>rank</span><span class='period'>.</span><span class='id identifier rubyid_eq'>eq</span><span class='lparen'>(</span><span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
+          <span class='comment'># NArray does not suppurt this yet.
+</span>          <span class='id identifier rubyid_resids'>resids</span><span class='lbracket'>[</span><span class='id identifier rubyid_mask'>mask</span><span class='comma'>,</span><span class='kw'>true</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_x'>x</span><span class='lbracket'>[</span><span class='id identifier rubyid_mask'>mask</span><span class='comma'>,</span><span class='id identifier rubyid_n'>n</span><span class='op'>..</span><span class='op'>-</span><span class='int'>1</span><span class='comma'>,</span><span class='kw'>true</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_abs'>abs</span><span class='op'>**</span><span class='int'>2</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_sum'>sum</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>2</span><span class='rparen'>)</span>
+        <span class='kw'>end</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_x'>x</span> <span class='op'>=</span> <span class='id identifier rubyid_x'>x</span><span class='lbracket'>[</span><span class='kw'>false</span><span class='comma'>,</span><span class='int'>0</span><span class='op'>...</span><span class='id identifier rubyid_n'>n</span><span class='comma'>,</span><span class='kw'>true</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_b_orig'>b_orig</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_b_orig'>b_orig</span><span class='period'>.</span><span class='id identifier rubyid_shape'>shape</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>==</span><span class='int'>1</span>
+    <span class='id identifier rubyid_x'>x</span> <span class='op'>=</span> <span class='id identifier rubyid_x'>x</span><span class='lbracket'>[</span><span class='kw'>true</span><span class='comma'>,</span><span class='int'>0</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_resids'>resids</span> <span class='op'>&amp;&amp;=</span> <span class='id identifier rubyid_resids'>resids</span><span class='lbracket'>[</span><span class='kw'>false</span><span class='comma'>,</span><span class='int'>0</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  <span class='lbracket'>[</span><span class='id identifier rubyid_x'>x</span><span class='comma'>,</span> <span class='id identifier rubyid_resids'>resids</span><span class='comma'>,</span> <span class='id identifier rubyid_rank'>rank</span><span class='comma'>,</span> <span class='id identifier rubyid_s'>s</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="lu-class_method">
+  
+    .<strong>lu</strong>(a)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>LU decomposition</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+155
+156
+157</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 155</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_lu'>lu</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:getrf</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="matmul-class_method">
+  
+    .<strong>matmul</strong>(a, b)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Matrix product</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+103
+104
+105</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 103</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_matmul'>matmul</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Linalg/Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Blas.html#call-class_method" title="Numo::Linalg::Blas.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:gemm</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="matrix_power-class_method">
+  
+    .<strong>matrix_power</strong>(m, n)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NotImplementedError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 108</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_matrix_power'>matrix_power</span><span class='lparen'>(</span><span class='id identifier rubyid_m'>m</span><span class='comma'>,</span> <span class='id identifier rubyid_n'>n</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="matrix_rank-class_method">
+  
+    .<strong>matrix_rank</strong>(m, tol: nil, driver: &#39;svd&#39;)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>matrix rank using SVD method</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 372</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_matrix_rank'>matrix_rank</span><span class='lparen'>(</span><span class='id identifier rubyid_m'>m</span><span class='comma'>,</span> <span class='label'>tol:</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>svd</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_m'>m</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Numo.html" title="Numo (module)">Numo</a></span></span><span class='op'>::</span><span class='const'>NArray</span><span class='period'>.</span><span class='id identifier rubyid_asarray'>asarray</span><span class='lparen'>(</span><span class='id identifier rubyid_m'>m</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_m'>m</span><span class='period'>.</span><span class='id identifier rubyid_ndim'>ndim</span> <span class='op'>&lt;</span> <span class='int'>2</span>
+    <span class='id identifier rubyid_m'>m</span><span class='period'>.</span><span class='id identifier rubyid_ne'>ne</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='op'>?</span> <span class='int'>1</span> <span class='op'>:</span> <span class='int'>0</span>
+  <span class='kw'>else</span>
+    <span class='kw'>case</span> <span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^(ge)?sdd$</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>turbo</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:gesdd</span><span class='comma'>,</span> <span class='id identifier rubyid_m'>m</span><span class='comma'>,</span> <span class='label'>jobz:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^(ge)?svd$</span><span class='regexp_end'>/</span></span>
+      <span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:gesvd</span><span class='comma'>,</span> <span class='id identifier rubyid_m'>m</span><span class='comma'>,</span> <span class='label'>jobu:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>jobvt:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid driver: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_driver'>driver</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_tol'>tol</span> <span class='op'>||=</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>1</span><span class='comma'>,</span> <span class='label'>keepdims:</span><span class='kw'>true</span><span class='rparen'>)</span> <span class='op'>*</span>
+      <span class='lparen'>(</span><span class='id identifier rubyid_m'>m</span><span class='period'>.</span><span class='id identifier rubyid_shape'>shape</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>2</span><span class='op'>..</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span> <span class='op'>*</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='op'>::</span><span class='const'>EPSILON</span><span class='rparen'>)</span>
+    <span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_tol'>tol</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="norm-class_method">
+  
+    .<strong>norm</strong>(a, ord = nil, axis: nil, keepdims: false)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Norms and other numbers</p>
+
+<pre class="code ruby"><code class="ruby">|  ord  |  matrix norm            | vector norm                 |
+| ----- | ----------------------- | --------------------------- |
+|  nil  | Frobenius norm          | 2-norm                      |
+| &#39;fro&#39; | Frobenius norm          |  -                          |
+| &#39;inf&#39; | x.abs.sum(axis:-1).max  | x.abs.max                   |
+|    0  |  -                      | (x.ne 0).sum                |
+|    1  | x.abs.sum(axis:-2).max  | same as below               |
+|    2  | 2-norm (max sing-value) | same as below               |
+| other |  -                      | (x.abs**ord).sum**(1.0/ord) |</code></pre>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 232</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_norm'>norm</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_ord'>ord</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>axis:</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>keepdims:</span><span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Numo.html" title="Numo (module)">Numo</a></span></span><span class='op'>::</span><span class='const'>NArray</span><span class='period'>.</span><span class='id identifier rubyid_asarray'>asarray</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+
+  <span class='comment'># check axis
+</span>  <span class='kw'>if</span> <span class='id identifier rubyid_axis'>axis</span>
+    <span class='kw'>case</span> <span class='id identifier rubyid_axis'>axis</span>
+    <span class='kw'>when</span> <span class='const'>Integer</span>
+      <span class='id identifier rubyid_axis'>axis</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='id identifier rubyid_axis'>axis</span><span class='rbracket'>]</span>
+    <span class='kw'>when</span> <span class='const'>Array</span>
+      <span class='kw'>if</span> <span class='id identifier rubyid_axis'>axis</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>&lt;</span> <span class='int'>1</span> <span class='op'>||</span> <span class='id identifier rubyid_axis'>axis</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>&gt;</span> <span class='int'>2</span>
+        <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgmentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>axis option should be 1- or 2-element array</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid option for axis: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_axis'>axis</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+    <span class='comment'># swap axes
+</span>    <span class='kw'>if</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_ndim'>ndim</span> <span class='op'>&gt;</span> <span class='int'>1</span>
+      <span class='id identifier rubyid_idx'>idx</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='int'>0</span><span class='op'>...</span><span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_ndim'>ndim</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
+      <span class='id identifier rubyid_tmp'>tmp</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+      <span class='lparen'>(</span><span class='id identifier rubyid_axis'>axis</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_downto'>downto</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+        <span class='id identifier rubyid_tmp'>tmp</span><span class='period'>.</span><span class='id identifier rubyid_unshift'>unshift</span><span class='lparen'>(</span> <span class='id identifier rubyid_idx'>idx</span><span class='period'>.</span><span class='id identifier rubyid_delete_at'>delete_at</span><span class='lparen'>(</span><span class='id identifier rubyid_axis'>axis</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='rparen'>)</span>
+      <span class='kw'>end</span>
+      <span class='id identifier rubyid_idx'>idx</span><span class='period'>.</span><span class='id identifier rubyid_concat'>concat</span><span class='lparen'>(</span><span class='id identifier rubyid_tmp'>tmp</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_transpose'>transpose</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_idx'>idx</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>else</span>
+    <span class='kw'>case</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_ndim'>ndim</span>
+    <span class='kw'>when</span> <span class='int'>0</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>zero-dimensional array</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>when</span> <span class='int'>1</span>
+      <span class='id identifier rubyid_axis'>axis</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_axis'>axis</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='op'>-</span><span class='int'>2</span><span class='comma'>,</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='comment'># calculate norm
+</span>  <span class='kw'>case</span> <span class='id identifier rubyid_axis'>axis</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span>
+
+  <span class='kw'>when</span> <span class='int'>1</span>  <span class='comment'># vector
+</span>    <span class='id identifier rubyid_k'>k</span> <span class='op'>=</span> <span class='id identifier rubyid_keepdims'>keepdims</span>
+    <span class='id identifier rubyid_ord'>ord</span> <span class='op'>||=</span> <span class='int'>2</span>  <span class='comment'># default
+</span>    <span class='kw'>case</span> <span class='id identifier rubyid_ord'>ord</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_cast'>cast</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_ne'>ne</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_sum'>sum</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>1</span><span class='comma'>,</span> <span class='label'>keepdims:</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_abs'>abs</span><span class='period'>.</span><span class='id identifier rubyid_sum'>sum</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>1</span><span class='comma'>,</span> <span class='label'>keepdims:</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Blas.html#call-class_method" title="Numo::Linalg::Blas.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:nrm2</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>keepdims:</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^-?\d+$</span><span class='regexp_end'>/</span></span>
+      <span class='id identifier rubyid_o'>o</span> <span class='op'>=</span> <span class='id identifier rubyid_ord'>ord</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
+      <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_abs'>abs</span><span class='op'>**</span><span class='id identifier rubyid_o'>o</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_sum'>sum</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>1</span><span class='comma'>,</span> <span class='label'>keepdims:</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span><span class='op'>**</span><span class='lparen'>(</span><span class='float'>1.0</span><span class='op'>/</span><span class='id identifier rubyid_o'>o</span><span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^inf(inity)?$</span><span class='regexp_end'>/i</span></span>
+      <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_abs'>abs</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>1</span><span class='comma'>,</span> <span class='label'>keepdims:</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^-inf(inity)?$</span><span class='regexp_end'>/i</span></span>
+      <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_abs'>abs</span><span class='period'>.</span><span class='id identifier rubyid_min'>min</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>1</span><span class='comma'>,</span> <span class='label'>keepdims:</span><span class='id identifier rubyid_k'>k</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ord (</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_ord'>ord</span><span class='embexpr_end'>}</span><span class='tstring_content'>) is invalid for vector norm</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+
+  <span class='kw'>when</span> <span class='int'>2</span>  <span class='comment'># matrix
+</span>    <span class='kw'>if</span> <span class='id identifier rubyid_keepdims'>keepdims</span>
+      <span class='id identifier rubyid_fixdims'>fixdims</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='kw'>true</span><span class='rbracket'>]</span> <span class='op'>*</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_ndim'>ndim</span>
+      <span class='id identifier rubyid_axis'>axis</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>
+        <span class='kw'>if</span> <span class='id identifier rubyid_i'>i</span> <span class='op'>&lt;</span> <span class='op'>-</span><span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_ndim'>ndim</span> <span class='op'>||</span> <span class='id identifier rubyid_i'>i</span> <span class='op'>&gt;=</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_ndim'>ndim</span>
+          <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgmentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>axis (%d) is out of range</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_i'>i</span>
+        <span class='kw'>end</span>
+        <span class='id identifier rubyid_fixdims'>fixdims</span><span class='lbracket'>[</span><span class='id identifier rubyid_i'>i</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='symbol'>:new</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_ord'>ord</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>fro</span><span class='tstring_end'>&quot;</span></span>  <span class='comment'># default
+</span>    <span class='kw'>case</span> <span class='id identifier rubyid_ord'>ord</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_r'>r</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:lange</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>1</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-1</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_abs'>abs</span><span class='period'>.</span><span class='id identifier rubyid_sum'>sum</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>2</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_min'>min</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>2</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_svd'>svd</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:gesvd</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>jobu:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>jobvt:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_svd'>svd</span><span class='period'>.</span><span class='id identifier rubyid_max'>max</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>-2</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_svd'>svd</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:gesvd</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>jobu:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>jobvt:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_svd'>svd</span><span class='period'>.</span><span class='id identifier rubyid_min'>min</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^f(ro)?$</span><span class='regexp_end'>/i</span></span>
+      <span class='id identifier rubyid_r'>r</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:lange</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>F</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^inf(inity)?$</span><span class='regexp_end'>/i</span></span>
+      <span class='id identifier rubyid_r'>r</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:lange</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>I</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+    <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^-inf(inity)?$</span><span class='regexp_end'>/i</span></span>
+      <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_abs'>abs</span><span class='period'>.</span><span class='id identifier rubyid_sum'>sum</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_min'>min</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ord (</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_ord'>ord</span><span class='embexpr_end'>}</span><span class='tstring_content'>) is invalid for matrix norm</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_keepdims'>keepdims</span>
+      <span class='kw'>if</span> <span class='const'>NArray</span><span class='op'>===</span><span class='id identifier rubyid_r'>r</span>
+        <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_r'>r</span><span class='lbracket'>[</span><span class='op'>*</span><span class='id identifier rubyid_fixdims'>fixdims</span><span class='rbracket'>]</span>
+      <span class='kw'>else</span>
+        <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='int'>1</span><span class='comma'>,</span><span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span><span class='id identifier rubyid_r'>r</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_r'>r</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="outer-class_method">
+  
+    .<strong>outer</strong>(a, b)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+98
+99
+100</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 98</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_outer'>outer</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_a'>a</span><span class='lbracket'>[</span><span class='kw'>false</span><span class='comma'>,</span> <span class='symbol'>:new</span><span class='rbracket'>]</span> <span class='op'>*</span> <span class='id identifier rubyid_b'>b</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="qr-class_method">
+  
+    .<strong>qr</strong>(a)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>QR factorization</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+126
+127
+128</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 126</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_qr'>qr</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span> <span class='comment'>#, mode)
+</span>  <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:geqrf</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="slogdet-class_method">
+  
+    .<strong>slogdet</strong>(a)  &#x21d2; <tt>[sign,logdet]</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Natural logarithm of the determinant of a matrix</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>matrix (&gt;= 2-dimensional NArray)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>[sign,logdet]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>sign: A number representing the sign of the determinant logdet: The natural
+log of the absolute value of the determinant.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 356</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_slogdet'>slogdet</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_lu'>lu</span><span class='comma'>,</span> <span class='id identifier rubyid_piv'>piv</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:getrf</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_idx'>idx</span> <span class='op'>=</span> <span class='id identifier rubyid_piv'>piv</span><span class='period'>.</span><span class='id identifier rubyid_new_narray'>new_narray</span><span class='period'>.</span><span class='id identifier rubyid_store'>store</span><span class='lparen'>(</span><span class='id identifier rubyid_piv'>piv</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_piv'>piv</span><span class='period'>.</span><span class='id identifier rubyid_shape'>shape</span><span class='lbracket'>[</span><span class='op'>-</span><span class='int'>1</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_seq'>seq</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_m'>m</span> <span class='op'>=</span> <span class='id identifier rubyid_piv'>piv</span><span class='period'>.</span><span class='id identifier rubyid_eq'>eq</span><span class='lparen'>(</span><span class='id identifier rubyid_idx'>idx</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_count_false'>count_false</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span> <span class='op'>%</span> <span class='int'>2</span>
+  <span class='id identifier rubyid_sign'>sign</span> <span class='op'>=</span> <span class='id identifier rubyid_m'>m</span> <span class='op'>*</span> <span class='op'>-</span><span class='int'>2</span> <span class='op'>+</span> <span class='int'>1</span>
+
+  <span class='id identifier rubyid_lud'>lud</span> <span class='op'>=</span> <span class='id identifier rubyid_lu'>lu</span><span class='period'>.</span><span class='id identifier rubyid_diagonal'>diagonal</span>
+  <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_lud'>lud</span><span class='period'>.</span><span class='id identifier rubyid_eq'>eq</span> <span class='int'>0</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
+    <span class='kw'>return</span> <span class='int'>0</span><span class='comma'>,</span> <span class='lparen'>(</span><span class='op'>-</span><span class='const'>Float</span><span class='op'>::</span><span class='const'>INFINITY</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_lud_abs'>lud_abs</span> <span class='op'>=</span> <span class='id identifier rubyid_lud'>lud</span><span class='period'>.</span><span class='id identifier rubyid_abs'>abs</span>
+  <span class='id identifier rubyid_sign'>sign</span> <span class='op'>*=</span> <span class='lparen'>(</span><span class='id identifier rubyid_lud'>lud</span><span class='op'>/</span><span class='id identifier rubyid_lud_abs'>lud_abs</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_prod'>prod</span>
+  <span class='lbracket'>[</span><span class='id identifier rubyid_sign'>sign</span><span class='comma'>,</span> <span class='const'>NMath</span><span class='period'>.</span><span class='id identifier rubyid_log'>log</span><span class='lparen'>(</span><span class='id identifier rubyid_lud_abs'>lud_abs</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_sum'>sum</span><span class='lparen'>(</span><span class='label'>axis:</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="solve-class_method">
+  
+    .<strong>solve</strong>(a, b, driver: &quot;gen&quot;, uplo: &#39;U&#39;)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Solves linear equation <code>a * x = b</code> for <code>x</code> from
+square matrix <code>a</code></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>n-by-n square matrix</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>b</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>n-by-nrhs right-hand-side matrix</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>driver</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>optional, default=&#39;gen&#39;. one of
+&#39;gen&#39;,&#39;sym&#39;,&#39;her&#39;,&#39;pos&#39;</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>uplo</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>optional, default=&#39;U&#39;. Access upper or (&#39;U&#39;) lower
+(&#39;L&#39;) triangle.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 407</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_solve'>solve</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gen</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>U</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^gen?(sv)?$</span><span class='regexp_end'>/i</span></span>
+    <span class='comment'># returns lu, x, ipiv, info
+</span>    <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:gesv</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^(sym?|her?|pos?)(sv)?$</span><span class='regexp_end'>/i</span></span>
+    <span class='id identifier rubyid_func'>func</span> <span class='op'>=</span> <span class='id identifier rubyid_driver'>driver</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>..</span><span class='int'>2</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='op'>+</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sv</span><span class='tstring_end'>&quot;</span></span>
+    <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_func'>func</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='id identifier rubyid_uplo'>uplo</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid driver: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_driver'>driver</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="svd-class_method">
+  
+    .<strong>svd</strong>(a, driver: &#39;svd&#39;)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Singular Value Decomposition</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 131</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_svd'>svd</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>svd</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^(ge)?sdd$</span><span class='regexp_end'>/i</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>turbo</span><span class='tstring_end'>&quot;</span></span>
+    <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:gesdd</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>jobz:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>A</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^(ge)?svd$</span><span class='regexp_end'>/i</span></span>
+    <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:gesvd</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>jobu:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>A</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>jobvt:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>A</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid driver: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_driver'>driver</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="svdvals-class_method">
+  
+    .<strong>svdvals</strong>(a, driver: &#39;svd&#39;)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Singular values</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 143</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_svdvals'>svdvals</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>svd</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^(ge)?sdd$</span><span class='regexp_end'>/i</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>turbo</span><span class='tstring_end'>&quot;</span></span>
+    <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:gesdd</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>jobz:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^(ge)?svd$</span><span class='regexp_end'>/i</span></span>
+    <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:gesvd</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>jobu:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>jobvt:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid driver: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_driver'>driver</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="trace-class_method">
+  
+    .<strong>trace</strong>(*a)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NotImplementedError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+392
+393
+394</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 392</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_trace'>trace</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="vdot-class_method">
+  
+    .<strong>vdot</strong>(a, b)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NotImplementedError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+88
+89
+90</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 88</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_vdot'>vdot</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 </div>
 
       <div id="footer">
-  Generated on Sat May 20 23:08:29 2017 by
+  Generated on Mon May 22 14:01:12 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

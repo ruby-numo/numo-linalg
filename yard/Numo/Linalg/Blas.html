@@ -79,12 +79,24 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>ext/numo/linalg/blas/blas.c<span class="defines">,<br />
-  ext/numo/linalg/blas/blas_c.c,<br /> ext/numo/linalg/blas/blas_d.c,<br /> ext/numo/linalg/blas/blas_s.c,<br /> ext/numo/linalg/blas/blas_z.c</span>
+  ext/numo/linalg/blas/blas_c.c,<br /> ext/numo/linalg/blas/blas_d.c,<br /> ext/numo/linalg/blas/blas_s.c,<br /> ext/numo/linalg/blas/blas_z.c,<br /> lib/numo/linalg/function.rb</span>
 </dd>
   </dl>
   
 </div>
 
+
+  <h2>Constant Summary</h2>
+  <dl class="constants">
+    
+      <dt id="FIXNAME-constant" class="">FIXNAME =
+        
+      </dt>
+      <dd><pre class="code"><span class='lbrace'>{</span>
+ <span class='label'>znrm2:</span> <span class='symbol'>:dznrm2</span><span class='comma'>,</span> <span class='label'>cnrm2:</span> <span class='symbol'>:csnrm2</span><span class='comma'>,</span>
+<span class='rbrace'>}</span></pre></dd>
+    
+  </dl>
 
 
 
@@ -99,6 +111,31 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#call-class_method" title="call (class method)">.<strong>call</strong>(func, *args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Call BLAS function prefixed with BLAS char ([sdcz]) defined from data-types
+of arguments.</p>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -2276,7 +2313,97 @@ where **T indicates transpose.</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="caxpy-class_method">
+  <h3 class="signature first" id="call-class_method">
+  
+    .<strong>call</strong>(func, *args)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Call BLAS function prefixed with BLAS char ([sdcz]) defined from data-types
+of arguments.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_c'>c</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Numo.html" title="Numo (module)">Numo</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Linalg.html" title="Numo::Linalg (module)">Linalg</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Numo::Linalg::Blas (module)">Blas</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='symbol'>:gemm</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>func</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>function name without BLAS char.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>args</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>arguments passed to Blas function.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+16
+17
+18
+19
+20</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 16</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_func'>func</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_fn'>fn</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Linalg.html" title="Numo::Linalg (module)">Linalg</a></span></span><span class='period'>.</span><span class='id identifier rubyid_blas_char'><span class='object_link'><a href="../Linalg.html#blas_char-class_method" title="Numo::Linalg.blas_char (method)">blas_char</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_func'>func</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+  <span class='id identifier rubyid_fn'>fn</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#FIXNAME-constant" title="Numo::Linalg::Blas::FIXNAME (constant)">FIXNAME</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_fn'>fn</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_fn'>fn</span>
+  <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fn'>fn</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="caxpy-class_method">
   
     .<strong>caxpy</strong>(x, y, [alpha: 1])  &#x21d2; <tt>Numo::SComplex</tt> 
   
@@ -9869,7 +9996,9 @@ blas_s_dger(int argc, VALUE const argv[], VALUE UNUSED(mod))
 299
 300
 301
-302</pre>
+302
+303
+304</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas.c', line 282</span>
@@ -9880,19 +10009,21 @@ blas_s_dlopen(int argc, VALUE *argv, VALUE mod)
     int i, f;
     VALUE lib, flag;
     char *error;
+    void *handle;
 
     i = rb_scan_args(argc, argv, &quot;11&quot;, &amp;lib, &amp;flag);
     if (i==2) {
         f = NUM2INT(flag);
     } else {
-        f = RTLD_NOW | RTLD_LOCAL | RTLD_DEEPBIND;
+        f = RTLD_LAZY | RTLD_LOCAL;
     }
     dlerror();
-    blas_handle = dlopen(StringValueCStr(lib), f);
+    handle = dlopen(StringValueCStr(lib), f);
     error = dlerror();
     if (error != NULL) {
         rb_raise(rb_eRuntimeError, &quot;%s&quot;, error);
     }
+    blas_handle = handle;
     return Qnil;
 }</pre>
     </td>
@@ -13958,8 +14089,6 @@ blas_s_dznrm2(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <pre class="lines">
 
 
-305
-306
 307
 308
 309
@@ -13973,10 +14102,12 @@ blas_s_dznrm2(int argc, VALUE const argv[], VALUE UNUSED(mod))
 317
 318
 319
-320</pre>
+320
+321
+322</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas.c', line 305</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/blas/blas.c', line 307</span>
 
 static VALUE
 blas_s_prefix_set(VALUE mod, VALUE prefix)
@@ -25636,7 +25767,7 @@ blas_s_ztrmv(int argc, VALUE const argv[], VALUE UNUSED(mod))
 </div>
 
       <div id="footer">
-  Generated on Sat May 20 23:08:51 2017 by
+  Generated on Mon May 22 14:01:34 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

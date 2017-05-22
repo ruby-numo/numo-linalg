@@ -79,7 +79,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>ext/numo/linalg/lapack/lapack.c<span class="defines">,<br />
-  ext/numo/linalg/lapack/lapack_c.c,<br /> ext/numo/linalg/lapack/lapack_d.c,<br /> ext/numo/linalg/lapack/lapack_s.c,<br /> ext/numo/linalg/lapack/lapack_z.c</span>
+  ext/numo/linalg/lapack/lapack_c.c,<br /> ext/numo/linalg/lapack/lapack_d.c,<br /> ext/numo/linalg/lapack/lapack_s.c,<br /> ext/numo/linalg/lapack/lapack_z.c,<br /> lib/numo/linalg/function.rb</span>
 </dd>
   </dl>
   
@@ -99,6 +99,31 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#call-class_method" title="call (class method)">.<strong>call</strong>(func, *args)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Call LAPACK function prefixed with BLAS char ([sdcz]) defined from
+data-types of arguments.</p>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -3102,7 +3127,95 @@ upper triangular form by means of unitary transformations.</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="cgeev-class_method">
+  <h3 class="signature first" id="call-class_method">
+  
+    .<strong>call</strong>(func, *args)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Call LAPACK function prefixed with BLAS char ([sdcz]) defined from
+data-types of arguments.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Numo.html" title="Numo (module)">Numo</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Linalg.html" title="Numo::Linalg (module)">Linalg</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='symbol'>:gesv</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>func</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>, <tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>function name without BLAS char.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>args</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>arguments passed to Lapack function.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+32
+33
+34
+35</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 32</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_func'>func</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_fn'>fn</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Linalg.html" title="Numo::Linalg (module)">Linalg</a></span></span><span class='period'>.</span><span class='id identifier rubyid_blas_char'><span class='object_link'><a href="../Linalg.html#blas_char-class_method" title="Numo::Linalg.blas_char (method)">blas_char</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_func'>func</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+  <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fn'>fn</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="cgeev-class_method">
   
     .<strong>cgeev</strong>(a, [jobvl: &#39;V&#39;, jobvr:&#39;V&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[w, vl, vr, info]</tt> 
   
@@ -16746,7 +16859,9 @@ lapack_s_dlange(int argc, VALUE const argv[], VALUE UNUSED(mod))
 335
 336
 337
-338</pre>
+338
+339
+340</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack.c', line 318</span>
@@ -16757,19 +16872,21 @@ lapack_s_dlopen(int argc, VALUE *argv, VALUE mod)
     int i, f;
     VALUE lib, flag;
     char *error;
+    void *handle;
 
     i = rb_scan_args(argc, argv, &quot;11&quot;, &amp;lib, &amp;flag);
     if (i==2) {
         f = NUM2INT(flag);
     } else {
-        f = RTLD_NOW | RTLD_LOCAL | RTLD_DEEPBIND;
+        f = RTLD_LAZY | RTLD_LOCAL;
     }
     dlerror();
-    lapack_handle = dlopen(StringValueCStr(lib), f);
+    handle = dlopen(StringValueCStr(lib), f);
     error = dlerror();
     if (error != NULL) {
         rb_raise(rb_eRuntimeError, &quot;%s&quot;, error);
     }
+    lapack_handle = handle;
     return Qnil;
 }</pre>
     </td>
@@ -19679,8 +19796,6 @@ lapack_s_dtzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <pre class="lines">
 
 
-340
-341
 342
 343
 344
@@ -19694,10 +19809,12 @@ lapack_s_dtzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 352
 353
 354
-355</pre>
+355
+356
+357</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack.c', line 340</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack.c', line 342</span>
 
 static VALUE
 lapack_s_prefix_set(VALUE mod, VALUE prefix)
@@ -36213,7 +36330,7 @@ lapack_s_ztzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 </div>
 
       <div id="footer">
-  Generated on Sat May 20 23:08:46 2017 by
+  Generated on Mon May 22 14:01:29 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>
