@@ -6826,7 +6826,7 @@ typedef lapack_int (*zlagge_work_t)( int matrix_order, lapack_int m, lapack_int 
                                 lapack_complex_double* a, lapack_int lda,
                                 lapack_int* iseed,
                                 lapack_complex_double* work );
-                                
+
 typedef lapack_int (*claghe_work_t)( int matrix_order, lapack_int n, lapack_int k,
                                 const float* d, lapack_complex_float* a,
                                 lapack_int lda, lapack_int* iseed,
@@ -6875,7 +6875,7 @@ typedef lapack_int (*slartgs_work_t)( float x, float y, float sigma, float* cs,
                                  float* sn );
 typedef lapack_int (*dlartgs_work_t)( double x, double y, double sigma, double* cs,
                                  double* sn );
-                                
+
 typedef float (*slapy2_work_t)( float x, float y );
 typedef double (*dlapy2_work_t)( double x, double y );
 
@@ -10292,7 +10292,7 @@ typedef lapack_int (*dtpqrt_t)( int matrix_order, lapack_int m, lapack_int n,
                            lapack_int ldt );
 typedef lapack_int (*ctpqrt_t)( int matrix_order, lapack_int m, lapack_int n,
                            lapack_int l, lapack_int nb,
-                           lapack_complex_float* a, lapack_int lda, 
+                           lapack_complex_float* a, lapack_int lda,
                            lapack_complex_float* b, lapack_int ldb,
                            lapack_complex_float* t, lapack_int ldt );
 typedef lapack_int (*ztpqrt_t)( int matrix_order, lapack_int m, lapack_int n,
@@ -10311,7 +10311,7 @@ typedef lapack_int (*dtpqrt2_t)( int matrix_order,
                             double* a, lapack_int lda,
                             double* b, lapack_int ldb,
                             double* t, lapack_int ldt );
-typedef lapack_int (*ctpqrt2_t)( int matrix_order, 
+typedef lapack_int (*ctpqrt2_t)( int matrix_order,
                             lapack_int m, lapack_int n, lapack_int l,
                             lapack_complex_float* a, lapack_int lda,
                             lapack_complex_float* b, lapack_int ldb,
@@ -10532,26 +10532,6 @@ typedef lapack_int (*zsyr_t)( int matrix_order, char uplo, lapack_int n,
                              const lapack_complex_double* x, lapack_int incx,
                              lapack_complex_double* a, lapack_int lda );
 
-typedef lapack_int (*ssysv_rook_work_t)( int matrix_order, char uplo, lapack_int n,
-                                    lapack_int nrhs, float* a, lapack_int lda,
-                                    lapack_int* ipiv, float* b, lapack_int ldb,
-                                    float* work, lapack_int lwork );
-typedef lapack_int (*dsysv_rook_work_t)( int matrix_order, char uplo, lapack_int n,
-                                    lapack_int nrhs, double* a, lapack_int lda,
-                                    lapack_int* ipiv, double* b, lapack_int ldb,
-                                    double* work, lapack_int lwork );
-typedef lapack_int (*csysv_rook_work_t)( int matrix_order, char uplo, lapack_int n,
-                                    lapack_int nrhs, lapack_complex_float* a,
-                                    lapack_int lda, lapack_int* ipiv,
-                                    lapack_complex_float* b, lapack_int ldb,
-                                    lapack_complex_float* work,
-                                    lapack_int lwork );
-typedef lapack_int (*zsysv_rook_work_t)( int matrix_order, char uplo, lapack_int n,
-                                    lapack_int nrhs, lapack_complex_double* a,
-                                    lapack_int lda, lapack_int* ipiv,
-                                    lapack_complex_double* b, lapack_int ldb,
-                                    lapack_complex_double* work,
-                                    lapack_int lwork );
 typedef lapack_int (*csyr_work_t)( int matrix_order, char uplo, lapack_int n,
                                   lapack_complex_float alpha,
                                   const lapack_complex_float* x,
