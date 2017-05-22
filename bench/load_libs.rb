@@ -42,6 +42,18 @@ def load_libs(use)
   when "openblas-build"
     Numo::Linalg::Blas.dlopen(openblas_dir+"libopenblas.so")
     Numo::Linalg::Lapack.dlopen(openblas_dir+"libopenblas.so")
+  when "openblaso-pkg"
+    Numo::Linalg::Blas.dlopen("/usr/lib64/libopenblaso.so")
+    Numo::Linalg::Lapack.dlopen("/usr/lib64/libopenblaso.so")
+  when "openblaso-build"
+    Numo::Linalg::Blas.dlopen(openblas_dir+"libopenblaso.so")
+    Numo::Linalg::Lapack.dlopen(openblas_dir+"libopenblaso.so")
+  when "openblasp-pkg"
+    Numo::Linalg::Blas.dlopen("/usr/lib64/libopenblasp.so")
+    Numo::Linalg::Lapack.dlopen("/usr/lib64/libopenblasp.so")
+  when "openblasp-build"
+    Numo::Linalg::Blas.dlopen(openblas_dir+"libopenblasp.so")
+    Numo::Linalg::Lapack.dlopen(openblas_dir+"libopenblasp.so")
 
   when "intel_mkl"
     root = "/opt/intel/composerxe/"
