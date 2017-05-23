@@ -87,3 +87,10 @@ when /c|z/
   decl "?hetrf", "fact"
   decl "?hetri", "fact"
 end
+
+case blas_char
+when /c|z/
+  decl "?ungqr", "gqr"
+else
+  decl "?orgqr", "gqr"
+end
