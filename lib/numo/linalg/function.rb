@@ -140,10 +140,10 @@ module Numo; module Linalg
   # where U is an upper triangular matrix and L is lower triangular
   # @param a [Numo::NArray] n-by-n square matrix (>= 2-dimensinal NArray)
   # @param uplo [String or Symbol] optional, default='U'. Access upper or ('U') lower ('L') triangle.
-  # @return [Numo::NArray] the factor U or L from the Cholesky factorization A = U\*\*H\*U or A = L\*L\*\*H.
+  # @return [Numo::NArray] the factor U or L.
 
   def cholesky(a, uplo:'U')
-    a Lapack.call(:potrf, a, uplo:uplo)[0]
+    Lapack.call(:potrf, a, uplo:uplo)[0]
   end
 
   # Upper triangular matrix.
@@ -171,7 +171,7 @@ module Numo; module Linalg
     *shp,m,n = qr.shape
     r = (m >= n && %w[economic raw].include?(mode)) ?
       triu(qr[false, 0...n, true]) : triu(qr)
-    mode = mode.to_s.donwcase
+    mode = mode.to_s.downcase
     case mode
     when "r"
       return r
