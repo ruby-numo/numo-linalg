@@ -174,13 +174,17 @@ static VALUE
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&ndf, &g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&ndf, &g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }
 
 #undef args_t
