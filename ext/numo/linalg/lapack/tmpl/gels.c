@@ -72,19 +72,19 @@ static void
  iary = "Numo::Int"
  iscal = "Integer"
  if is_lsy
-   a = "a, b, jpvt, [rcond:-1, order:'R']"
+   a = "a, b, jpvt, rcond:-1, order:'R'"
    t = [tp,tp,iary,iscal,iscal]
    n = "a, b, jpvt, rank, info"
  elsif is_lsd
-   a = "a, b, [rcond:-1, order:'R']"
+   a = "a, b, rcond:-1, order:'R'"
    t = [tp,tp,iscal,iscal]
    n = "b, s, rank, info"
  elsif is_lss
-   a = "a, b, [rcond:-1, order:'R']"
+   a = "a, b, rcond:-1, order:'R'"
    t = [tp,tp,tp,iscal,iscal]
    n = "a, b, s, rank, info"
  else
-   a = "a, b, [order:'R']"
+   a = "a, b, trans:'N', order:'R'"
    t = [tp,tp,iscal]
    n = "a, b, info"
  end
