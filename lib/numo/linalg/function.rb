@@ -75,7 +75,10 @@ module Numo; module Linalg
 
   ## Matrix and vector products
 
-  # dot product
+  # Dot product.
+  # @param a [Numo::NArray] matrix or vector (>= 1-dimensinal NArray)
+  # @param b [Numo::NArray] matrix or vector (>= 1-dimensinal NArray)
+  # @return [Numo::NArray] result of dot product
   def dot(a, b)
     if a.ndim >= 2
       if b.ndim >= 2
@@ -107,7 +110,10 @@ module Numo; module Linalg
     a[false, :new] * b
   end
 
-  # Matrix product
+  # Matrix product.
+  # @param a [Numo::NArray] matrix (>= 2-dimensinal NArray)
+  # @param b [Numo::NArray] matrix (>= 2-dimensinal NArray)
+  # @return [Numo::NArray] result of matrix product
   def matmul(a, b)
     Blas.call(:gemm, a, b)
   end
@@ -140,45 +146,44 @@ module Numo; module Linalg
     a Lapack.call(:potrf, a, uplo:uplo)[0]
   end
 
-  #
+  # Upper triangular matrix.
   def triu(a,k=0)
     if a.ndim < 2
       raise NArray::ShapeError, "ivalid shape"
     end
-    shp = a.shape
-    n = shp.pop
-    m = shp.pop
-    shp.push(m*n)
-    b = a.reshape(*shp)
+    *shp,m,n = a.shape
+    b = a.reshape(*shp,m*n)
     x = Numo::Int64.new(m,1).seq + k
     y = Numo::Int64.new(1,n).seq
     b[false,(x>y).where] = 0
-    b.reshape(*a.shape)
+    b.reshape(*shp,m,n)
   end
 
-  # Computes a QR factorization of a complex M-by-N matrix A: A = Q * R.
+  # Computes a QR factorization of a complex M-by-N matrix A: A = Q \* R.
   # @param a [Numo::NArray] m-by-n matrix (>= 2-dimensinal NArray)
+  # @param mode [String]  "reduce": returns both Q and R, "r": only R, "economy": both Q and R but computed in economy-size, "raw": returns QR and TAU usend in LAPACK.
   # @return [r]        if mode:"r"
   # @return [[q,r]]    if mode:"reduce" or "economic"
   # @return [[qr,tau]] if mode:"raw" (LAPACK geqrf result)
 
   def qr(a, mode:"reduce")
-    shp = a.shape
-    n = shp.pop
-    m = shp.pop
     qr,tau, = Lapack.call(:geqrf, a)
-    r = triu(qr)
+    *shp,m,n = qr.shape
+    r = (m >= n && %w[economic raw].include?(mode)) ?
+      triu(qr[false, 0...n, true]) : triu(qr)
+    mode = mode.to_s.donwcase
     case mode
     when "r"
       return r
     when "raw"
       return [qr,tau]
     when "reduce","economic"
+      # skip
     else
       raise ArgumentError, "invalid mode:#{mode}"
     end
     if m < n
-      q, = Lapack.call(:orgqr, qr[false,0...m], tau)
+      q, = Lapack.call(:orgqr, qr[false, 0...m], tau)
     elsif mode == "economic"
       q, = Lapack.call(:orgqr, qr, tau)
     else
@@ -189,19 +194,48 @@ module Numo; module Linalg
     return [q,r]
   end
 
-  # Singular Value Decomposition
+  # Computes the Singular Value Decomposition (SVD) of a M-by-N matrix A,
+  # and the left and/or right singular vectors.  The SVD is written
+  #
+  #    A = U * SIGMA * transpose(V)
+  #
+  # where SIGMA is an M-by-N matrix which is zero except for its
+  # min(m,n) diagonal elements, U is an M-by-M orthogonal matrix, and
+  # V is an N-by-N orthogonal matrix. The diagonal elements of SIGMA
+  # are the singular values of A; they are real and non-negative, and
+  # are returned in descending order. The first min(m,n) columns of U
+  # and V are the left and right singular vectors of A. Note that the
+  # routine returns V**T, not V.
+  #
+  # @param a [Numo::NArray] m-by-n matrix (>= 2-dimensinal NArray)
+  # @param driver [String or Symbol] choose LAPACK solver from 'svd', 'sdd'. (optional, default='svd')
+  # @return [[sigma,u,vt]] SVD result. Array<Numo::NArray>
+
   def svd(a, driver:'svd')
     case driver.to_s
     when /^(ge)?sdd$/i, "turbo"
-      Lapack.call(:gesdd, a, jobz:'A')[0]
+      Lapack.call(:gesdd, a, jobz:'A')[0..2]
     when /^(ge)?svd$/i
-      Lapack.call(:gesvd, a, jobu:'A', jobvt:'A')[0]
+      Lapack.call(:gesvd, a, jobu:'A', jobvt:'A')[0..2]
     else
       raise ArgumentError, "invalid driver: #{driver}"
     end
   end
 
-  # Singular values
+  # Computes the Singular Values of a M-by-N matrix A.
+  # The SVD is written
+  #
+  #    A = U * SIGMA * transpose(V)
+  #
+  # where SIGMA is an M-by-N matrix which is zero except for its
+  # min(m,n) diagonal elements. The diagonal elements of SIGMA
+  # are the singular values of A; they are real and non-negative, and
+  # are returned in descending order.
+  #
+  # @param a [Numo::NArray] m-by-n matrix (>= 2-dimensinal NArray)
+  # @param driver [String or Symbol] choose LAPACK solver from 'svd', 'sdd'. (optional, default='svd')
+  # @return [Numo::NArray] Singular values.
+
   def svdvals(a, driver:'svd')
     case driver.to_s
     when /^(ge)?sdd$/i, "turbo"
@@ -215,6 +249,7 @@ module Numo; module Linalg
 
   # LU decomposition
   def lu(a)
+    # fixme
     Lapack.call(:getrf, a)[0]
   end
 
@@ -459,11 +494,11 @@ module Numo; module Linalg
   ## Solving equations and inverting matrices
 
 
-  # Solves linear equation ```a * x = b``` for ```x```
-  # from square matrix ```a```
+  # Solves linear equation `a * x = b` for `x`
+  # from square matrix `a`
   # @param a [Numo::NArray] n-by-n square matrix  (>= 2-dimensinal NArray)
   # @param b [Numo::NArray] n-by-nrhs right-hand-side matrix  (>= 1-dimensinal NArray)
-  # @param driver [Numo::NArray] optional, default='gen'. one of 'gen','sym','her','pos'
+  # @param driver [Numo::NArray] choose LAPACK diriver from 'gen','sym','her' or 'pos'. (optional, default='gen')
   # @param uplo [String or Symbol] optional, default='U'. Access upper or ('U') lower ('L') triangle.
 
   def solve(a, b, driver:"gen", uplo:'U')
@@ -480,9 +515,9 @@ module Numo; module Linalg
   end
 
 
-  # Inverse matrix from square matrix ```a```
+  # Inverse matrix from square matrix `a`
   # @param a [Numo::NArray] n-by-n square matrix  (>= 2-dimensinal NArray)
-  # @param driver [Numo::NArray] optional, default='gen'. one of 'gen','sym','her','pos'
+  # @param driver [Numo::NArray] choose LAPACK diriver 'gen','sym','her' or 'pos'. (optional, default='gen')
   # @param uplo [String or Symbol] optional, default='U'. Access upper or ('U') lower ('L') triangle.
 
   def inv(a, driver:"gen", uplo:'U')
@@ -499,7 +534,7 @@ module Numo; module Linalg
 
   # @param a [Numo::NArray] m-by-n matrix  (>= 2-dimensinal NArray)
   # @param b [Numo::NArray] m-by-nrhs right-hand-side matrix  (>= 1-dimensinal NArray)
-  # @param driver [String or Symbol] (optional, default='lsd') one of 'lsd','lss','lsy'
+  # @param driver [String or Symbol] choose LAPACK driver from 'lsd','lss','lsy' (optional, default='lsd')
   # @param rcond [Float] (optional, default=-1) RCOND is used to determine the effective rank of A. Singular values S(i) <= RCOND*S(1) are treated as zero. If RCOND < 0, machine precision is used instead.
 
   def lstsq(a, b, driver:'lsd', rcond:-1)
