@@ -4,7 +4,8 @@ module Numo; module Linalg
 
     FIXNAME =
     {
-     znrm2: :dznrm2, cnrm2: :csnrm2,
+     cnrm2: :csnrm2,
+     znrm2: :dznrm2,
     }
 
     # Call BLAS function prefixed with BLAS char ([sdcz])
@@ -23,6 +24,12 @@ module Numo; module Linalg
 
   module Lapack
 
+    FIXNAME =
+    {
+     corgqr: :cungqr,
+     zorgqr: :zungqr,
+    }
+
     # Call LAPACK function prefixed with BLAS char ([sdcz])
     # defined from data-types of arguments.
     # @param [Symbol,String] func  function name without BLAS char.
@@ -31,6 +38,7 @@ module Numo; module Linalg
     #    s = Numo::Linalg::Lapack.call(:gesv, a)
     def self.call(func,*args)
       fn = (Linalg.blas_char(*args) + func.to_s).to_sym
+      fn = FIXNAME[fn] || fn
       send(fn,*args)
     end
 
@@ -115,16 +123,70 @@ module Numo; module Linalg
   end
 
 
-  ## Decompositions
+  ## factorization
 
-  # Cholesky decomposition
-  def cholesky(a, uplo:false)
-    Lapack.call(:potrf, a, uplo:false)[0]
+  # Computes the Cholesky factorization of a complex Hermitian
+  # positive definite matrix A. The factorization has the form
+  #
+  #     A = U**H * U,  if UPLO = 'U', or
+  #     A = L  * L**H,  if UPLO = 'L',
+  #
+  # where U is an upper triangular matrix and L is lower triangular
+  # @param a [Numo::NArray] n-by-n square matrix (>= 2-dimensinal NArray)
+  # @param uplo [String or Symbol] optional, default='U'. Access upper or ('U') lower ('L') triangle.
+  # @return [Numo::NArray] the factor U or L from the Cholesky factorization A = U\*\*H\*U or A = L\*L\*\*H.
+
+  def cholesky(a, uplo:'U')
+    a Lapack.call(:potrf, a, uplo:uplo)[0]
   end
 
-  # QR factorization
-  def qr(a) #, mode)
-    Lapack.call(:geqrf, a)[0]
+  #
+  def triu(a,k=0)
+    if a.ndim < 2
+      raise NArray::ShapeError, "ivalid shape"
+    end
+    shp = a.shape
+    n = shp.pop
+    m = shp.pop
+    shp.push(m*n)
+    b = a.reshape(*shp)
+    x = Numo::Int64.new(m,1).seq + k
+    y = Numo::Int64.new(1,n).seq
+    b[false,(x>y).where] = 0
+    b.reshape(*a.shape)
+  end
+
+  # Computes a QR factorization of a complex M-by-N matrix A: A = Q * R.
+  # @param a [Numo::NArray] m-by-n matrix (>= 2-dimensinal NArray)
+  # @return [r]        if mode:"r"
+  # @return [[q,r]]    if mode:"reduce" or "economic"
+  # @return [[qr,tau]] if mode:"raw" (LAPACK geqrf result)
+
+  def qr(a, mode:"reduce")
+    shp = a.shape
+    n = shp.pop
+    m = shp.pop
+    qr,tau, = Lapack.call(:geqrf, a)
+    r = triu(qr)
+    case mode
+    when "r"
+      return r
+    when "raw"
+      return [qr,tau]
+    when "reduce","economic"
+    else
+      raise ArgumentError, "invalid mode:#{mode}"
+    end
+    if m < n
+      q, = Lapack.call(:orgqr, qr[false,0...m], tau)
+    elsif mode == "economic"
+      q, = Lapack.call(:orgqr, qr, tau)
+    else
+      qqr = qr.class.zeros(*(shp+[m,m]))
+      qqr[false,0...n] = qr
+      q, = Lapack.call(:orgqr, qqr, tau)
+    end
+    return [q,r]
   end
 
   # Singular Value Decomposition
@@ -399,8 +461,8 @@ module Numo; module Linalg
 
   # Solves linear equation ```a * x = b``` for ```x```
   # from square matrix ```a```
-  # @param a [Numo::NArray] n-by-n square matrix
-  # @param b [Numo::NArray] n-by-nrhs right-hand-side matrix
+  # @param a [Numo::NArray] n-by-n square matrix  (>= 2-dimensinal NArray)
+  # @param b [Numo::NArray] n-by-nrhs right-hand-side matrix  (>= 1-dimensinal NArray)
   # @param driver [Numo::NArray] optional, default='gen'. one of 'gen','sym','her','pos'
   # @param uplo [String or Symbol] optional, default='U'. Access upper or ('U') lower ('L') triangle.
 
@@ -419,8 +481,7 @@ module Numo; module Linalg
 
 
   # Inverse matrix from square matrix ```a```
-  # @param a [Numo::NArray] n-by-n square matrix
-  # @param b [Numo::NArray] n-by-nrhs right-hand-side matrix
+  # @param a [Numo::NArray] n-by-n square matrix  (>= 2-dimensinal NArray)
   # @param driver [Numo::NArray] optional, default='gen'. one of 'gen','sym','her','pos'
   # @param uplo [String or Symbol] optional, default='U'. Access upper or ('U') lower ('L') triangle.
 
@@ -436,8 +497,8 @@ module Numo; module Linalg
   # using the singular value decomposition (SVD) of A.
   # A is an M-by-N matrix which may be rank-deficient.
 
-  # @param a [Numo::NArray] m-by-n matrix
-  # @param b [Numo::NArray] m-by-nrhs right-hand-side matrix
+  # @param a [Numo::NArray] m-by-n matrix  (>= 2-dimensinal NArray)
+  # @param b [Numo::NArray] m-by-nrhs right-hand-side matrix  (>= 1-dimensinal NArray)
   # @param driver [String or Symbol] (optional, default='lsd') one of 'lsd','lss','lsy'
   # @param rcond [Float] (optional, default=-1) RCOND is used to determine the effective rank of A. Singular values S(i) <= RCOND*S(1) are treated as zero. If RCOND < 0, machine precision is used instead.
 
