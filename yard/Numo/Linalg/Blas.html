@@ -93,7 +93,8 @@
         
       </dt>
       <dd><pre class="code"><span class='lbrace'>{</span>
- <span class='label'>znrm2:</span> <span class='symbol'>:dznrm2</span><span class='comma'>,</span> <span class='label'>cnrm2:</span> <span class='symbol'>:csnrm2</span><span class='comma'>,</span>
+ <span class='label'>cnrm2:</span> <span class='symbol'>:csnrm2</span><span class='comma'>,</span>
+ <span class='label'>znrm2:</span> <span class='symbol'>:dznrm2</span><span class='comma'>,</span>
 <span class='rbrace'>}</span></pre></dd>
     
   </dl>
@@ -2383,14 +2384,14 @@ of arguments.</p>
       <pre class="lines">
 
 
-16
 17
 18
 19
-20</pre>
+20
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_func'>func</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_fn'>fn</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Linalg.html" title="Numo::Linalg (module)">Linalg</a></span></span><span class='period'>.</span><span class='id identifier rubyid_blas_char'><span class='object_link'><a href="../Linalg.html#blas_char-class_method" title="Numo::Linalg.blas_char (method)">blas_char</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_func'>func</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
@@ -25767,7 +25768,7 @@ blas_s_ztrmv(int argc, VALUE const argv[], VALUE UNUSED(mod))
 </div>
 
       <div id="footer">
-  Generated on Mon May 22 14:01:34 2017 by
+  Generated on Tue May 23 22:57:41 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>

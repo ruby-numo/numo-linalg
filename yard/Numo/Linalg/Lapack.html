@@ -86,6 +86,19 @@
 </div>
 
 
+  <h2>Constant Summary</h2>
+  <dl class="constants">
+    
+      <dt id="FIXNAME-constant" class="">FIXNAME =
+        
+      </dt>
+      <dd><pre class="code"><span class='lbrace'>{</span>
+ <span class='label'>corgqr:</span> <span class='symbol'>:cungqr</span><span class='comma'>,</span>
+ <span class='label'>zorgqr:</span> <span class='symbol'>:zungqr</span><span class='comma'>,</span>
+<span class='rbrace'>}</span></pre></dd>
+    
+  </dl>
+
 
 
 
@@ -178,7 +191,7 @@ Q.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#cgels-class_method" title="cgels (class method)">.<strong>cgels</strong>(a, b, [order: &#39;R&#39;])  &#x21d2; [a, b, info] </a>
+      <a href="#cgels-class_method" title="cgels (class method)">.<strong>cgels</strong>(a, b, trans: &#39;N&#39;, order: &#39;R&#39;)  &#x21d2; [a, b, info] </a>
     
 
     
@@ -204,7 +217,7 @@ factorization of A.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#cgelsd-class_method" title="cgelsd (class method)">.<strong>cgelsd</strong>(a, b, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [b, s, rank, info] </a>
+      <a href="#cgelsd-class_method" title="cgelsd (class method)">.<strong>cgelsd</strong>(a, b, rcond: -1, order: &#39;R&#39;)  &#x21d2; [b, s, rank, info] </a>
     
 
     
@@ -229,7 +242,7 @@ problem:.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#cgelss-class_method" title="cgelss (class method)">.<strong>cgelss</strong>(a, b, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [a, b, s, rank, info] </a>
+      <a href="#cgelss-class_method" title="cgelss (class method)">.<strong>cgelss</strong>(a, b, rcond: -1, order: &#39;R&#39;)  &#x21d2; [a, b, s, rank, info] </a>
     
 
     
@@ -254,7 +267,7 @@ problem: Minimize 2-norm(| b - A*x |).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#cgelsy-class_method" title="cgelsy (class method)">.<strong>cgelsy</strong>(a, b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [a, b, jpvt, rank, info] </a>
+      <a href="#cgelsy-class_method" title="cgelsy (class method)">.<strong>cgelsy</strong>(a, b, jpvt, rcond: -1, order: &#39;R&#39;)  &#x21d2; [a, b, jpvt, rank, info] </a>
     
 
     
@@ -904,6 +917,32 @@ upper triangular form by means of unitary transformations.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#cungqr-class_method" title="cungqr (class method)">.<strong>cungqr</strong>(a, tau, order: &#39;R&#39;)  &#x21d2; [a, info] </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>CUNGQR generates an M-by-N complex matrix Q with orthonormal columns, which
+is defined as the first N columns of a product of K elementary reflectors
+of order M.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#dgeev-class_method" title="dgeev (class method)">.<strong>dgeev</strong>(a, [jobvl: &#39;V&#39;, jobvr:&#39;V&#39;, order:&#39;R&#39;])  &#x21d2; [wr, wi, vl, vr, info] </a>
     
 
@@ -953,7 +992,7 @@ and, optionally, the left and/or right eigenvectors.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#dgels-class_method" title="dgels (class method)">.<strong>dgels</strong>(a, b, [order: &#39;R&#39;])  &#x21d2; [a, b, info] </a>
+      <a href="#dgels-class_method" title="dgels (class method)">.<strong>dgels</strong>(a, b, trans: &#39;N&#39;, order: &#39;R&#39;)  &#x21d2; [a, b, info] </a>
     
 
     
@@ -979,7 +1018,7 @@ factorization of A.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#dgelsd-class_method" title="dgelsd (class method)">.<strong>dgelsd</strong>(a, b, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [b, s, rank, info] </a>
+      <a href="#dgelsd-class_method" title="dgelsd (class method)">.<strong>dgelsd</strong>(a, b, rcond: -1, order: &#39;R&#39;)  &#x21d2; [b, s, rank, info] </a>
     
 
     
@@ -1004,7 +1043,7 @@ problem:.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#dgelss-class_method" title="dgelss (class method)">.<strong>dgelss</strong>(a, b, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [a, b, s, rank, info] </a>
+      <a href="#dgelss-class_method" title="dgelss (class method)">.<strong>dgelss</strong>(a, b, rcond: -1, order: &#39;R&#39;)  &#x21d2; [a, b, s, rank, info] </a>
     
 
     
@@ -1029,7 +1068,7 @@ problem: Minimize 2-norm(| b - A*x |).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#dgelsy-class_method" title="dgelsy (class method)">.<strong>dgelsy</strong>(a, b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [a, b, jpvt, rank, info] </a>
+      <a href="#dgelsy-class_method" title="dgelsy (class method)">.<strong>dgelsy</strong>(a, b, jpvt, rcond: -1, order: &#39;R&#39;)  &#x21d2; [a, b, jpvt, rank, info] </a>
     
 
     
@@ -1341,6 +1380,32 @@ infinity norm, or the element of largest absolute value of a real matrix A.</p>
 
   
     <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#dorgqr-class_method" title="dorgqr (class method)">.<strong>dorgqr</strong>(a, tau, order: &#39;R&#39;)  &#x21d2; [a, info] </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>DORGQR generates an M-by-N real matrix Q with orthonormal columns, which is
+defined as the first N columns of a product of K elementary reflectors of
+order M.</p>
+</div></span>
   
 </li>
 
@@ -1695,7 +1760,7 @@ and, optionally, the left and/or right eigenvectors.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#sgels-class_method" title="sgels (class method)">.<strong>sgels</strong>(a, b, [order: &#39;R&#39;])  &#x21d2; [a, b, info] </a>
+      <a href="#sgels-class_method" title="sgels (class method)">.<strong>sgels</strong>(a, b, trans: &#39;N&#39;, order: &#39;R&#39;)  &#x21d2; [a, b, info] </a>
     
 
     
@@ -1721,7 +1786,7 @@ factorization of A.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#sgelsd-class_method" title="sgelsd (class method)">.<strong>sgelsd</strong>(a, b, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [b, s, rank, info] </a>
+      <a href="#sgelsd-class_method" title="sgelsd (class method)">.<strong>sgelsd</strong>(a, b, rcond: -1, order: &#39;R&#39;)  &#x21d2; [b, s, rank, info] </a>
     
 
     
@@ -1746,7 +1811,7 @@ problem:.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#sgelss-class_method" title="sgelss (class method)">.<strong>sgelss</strong>(a, b, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [a, b, s, rank, info] </a>
+      <a href="#sgelss-class_method" title="sgelss (class method)">.<strong>sgelss</strong>(a, b, rcond: -1, order: &#39;R&#39;)  &#x21d2; [a, b, s, rank, info] </a>
     
 
     
@@ -1771,7 +1836,7 @@ problem: Minimize 2-norm(| b - A*x |).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#sgelsy-class_method" title="sgelsy (class method)">.<strong>sgelsy</strong>(a, b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [a, b, jpvt, rank, info] </a>
+      <a href="#sgelsy-class_method" title="sgelsy (class method)">.<strong>sgelsy</strong>(a, b, jpvt, rcond: -1, order: &#39;R&#39;)  &#x21d2; [a, b, jpvt, rank, info] </a>
     
 
     
@@ -2060,6 +2125,32 @@ eigenvectors.</p>
     <span class="summary_desc"><div class='inline'>
 <p>SLANGE returns the value of the one norm, or the Frobenius norm, or the
 infinity norm, or the element of largest absolute value of a real matrix A.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sorgqr-class_method" title="sorgqr (class method)">.<strong>sorgqr</strong>(a, tau, order: &#39;R&#39;)  &#x21d2; [a, info] </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>SORGQR generates an M-by-N real matrix Q with orthonormal columns, which is
+defined as the first N columns of a product of K elementary reflectors of
+order M.</p>
 </div></span>
   
 </li>
@@ -2394,7 +2485,7 @@ Q.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#zgels-class_method" title="zgels (class method)">.<strong>zgels</strong>(a, b, [order: &#39;R&#39;])  &#x21d2; [a, b, info] </a>
+      <a href="#zgels-class_method" title="zgels (class method)">.<strong>zgels</strong>(a, b, trans: &#39;N&#39;, order: &#39;R&#39;)  &#x21d2; [a, b, info] </a>
     
 
     
@@ -2420,7 +2511,7 @@ factorization of A.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#zgelsd-class_method" title="zgelsd (class method)">.<strong>zgelsd</strong>(a, b, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [b, s, rank, info] </a>
+      <a href="#zgelsd-class_method" title="zgelsd (class method)">.<strong>zgelsd</strong>(a, b, rcond: -1, order: &#39;R&#39;)  &#x21d2; [b, s, rank, info] </a>
     
 
     
@@ -2445,7 +2536,7 @@ problem:.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#zgelss-class_method" title="zgelss (class method)">.<strong>zgelss</strong>(a, b, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [a, b, s, rank, info] </a>
+      <a href="#zgelss-class_method" title="zgelss (class method)">.<strong>zgelss</strong>(a, b, rcond: -1, order: &#39;R&#39;)  &#x21d2; [a, b, s, rank, info] </a>
     
 
     
@@ -2470,7 +2561,7 @@ problem: Minimize 2-norm(| b - A*x |).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#zgelsy-class_method" title="zgelsy (class method)">.<strong>zgelsy</strong>(a, b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; [a, b, jpvt, rank, info] </a>
+      <a href="#zgelsy-class_method" title="zgelsy (class method)">.<strong>zgelsy</strong>(a, b, jpvt, rcond: -1, order: &#39;R&#39;)  &#x21d2; [a, b, jpvt, rank, info] </a>
     
 
     
@@ -3117,6 +3208,32 @@ upper triangular form by means of unitary transformations.</p>
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#zungqr-class_method" title="zungqr (class method)">.<strong>zungqr</strong>(a, tau, order: &#39;R&#39;)  &#x21d2; [a, info] </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>ZUNGQR generates an M-by-N complex matrix Q with orthonormal columns, which
+is defined as the first N columns of a product of K elementary reflectors
+of order M.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -3197,16 +3314,18 @@ data-types of arguments.</p>
       <pre class="lines">
 
 
-32
-33
-34
-35</pre>
+39
+40
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_func'>func</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_fn'>fn</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../Linalg.html" title="Numo::Linalg (module)">Linalg</a></span></span><span class='period'>.</span><span class='id identifier rubyid_blas_char'><span class='object_link'><a href="../Linalg.html#blas_char-class_method" title="Numo::Linalg.blas_char (method)">blas_char</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_func'>func</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+  <span class='id identifier rubyid_fn'>fn</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#FIXNAME-constant" title="Numo::Linalg::Lapack::FIXNAME (constant)">FIXNAME</a></span></span><span class='lbracket'>[</span><span class='id identifier rubyid_fn'>fn</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='id identifier rubyid_fn'>fn</span>
   <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='id identifier rubyid_fn'>fn</span><span class='comma'>,</span><span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -3563,18 +3682,6 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
       <pre class="lines">
 
 
-3729
-3730
-3731
-3732
-3733
-3734
-3735
-3736
-3737
-3738
-3739
-3740
 3741
 3742
 3743
@@ -3625,10 +3732,26 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
 3788
 3789
 3790
-3791</pre>
+3791
+3792
+3793
+3794
+3795
+3796
+3797
+3798
+3799
+3800
+3801
+3802
+3803
+3804
+3805
+3806
+3807</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3729</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3741</span>
 
 static VALUE
 lapack_s_cgelqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -3685,13 +3808,17 @@ lapack_s_cgelqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -3701,7 +3828,7 @@ lapack_s_cgelqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="cgels-class_method">
   
-    .<strong>cgels</strong>(a, b, [order: &#39;R&#39;])  &#x21d2; <tt>[a, b, info]</tt> 
+    .<strong>cgels</strong>(a, b, trans: &#39;N&#39;, order: &#39;R&#39;)  &#x21d2; <tt>[a, b, info]</tt> 
   
 
   
@@ -4074,7 +4201,7 @@ lapack_s_cgels(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="cgelsd-class_method">
   
-    .<strong>cgelsd</strong>(a, b, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[b, s, rank, info]</tt> 
+    .<strong>cgelsd</strong>(a, b, rcond: -1, order: &#39;R&#39;)  &#x21d2; <tt>[b, s, rank, info]</tt> 
   
 
   
@@ -4447,7 +4574,7 @@ lapack_s_cgelsd(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="cgelss-class_method">
   
-    .<strong>cgelss</strong>(a, b, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[a, b, s, rank, info]</tt> 
+    .<strong>cgelss</strong>(a, b, rcond: -1, order: &#39;R&#39;)  &#x21d2; <tt>[a, b, s, rank, info]</tt> 
   
 
   
@@ -4821,7 +4948,7 @@ lapack_s_cgelss(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="cgelsy-class_method">
   
-    .<strong>cgelsy</strong>(a, b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[a, b, jpvt, rank, info]</tt> 
+    .<strong>cgelsy</strong>(a, b, jpvt, rcond: -1, order: &#39;R&#39;)  &#x21d2; <tt>[a, b, jpvt, rank, info]</tt> 
   
 
   
@@ -5333,14 +5460,6 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
       <pre class="lines">
 
 
-3569
-3570
-3571
-3572
-3573
-3574
-3575
-3576
 3577
 3578
 3579
@@ -5395,10 +5514,22 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
 3628
 3629
 3630
-3631</pre>
+3631
+3632
+3633
+3634
+3635
+3636
+3637
+3638
+3639
+3640
+3641
+3642
+3643</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3569</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3577</span>
 
 static VALUE
 lapack_s_cgeqlf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -5455,13 +5586,17 @@ lapack_s_cgeqlf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -5573,22 +5708,6 @@ The scalar factors of the elementary reflectors.</p>
       <pre class="lines">
 
 
-3896
-3897
-3898
-3899
-3900
-3901
-3902
-3903
-3904
-3905
-3906
-3907
-3908
-3909
-3910
-3911
 3912
 3913
 3914
@@ -5635,10 +5754,30 @@ The scalar factors of the elementary reflectors.</p>
 3955
 3956
 3957
-3958</pre>
+3958
+3959
+3960
+3961
+3962
+3963
+3964
+3965
+3966
+3967
+3968
+3969
+3970
+3971
+3972
+3973
+3974
+3975
+3976
+3977
+3978</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3896</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3912</span>
 
 static VALUE
 lapack_s_cgeqp3(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -5695,13 +5834,17 @@ lapack_s_cgeqp3(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -5869,7 +6012,11 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
 3302
 3303
 3304
-3305</pre>
+3305
+3306
+3307
+3308
+3309</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3243</span>
@@ -5929,13 +6076,17 @@ lapack_s_cgeqrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -6043,10 +6194,6 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
       <pre class="lines">
 
 
-3406
-3407
-3408
-3409
 3410
 3411
 3412
@@ -6105,10 +6252,18 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
 3465
 3466
 3467
-3468</pre>
+3468
+3469
+3470
+3471
+3472
+3473
+3474
+3475
+3476</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3406</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 3410</span>
 
 static VALUE
 lapack_s_cgerqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -6165,13 +6320,17 @@ lapack_s_cgerqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -7309,30 +7468,6 @@ it is used  to solve a system of equations.</p>
       <pre class="lines">
 
 
-4230
-4231
-4232
-4233
-4234
-4235
-4236
-4237
-4238
-4239
-4240
-4241
-4242
-4243
-4244
-4245
-4246
-4247
-4248
-4249
-4250
-4251
-4252
-4253
 4254
 4255
 4256
@@ -7371,10 +7506,38 @@ it is used  to solve a system of equations.</p>
 4289
 4290
 4291
-4292</pre>
+4292
+4293
+4294
+4295
+4296
+4297
+4298
+4299
+4300
+4301
+4302
+4303
+4304
+4305
+4306
+4307
+4308
+4309
+4310
+4311
+4312
+4313
+4314
+4315
+4316
+4317
+4318
+4319
+4320</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4230</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4254</span>
 
 static VALUE
 lapack_s_cgetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -7431,13 +7594,17 @@ lapack_s_cgetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -7545,42 +7712,6 @@ could not be computed.</p>
       <pre class="lines">
 
 
-4742
-4743
-4744
-4745
-4746
-4747
-4748
-4749
-4750
-4751
-4752
-4753
-4754
-4755
-4756
-4757
-4758
-4759
-4760
-4761
-4762
-4763
-4764
-4765
-4766
-4767
-4768
-4769
-4770
-4771
-4772
-4773
-4774
-4775
-4776
-4777
 4778
 4779
 4780
@@ -7607,10 +7738,50 @@ could not be computed.</p>
 4801
 4802
 4803
-4804</pre>
+4804
+4805
+4806
+4807
+4808
+4809
+4810
+4811
+4812
+4813
+4814
+4815
+4816
+4817
+4818
+4819
+4820
+4821
+4822
+4823
+4824
+4825
+4826
+4827
+4828
+4829
+4830
+4831
+4832
+4833
+4834
+4835
+4836
+4837
+4838
+4839
+4840
+4841
+4842
+4843
+4844</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4742</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4778</span>
 
 static VALUE
 lapack_s_cgetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -7667,13 +7838,17 @@ lapack_s_cgetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -9441,54 +9616,6 @@ will occur if it  is used to solve a system of equations.</p>
       <pre class="lines">
 
 
-5248
-5249
-5250
-5251
-5252
-5253
-5254
-5255
-5256
-5257
-5258
-5259
-5260
-5261
-5262
-5263
-5264
-5265
-5266
-5267
-5268
-5269
-5270
-5271
-5272
-5273
-5274
-5275
-5276
-5277
-5278
-5279
-5280
-5281
-5282
-5283
-5284
-5285
-5286
-5287
-5288
-5289
-5290
-5291
-5292
-5293
-5294
-5295
 5296
 5297
 5298
@@ -9503,10 +9630,62 @@ will occur if it  is used to solve a system of equations.</p>
 5307
 5308
 5309
-5310</pre>
+5310
+5311
+5312
+5313
+5314
+5315
+5316
+5317
+5318
+5319
+5320
+5321
+5322
+5323
+5324
+5325
+5326
+5327
+5328
+5329
+5330
+5331
+5332
+5333
+5334
+5335
+5336
+5337
+5338
+5339
+5340
+5341
+5342
+5343
+5344
+5345
+5346
+5347
+5348
+5349
+5350
+5351
+5352
+5353
+5354
+5355
+5356
+5357
+5358
+5359
+5360
+5361
+5362</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 5248</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 5296</span>
 
 static VALUE
 lapack_s_chetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -9563,13 +9742,17 @@ lapack_s_chetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -9698,58 +9881,6 @@ computed.</p>
       <pre class="lines">
 
 
-5414
-5415
-5416
-5417
-5418
-5419
-5420
-5421
-5422
-5423
-5424
-5425
-5426
-5427
-5428
-5429
-5430
-5431
-5432
-5433
-5434
-5435
-5436
-5437
-5438
-5439
-5440
-5441
-5442
-5443
-5444
-5445
-5446
-5447
-5448
-5449
-5450
-5451
-5452
-5453
-5454
-5455
-5456
-5457
-5458
-5459
-5460
-5461
-5462
-5463
-5464
-5465
 5466
 5467
 5468
@@ -9760,10 +9891,66 @@ computed.</p>
 5473
 5474
 5475
-5476</pre>
+5476
+5477
+5478
+5479
+5480
+5481
+5482
+5483
+5484
+5485
+5486
+5487
+5488
+5489
+5490
+5491
+5492
+5493
+5494
+5495
+5496
+5497
+5498
+5499
+5500
+5501
+5502
+5503
+5504
+5505
+5506
+5507
+5508
+5509
+5510
+5511
+5512
+5513
+5514
+5515
+5516
+5517
+5518
+5519
+5520
+5521
+5522
+5523
+5524
+5525
+5526
+5527
+5528
+5529
+5530
+5531
+5532</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 5414</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 5466</span>
 
 static VALUE
 lapack_s_chetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -9820,13 +10007,17 @@ lapack_s_chetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -10414,38 +10605,6 @@ factorization could not be  completed.</p>
       <pre class="lines">
 
 
-4581
-4582
-4583
-4584
-4585
-4586
-4587
-4588
-4589
-4590
-4591
-4592
-4593
-4594
-4595
-4596
-4597
-4598
-4599
-4600
-4601
-4602
-4603
-4604
-4605
-4606
-4607
-4608
-4609
-4610
-4611
-4612
 4613
 4614
 4615
@@ -10476,10 +10635,46 @@ factorization could not be  completed.</p>
 4640
 4641
 4642
-4643</pre>
+4643
+4644
+4645
+4646
+4647
+4648
+4649
+4650
+4651
+4652
+4653
+4654
+4655
+4656
+4657
+4658
+4659
+4660
+4661
+4662
+4663
+4664
+4665
+4666
+4667
+4668
+4669
+4670
+4671
+4672
+4673
+4674
+4675
+4676
+4677
+4678
+4679</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4581</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4613</span>
 
 static VALUE
 lapack_s_cpotrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -10536,13 +10731,17 @@ lapack_s_cpotrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -10665,50 +10864,6 @@ could not be computed.</p>
       <pre class="lines">
 
 
-5066
-5067
-5068
-5069
-5070
-5071
-5072
-5073
-5074
-5075
-5076
-5077
-5078
-5079
-5080
-5081
-5082
-5083
-5084
-5085
-5086
-5087
-5088
-5089
-5090
-5091
-5092
-5093
-5094
-5095
-5096
-5097
-5098
-5099
-5100
-5101
-5102
-5103
-5104
-5105
-5106
-5107
-5108
-5109
 5110
 5111
 5112
@@ -10727,10 +10882,58 @@ could not be computed.</p>
 5125
 5126
 5127
-5128</pre>
+5128
+5129
+5130
+5131
+5132
+5133
+5134
+5135
+5136
+5137
+5138
+5139
+5140
+5141
+5142
+5143
+5144
+5145
+5146
+5147
+5148
+5149
+5150
+5151
+5152
+5153
+5154
+5155
+5156
+5157
+5158
+5159
+5160
+5161
+5162
+5163
+5164
+5165
+5166
+5167
+5168
+5169
+5170
+5171
+5172
+5173
+5174
+5175
+5176</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 5066</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 5110</span>
 
 static VALUE
 lapack_s_cpotri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -10787,13 +10990,17 @@ lapack_s_cpotri(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -11222,34 +11429,6 @@ will occur if it  is used to solve a system of equations.</p>
       <pre class="lines">
 
 
-4412
-4413
-4414
-4415
-4416
-4417
-4418
-4419
-4420
-4421
-4422
-4423
-4424
-4425
-4426
-4427
-4428
-4429
-4430
-4431
-4432
-4433
-4434
-4435
-4436
-4437
-4438
-4439
 4440
 4441
 4442
@@ -11284,10 +11463,42 @@ will occur if it  is used to solve a system of equations.</p>
 4471
 4472
 4473
-4474</pre>
+4474
+4475
+4476
+4477
+4478
+4479
+4480
+4481
+4482
+4483
+4484
+4485
+4486
+4487
+4488
+4489
+4490
+4491
+4492
+4493
+4494
+4495
+4496
+4497
+4498
+4499
+4500
+4501
+4502
+4503
+4504
+4505
+4506</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4412</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4440</span>
 
 static VALUE
 lapack_s_csytrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -11344,13 +11555,17 @@ lapack_s_csytrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -11479,46 +11694,6 @@ computed.</p>
       <pre class="lines">
 
 
-4908
-4909
-4910
-4911
-4912
-4913
-4914
-4915
-4916
-4917
-4918
-4919
-4920
-4921
-4922
-4923
-4924
-4925
-4926
-4927
-4928
-4929
-4930
-4931
-4932
-4933
-4934
-4935
-4936
-4937
-4938
-4939
-4940
-4941
-4942
-4943
-4944
-4945
-4946
-4947
 4948
 4949
 4950
@@ -11541,10 +11716,54 @@ computed.</p>
 4967
 4968
 4969
-4970</pre>
+4970
+4971
+4972
+4973
+4974
+4975
+4976
+4977
+4978
+4979
+4980
+4981
+4982
+4983
+4984
+4985
+4986
+4987
+4988
+4989
+4990
+4991
+4992
+4993
+4994
+4995
+4996
+4997
+4998
+4999
+5000
+5001
+5002
+5003
+5004
+5005
+5006
+5007
+5008
+5009
+5010
+5011
+5012
+5013
+5014</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4908</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4948</span>
 
 static VALUE
 lapack_s_csytri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -11601,13 +11820,17 @@ lapack_s_csytri(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -11720,26 +11943,6 @@ scalar factors of the elementary reflectors.</p>
       <pre class="lines">
 
 
-4061
-4062
-4063
-4064
-4065
-4066
-4067
-4068
-4069
-4070
-4071
-4072
-4073
-4074
-4075
-4076
-4077
-4078
-4079
-4080
 4081
 4082
 4083
@@ -11782,10 +11985,34 @@ scalar factors of the elementary reflectors.</p>
 4120
 4121
 4122
-4123</pre>
+4123
+4124
+4125
+4126
+4127
+4128
+4129
+4130
+4131
+4132
+4133
+4134
+4135
+4136
+4137
+4138
+4139
+4140
+4141
+4142
+4143
+4144
+4145
+4146
+4147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4061</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 4081</span>
 
 static VALUE
 lapack_s_ctzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -11842,13 +12069,234 @@ lapack_s_ctzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="cungqr-class_method">
+  
+    .<strong>cungqr</strong>(a, tau, order: &#39;R&#39;)  &#x21d2; <tt>[a, info]</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>CUNGQR generates an M-by-N complex matrix Q with orthonormal columns, which
+is defined as the first N columns of a product of K elementary reflectors
+of order M</p>
+
+<pre class="code"><code class="">  Q  =  H(1) H(2) . . . H(k)</code></pre>
+
+<p>as returned by CGEQRF.</p>
+
+<h3 id="label-Output+Parameters-3A">Output Parameters:</h3>
+<ul><li>
+<p><strong><em>a</em></strong> —  A is COMPLEX array, dimension (LDA,N)  On
+entry, the i-th column must contain the vector which  defines the
+elementary reflector H(i), for i = 1,2,…,k, as  returned by CGEQRF in the
+first k columns of its array  argument A.  On exit, the M-by-N matrix Q.</p>
+</li><li>
+<p><strong><em>info</em></strong> —  INFO is INTEGER  = 0: successful exit 
+&lt; 0: if INFO = -i, the i-th argument has an illegal value</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>Numo::SComplex</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>matrix (&gt;=2-dimentional NArray, inplace allowed).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>tau</span>
+      
+      
+        <span class='type'>(<tt>Numo::SComplex</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>vector (&gt;=1-dimentional NArray).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>order</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if &#39;R&#39;: Row-major, if &#39;C&#39;: Column-major.
+(default=&#39;R&#39;)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>[a, info]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Array&lt;Numo::SComplex, Integer&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+5611
+5612
+5613
+5614
+5615
+5616
+5617
+5618
+5619
+5620
+5621
+5622
+5623
+5624
+5625
+5626
+5627
+5628
+5629
+5630
+5631
+5632
+5633
+5634
+5635
+5636
+5637
+5638
+5639
+5640
+5641
+5642
+5643
+5644
+5645
+5646
+5647
+5648
+5649
+5650
+5651
+5652
+5653
+5654
+5655
+5656</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_c.c', line 5611</span>
+
+static VALUE
+lapack_s_cungqr(int argc, VALUE const argv[], VALUE UNUSED(mod))
+{
+    VALUE a, tau, ans;
+    int   m, n, k, tmp;
+    narray_t *na1, *na2;
+    ndfunc_arg_in_t ain[2] = {{OVERWRITE,2},{cT,1}};
+    ndfunc_arg_out_t aout[1] = {{cInt,0}};
+    ndfunc_t ndf = {&amp;iter_lapack_s_cungqr, NO_LOOP|NDF_EXTRACT, 2,1, ain,aout};
+
+    args_t g = {0};
+    VALUE opts[1] = {Qundef};
+    VALUE kw_hash = Qnil;
+    ID kw_table[1] = {id_order};
+
+    CHECK_FUNC(func_p,&quot;cungqr&quot;);
+
+    rb_scan_args(argc, argv, &quot;2:&quot;, &amp;a, &amp;tau, &amp;kw_hash);
+    rb_get_kwargs(kw_hash, kw_table, 0, 1, opts);
+    g.order = option_order(opts[0]);
+
+    COPY_OR_CAST_TO(a,cT);
+    GetNArray(a, na1);
+    CHECK_DIM_GE(na1, 2);
+    m = ROW_SIZE(na1);
+    n = COL_SIZE(na1);
+
+    GetNArray(tau, na2);
+    CHECK_DIM_GE(na2, 1);
+    k = COL_SIZE(na2);
+    if (m &lt; n) {
+        rb_raise(nary_eShapeError,
+                 &quot;a row length (m) must be &gt;= a column length (n): m=%d n=%d&quot;,
+                 m,n);
+    }
+    if (n &lt; k) {
+        rb_raise(nary_eShapeError,
+                 &quot;a column length (n) must be &gt;= tau length (k): n=%d, k=%d&quot;,
+                 k,n);
+    }
+    SWAP_IFCOL(g.order,m,n);
+
+    ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, tau);
+
+    return rb_assoc_new(a, ans);
 }</pre>
     </td>
   </tr>
@@ -12214,18 +12662,6 @@ Details).</p>
       <pre class="lines">
 
 
-3584
-3585
-3586
-3587
-3588
-3589
-3590
-3591
-3592
-3593
-3594
-3595
 3596
 3597
 3598
@@ -12276,10 +12712,26 @@ Details).</p>
 3643
 3644
 3645
-3646</pre>
+3646
+3647
+3648
+3649
+3650
+3651
+3652
+3653
+3654
+3655
+3656
+3657
+3658
+3659
+3660
+3661
+3662</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3584</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3596</span>
 
 static VALUE
 lapack_s_dgelqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -12336,13 +12788,17 @@ lapack_s_dgelqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -12352,7 +12808,7 @@ lapack_s_dgelqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="dgels-class_method">
   
-    .<strong>dgels</strong>(a, b, [order: &#39;R&#39;])  &#x21d2; <tt>[a, b, info]</tt> 
+    .<strong>dgels</strong>(a, b, trans: &#39;N&#39;, order: &#39;R&#39;)  &#x21d2; <tt>[a, b, info]</tt> 
   
 
   
@@ -12726,7 +13182,7 @@ lapack_s_dgels(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="dgelsd-class_method">
   
-    .<strong>dgelsd</strong>(a, b, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[b, s, rank, info]</tt> 
+    .<strong>dgelsd</strong>(a, b, rcond: -1, order: &#39;R&#39;)  &#x21d2; <tt>[b, s, rank, info]</tt> 
   
 
   
@@ -13099,7 +13555,7 @@ lapack_s_dgelsd(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="dgelss-class_method">
   
-    .<strong>dgelss</strong>(a, b, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[a, b, s, rank, info]</tt> 
+    .<strong>dgelss</strong>(a, b, rcond: -1, order: &#39;R&#39;)  &#x21d2; <tt>[a, b, s, rank, info]</tt> 
   
 
   
@@ -13472,7 +13928,7 @@ lapack_s_dgelss(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="dgelsy-class_method">
   
-    .<strong>dgelsy</strong>(a, b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[a, b, jpvt, rank, info]</tt> 
+    .<strong>dgelsy</strong>(a, b, jpvt, rcond: -1, order: &#39;R&#39;)  &#x21d2; <tt>[a, b, jpvt, rank, info]</tt> 
   
 
   
@@ -13985,14 +14441,6 @@ Details).</p>
       <pre class="lines">
 
 
-3424
-3425
-3426
-3427
-3428
-3429
-3430
-3431
 3432
 3433
 3434
@@ -14047,10 +14495,22 @@ Details).</p>
 3483
 3484
 3485
-3486</pre>
+3486
+3487
+3488
+3489
+3490
+3491
+3492
+3493
+3494
+3495
+3496
+3497
+3498</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3424</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3432</span>
 
 static VALUE
 lapack_s_dgeqlf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -14107,13 +14567,17 @@ lapack_s_dgeqlf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -14225,22 +14689,6 @@ K-th column of A.</p>
       <pre class="lines">
 
 
-3751
-3752
-3753
-3754
-3755
-3756
-3757
-3758
-3759
-3760
-3761
-3762
-3763
-3764
-3765
-3766
 3767
 3768
 3769
@@ -14287,10 +14735,30 @@ K-th column of A.</p>
 3810
 3811
 3812
-3813</pre>
+3813
+3814
+3815
+3816
+3817
+3818
+3819
+3820
+3821
+3822
+3823
+3824
+3825
+3826
+3827
+3828
+3829
+3830
+3831
+3832
+3833</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3751</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3767</span>
 
 static VALUE
 lapack_s_dgeqp3(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -14347,13 +14815,17 @@ lapack_s_dgeqp3(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -14522,7 +14994,11 @@ Details).</p>
 3157
 3158
 3159
-3160</pre>
+3160
+3161
+3162
+3163
+3164</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3098</span>
@@ -14582,13 +15058,17 @@ lapack_s_dgeqrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -14696,10 +15176,6 @@ Details).</p>
       <pre class="lines">
 
 
-3261
-3262
-3263
-3264
 3265
 3266
 3267
@@ -14758,10 +15234,18 @@ Details).</p>
 3320
 3321
 3322
-3323</pre>
+3323
+3324
+3325
+3326
+3327
+3328
+3329
+3330
+3331</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3261</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3265</span>
 
 static VALUE
 lapack_s_dgerqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -14818,13 +15302,17 @@ lapack_s_dgerqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -15963,30 +16451,6 @@ it is used  to solve a system of equations.</p>
       <pre class="lines">
 
 
-4085
-4086
-4087
-4088
-4089
-4090
-4091
-4092
-4093
-4094
-4095
-4096
-4097
-4098
-4099
-4100
-4101
-4102
-4103
-4104
-4105
-4106
-4107
-4108
 4109
 4110
 4111
@@ -16025,10 +16489,38 @@ it is used  to solve a system of equations.</p>
 4144
 4145
 4146
-4147</pre>
+4147
+4148
+4149
+4150
+4151
+4152
+4153
+4154
+4155
+4156
+4157
+4158
+4159
+4160
+4161
+4162
+4163
+4164
+4165
+4166
+4167
+4168
+4169
+4170
+4171
+4172
+4173
+4174
+4175</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4085</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4109</span>
 
 static VALUE
 lapack_s_dgetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -16085,13 +16577,17 @@ lapack_s_dgetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -16200,42 +16696,6 @@ could not be computed.</p>
       <pre class="lines">
 
 
-4597
-4598
-4599
-4600
-4601
-4602
-4603
-4604
-4605
-4606
-4607
-4608
-4609
-4610
-4611
-4612
-4613
-4614
-4615
-4616
-4617
-4618
-4619
-4620
-4621
-4622
-4623
-4624
-4625
-4626
-4627
-4628
-4629
-4630
-4631
-4632
 4633
 4634
 4635
@@ -16262,10 +16722,50 @@ could not be computed.</p>
 4656
 4657
 4658
-4659</pre>
+4659
+4660
+4661
+4662
+4663
+4664
+4665
+4666
+4667
+4668
+4669
+4670
+4671
+4672
+4673
+4674
+4675
+4676
+4677
+4678
+4679
+4680
+4681
+4682
+4683
+4684
+4685
+4686
+4687
+4688
+4689
+4690
+4691
+4692
+4693
+4694
+4695
+4696
+4697
+4698
+4699</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4597</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4633</span>
 
 static VALUE
 lapack_s_dgetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -16322,13 +16822,17 @@ lapack_s_dgetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -16895,6 +17399,224 @@ lapack_s_dlopen(int argc, VALUE *argv, VALUE mod)
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="dorgqr-class_method">
+  
+    .<strong>dorgqr</strong>(a, tau, order: &#39;R&#39;)  &#x21d2; <tt>[a, info]</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>DORGQR generates an M-by-N real matrix Q with orthonormal columns, which is
+defined as the first N columns of a product of K elementary reflectors of
+order M</p>
+
+<pre class="code"><code class="">  Q  =  H(1) H(2) . . . H(k)</code></pre>
+
+<p>as returned by DGEQRF.</p>
+
+<h3 id="label-Output+Parameters-3A">Output Parameters:</h3>
+<ul><li>
+<p><strong><em>a</em></strong> —  A is DOUBLE PRECISION array, dimension
+(LDA,N)  On entry, the i-th column must contain the vector which  defines
+the elementary reflector H(i), for i = 1,2,…,k, as  returned by DGEQRF in
+the first k columns of its array  argument A.  On exit, the M-by-N matrix
+Q.</p>
+</li><li>
+<p><strong><em>info</em></strong> —  INFO is INTEGER  = 0: successful exit 
+&lt; 0: if INFO = -i, the i-th argument has an illegal value</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>Numo::DFloat</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>matrix (&gt;=2-dimentional NArray, inplace allowed).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>tau</span>
+      
+      
+        <span class='type'>(<tt>Numo::DFloat</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>vector (&gt;=1-dimentional NArray).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>order</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if &#39;R&#39;: Row-major, if &#39;C&#39;: Column-major.
+(default=&#39;R&#39;)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>[a, info]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Array&lt;Numo::DFloat, Integer&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+5110
+5111
+5112
+5113
+5114
+5115
+5116
+5117
+5118
+5119
+5120
+5121
+5122
+5123
+5124
+5125
+5126
+5127
+5128
+5129
+5130
+5131
+5132
+5133
+5134
+5135
+5136
+5137
+5138
+5139
+5140
+5141
+5142
+5143
+5144
+5145
+5146
+5147
+5148
+5149
+5150
+5151
+5152
+5153
+5154
+5155</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 5110</span>
+
+static VALUE
+lapack_s_dorgqr(int argc, VALUE const argv[], VALUE UNUSED(mod))
+{
+    VALUE a, tau, ans;
+    int   m, n, k, tmp;
+    narray_t *na1, *na2;
+    ndfunc_arg_in_t ain[2] = {{OVERWRITE,2},{cT,1}};
+    ndfunc_arg_out_t aout[1] = {{cInt,0}};
+    ndfunc_t ndf = {&amp;iter_lapack_s_dorgqr, NO_LOOP|NDF_EXTRACT, 2,1, ain,aout};
+
+    args_t g = {0};
+    VALUE opts[1] = {Qundef};
+    VALUE kw_hash = Qnil;
+    ID kw_table[1] = {id_order};
+
+    CHECK_FUNC(func_p,&quot;dorgqr&quot;);
+
+    rb_scan_args(argc, argv, &quot;2:&quot;, &amp;a, &amp;tau, &amp;kw_hash);
+    rb_get_kwargs(kw_hash, kw_table, 0, 1, opts);
+    g.order = option_order(opts[0]);
+
+    COPY_OR_CAST_TO(a,cT);
+    GetNArray(a, na1);
+    CHECK_DIM_GE(na1, 2);
+    m = ROW_SIZE(na1);
+    n = COL_SIZE(na1);
+
+    GetNArray(tau, na2);
+    CHECK_DIM_GE(na2, 1);
+    k = COL_SIZE(na2);
+    if (m &lt; n) {
+        rb_raise(nary_eShapeError,
+                 &quot;a row length (m) must be &gt;= a column length (n): m=%d n=%d&quot;,
+                 m,n);
+    }
+    if (n &lt; k) {
+        rb_raise(nary_eShapeError,
+                 &quot;a column length (n) must be &gt;= tau length (k): n=%d, k=%d&quot;,
+                 k,n);
+    }
+    SWAP_IFCOL(g.order,m,n);
+
+    ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, tau);
+
+    return rb_assoc_new(a, ans);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="dposv-class_method">
   
     .<strong>dposv</strong>(a, b, [uplo: &#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, b, info]</tt> 
@@ -17293,38 +18015,6 @@ factorization could not be  completed.</p>
       <pre class="lines">
 
 
-4436
-4437
-4438
-4439
-4440
-4441
-4442
-4443
-4444
-4445
-4446
-4447
-4448
-4449
-4450
-4451
-4452
-4453
-4454
-4455
-4456
-4457
-4458
-4459
-4460
-4461
-4462
-4463
-4464
-4465
-4466
-4467
 4468
 4469
 4470
@@ -17355,10 +18045,46 @@ factorization could not be  completed.</p>
 4495
 4496
 4497
-4498</pre>
+4498
+4499
+4500
+4501
+4502
+4503
+4504
+4505
+4506
+4507
+4508
+4509
+4510
+4511
+4512
+4513
+4514
+4515
+4516
+4517
+4518
+4519
+4520
+4521
+4522
+4523
+4524
+4525
+4526
+4527
+4528
+4529
+4530
+4531
+4532
+4533
+4534</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4436</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4468</span>
 
 static VALUE
 lapack_s_dpotrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -17415,13 +18141,17 @@ lapack_s_dpotrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -17544,50 +18274,6 @@ could not be computed.</p>
       <pre class="lines">
 
 
-4921
-4922
-4923
-4924
-4925
-4926
-4927
-4928
-4929
-4930
-4931
-4932
-4933
-4934
-4935
-4936
-4937
-4938
-4939
-4940
-4941
-4942
-4943
-4944
-4945
-4946
-4947
-4948
-4949
-4950
-4951
-4952
-4953
-4954
-4955
-4956
-4957
-4958
-4959
-4960
-4961
-4962
-4963
-4964
 4965
 4966
 4967
@@ -17606,10 +18292,58 @@ could not be computed.</p>
 4980
 4981
 4982
-4983</pre>
+4983
+4984
+4985
+4986
+4987
+4988
+4989
+4990
+4991
+4992
+4993
+4994
+4995
+4996
+4997
+4998
+4999
+5000
+5001
+5002
+5003
+5004
+5005
+5006
+5007
+5008
+5009
+5010
+5011
+5012
+5013
+5014
+5015
+5016
+5017
+5018
+5019
+5020
+5021
+5022
+5023
+5024
+5025
+5026
+5027
+5028
+5029
+5030
+5031</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4921</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4965</span>
 
 static VALUE
 lapack_s_dpotri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -17666,13 +18400,17 @@ lapack_s_dpotri(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -19148,34 +19886,6 @@ will occur if it  is used to solve a system of equations.</p>
       <pre class="lines">
 
 
-4267
-4268
-4269
-4270
-4271
-4272
-4273
-4274
-4275
-4276
-4277
-4278
-4279
-4280
-4281
-4282
-4283
-4284
-4285
-4286
-4287
-4288
-4289
-4290
-4291
-4292
-4293
-4294
 4295
 4296
 4297
@@ -19210,10 +19920,42 @@ will occur if it  is used to solve a system of equations.</p>
 4326
 4327
 4328
-4329</pre>
+4329
+4330
+4331
+4332
+4333
+4334
+4335
+4336
+4337
+4338
+4339
+4340
+4341
+4342
+4343
+4344
+4345
+4346
+4347
+4348
+4349
+4350
+4351
+4352
+4353
+4354
+4355
+4356
+4357
+4358
+4359
+4360
+4361</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4267</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4295</span>
 
 static VALUE
 lapack_s_dsytrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -19270,13 +20012,17 @@ lapack_s_dsytrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -19405,46 +20151,6 @@ computed.</p>
       <pre class="lines">
 
 
-4763
-4764
-4765
-4766
-4767
-4768
-4769
-4770
-4771
-4772
-4773
-4774
-4775
-4776
-4777
-4778
-4779
-4780
-4781
-4782
-4783
-4784
-4785
-4786
-4787
-4788
-4789
-4790
-4791
-4792
-4793
-4794
-4795
-4796
-4797
-4798
-4799
-4800
-4801
-4802
 4803
 4804
 4805
@@ -19467,10 +20173,54 @@ computed.</p>
 4822
 4823
 4824
-4825</pre>
+4825
+4826
+4827
+4828
+4829
+4830
+4831
+4832
+4833
+4834
+4835
+4836
+4837
+4838
+4839
+4840
+4841
+4842
+4843
+4844
+4845
+4846
+4847
+4848
+4849
+4850
+4851
+4852
+4853
+4854
+4855
+4856
+4857
+4858
+4859
+4860
+4861
+4862
+4863
+4864
+4865
+4866
+4867
+4868
+4869</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4763</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 4803</span>
 
 static VALUE
 lapack_s_dsytri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -19527,13 +20277,17 @@ lapack_s_dsytri(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -19646,26 +20400,6 @@ the  orthogonal matrix Z as a product of M elementary reflectors.</p>
       <pre class="lines">
 
 
-3916
-3917
-3918
-3919
-3920
-3921
-3922
-3923
-3924
-3925
-3926
-3927
-3928
-3929
-3930
-3931
-3932
-3933
-3934
-3935
 3936
 3937
 3938
@@ -19708,10 +20442,34 @@ the  orthogonal matrix Z as a product of M elementary reflectors.</p>
 3975
 3976
 3977
-3978</pre>
+3978
+3979
+3980
+3981
+3982
+3983
+3984
+3985
+3986
+3987
+3988
+3989
+3990
+3991
+3992
+3993
+3994
+3995
+3996
+3997
+3998
+3999
+4000
+4001
+4002</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3916</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_d.c', line 3936</span>
 
 static VALUE
 lapack_s_dtzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -19768,13 +20526,17 @@ lapack_s_dtzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -20194,18 +20956,6 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
       <pre class="lines">
 
 
-3584
-3585
-3586
-3587
-3588
-3589
-3590
-3591
-3592
-3593
-3594
-3595
 3596
 3597
 3598
@@ -20256,10 +21006,26 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
 3643
 3644
 3645
-3646</pre>
+3646
+3647
+3648
+3649
+3650
+3651
+3652
+3653
+3654
+3655
+3656
+3657
+3658
+3659
+3660
+3661
+3662</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3584</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3596</span>
 
 static VALUE
 lapack_s_sgelqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -20316,13 +21082,17 @@ lapack_s_sgelqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -20332,7 +21102,7 @@ lapack_s_sgelqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="sgels-class_method">
   
-    .<strong>sgels</strong>(a, b, [order: &#39;R&#39;])  &#x21d2; <tt>[a, b, info]</tt> 
+    .<strong>sgels</strong>(a, b, trans: &#39;N&#39;, order: &#39;R&#39;)  &#x21d2; <tt>[a, b, info]</tt> 
   
 
   
@@ -20705,7 +21475,7 @@ lapack_s_sgels(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="sgelsd-class_method">
   
-    .<strong>sgelsd</strong>(a, b, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[b, s, rank, info]</tt> 
+    .<strong>sgelsd</strong>(a, b, rcond: -1, order: &#39;R&#39;)  &#x21d2; <tt>[b, s, rank, info]</tt> 
   
 
   
@@ -21078,7 +21848,7 @@ lapack_s_sgelsd(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="sgelss-class_method">
   
-    .<strong>sgelss</strong>(a, b, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[a, b, s, rank, info]</tt> 
+    .<strong>sgelss</strong>(a, b, rcond: -1, order: &#39;R&#39;)  &#x21d2; <tt>[a, b, s, rank, info]</tt> 
   
 
   
@@ -21451,7 +22221,7 @@ lapack_s_sgelss(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="sgelsy-class_method">
   
-    .<strong>sgelsy</strong>(a, b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[a, b, jpvt, rank, info]</tt> 
+    .<strong>sgelsy</strong>(a, b, jpvt, rcond: -1, order: &#39;R&#39;)  &#x21d2; <tt>[a, b, jpvt, rank, info]</tt> 
   
 
   
@@ -21963,14 +22733,6 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
       <pre class="lines">
 
 
-3424
-3425
-3426
-3427
-3428
-3429
-3430
-3431
 3432
 3433
 3434
@@ -22025,10 +22787,22 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
 3483
 3484
 3485
-3486</pre>
+3486
+3487
+3488
+3489
+3490
+3491
+3492
+3493
+3494
+3495
+3496
+3497
+3498</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3424</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3432</span>
 
 static VALUE
 lapack_s_sgeqlf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -22085,13 +22859,17 @@ lapack_s_sgeqlf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -22203,22 +22981,6 @@ The scalar factors of the elementary reflectors.</p>
       <pre class="lines">
 
 
-3751
-3752
-3753
-3754
-3755
-3756
-3757
-3758
-3759
-3760
-3761
-3762
-3763
-3764
-3765
-3766
 3767
 3768
 3769
@@ -22265,10 +23027,30 @@ The scalar factors of the elementary reflectors.</p>
 3810
 3811
 3812
-3813</pre>
+3813
+3814
+3815
+3816
+3817
+3818
+3819
+3820
+3821
+3822
+3823
+3824
+3825
+3826
+3827
+3828
+3829
+3830
+3831
+3832
+3833</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3751</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3767</span>
 
 static VALUE
 lapack_s_sgeqp3(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -22325,13 +23107,17 @@ lapack_s_sgeqp3(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -22499,7 +23285,11 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
 3157
 3158
 3159
-3160</pre>
+3160
+3161
+3162
+3163
+3164</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3098</span>
@@ -22559,13 +23349,17 @@ lapack_s_sgeqrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -22672,10 +23466,6 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
       <pre class="lines">
 
 
-3261
-3262
-3263
-3264
 3265
 3266
 3267
@@ -22734,10 +23524,18 @@ The scalar factors of the elementary reflectors (see Further  Details).</p>
 3320
 3321
 3322
-3323</pre>
+3323
+3324
+3325
+3326
+3327
+3328
+3329
+3330
+3331</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3261</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3265</span>
 
 static VALUE
 lapack_s_sgerqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -22794,13 +23592,17 @@ lapack_s_sgerqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -23939,30 +24741,6 @@ it is used  to solve a system of equations.</p>
       <pre class="lines">
 
 
-4085
-4086
-4087
-4088
-4089
-4090
-4091
-4092
-4093
-4094
-4095
-4096
-4097
-4098
-4099
-4100
-4101
-4102
-4103
-4104
-4105
-4106
-4107
-4108
 4109
 4110
 4111
@@ -24001,10 +24779,38 @@ it is used  to solve a system of equations.</p>
 4144
 4145
 4146
-4147</pre>
+4147
+4148
+4149
+4150
+4151
+4152
+4153
+4154
+4155
+4156
+4157
+4158
+4159
+4160
+4161
+4162
+4163
+4164
+4165
+4166
+4167
+4168
+4169
+4170
+4171
+4172
+4173
+4174
+4175</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4085</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4109</span>
 
 static VALUE
 lapack_s_sgetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -24061,13 +24867,17 @@ lapack_s_sgetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -24175,42 +24985,6 @@ could not be computed.</p>
       <pre class="lines">
 
 
-4597
-4598
-4599
-4600
-4601
-4602
-4603
-4604
-4605
-4606
-4607
-4608
-4609
-4610
-4611
-4612
-4613
-4614
-4615
-4616
-4617
-4618
-4619
-4620
-4621
-4622
-4623
-4624
-4625
-4626
-4627
-4628
-4629
-4630
-4631
-4632
 4633
 4634
 4635
@@ -24237,10 +25011,50 @@ could not be computed.</p>
 4656
 4657
 4658
-4659</pre>
+4659
+4660
+4661
+4662
+4663
+4664
+4665
+4666
+4667
+4668
+4669
+4670
+4671
+4672
+4673
+4674
+4675
+4676
+4677
+4678
+4679
+4680
+4681
+4682
+4683
+4684
+4685
+4686
+4687
+4688
+4689
+4690
+4691
+4692
+4693
+4694
+4695
+4696
+4697
+4698
+4699</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4597</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4633</span>
 
 static VALUE
 lapack_s_sgetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -24297,13 +25111,17 @@ lapack_s_sgetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -24796,6 +25614,223 @@ lapack_s_slange(int argc, VALUE const argv[], VALUE UNUSED(mod))
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="sorgqr-class_method">
+  
+    .<strong>sorgqr</strong>(a, tau, order: &#39;R&#39;)  &#x21d2; <tt>[a, info]</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>SORGQR generates an M-by-N real matrix Q with orthonormal columns, which is
+defined as the first N columns of a product of K elementary reflectors of
+order M</p>
+
+<pre class="code"><code class="">  Q  =  H(1) H(2) . . . H(k)</code></pre>
+
+<p>as returned by SGEQRF.</p>
+
+<h3 id="label-Output+Parameters-3A">Output Parameters:</h3>
+<ul><li>
+<p><strong><em>a</em></strong> —  A is REAL array, dimension (LDA,N)  On
+entry, the i-th column must contain the vector which  defines the
+elementary reflector H(i), for i = 1,2,…,k, as  returned by SGEQRF in the
+first k columns of its array  argument A.  On exit, the M-by-N matrix Q.</p>
+</li><li>
+<p><strong><em>info</em></strong> —  INFO is INTEGER  = 0: successful exit 
+&lt; 0: if INFO = -i, the i-th argument has an illegal value</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>Numo::SFloat</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>matrix (&gt;=2-dimentional NArray, inplace allowed).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>tau</span>
+      
+      
+        <span class='type'>(<tt>Numo::SFloat</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>vector (&gt;=1-dimentional NArray).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>order</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if &#39;R&#39;: Row-major, if &#39;C&#39;: Column-major.
+(default=&#39;R&#39;)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>[a, info]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Array&lt;Numo::SFloat, Integer&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+5110
+5111
+5112
+5113
+5114
+5115
+5116
+5117
+5118
+5119
+5120
+5121
+5122
+5123
+5124
+5125
+5126
+5127
+5128
+5129
+5130
+5131
+5132
+5133
+5134
+5135
+5136
+5137
+5138
+5139
+5140
+5141
+5142
+5143
+5144
+5145
+5146
+5147
+5148
+5149
+5150
+5151
+5152
+5153
+5154
+5155</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 5110</span>
+
+static VALUE
+lapack_s_sorgqr(int argc, VALUE const argv[], VALUE UNUSED(mod))
+{
+    VALUE a, tau, ans;
+    int   m, n, k, tmp;
+    narray_t *na1, *na2;
+    ndfunc_arg_in_t ain[2] = {{OVERWRITE,2},{cT,1}};
+    ndfunc_arg_out_t aout[1] = {{cInt,0}};
+    ndfunc_t ndf = {&amp;iter_lapack_s_sorgqr, NO_LOOP|NDF_EXTRACT, 2,1, ain,aout};
+
+    args_t g = {0};
+    VALUE opts[1] = {Qundef};
+    VALUE kw_hash = Qnil;
+    ID kw_table[1] = {id_order};
+
+    CHECK_FUNC(func_p,&quot;sorgqr&quot;);
+
+    rb_scan_args(argc, argv, &quot;2:&quot;, &amp;a, &amp;tau, &amp;kw_hash);
+    rb_get_kwargs(kw_hash, kw_table, 0, 1, opts);
+    g.order = option_order(opts[0]);
+
+    COPY_OR_CAST_TO(a,cT);
+    GetNArray(a, na1);
+    CHECK_DIM_GE(na1, 2);
+    m = ROW_SIZE(na1);
+    n = COL_SIZE(na1);
+
+    GetNArray(tau, na2);
+    CHECK_DIM_GE(na2, 1);
+    k = COL_SIZE(na2);
+    if (m &lt; n) {
+        rb_raise(nary_eShapeError,
+                 &quot;a row length (m) must be &gt;= a column length (n): m=%d n=%d&quot;,
+                 m,n);
+    }
+    if (n &lt; k) {
+        rb_raise(nary_eShapeError,
+                 &quot;a column length (n) must be &gt;= tau length (k): n=%d, k=%d&quot;,
+                 k,n);
+    }
+    SWAP_IFCOL(g.order,m,n);
+
+    ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, tau);
+
+    return rb_assoc_new(a, ans);
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="sposv-class_method">
   
     .<strong>sposv</strong>(a, b, [uplo: &#39;U&#39;, order:&#39;R&#39;])  &#x21d2; <tt>[a, b, info]</tt> 
@@ -25192,38 +26227,6 @@ factorization could not be  completed.</p>
       <pre class="lines">
 
 
-4436
-4437
-4438
-4439
-4440
-4441
-4442
-4443
-4444
-4445
-4446
-4447
-4448
-4449
-4450
-4451
-4452
-4453
-4454
-4455
-4456
-4457
-4458
-4459
-4460
-4461
-4462
-4463
-4464
-4465
-4466
-4467
 4468
 4469
 4470
@@ -25254,10 +26257,46 @@ factorization could not be  completed.</p>
 4495
 4496
 4497
-4498</pre>
+4498
+4499
+4500
+4501
+4502
+4503
+4504
+4505
+4506
+4507
+4508
+4509
+4510
+4511
+4512
+4513
+4514
+4515
+4516
+4517
+4518
+4519
+4520
+4521
+4522
+4523
+4524
+4525
+4526
+4527
+4528
+4529
+4530
+4531
+4532
+4533
+4534</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4436</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4468</span>
 
 static VALUE
 lapack_s_spotrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -25314,13 +26353,17 @@ lapack_s_spotrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -25443,50 +26486,6 @@ could not be computed.</p>
       <pre class="lines">
 
 
-4921
-4922
-4923
-4924
-4925
-4926
-4927
-4928
-4929
-4930
-4931
-4932
-4933
-4934
-4935
-4936
-4937
-4938
-4939
-4940
-4941
-4942
-4943
-4944
-4945
-4946
-4947
-4948
-4949
-4950
-4951
-4952
-4953
-4954
-4955
-4956
-4957
-4958
-4959
-4960
-4961
-4962
-4963
-4964
 4965
 4966
 4967
@@ -25505,10 +26504,58 @@ could not be computed.</p>
 4980
 4981
 4982
-4983</pre>
+4983
+4984
+4985
+4986
+4987
+4988
+4989
+4990
+4991
+4992
+4993
+4994
+4995
+4996
+4997
+4998
+4999
+5000
+5001
+5002
+5003
+5004
+5005
+5006
+5007
+5008
+5009
+5010
+5011
+5012
+5013
+5014
+5015
+5016
+5017
+5018
+5019
+5020
+5021
+5022
+5023
+5024
+5025
+5026
+5027
+5028
+5029
+5030
+5031</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4921</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4965</span>
 
 static VALUE
 lapack_s_spotri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -25565,13 +26612,17 @@ lapack_s_spotri(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -27047,34 +28098,6 @@ will occur if it  is used to solve a system of equations.</p>
       <pre class="lines">
 
 
-4267
-4268
-4269
-4270
-4271
-4272
-4273
-4274
-4275
-4276
-4277
-4278
-4279
-4280
-4281
-4282
-4283
-4284
-4285
-4286
-4287
-4288
-4289
-4290
-4291
-4292
-4293
-4294
 4295
 4296
 4297
@@ -27109,10 +28132,42 @@ will occur if it  is used to solve a system of equations.</p>
 4326
 4327
 4328
-4329</pre>
+4329
+4330
+4331
+4332
+4333
+4334
+4335
+4336
+4337
+4338
+4339
+4340
+4341
+4342
+4343
+4344
+4345
+4346
+4347
+4348
+4349
+4350
+4351
+4352
+4353
+4354
+4355
+4356
+4357
+4358
+4359
+4360
+4361</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4267</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4295</span>
 
 static VALUE
 lapack_s_ssytrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -27169,13 +28224,17 @@ lapack_s_ssytrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -27304,46 +28363,6 @@ computed.</p>
       <pre class="lines">
 
 
-4763
-4764
-4765
-4766
-4767
-4768
-4769
-4770
-4771
-4772
-4773
-4774
-4775
-4776
-4777
-4778
-4779
-4780
-4781
-4782
-4783
-4784
-4785
-4786
-4787
-4788
-4789
-4790
-4791
-4792
-4793
-4794
-4795
-4796
-4797
-4798
-4799
-4800
-4801
-4802
 4803
 4804
 4805
@@ -27366,10 +28385,54 @@ computed.</p>
 4822
 4823
 4824
-4825</pre>
+4825
+4826
+4827
+4828
+4829
+4830
+4831
+4832
+4833
+4834
+4835
+4836
+4837
+4838
+4839
+4840
+4841
+4842
+4843
+4844
+4845
+4846
+4847
+4848
+4849
+4850
+4851
+4852
+4853
+4854
+4855
+4856
+4857
+4858
+4859
+4860
+4861
+4862
+4863
+4864
+4865
+4866
+4867
+4868
+4869</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4763</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 4803</span>
 
 static VALUE
 lapack_s_ssytri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -27426,13 +28489,17 @@ lapack_s_ssytri(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -27545,26 +28612,6 @@ scalar factors of the elementary reflectors.</p>
       <pre class="lines">
 
 
-3916
-3917
-3918
-3919
-3920
-3921
-3922
-3923
-3924
-3925
-3926
-3927
-3928
-3929
-3930
-3931
-3932
-3933
-3934
-3935
 3936
 3937
 3938
@@ -27607,10 +28654,34 @@ scalar factors of the elementary reflectors.</p>
 3975
 3976
 3977
-3978</pre>
+3978
+3979
+3980
+3981
+3982
+3983
+3984
+3985
+3986
+3987
+3988
+3989
+3990
+3991
+3992
+3993
+3994
+3995
+3996
+3997
+3998
+3999
+4000
+4001
+4002</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3916</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_s.c', line 3936</span>
 
 static VALUE
 lapack_s_stzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -27667,13 +28738,17 @@ lapack_s_stzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -28030,18 +29105,6 @@ Details).</p>
       <pre class="lines">
 
 
-3729
-3730
-3731
-3732
-3733
-3734
-3735
-3736
-3737
-3738
-3739
-3740
 3741
 3742
 3743
@@ -28092,10 +29155,26 @@ Details).</p>
 3788
 3789
 3790
-3791</pre>
+3791
+3792
+3793
+3794
+3795
+3796
+3797
+3798
+3799
+3800
+3801
+3802
+3803
+3804
+3805
+3806
+3807</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3729</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3741</span>
 
 static VALUE
 lapack_s_zgelqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -28152,13 +29231,17 @@ lapack_s_zgelqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -28168,7 +29251,7 @@ lapack_s_zgelqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="zgels-class_method">
   
-    .<strong>zgels</strong>(a, b, [order: &#39;R&#39;])  &#x21d2; <tt>[a, b, info]</tt> 
+    .<strong>zgels</strong>(a, b, trans: &#39;N&#39;, order: &#39;R&#39;)  &#x21d2; <tt>[a, b, info]</tt> 
   
 
   
@@ -28541,7 +29624,7 @@ lapack_s_zgels(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="zgelsd-class_method">
   
-    .<strong>zgelsd</strong>(a, b, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[b, s, rank, info]</tt> 
+    .<strong>zgelsd</strong>(a, b, rcond: -1, order: &#39;R&#39;)  &#x21d2; <tt>[b, s, rank, info]</tt> 
   
 
   
@@ -28914,7 +29997,7 @@ lapack_s_zgelsd(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="zgelss-class_method">
   
-    .<strong>zgelss</strong>(a, b, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[a, b, s, rank, info]</tt> 
+    .<strong>zgelss</strong>(a, b, rcond: -1, order: &#39;R&#39;)  &#x21d2; <tt>[a, b, s, rank, info]</tt> 
   
 
   
@@ -29288,7 +30371,7 @@ lapack_s_zgelss(int argc, VALUE const argv[], VALUE UNUSED(mod))
       <div class="method_details ">
   <h3 class="signature " id="zgelsy-class_method">
   
-    .<strong>zgelsy</strong>(a, b, jpvt, [rcond: -1, order:&#39;R&#39;])  &#x21d2; <tt>[a, b, jpvt, rank, info]</tt> 
+    .<strong>zgelsy</strong>(a, b, jpvt, rcond: -1, order: &#39;R&#39;)  &#x21d2; <tt>[a, b, jpvt, rank, info]</tt> 
   
 
   
@@ -29801,14 +30884,6 @@ Details).</p>
       <pre class="lines">
 
 
-3569
-3570
-3571
-3572
-3573
-3574
-3575
-3576
 3577
 3578
 3579
@@ -29863,10 +30938,22 @@ Details).</p>
 3628
 3629
 3630
-3631</pre>
+3631
+3632
+3633
+3634
+3635
+3636
+3637
+3638
+3639
+3640
+3641
+3642
+3643</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3569</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3577</span>
 
 static VALUE
 lapack_s_zgeqlf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -29923,13 +31010,17 @@ lapack_s_zgeqlf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -30041,22 +31132,6 @@ K-th column of A.</p>
       <pre class="lines">
 
 
-3896
-3897
-3898
-3899
-3900
-3901
-3902
-3903
-3904
-3905
-3906
-3907
-3908
-3909
-3910
-3911
 3912
 3913
 3914
@@ -30103,10 +31178,30 @@ K-th column of A.</p>
 3955
 3956
 3957
-3958</pre>
+3958
+3959
+3960
+3961
+3962
+3963
+3964
+3965
+3966
+3967
+3968
+3969
+3970
+3971
+3972
+3973
+3974
+3975
+3976
+3977
+3978</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3896</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3912</span>
 
 static VALUE
 lapack_s_zgeqp3(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -30163,13 +31258,17 @@ lapack_s_zgeqp3(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -30338,7 +31437,11 @@ Details).</p>
 3302
 3303
 3304
-3305</pre>
+3305
+3306
+3307
+3308
+3309</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3243</span>
@@ -30398,13 +31501,17 @@ lapack_s_zgeqrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -30513,10 +31620,6 @@ Details).</p>
       <pre class="lines">
 
 
-3406
-3407
-3408
-3409
 3410
 3411
 3412
@@ -30575,10 +31678,18 @@ Details).</p>
 3465
 3466
 3467
-3468</pre>
+3468
+3469
+3470
+3471
+3472
+3473
+3474
+3475
+3476</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3406</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 3410</span>
 
 static VALUE
 lapack_s_zgerqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -30635,13 +31746,17 @@ lapack_s_zgerqf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -31779,30 +32894,6 @@ it is used  to solve a system of equations.</p>
       <pre class="lines">
 
 
-4230
-4231
-4232
-4233
-4234
-4235
-4236
-4237
-4238
-4239
-4240
-4241
-4242
-4243
-4244
-4245
-4246
-4247
-4248
-4249
-4250
-4251
-4252
-4253
 4254
 4255
 4256
@@ -31841,10 +32932,38 @@ it is used  to solve a system of equations.</p>
 4289
 4290
 4291
-4292</pre>
+4292
+4293
+4294
+4295
+4296
+4297
+4298
+4299
+4300
+4301
+4302
+4303
+4304
+4305
+4306
+4307
+4308
+4309
+4310
+4311
+4312
+4313
+4314
+4315
+4316
+4317
+4318
+4319
+4320</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4230</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4254</span>
 
 static VALUE
 lapack_s_zgetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -31901,13 +33020,17 @@ lapack_s_zgetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -32015,42 +33138,6 @@ could not be computed.</p>
       <pre class="lines">
 
 
-4742
-4743
-4744
-4745
-4746
-4747
-4748
-4749
-4750
-4751
-4752
-4753
-4754
-4755
-4756
-4757
-4758
-4759
-4760
-4761
-4762
-4763
-4764
-4765
-4766
-4767
-4768
-4769
-4770
-4771
-4772
-4773
-4774
-4775
-4776
-4777
 4778
 4779
 4780
@@ -32077,10 +33164,50 @@ could not be computed.</p>
 4801
 4802
 4803
-4804</pre>
+4804
+4805
+4806
+4807
+4808
+4809
+4810
+4811
+4812
+4813
+4814
+4815
+4816
+4817
+4818
+4819
+4820
+4821
+4822
+4823
+4824
+4825
+4826
+4827
+4828
+4829
+4830
+4831
+4832
+4833
+4834
+4835
+4836
+4837
+4838
+4839
+4840
+4841
+4842
+4843
+4844</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4742</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4778</span>
 
 static VALUE
 lapack_s_zgetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -32137,13 +33264,17 @@ lapack_s_zgetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -33911,54 +35042,6 @@ will occur if it  is used to solve a system of equations.</p>
       <pre class="lines">
 
 
-5248
-5249
-5250
-5251
-5252
-5253
-5254
-5255
-5256
-5257
-5258
-5259
-5260
-5261
-5262
-5263
-5264
-5265
-5266
-5267
-5268
-5269
-5270
-5271
-5272
-5273
-5274
-5275
-5276
-5277
-5278
-5279
-5280
-5281
-5282
-5283
-5284
-5285
-5286
-5287
-5288
-5289
-5290
-5291
-5292
-5293
-5294
-5295
 5296
 5297
 5298
@@ -33973,10 +35056,62 @@ will occur if it  is used to solve a system of equations.</p>
 5307
 5308
 5309
-5310</pre>
+5310
+5311
+5312
+5313
+5314
+5315
+5316
+5317
+5318
+5319
+5320
+5321
+5322
+5323
+5324
+5325
+5326
+5327
+5328
+5329
+5330
+5331
+5332
+5333
+5334
+5335
+5336
+5337
+5338
+5339
+5340
+5341
+5342
+5343
+5344
+5345
+5346
+5347
+5348
+5349
+5350
+5351
+5352
+5353
+5354
+5355
+5356
+5357
+5358
+5359
+5360
+5361
+5362</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 5248</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 5296</span>
 
 static VALUE
 lapack_s_zhetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -34033,13 +35168,17 @@ lapack_s_zhetrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -34168,58 +35307,6 @@ computed.</p>
       <pre class="lines">
 
 
-5414
-5415
-5416
-5417
-5418
-5419
-5420
-5421
-5422
-5423
-5424
-5425
-5426
-5427
-5428
-5429
-5430
-5431
-5432
-5433
-5434
-5435
-5436
-5437
-5438
-5439
-5440
-5441
-5442
-5443
-5444
-5445
-5446
-5447
-5448
-5449
-5450
-5451
-5452
-5453
-5454
-5455
-5456
-5457
-5458
-5459
-5460
-5461
-5462
-5463
-5464
-5465
 5466
 5467
 5468
@@ -34230,10 +35317,66 @@ computed.</p>
 5473
 5474
 5475
-5476</pre>
+5476
+5477
+5478
+5479
+5480
+5481
+5482
+5483
+5484
+5485
+5486
+5487
+5488
+5489
+5490
+5491
+5492
+5493
+5494
+5495
+5496
+5497
+5498
+5499
+5500
+5501
+5502
+5503
+5504
+5505
+5506
+5507
+5508
+5509
+5510
+5511
+5512
+5513
+5514
+5515
+5516
+5517
+5518
+5519
+5520
+5521
+5522
+5523
+5524
+5525
+5526
+5527
+5528
+5529
+5530
+5531
+5532</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 5414</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 5466</span>
 
 static VALUE
 lapack_s_zhetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -34290,13 +35433,17 @@ lapack_s_zhetri(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -34884,38 +36031,6 @@ factorization could not be  completed.</p>
       <pre class="lines">
 
 
-4581
-4582
-4583
-4584
-4585
-4586
-4587
-4588
-4589
-4590
-4591
-4592
-4593
-4594
-4595
-4596
-4597
-4598
-4599
-4600
-4601
-4602
-4603
-4604
-4605
-4606
-4607
-4608
-4609
-4610
-4611
-4612
 4613
 4614
 4615
@@ -34946,10 +36061,46 @@ factorization could not be  completed.</p>
 4640
 4641
 4642
-4643</pre>
+4643
+4644
+4645
+4646
+4647
+4648
+4649
+4650
+4651
+4652
+4653
+4654
+4655
+4656
+4657
+4658
+4659
+4660
+4661
+4662
+4663
+4664
+4665
+4666
+4667
+4668
+4669
+4670
+4671
+4672
+4673
+4674
+4675
+4676
+4677
+4678
+4679</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4581</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4613</span>
 
 static VALUE
 lapack_s_zpotrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -35006,13 +36157,17 @@ lapack_s_zpotrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -35135,50 +36290,6 @@ could not be computed.</p>
       <pre class="lines">
 
 
-5066
-5067
-5068
-5069
-5070
-5071
-5072
-5073
-5074
-5075
-5076
-5077
-5078
-5079
-5080
-5081
-5082
-5083
-5084
-5085
-5086
-5087
-5088
-5089
-5090
-5091
-5092
-5093
-5094
-5095
-5096
-5097
-5098
-5099
-5100
-5101
-5102
-5103
-5104
-5105
-5106
-5107
-5108
-5109
 5110
 5111
 5112
@@ -35197,10 +36308,58 @@ could not be computed.</p>
 5125
 5126
 5127
-5128</pre>
+5128
+5129
+5130
+5131
+5132
+5133
+5134
+5135
+5136
+5137
+5138
+5139
+5140
+5141
+5142
+5143
+5144
+5145
+5146
+5147
+5148
+5149
+5150
+5151
+5152
+5153
+5154
+5155
+5156
+5157
+5158
+5159
+5160
+5161
+5162
+5163
+5164
+5165
+5166
+5167
+5168
+5169
+5170
+5171
+5172
+5173
+5174
+5175
+5176</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 5066</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 5110</span>
 
 static VALUE
 lapack_s_zpotri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -35257,13 +36416,17 @@ lapack_s_zpotri(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -35692,34 +36855,6 @@ will occur if it  is used to solve a system of equations.</p>
       <pre class="lines">
 
 
-4412
-4413
-4414
-4415
-4416
-4417
-4418
-4419
-4420
-4421
-4422
-4423
-4424
-4425
-4426
-4427
-4428
-4429
-4430
-4431
-4432
-4433
-4434
-4435
-4436
-4437
-4438
-4439
 4440
 4441
 4442
@@ -35754,10 +36889,42 @@ will occur if it  is used to solve a system of equations.</p>
 4471
 4472
 4473
-4474</pre>
+4474
+4475
+4476
+4477
+4478
+4479
+4480
+4481
+4482
+4483
+4484
+4485
+4486
+4487
+4488
+4489
+4490
+4491
+4492
+4493
+4494
+4495
+4496
+4497
+4498
+4499
+4500
+4501
+4502
+4503
+4504
+4505
+4506</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4412</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4440</span>
 
 static VALUE
 lapack_s_zsytrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -35814,13 +36981,17 @@ lapack_s_zsytrf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -35949,46 +37120,6 @@ computed.</p>
       <pre class="lines">
 
 
-4908
-4909
-4910
-4911
-4912
-4913
-4914
-4915
-4916
-4917
-4918
-4919
-4920
-4921
-4922
-4923
-4924
-4925
-4926
-4927
-4928
-4929
-4930
-4931
-4932
-4933
-4934
-4935
-4936
-4937
-4938
-4939
-4940
-4941
-4942
-4943
-4944
-4945
-4946
-4947
 4948
 4949
 4950
@@ -36011,10 +37142,54 @@ computed.</p>
 4967
 4968
 4969
-4970</pre>
+4970
+4971
+4972
+4973
+4974
+4975
+4976
+4977
+4978
+4979
+4980
+4981
+4982
+4983
+4984
+4985
+4986
+4987
+4988
+4989
+4990
+4991
+4992
+4993
+4994
+4995
+4996
+4997
+4998
+4999
+5000
+5001
+5002
+5003
+5004
+5005
+5006
+5007
+5008
+5009
+5010
+5011
+5012
+5013
+5014</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4908</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4948</span>
 
 static VALUE
 lapack_s_zsytri(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -36071,13 +37246,17 @@ lapack_s_zsytri(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
 }</pre>
     </td>
   </tr>
@@ -36190,26 +37369,6 @@ The scalar factors of the elementary reflectors.</p>
       <pre class="lines">
 
 
-4061
-4062
-4063
-4064
-4065
-4066
-4067
-4068
-4069
-4070
-4071
-4072
-4073
-4074
-4075
-4076
-4077
-4078
-4079
-4080
 4081
 4082
 4083
@@ -36252,10 +37411,34 @@ The scalar factors of the elementary reflectors.</p>
 4120
 4121
 4122
-4123</pre>
+4123
+4124
+4125
+4126
+4127
+4128
+4129
+4130
+4131
+4132
+4133
+4134
+4135
+4136
+4137
+4138
+4139
+4140
+4141
+4142
+4143
+4144
+4145
+4146
+4147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4061</span>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 4081</span>
 
 static VALUE
 lapack_s_ztzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
@@ -36312,13 +37495,234 @@ lapack_s_ztzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 #if JPVT
     COPY_OR_CAST_TO(jpvt,cInt);
     ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, jpvt);
-    rb_ary_unshift(ans, jpvt);
+    rb_ary_concat(rb_ary_assoc(a,jpvt), ans);
+    return ans;
 #else
     ans = na_ndloop3(&amp;ndf, &amp;g, 1, a);
-#endif
+#if IPIV+TAU == 0
+    return rb_assoc_new(a, ans);
+#else
     rb_ary_unshift(ans, a);
-
     return ans;
+#endif
+#endif
+}</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="zungqr-class_method">
+  
+    .<strong>zungqr</strong>(a, tau, order: &#39;R&#39;)  &#x21d2; <tt>[a, info]</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>ZUNGQR generates an M-by-N complex matrix Q with orthonormal columns, which
+is defined as the first N columns of a product of K elementary reflectors
+of order M</p>
+
+<pre class="code"><code class="">  Q  =  H(1) H(2) . . . H(k)</code></pre>
+
+<p>as returned by ZGEQRF.</p>
+
+<h3 id="label-Output+Parameters-3A">Output Parameters:</h3>
+<ul><li>
+<p><strong><em>a</em></strong> —  A is COMPLEX*16 array, dimension (LDA,N)  On
+entry, the i-th column must contain the vector which  defines the
+elementary reflector H(i), for i = 1,2,…,k, as  returned by ZGEQRF in the
+first k columns of its array  argument A.  On exit, the M-by-N matrix Q.</p>
+</li><li>
+<p><strong><em>info</em></strong> —  INFO is INTEGER  = 0: successful exit 
+&lt; 0: if INFO = -i, the i-th argument has an illegal value</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>Numo::DComplex</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>matrix (&gt;=2-dimentional NArray, inplace allowed).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>tau</span>
+      
+      
+        <span class='type'>(<tt>Numo::DComplex</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>vector (&gt;=1-dimentional NArray).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>order</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if &#39;R&#39;: Row-major, if &#39;C&#39;: Column-major.
+(default=&#39;R&#39;)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>[a, info]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Array&lt;Numo::DComplex, Integer&gt;</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+5611
+5612
+5613
+5614
+5615
+5616
+5617
+5618
+5619
+5620
+5621
+5622
+5623
+5624
+5625
+5626
+5627
+5628
+5629
+5630
+5631
+5632
+5633
+5634
+5635
+5636
+5637
+5638
+5639
+5640
+5641
+5642
+5643
+5644
+5645
+5646
+5647
+5648
+5649
+5650
+5651
+5652
+5653
+5654
+5655
+5656</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'ext/numo/linalg/lapack/lapack_z.c', line 5611</span>
+
+static VALUE
+lapack_s_zungqr(int argc, VALUE const argv[], VALUE UNUSED(mod))
+{
+    VALUE a, tau, ans;
+    int   m, n, k, tmp;
+    narray_t *na1, *na2;
+    ndfunc_arg_in_t ain[2] = {{OVERWRITE,2},{cT,1}};
+    ndfunc_arg_out_t aout[1] = {{cInt,0}};
+    ndfunc_t ndf = {&amp;iter_lapack_s_zungqr, NO_LOOP|NDF_EXTRACT, 2,1, ain,aout};
+
+    args_t g = {0};
+    VALUE opts[1] = {Qundef};
+    VALUE kw_hash = Qnil;
+    ID kw_table[1] = {id_order};
+
+    CHECK_FUNC(func_p,&quot;zungqr&quot;);
+
+    rb_scan_args(argc, argv, &quot;2:&quot;, &amp;a, &amp;tau, &amp;kw_hash);
+    rb_get_kwargs(kw_hash, kw_table, 0, 1, opts);
+    g.order = option_order(opts[0]);
+
+    COPY_OR_CAST_TO(a,cT);
+    GetNArray(a, na1);
+    CHECK_DIM_GE(na1, 2);
+    m = ROW_SIZE(na1);
+    n = COL_SIZE(na1);
+
+    GetNArray(tau, na2);
+    CHECK_DIM_GE(na2, 1);
+    k = COL_SIZE(na2);
+    if (m &lt; n) {
+        rb_raise(nary_eShapeError,
+                 &quot;a row length (m) must be &gt;= a column length (n): m=%d n=%d&quot;,
+                 m,n);
+    }
+    if (n &lt; k) {
+        rb_raise(nary_eShapeError,
+                 &quot;a column length (n) must be &gt;= tau length (k): n=%d, k=%d&quot;,
+                 k,n);
+    }
+    SWAP_IFCOL(g.order,m,n);
+
+    ans = na_ndloop3(&amp;ndf, &amp;g, 2, a, tau);
+
+    return rb_assoc_new(a, ans);
 }</pre>
     </td>
   </tr>
@@ -36330,7 +37734,7 @@ lapack_s_ztzrzf(int argc, VALUE const argv[], VALUE UNUSED(mod))
 </div>
 
       <div id="footer">
-  Generated on Mon May 22 14:01:29 2017 by
+  Generated on Tue May 23 22:57:37 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>
