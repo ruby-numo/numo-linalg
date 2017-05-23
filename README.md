@@ -34,15 +34,15 @@ More functions to come
 
 * Install [LAPACK](http://www.netlib.org/lapack/) or compatible packages.
 
-  * Numo::Linalg requires C-interface
-    [CBLAS](http://www.netlib.org/blas/#_cblas) and
-    [LAPACKE](http://www.netlib.org/lapack/lapacke.html) interface.
-    These are included in LAPACK package.
+    * Numo::Linalg requires C-interface
+      [CBLAS](http://www.netlib.org/blas/#_cblas) and
+      [LAPACKE](http://www.netlib.org/lapack/lapacke.html) interface.
+      These are included in LAPACK package.
 
-  * It is recommended to use one of following faster libraries:
-    * [ATLAS](https://sourceforge.net/projects/math-atlas/)
-    * [OpenBLAS](http://www.openblas.net/)
-    * [Intel MKL](https://software.intel.com/intel-mkl)
+    * It is recommended to use one of following faster libraries:
+        * [ATLAS](https://sourceforge.net/projects/math-atlas/)
+        * [OpenBLAS](http://www.openblas.net/)
+        * [Intel MKL](https://software.intel.com/intel-mkl)
 
 * Install Numo::Linalg
 
@@ -53,24 +53,27 @@ $ rake build
 $ gem install pkg/numo-linalg-*.gem
 ```
 
-## Usage
+## Loading backend library
 
-* Loading backend library
-  * Numo::Linalg loads BLAS,LAPACK libraries dynamically at runtime.
-    This design allows you to change backend libraries without re-compiling
-    Numo::Linalg.
-  * Example of dynamical loading:
+* Numo::Linalg opens dynamic libraries of BLAS and LAPACK at runtime.
+  This design allows you to change backend libraries without
+  re-compiling Numo::Linalg.
+
+* Note that the performance depends on the backend libraries as shown in
+  [benchmark](https://github.com/ruby-numo/linalg/tree/master/bench).
+
+* Dynamic loading example:
 
 ```ruby
 require "numo/linalg"
 require "fiddle"
-Fiddle.dlopen("libblas.so")
-Fiddle.dlopen("liblapack.so")
-Numo::Linalg::Blas.dlopen("libcblas.so")
-Numo::Linalg::Lapack.dlopen("liblapacke.so")
+Fiddle.dlopen("libblas.so")  # referenced from CBLAS
+Fiddle.dlopen("liblapack.so")  # referenced from LAPACKE
+Numo::Linalg::Blas.dlopen("libcblas.so")  # contains cblas_* function
+Numo::Linalg::Lapack.dlopen("liblapacke.so")  # containes LAPACKE_* function
 ```
 
-* This default behavior is defined in "numo/linalg/use/lapack.rb"
+This default behavior is defined in "numo/linalg/use/lapack.rb"
 
 ```ruby
 require "numo/linalg/use/lapack"
@@ -92,7 +95,7 @@ require "numo/linalg/use/openblas"
 
 * Masahiro TANAKA
 * Makoto KISHIMOTO
-* This work is partially supported by 2016 Ruby Association Grant.
+* This work is partly supported by 2016 Ruby Association Grant.
 
 ## ToDo
 
