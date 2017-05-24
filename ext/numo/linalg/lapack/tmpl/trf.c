@@ -256,7 +256,11 @@ static VALUE
     return rb_assoc_new(b, ans);
 # else
     ans = na_ndloop3(&ndf, &g, 1, a);
+#  if IPIV_OUT
     return rb_ary_unshift(ans, a);
+#  else
+    return rb_assoc_new(a, ans);
+#  endif
 # endif
 #endif
 }
