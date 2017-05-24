@@ -65,9 +65,9 @@ static void
   @overload <%=name%>(a, tau, order:'R')
   <%=params%>
   @return [[<%=return_name%>]] Array<<%=return_type%>>
+<%=outparam(return_name)%>
 
 <%=description%>
-<%=outparam(return_name)%>
 
 */
 static VALUE

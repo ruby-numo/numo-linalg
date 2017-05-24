@@ -48,9 +48,9 @@ return_name="a, b, w, info"
   @overload <%=name%>(a, b, [itype:1, jobz:'V', uplo:'U', order:'R'])
   <%=params%>
   @return [[<%=return_name%>]] Array<<%=real_class_name%>,<%=real_class_name%>,Integer>
+<%=outparam(return_name)%>
 
 <%=description%>
-<%=outparam(return_name)%>
 
 */
 static VALUE

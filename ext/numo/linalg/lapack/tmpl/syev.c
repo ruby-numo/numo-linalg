@@ -43,9 +43,9 @@ static void
   @overload <%=name%>(a, [jobz:'V', uplo:'U', order:'R'])
   <%=params%>
   @return [[<%=return_name%>]]  Array<<%=real_class_name%>,<%=real_class_name%>,Integer>
+<%=outparam(return_name)%>
 
 <%=description%>
-<%=outparam(return_name)%>
 
 */
 static VALUE

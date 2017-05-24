@@ -65,11 +65,11 @@ class DefLinalgFunction < DefModuleFunction
     m = get(:module_desc)[name]
     h = m && m['param']
     return "" if h.nil?
-    result = ["### Output Parameters:\n"]
+    result = [""]
     v = vars.split(/,\s*/)
     v.each do |var|
       if content = h[var.upcase]
-        result << "- ***#{var}*** --- "
+        result << "    - **#{var}** -- "
         content[1..-1].each{|s| result << "  "+escape!(s)}
       end
       result << ""
