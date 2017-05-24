@@ -1,16 +1,12 @@
 /*<%
  has_uplo = (/^.(sy|he|po)/ =~ name)
- has_ipiv  = (/tr(f|i)/ =~ name && /potr/ !~ name)
  has_jpvt = (/geqp3/ =~ name)
  has_tau  = (/q/ =~ name || /tzrzf/ =~ name)
- symmetric = (has_uplo || /getri/=~name)
 %>*/
 <% %>
 #define UPLO <%= has_uplo ? "1":"0" %>
-#define IPIV  <%= has_ipiv ? "1":"0" %>
 #define JPVT <%= has_jpvt ? "1":"0" %>
 #define TAU  <%= has_tau ? "1":"0" %>
-#define SYMMETRIC <%= symmetric ? "1":"0" %>
 #define args_t <%=func_name%>_args_t
 #define func_p <%=func_name%>_p
 
@@ -25,7 +21,7 @@ static void
 <%=c_iter%>(na_loop_t * const lp)
 {
     dtype *a;
-#if IPIV || JPVT
+#if JPVT
     int   *pv;
 #endif
 #if TAU
@@ -36,19 +32,19 @@ static void
     args_t *g;
 
     a = (dtype*)NDL_PTR(lp,0);
-#if IPIV || JPVT
+#if JPVT
     pv = (int*)NDL_PTR(lp,1);
 #endif
 #if TAU
-    tau = (dtype*)NDL_PTR(lp,1+IPIV+JPVT);
+    tau = (dtype*)NDL_PTR(lp,1+JPVT);
 #endif
-    info = (int*)NDL_PTR(lp,1+IPIV+JPVT+TAU);
+    info = (int*)NDL_PTR(lp,1+JPVT+TAU);
     g = (args_t*)(lp->opt_ptr);
 
     m = NDL_SHAPE(lp,0)[0];
     n = NDL_SHAPE(lp,0)[1];
     SWAP_IFCOL(g->order,m,n);
-#if SYMMETRIC
+#if UPLO
     n = min_(m,n);
 #endif
     lda = NDL_STEP(lp,0) / sizeof(dtype);
@@ -57,11 +53,9 @@ static void
 
     /*<%
     func_args = [   "g->order",
-      has_uplo   && "g->uplo",
-      !symmetric && "m",
+      has_uplo    ? "g->uplo" : "m",
                     "n, a, lda",
-      has_ipiv    && "pv",
-      has_jpvt    && "pv",
+      has_jpvt   && "pv",
       has_tau    && "tau",
     ].select{|x| x}.join(", ")
     %>*/
@@ -88,7 +82,6 @@ static void
 
  return_type = [
    class_name,
-   has_ipiv && "Numo::Int",
    has_jpvt && "Numo::Int",
    has_tau && class_name,
    "Integer"
@@ -96,7 +89,6 @@ static void
 
  return_name = [
    "a",
-   has_ipiv && "ipiv",
    has_jpvt && "jpvt",
    has_tau && "tau",
    "info"
@@ -124,21 +116,17 @@ static VALUE
       has_jpvt && "{OVERWRITE,1}",
     ].select{|x| x}.join(",")
     aout = [
-      has_ipiv && "{cInt,1,shape_piv}",
       has_tau  && "{cT,1,shape_tau}",
                   "{cInt,0}",
     ].select{|x| x}.join(",")
     %>*/
-#if IPIV
-    size_t shape_piv[1];
-#endif
 #if TAU
     size_t shape_tau[1];
 #endif
     ndfunc_arg_in_t ain[1+JPVT] = {<%=ain%>};
-    ndfunc_arg_out_t aout[1+IPIV+TAU] = {<%=aout%>};
+    ndfunc_arg_out_t aout[1+TAU] = {<%=aout%>};
     ndfunc_t ndf = {&<%=c_iter%>, NO_LOOP|NDF_EXTRACT,
-                    1+JPVT, IPIV+TAU+1, ain,aout};
+                    1+JPVT, TAU+1, ain,aout};
 
     args_t g = {0,1};
     VALUE opts[2] = {Qundef,Qundef};
@@ -164,9 +152,6 @@ static VALUE
     m = ROW_SIZE(na1);
     n = COL_SIZE(na1);
     SWAP_IFCOL(g.order,m,n);
-#if IPIV
-    shape_piv[0] = min_(m,n);
-#endif
 #if TAU
     shape_tau[0] = min_(m,n);
 #endif
@@ -178,7 +163,7 @@ static VALUE
     return ans;
 #else
     ans = na_ndloop3(&ndf, &g, 1, a);
-#if IPIV+TAU == 0
+#if TAU == 0
     return rb_assoc_new(a, ans);
 #else
     rb_ary_unshift(ans, a);
@@ -190,7 +175,5 @@ static VALUE
 #undef args_t
 #undef func_p
 #undef UPLO
-#undef IPIV
 #undef JPVT
 #undef TAU
-#undef SYMMETRIC

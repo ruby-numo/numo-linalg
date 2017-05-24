@@ -24,6 +24,7 @@ when "z"
   real_char = "d"
 end
 
+
 # norm
 
 decl "?lange"
@@ -74,23 +75,30 @@ decl "?gelqf", "fact"
 decl "?geqp3", "fact"
 decl "?tzrzf", "fact"
 
-decl "?getrf", "fact"
-decl "?sytrf", "fact"
-decl "?potrf", "fact"
-
-decl "?getri", "fact"
-decl "?sytri", "fact"
-decl "?potri", "fact"
-
-case blas_char
-when /c|z/
-  decl "?hetrf", "fact"
-  decl "?hetri", "fact"
-end
-
 case blas_char
 when /c|z/
   decl "?ungqr", "gqr"
 else
   decl "?orgqr", "gqr"
 end
+
+# LU factorize
+
+decl "?getrf", "trf"
+decl "?getri", "trf"
+decl "?getrs", "trf"
+
+decl "?sytrf", "trf"
+decl "?sytri", "trf"
+decl "?sytrs", "trf"
+
+case blas_char
+when /c|z/
+  decl "?hetrf", "trf"
+  decl "?hetri", "trf"
+  decl "?hetrs", "trf"
+end
+
+decl "?potrf", "trf"
+decl "?potri", "trf"
+decl "?potrs", "trf"
