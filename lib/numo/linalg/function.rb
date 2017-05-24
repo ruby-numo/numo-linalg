@@ -160,7 +160,7 @@ module Numo; module Linalg
   end
 
   # Computes a QR factorization of a complex M-by-N matrix A: A = Q \* R.
-  # @param a [Numo::NArray] m-by-n matrix (>= 2-dimensinal NArray)
+  # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
   # @param mode [String]  "reduce": returns both Q and R, "r": only R, "economy": both Q and R but computed in economy-size, "raw": returns QR and TAU usend in LAPACK.
   # @return [r]        if mode:"r"
   # @return [[q,r]]    if mode:"reduce" or "economic"
@@ -197,7 +197,7 @@ module Numo; module Linalg
   # Computes the Singular Value Decomposition (SVD) of a M-by-N matrix A,
   # and the left and/or right singular vectors.  The SVD is written
   #
-  #    A = U * SIGMA * transpose(V)
+  #     A = U * SIGMA * transpose(V)
   #
   # where SIGMA is an M-by-N matrix which is zero except for its
   # min(m,n) diagonal elements, U is an M-by-M orthogonal matrix, and
@@ -207,7 +207,7 @@ module Numo; module Linalg
   # and V are the left and right singular vectors of A. Note that the
   # routine returns V**T, not V.
   #
-  # @param a [Numo::NArray] m-by-n matrix (>= 2-dimensinal NArray)
+  # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
   # @param driver [String or Symbol] choose LAPACK solver from 'svd', 'sdd'. (optional, default='svd')
   # @return [[sigma,u,vt]] SVD result. Array<Numo::NArray>
 
@@ -225,16 +225,16 @@ module Numo; module Linalg
   # Computes the Singular Values of a M-by-N matrix A.
   # The SVD is written
   #
-  #    A = U * SIGMA * transpose(V)
+  #     A = U * SIGMA * transpose(V)
   #
   # where SIGMA is an M-by-N matrix which is zero except for its
   # min(m,n) diagonal elements. The diagonal elements of SIGMA
   # are the singular values of A; they are real and non-negative, and
   # are returned in descending order.
   #
-  # @param a [Numo::NArray] m-by-n matrix (>= 2-dimensinal NArray)
+  # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
   # @param driver [String or Symbol] choose LAPACK solver from 'svd', 'sdd'. (optional, default='svd')
-  # @return [Numo::NArray] Singular values.
+  # @return [Numo::NArray] returns SIGMA (singular values).
 
   def svdvals(a, driver:'svd')
     case driver.to_s
@@ -247,10 +247,55 @@ module Numo; module Linalg
     end
   end
 
+  # Computes an LU factorization of a general M-by-N matrix A
+  # using partial pivoting with row interchanges.
+  #
+  # The factorization has the form
+  #
+  #     A = P * L * U
+  #
+  # where P is a permutation matrix, L is lower triangular with unit
+  # diagonal elements (lower trapezoidal if m > n), and U is upper
+  # triangular (upper trapezoidal if m < n).
+  #
+  # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
+  # @return [[lu, ipiv]] **lu** [Numo::NArray] = The factors L and U from the factorization `A = P*L*U`; the unit diagonal elements of L are not stored. **ipiv** [Numo::NArray] = The pivot indices; for 1 <= i <= min(M,N), row i of the matrix was interchanged with row IPIV(i).
+
+  def lu_fact(a)
+    Lapack.call(:getrf, a)[0..1]
+  end
+
   # LU decomposition
-  def lu(a)
-    # fixme
-    Lapack.call(:getrf, a)[0]
+  # Computes the inverse of a matrix using the LU factorization
+  # computed by Numo::Linalg.lu_fact.
+  #
+  # This method inverts U and then computes inv(A) by solving the system
+  #
+  #     inv(A)*L = inv(U)
+  #
+  # for inv(A).
+  #
+  # @param lu   [Numo::NArray] matrix containing the factors L and U from the factorization `A = P*L*U` as computed by Numo::Linalg.lu_fact.
+  # @param ipiv [Numo::NArray] The pivot indices from Numo::Linalg.lu_fact; for 1<=i<=N, row i of the matrix was interchanged with row IPIV(i).
+  # @return [Numo::NArray]  the inverse of the original matrix A.
+
+  def lu_inv(lu, ipiv)
+    Lapack.call(:getri, lu, ipiv)[0]
+  end
+
+  # Solves a system of linear equations
+  #
+  #     A * X = B  or  A**T * X = B
+  #
+  # with a general N-by-N matrix A using the LU factorization computed by Numo::Linalg.lu_fact
+  #
+  # @param lu   [Numo::NArray] matrix containing the factors L and U from the factorization `A = P*L*U` as computed by Numo::Linalg.lu_fact.
+  # @param ipiv [Numo::NArray] The pivot indices from Numo::Linalg.lu_fact; for 1<=i<=N, row i of the matrix was interchanged with row IPIV(i).
+  # @param b    [Numo::NArray] the right hand side matrix B (>= 1-dimensional NArray, inplace allowed).
+  # @return [Numo::NArray]  the solution matrix X.
+
+  def lu_solve(lu, ipiv, b)
+    Lapack.call(:getrs, lu, ipiv, b)[0]
   end
 
 
@@ -532,8 +577,8 @@ module Numo; module Linalg
   # using the singular value decomposition (SVD) of A.
   # A is an M-by-N matrix which may be rank-deficient.
 
-  # @param a [Numo::NArray] m-by-n matrix  (>= 2-dimensinal NArray)
-  # @param b [Numo::NArray] m-by-nrhs right-hand-side matrix  (>= 1-dimensinal NArray)
+  # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
+  # @param b [Numo::NArray] m-by-nrhs right-hand-side matrix b (>= 1-dimensinal NArray)
   # @param driver [String or Symbol] choose LAPACK driver from 'lsd','lss','lsy' (optional, default='lsd')
   # @param rcond [Float] (optional, default=-1) RCOND is used to determine the effective rank of A. Singular values S(i) <= RCOND*S(1) are treated as zero. If RCOND < 0, machine precision is used instead.
 
