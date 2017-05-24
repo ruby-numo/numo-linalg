@@ -145,12 +145,13 @@ module Numo; module Linalg
   end
 
   # Computes a QR factorization of a complex M-by-N matrix A: A = Q \* R.
+  #
   # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
   # @param mode [String]
-  #  "reduce" : returns both Q and R,
-  #  "r"      : only R,
-  #  "economy": both Q and R but computed in economy-size,
-  #  "raw"    : returns QR and TAU usend in LAPACK.
+  #   - "reduce"  -- returns both Q and R,
+  #   - "r"       -- returns only R,
+  #   - "economy" -- returns both Q and R but computed in economy-size,
+  #   - "raw"     -- returns QR and TAU used in LAPACK.
   # @return [r]        if mode:"r"
   # @return [[q,r]]    if mode:"reduce" or "economic"
   # @return [[qr,tau]] if mode:"raw" (LAPACK geqrf result)
@@ -255,10 +256,10 @@ module Numo; module Linalg
   # @param uplo [String or Symbol] optional, default='U'. Access upper
   #  or ('U') lower ('L') triangle. (omitted when driver:"gen")
   # @return [[lu, ipiv]]
-  #  `lu` [Numo::NArray]: The factors L and U from the factorization
-  #  `A = P*L*U`; the unit diagonal elements of L are not stored.
-  #  -- `ipiv` [Numo::NArray]: The pivot indices; for 1 <= i <=
-  #  min(M,N), row i of the matrix was interchanged with row IPIV(i).
+  #   - **lu** [Numo::NArray] -- The factors L and U from the factorization
+  #     `A = P*L*U`; the unit diagonal elements of L are not stored.
+  #   - **ipiv** [Numo::NArray] -- The pivot indices; for 1 <= i <= min(M,N),
+  #      row i of the matrix was interchanged with row IPIV(i).
 
   def lu_fact(a, driver:"gen", uplo:"U")
     case driver.to_s
@@ -324,10 +325,13 @@ module Numo; module Linalg
   #  'gen','sym','her'. (optional, default='gen')
   # @param uplo [String or Symbol] optional, default='U'. Access upper
   #  or ('U') lower ('L') triangle. (omitted when driver:"gen")
-  # @param trans [String or Symbol] Specifies the form of the system
-  #  of equations: If 'N': `A * X = B` (No transpose).
-  #  If 'T': `A**T* X = B` (Transpose). If 'C': `A**T* X = B`
-  #  (Conjugate transpose = Transpose). (omitted if not driver:"gen")
+  # @param trans [String or Symbol]
+  #   Specifies the form of the system of equations
+  #   (omitted if not driver:"gen"):
+  #
+  #     - If 'N': `A * X = B` (No transpose).
+  #     - If 'T': `A*\*T* X = B` (Transpose).
+  #     - If 'C': `A*\*T* X = B` (Conjugate transpose = Transpose).
   # @return [Numo::NArray]  the solution matrix X.
 
   def lu_solve(lu, ipiv, b, driver:"gen", uplo:"U", trans:"N")
@@ -585,8 +589,8 @@ module Numo; module Linalg
   # Natural logarithm of the determinant of a matrix
   # @param a [Numo::NArray] matrix (>= 2-dimensional NArray)
   # @return [[sign,logdet]]
-  #  `sign`: A number representing the sign of the determinant.
-  #  -- `logdet`: The natural log of the absolute value of the determinant.
+  #   - **sign** -- A number representing the sign of the determinant.
+  #   - **logdet** -- The natural log of the absolute value of the determinant.
 
   def slogdet(a)
     lu, piv, = Lapack.call(:getrf, a)
@@ -677,14 +681,14 @@ module Numo; module Linalg
   # using the singular value decomposition (SVD) of A.
   # A is an M-by-N matrix which may be rank-deficient.
   # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
-  # @param b [Numo::NArray] m-by-nrhs right-hand-side matrix b (>=
-  #  1-dimensinal NArray)
+  # @param b [Numo::NArray] m-by-nrhs right-hand-side matrix b
+  #   (>= 1-dimensinal NArray)
   # @param driver [String or Symbol] choose LAPACK driver from
-  #  'lsd','lss','lsy' (optional, default='lsd')
-  # @param rcond [Float] (optional, default=-1) RCOND is used to
-  #  determine the effective rank of A.
-  #  Singular values `S(i) <= RCOND*S(1)` are treated as zero.
-  #  If RCOND < 0, machine precision is used instead.
+  #   'lsd','lss','lsy' (optional, default='lsd')
+  # @param rcond [Float] (optional, default=-1)
+  #   RCOND is used to determine the effective rank of A.
+  #   Singular values `S(i) <= RCOND*S(1)` are treated as zero.
+  #   If RCOND < 0, machine precision is used instead.
 
   def lstsq(a, b, driver:'lsd', rcond:-1)
     a = NArray.asarray(a)
