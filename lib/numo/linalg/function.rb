@@ -131,21 +131,6 @@ module Numo; module Linalg
 
   ## factorization
 
-  # Computes the Cholesky factorization of a complex Hermitian
-  # positive definite matrix A. The factorization has the form
-  #
-  #     A = U**H * U,  if UPLO = 'U', or
-  #     A = L  * L**H,  if UPLO = 'L',
-  #
-  # where U is an upper triangular matrix and L is lower triangular
-  # @param a [Numo::NArray] n-by-n square matrix (>= 2-dimensinal NArray)
-  # @param uplo [String or Symbol] optional, default='U'. Access upper or ('U') lower ('L') triangle.
-  # @return [Numo::NArray] the factor U or L.
-
-  def cholesky(a, uplo:'U')
-    Lapack.call(:potrf, a, uplo:uplo)[0]
-  end
-
   # Upper triangular matrix.
   def triu(a,k=0)
     if a.ndim < 2
@@ -161,7 +146,11 @@ module Numo; module Linalg
 
   # Computes a QR factorization of a complex M-by-N matrix A: A = Q \* R.
   # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
-  # @param mode [String]  "reduce": returns both Q and R, "r": only R, "economy": both Q and R but computed in economy-size, "raw": returns QR and TAU usend in LAPACK.
+  # @param mode [String]
+  #  "reduce" : returns both Q and R,
+  #  "r"      : only R,
+  #  "economy": both Q and R but computed in economy-size,
+  #  "raw"    : returns QR and TAU usend in LAPACK.
   # @return [r]        if mode:"r"
   # @return [[q,r]]    if mode:"reduce" or "economic"
   # @return [[qr,tau]] if mode:"raw" (LAPACK geqrf result)
@@ -208,7 +197,8 @@ module Numo; module Linalg
   # routine returns V**T, not V.
   #
   # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
-  # @param driver [String or Symbol] choose LAPACK solver from 'svd', 'sdd'. (optional, default='svd')
+  # @param driver [String or Symbol] choose LAPACK solver from 'svd',
+  #  'sdd'. (optional, default='svd')
   # @return [[sigma,u,vt]] SVD result. Array<Numo::NArray>
 
   def svd(a, driver:'svd')
@@ -233,7 +223,8 @@ module Numo; module Linalg
   # are returned in descending order.
   #
   # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
-  # @param driver [String or Symbol] choose LAPACK solver from 'svd', 'sdd'. (optional, default='svd')
+  # @param driver [String or Symbol] choose LAPACK solver from 'svd',
+  #  'sdd'. (optional, default='svd')
   # @return [Numo::NArray] returns SIGMA (singular values).
 
   def svdvals(a, driver:'svd')
@@ -247,7 +238,7 @@ module Numo; module Linalg
     end
   end
 
-  # Computes an LU factorization of a general M-by-N matrix A
+  # Computes an LU factorization of a M-by-N matrix A
   # using partial pivoting with row interchanges.
   #
   # The factorization has the form
@@ -259,9 +250,15 @@ module Numo; module Linalg
   # triangular (upper trapezoidal if m < n).
   #
   # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
-  # @param driver [String or Symbol] choose LAPACK diriver from 'gen','sym','her'. (optional, default='gen')
-  # @param uplo [String or Symbol] optional, default='U'. Access upper or ('U') lower ('L') triangle. (omitted when driver:"gen")
-  # @return [[lu, ipiv]] **lu** [Numo::NArray] = The factors L and U from the factorization `A = P*L*U`; the unit diagonal elements of L are not stored. **ipiv** [Numo::NArray] = The pivot indices; for 1 <= i <= min(M,N), row i of the matrix was interchanged with row IPIV(i).
+  # @param driver [String or Symbol] choose LAPACK diriver from
+  #  'gen','sym','her'. (optional, default='gen')
+  # @param uplo [String or Symbol] optional, default='U'. Access upper
+  #  or ('U') lower ('L') triangle. (omitted when driver:"gen")
+  # @return [[lu, ipiv]]
+  #  `lu` [Numo::NArray]: The factors L and U from the factorization
+  #  `A = P*L*U`; the unit diagonal elements of L are not stored.
+  #  -- `ipiv` [Numo::NArray]: The pivot indices; for 1 <= i <=
+  #  min(M,N), row i of the matrix was interchanged with row IPIV(i).
 
   def lu_fact(a, driver:"gen", uplo:"U")
     case driver.to_s
@@ -285,10 +282,16 @@ module Numo; module Linalg
   #
   # for inv(A).
   #
-  # @param lu   [Numo::NArray] matrix containing the factors L and U from the factorization `A = P*L*U` as computed by Numo::Linalg.lu_fact.
-  # @param ipiv [Numo::NArray] The pivot indices from Numo::Linalg.lu_fact; for 1<=i<=N, row i of the matrix was interchanged with row IPIV(i).
-  # @param driver [String or Symbol] choose LAPACK diriver from 'gen','sym','her'. (optional, default='gen')
-  # @param uplo [String or Symbol] optional, default='U'. Access upper or ('U') lower ('L') triangle. (omitted when driver:"gen")
+  # @param lu [Numo::NArray] matrix containing the factors L and U
+  #  from the factorization `A = P*L*U` as computed by
+  #  Numo::Linalg.lu_fact.
+  # @param ipiv [Numo::NArray] The pivot indices from
+  #  Numo::Linalg.lu_fact; for 1<=i<=N, row i of the matrix was
+  #  interchanged with row IPIV(i).
+  # @param driver [String or Symbol] choose LAPACK diriver from
+  #  'gen','sym','her'. (optional, default='gen')
+  # @param uplo [String or Symbol] optional, default='U'. Access upper
+  #  or ('U') lower ('L') triangle. (omitted when driver:"gen")
   # @return [Numo::NArray]  the inverse of the original matrix A.
 
   def lu_inv(lu, ipiv, driver:"gen", uplo:"U")
@@ -307,14 +310,24 @@ module Numo; module Linalg
   #
   #     A * X = B  or  A**T * X = B
   #
-  # with a general N-by-N matrix A using the LU factorization computed by Numo::Linalg.lu_fact
+  # with a N-by-N matrix A using the LU factorization computed by
+  # Numo::Linalg.lu_fact
   #
-  # @param lu   [Numo::NArray] matrix containing the factors L and U from the factorization `A = P*L*U` as computed by Numo::Linalg.lu_fact.
-  # @param ipiv [Numo::NArray] The pivot indices from Numo::Linalg.lu_fact; for 1<=i<=N, row i of the matrix was interchanged with row IPIV(i).
-  # @param b    [Numo::NArray] the right hand side matrix B (>= 1-dimensional NArray, inplace allowed).
-  # @param driver [String or Symbol] choose LAPACK diriver from 'gen','sym','her'. (optional, default='gen')
-  # @param uplo [String or Symbol] optional, default='U'. Access upper or ('U') lower ('L') triangle. (omitted when driver:"gen")
-  # @param trans [String or Symbol] Specifies the form of the system of equations: If 'N':  `A * X = B` (No transpose). If 'T':  `A**T* X = B`  (Transpose). If 'C':  `A**T* X = B`  (Conjugate transpose = Transpose). (omitted if not driver:"gen")
+  # @param lu [Numo::NArray] matrix containing the factors L and U
+  #  from the factorization `A = P*L*U` as computed by
+  #  Numo::Linalg.lu_fact.
+  # @param ipiv [Numo::NArray] The pivot indices from
+  #  Numo::Linalg.lu_fact; for 1<=i<=N, row i of the matrix was
+  #  interchanged with row IPIV(i).
+  # @param b [Numo::NArray] the right hand side matrix B.
+  # @param driver [String or Symbol] choose LAPACK diriver from
+  #  'gen','sym','her'. (optional, default='gen')
+  # @param uplo [String or Symbol] optional, default='U'. Access upper
+  #  or ('U') lower ('L') triangle. (omitted when driver:"gen")
+  # @param trans [String or Symbol] Specifies the form of the system
+  #  of equations: If 'N': `A * X = B` (No transpose).
+  #  If 'T': `A**T* X = B` (Transpose). If 'C': `A**T* X = B`
+  #  (Conjugate transpose = Transpose). (omitted if not driver:"gen")
   # @return [Numo::NArray]  the solution matrix X.
 
   def lu_solve(lu, ipiv, b, driver:"gen", uplo:"U", trans:"N")
@@ -330,10 +343,59 @@ module Numo; module Linalg
   end
 
 
+  # Computes the Cholesky factorization of a symmetric/Hermitian
+  # positive definite matrix A. The factorization has the form
+  #
+  #     A = U**H * U,  if UPLO = 'U', or
+  #     A = L  * L**H,  if UPLO = 'L',
+  #
+  # where U is an upper triangular matrix and L is lower triangular
+  # @param a [Numo::NArray] n-by-n symmetric matrix A (>= 2-dimensinal NArray)
+  # @param uplo [String or Symbol] optional, default='U'. Access upper
+  #  or ('U') lower ('L') triangle.
+  # @return [Numo::NArray] the factor U or L.
+
+  def cho_fact(a, uplo:'U')
+    Lapack.call(:potrf, a, uplo:uplo)[0]
+  end
+  #alias cholesky cho_fact
+
+  # Computes the inverse of a symmetric/Hermitian
+  # positive definite matrix A using the Cholesky factorization
+  # `A = U**T*U` or `A = L*L**T` computed by Linalg.cho_fact.
+  #
+  # @param a [Numo::NArray] the triangular factor U or L from the
+  #  Cholesky factorization, as computed by Linalg.cho_fact.
+  # @param uplo [String or Symbol] optional, default='U'. Access upper
+  #  or ('U') lower ('L') triangle.
+  # @return [Numo::NArray] the upper or lower triangle of the
+  #  (symmetric) inverse of A.
+
+  def cho_inv(a, uplo:'U')
+    Lapack.call(:potri, a, uplo:uplo)[0]
+  end
+
+  # Solves a system of linear equations
+  #     A*X = B
+  # with a symmetric/Hermitian positive definite matrix A
+  # using the Cholesky factorization
+  # `A = U**T*U` or `A = L*L**T` computed by Linalg.cho_fact.
+  # @param a [Numo::NArray] the triangular factor U or L from the
+  #  Cholesky factorization, as computed by Linalg.cho_fact.
+  # @param b [Numo::NArray] the right hand side matrix B.
+  # @param uplo [String or Symbol] optional, default='U'. Access upper
+  #  or ('U') lower ('L') triangle.
+  # @return [Numo::NArray] the solution matrix X.
+
+  def cho_solve(a, b, uplo:'U')
+    Lapack.call(:potrs, a, b, uplo:uplo)[0]
+  end
+
+
   ## Matrix eigenvalues
 
-  # Computes the eigenvalues and, optionally, the left and/or right eigenvectors
-  # for a square nonsymmetric matrix A.
+  # Computes the eigenvalues and, optionally, the left and/or right
+  # eigenvectors for a square nonsymmetric matrix A.
   def eig(a, left:false, right:true)
     jobvl, jobvr = left, right
     case blas_char(a)
@@ -348,8 +410,8 @@ module Numo; module Linalg
     [w,vl,vr].compact
   end
 
-  # Computes the eigenvalues and, optionally, the left and/or right eigenvectors
-  # for a square symmetric/hermitian matrix A.
+  # Computes the eigenvalues and, optionally, the left and/or right
+  # eigenvectors for a square symmetric/hermitian matrix A.
   def eigh(a, vals_only:false, uplo:false, turbo:false)
     jobz = vals_only ? 'N' : 'V' # jobz: Compute eigenvalues and eigenvectors.
     case blas_char(a)
@@ -523,8 +585,8 @@ module Numo; module Linalg
   # Natural logarithm of the determinant of a matrix
   # @param a [Numo::NArray] matrix (>= 2-dimensional NArray)
   # @return [[sign,logdet]]
-  #  sign: A number representing the sign of the determinant
-  #  logdet: The natural log of the absolute value of the determinant.
+  #  `sign`: A number representing the sign of the determinant.
+  #  -- `logdet`: The natural log of the absolute value of the determinant.
 
   def slogdet(a)
     lu, piv, = Lapack.call(:getrf, a)
@@ -573,9 +635,12 @@ module Numo; module Linalg
   # Solves linear equation `a * x = b` for `x`
   # from square matrix `a`
   # @param a [Numo::NArray] n-by-n square matrix  (>= 2-dimensinal NArray)
-  # @param b [Numo::NArray] n-by-nrhs right-hand-side matrix  (>= 1-dimensinal NArray)
-  # @param driver [String or Symbol] choose LAPACK diriver from 'gen','sym','her' or 'pos'. (optional, default='gen')
-  # @param uplo [String or Symbol] optional, default='U'. Access upper or ('U') lower ('L') triangle. (omitted when driver:"gen")
+  # @param b [Numo::NArray] n-by-nrhs right-hand-side matrix (>=
+  #  1-dimensinal NArray)
+  # @param driver [String or Symbol] choose LAPACK diriver from
+  #  'gen','sym','her' or 'pos'. (optional, default='gen')
+  # @param uplo [String or Symbol] optional, default='U'. Access upper
+  #  or ('U') lower ('L') triangle. (omitted when driver:"gen")
 
   def solve(a, b, driver:"gen", uplo:'U')
     case driver.to_s
@@ -593,8 +658,10 @@ module Numo; module Linalg
 
   # Inverse matrix from square matrix `a`
   # @param a [Numo::NArray] n-by-n square matrix  (>= 2-dimensinal NArray)
-  # @param driver [String or Symbol] choose LAPACK diriver 'gen','sym','her' or 'pos'. (optional, default='gen')
-  # @param uplo [String or Symbol] optional, default='U'. Access upper or ('U') lower ('L') triangle. (omitted when driver:"gen")
+  # @param driver [String or Symbol] choose LAPACK diriver
+  #  'gen','sym','her' or 'pos'. (optional, default='gen')
+  # @param uplo [String or Symbol] optional, default='U'. Access upper
+  #  or ('U') lower ('L') triangle. (omitted when driver:"gen")
 
   def inv(a, driver:"gen", uplo:'U')
     b = a.new_zeros.eye
@@ -604,14 +671,20 @@ module Numo; module Linalg
 
   # Computes the minimum-norm solution to a linear least squares
   # problem:
+  #
   #         minimize 2-norm(| b - A*x |)
+  #
   # using the singular value decomposition (SVD) of A.
   # A is an M-by-N matrix which may be rank-deficient.
-
   # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
-  # @param b [Numo::NArray] m-by-nrhs right-hand-side matrix b (>= 1-dimensinal NArray)
-  # @param driver [String or Symbol] choose LAPACK driver from 'lsd','lss','lsy' (optional, default='lsd')
-  # @param rcond [Float] (optional, default=-1) RCOND is used to determine the effective rank of A. Singular values S(i) <= RCOND*S(1) are treated as zero. If RCOND < 0, machine precision is used instead.
+  # @param b [Numo::NArray] m-by-nrhs right-hand-side matrix b (>=
+  #  1-dimensinal NArray)
+  # @param driver [String or Symbol] choose LAPACK driver from
+  #  'lsd','lss','lsy' (optional, default='lsd')
+  # @param rcond [Float] (optional, default=-1) RCOND is used to
+  #  determine the effective rank of A.
+  #  Singular values `S(i) <= RCOND*S(1)` are treated as zero.
+  #  If RCOND < 0, machine precision is used instead.
 
   def lstsq(a, b, driver:'lsd', rcond:-1)
     a = NArray.asarray(a)
