@@ -157,7 +157,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#cholesky-class_method" title="cholesky (class method)">.<strong>cholesky</strong>(a, uplo: &#39;U&#39;)  &#x21d2; Numo::NArray </a>
+      <a href="#cho_fact-class_method" title="cho_fact (class method)">.<strong>cho_fact</strong>(a, uplo: &#39;U&#39;)  &#x21d2; Numo::NArray </a>
     
 
     
@@ -172,8 +172,60 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Computes the Cholesky factorization of a complex Hermitian positive
+<p>Computes the Cholesky factorization of a symmetric/Hermitian positive
 definite matrix A.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#cho_inv-class_method" title="cho_inv (class method)">.<strong>cho_inv</strong>(a, uplo: &#39;U&#39;)  &#x21d2; Numo::NArray </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Computes the inverse of a symmetric/Hermitian positive definite matrix A
+using the Cholesky factorization <code>A = U**T*U</code> or <code>A =
+L*L**T</code> computed by Linalg.cho_fact.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#cho_solve-class_method" title="cho_solve (class method)">.<strong>cho_solve</strong>(a, b, uplo: &#39;U&#39;)  &#x21d2; Numo::NArray </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Solves a system of linear equations A*X = B with a symmetric/Hermitian
+positive definite matrix A using the Cholesky factorization <code>A =
+U**T*U</code> or <code>A = L*L**T</code> computed by Linalg.cho_fact.</p>
 </div></span>
   
 </li>
@@ -432,7 +484,9 @@ eigenvectors for a square symmetric/hermitian matrix A.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Computes the minimum-norm solution to a linear least squares problem:.</p>
+</div></span>
   
 </li>
 
@@ -440,7 +494,7 @@ eigenvectors for a square symmetric/hermitian matrix A.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#lu-class_method" title="lu (class method)">.<strong>lu</strong>(a)  &#x21d2; Object </a>
+      <a href="#lu_fact-class_method" title="lu_fact (class method)">.<strong>lu_fact</strong>(a, driver: &quot;gen&quot;, uplo: &quot;U&quot;)  &#x21d2; [lu, ipiv] </a>
     
 
     
@@ -455,7 +509,57 @@ eigenvectors for a square symmetric/hermitian matrix A.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>LU decomposition.</p>
+<p>Computes an LU factorization of a M-by-N matrix A using partial pivoting
+with row interchanges.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#lu_inv-class_method" title="lu_inv (class method)">.<strong>lu_inv</strong>(lu, ipiv, driver: &quot;gen&quot;, uplo: &quot;U&quot;)  &#x21d2; Numo::NArray </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>LU decomposition Computes the inverse of a matrix using the LU
+factorization computed by Numo::Linalg.lu_fact.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#lu_solve-class_method" title="lu_solve (class method)">.<strong>lu_solve</strong>(lu, ipiv, b, driver: &quot;gen&quot;, uplo: &quot;U&quot;, trans: &quot;N&quot;)  &#x21d2; Numo::NArray </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Solves a system of linear equations.</p>
 </div></span>
   
 </li>
@@ -833,9 +937,9 @@ the left and/or right singular vectors.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="cholesky-class_method">
+  <h3 class="signature " id="cho_fact-class_method">
   
-    .<strong>cholesky</strong>(a, uplo: &#39;U&#39;)  &#x21d2; <tt>Numo::NArray</tt> 
+    .<strong>cho_fact</strong>(a, uplo: &#39;U&#39;)  &#x21d2; <tt>Numo::NArray</tt> 
   
 
   
@@ -844,7 +948,7 @@ the left and/or right singular vectors.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Computes the Cholesky factorization of a complex Hermitian positive
+<p>Computes the Cholesky factorization of a symmetric/Hermitian positive
 definite matrix A. The factorization has the form</p>
 
 <pre class="code ruby"><code class="ruby">A = U**H * U,  if UPLO = &#39;U&#39;, or
@@ -870,7 +974,7 @@ A = L  * L**H,  if UPLO = &#39;L&#39;,</code></pre>
       
         &mdash;
         <div class='inline'>
-<p>n-by-n square matrix (&gt;= 2-dimensinal NArray)</p>
+<p>n-by-n symmetric matrix A (&gt;= 2-dimensinal NArray)</p>
 </div>
       
     </li>
@@ -919,15 +1023,229 @@ A = L  * L**H,  if UPLO = &#39;L&#39;,</code></pre>
       <pre class="lines">
 
 
-145
-146
-147</pre>
+362
+363
+364</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 145</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 362</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_cholesky'>cholesky</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>U</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_cho_fact'>cho_fact</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>U</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:potrf</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='id identifier rubyid_uplo'>uplo</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="cho_inv-class_method">
+  
+    .<strong>cho_inv</strong>(a, uplo: &#39;U&#39;)  &#x21d2; <tt>Numo::NArray</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Computes the inverse of a symmetric/Hermitian positive definite matrix A
+using the Cholesky factorization <code>A = U**T*U</code> or <code>A =
+L*L**T</code> computed by Linalg.cho_fact.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the triangular factor U or L from the Cholesky factorization, as computed
+by Linalg.cho_fact.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>uplo</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>optional, default=&#39;U&#39;. Access upper or (&#39;U&#39;) lower
+(&#39;L&#39;) triangle.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the upper or lower triangle of the (symmetric) inverse of A.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+378
+379
+380</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 378</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_cho_inv'>cho_inv</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>U</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:potri</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='id identifier rubyid_uplo'>uplo</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="cho_solve-class_method">
+  
+    .<strong>cho_solve</strong>(a, b, uplo: &#39;U&#39;)  &#x21d2; <tt>Numo::NArray</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Solves a system of linear equations  A*X = B with a symmetric/Hermitian
+positive definite matrix A using the Cholesky factorization <code>A =
+U**T*U</code> or <code>A = L*L**T</code> computed by Linalg.cho_fact.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the triangular factor U or L from the Cholesky factorization, as computed
+by Linalg.cho_fact.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>b</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the right hand side matrix B.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>uplo</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>optional, default=&#39;U&#39;. Access upper or (&#39;U&#39;) lower
+(&#39;L&#39;) triangle.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the solution matrix X.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+394
+395
+396</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 394</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_cho_solve'>cho_solve</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>U</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:potrs</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='id identifier rubyid_uplo'>uplo</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -971,12 +1289,12 @@ A = L  * L**H,  if UPLO = &#39;L&#39;,</code></pre>
       <pre class="lines">
 
 
-431
-432
-433</pre>
+573
+574
+575</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 431</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 573</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cond'>cond</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_x'>x</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
@@ -1045,16 +1363,16 @@ A = L  * L**H,  if UPLO = &#39;L&#39;,</code></pre>
       <pre class="lines">
 
 
-439
-440
-441
-442
-443
-444
-445</pre>
+581
+582
+583
+584
+585
+586
+587</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 439</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 581</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_det'>det</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_lu'>lu</span><span class='comma'>,</span> <span class='id identifier rubyid_piv'>piv</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:getrf</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
@@ -1214,22 +1532,22 @@ eigenvectors for a square nonsymmetric matrix A.</p>
       <pre class="lines">
 
 
-261
-262
-263
-264
-265
-266
-267
-268
-269
-270
-271
-272
-273</pre>
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 261</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 403</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_eig'>eig</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>left:</span><span class='kw'>false</span><span class='comma'>,</span> <span class='label'>right:</span><span class='kw'>true</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_jobvl'>jobvl</span><span class='comma'>,</span> <span class='id identifier rubyid_jobvr'>jobvr</span> <span class='op'>=</span> <span class='id identifier rubyid_left'>left</span><span class='comma'>,</span> <span class='id identifier rubyid_right'>right</span>
@@ -1276,20 +1594,20 @@ eigenvectors for a square symmetric/hermitian matrix A.</p>
       <pre class="lines">
 
 
-277
-278
-279
-280
-281
-282
-283
-284
-285
-286
-287</pre>
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 277</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 419</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_eigh'>eigh</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>vals_only:</span><span class='kw'>false</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='kw'>false</span><span class='comma'>,</span> <span class='label'>turbo:</span><span class='kw'>false</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_jobz'>jobz</span> <span class='op'>=</span> <span class='id identifier rubyid_vals_only'>vals_only</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>V</span><span class='tstring_end'>&#39;</span></span> <span class='comment'># jobz: Compute eigenvalues and eigenvectors.
@@ -1333,20 +1651,20 @@ eigenvectors for a square symmetric/hermitian matrix A.</p>
       <pre class="lines">
 
 
-291
-292
-293
-294
-295
-296
-297
-298
-299
-300
-301</pre>
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 291</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 433</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_eigvals'>eigvals</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_jobvl'>jobvl</span><span class='comma'>,</span> <span class='id identifier rubyid_jobvr'>jobvr</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span>
@@ -1390,19 +1708,19 @@ eigenvectors for a square symmetric/hermitian matrix A.</p>
       <pre class="lines">
 
 
-305
-306
-307
-308
-309
-310
-311
-312
-313
-314</pre>
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 305</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 447</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_eigvalsh'>eigvalsh</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='kw'>false</span><span class='comma'>,</span> <span class='label'>turbo:</span><span class='kw'>false</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_jobz'>jobz</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span> <span class='comment'># jobz: Compute eigenvalues and eigenvectors.
@@ -1491,7 +1809,7 @@ eigenvectors for a square symmetric/hermitian matrix A.</p>
         <span class='name'>driver</span>
       
       
-        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -1515,7 +1833,7 @@ eigenvectors for a square symmetric/hermitian matrix A.</p>
         &mdash;
         <div class='inline'>
 <p>optional, default=&#39;U&#39;. Access upper or (&#39;U&#39;) lower
-(&#39;L&#39;) triangle.</p>
+(&#39;L&#39;) triangle. (omitted when driver:“gen”)</p>
 </div>
       
     </li>
@@ -1529,13 +1847,13 @@ eigenvectors for a square symmetric/hermitian matrix A.</p>
       <pre class="lines">
 
 
-523
-524
-525
-526</pre>
+670
+671
+672
+673</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 523</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 670</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inv'>inv</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gen</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>U</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_b'>b</span> <span class='op'>=</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_new_zeros'>new_zeros</span><span class='period'>.</span><span class='id identifier rubyid_eye'>eye</span>
@@ -1610,6 +1928,13 @@ eigenvectors for a square symmetric/hermitian matrix A.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>Computes the minimum-norm solution to a linear least squares problem:</p>
+
+<pre class="code ruby"><code class="ruby">    minimize 2-norm(| b - A*x |)</code></pre>
+
+<p>using the singular value decomposition (SVD) of A. A is an M-by-N matrix
+which may be rank-deficient.</p>
+
 
   </div>
 </div>
@@ -1628,7 +1953,7 @@ eigenvectors for a square symmetric/hermitian matrix A.</p>
       
         &mdash;
         <div class='inline'>
-<p>m-by-n matrix (&gt;= 2-dimensinal NArray)</p>
+<p>m-by-n matrix A (&gt;= 2-dimensinal NArray)</p>
 </div>
       
     </li>
@@ -1644,7 +1969,7 @@ eigenvectors for a square symmetric/hermitian matrix A.</p>
       
         &mdash;
         <div class='inline'>
-<p>m-by-nrhs right-hand-side matrix (&gt;= 1-dimensinal NArray)</p>
+<p>m-by-nrhs right-hand-side matrix b (&gt;= 1-dimensinal NArray)</p>
 </div>
       
     </li>
@@ -1678,8 +2003,8 @@ eigenvectors for a square symmetric/hermitian matrix A.</p>
         &mdash;
         <div class='inline'>
 <p>(optional, default=-1) RCOND is used to determine the effective rank of A.
-Singular values S(i) &lt;= RCOND*S(1) are treated as zero. If RCOND &lt; 0,
-machine precision is used instead.</p>
+Singular values <code>S(i) &lt;= RCOND*S(1)</code> are treated as zero. If
+RCOND &lt; 0, machine precision is used instead.</p>
 </div>
       
     </li>
@@ -1693,70 +2018,70 @@ machine precision is used instead.</p>
       <pre class="lines">
 
 
-540
-541
-542
-543
-544
-545
-546
-547
-548
-549
-550
-551
-552
-553
-554
-555
-556
-557
-558
-559
-560
-561
-562
-563
-564
-565
-566
-567
-568
-569
-570
-571
-572
-573
-574
-575
-576
-577
-578
-579
-580
-581
-582
-583
-584
-585
-586
-587
-588
-589
-590
-591
-592
-593
-594
-595
-596
-597
-598
-599
-600</pre>
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 540</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 693</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_lstsq'>lstsq</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lsd</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>rcond:</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='const'>NArray</span><span class='period'>.</span><span class='id identifier rubyid_asarray'>asarray</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
@@ -1825,9 +2150,9 @@ machine precision is used instead.</p>
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="lu-class_method">
+  <h3 class="signature " id="lu_fact-class_method">
   
-    .<strong>lu</strong>(a)  &#x21d2; <tt>Object</tt> 
+    .<strong>lu_fact</strong>(a, driver: &quot;gen&quot;, uplo: &quot;U&quot;)  &#x21d2; <tt>[lu, ipiv]</tt> 
   
 
   
@@ -1836,13 +2161,101 @@ machine precision is used instead.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>LU decomposition</p>
+<p>Computes an LU factorization of a M-by-N matrix A using partial pivoting
+with row interchanges.</p>
+
+<p>The factorization has the form</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>A</span> <span class='op'>=</span> <span class='const'>P</span> <span class='op'>*</span> <span class='const'>L</span> <span class='op'>*</span> <span class='const'>U</span>
+</code></pre>
+
+<p>where P is a permutation matrix, L is lower triangular with unit diagonal
+elements (lower trapezoidal if m &gt; n), and U is upper triangular (upper
+trapezoidal if m &lt; n).</p>
 
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>m-by-n matrix A (&gt;= 2-dimensinal NArray)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>driver</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>choose LAPACK diriver from &#39;gen&#39;,&#39;sym&#39;,&#39;her&#39;.
+(optional, default=&#39;gen&#39;)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>uplo</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>optional, default=&#39;U&#39;. Access upper or (&#39;U&#39;) lower
+(&#39;L&#39;) triangle. (omitted when driver:“gen”)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>[lu, ipiv]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><ul><li>
+<p><strong>lu</strong> [Numo::NArray] – The factors L and U from the
+factorization  <code>A = P*L*U</code>; the unit diagonal elements of L are
+not stored.</p>
+</li><li>
+<p><strong>ipiv</strong> [Numo::NArray] – The pivot indices; for 1 &lt;= i
+&lt;= min(M,N),  row i of the matrix was interchanged with row IPIV(i).</p>
+</li></ul>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1850,17 +2263,379 @@ machine precision is used instead.</p>
       <pre class="lines">
 
 
-251
-252
-253
-254</pre>
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 251</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 264</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_lu'>lu</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
-  <span class='comment'># fixme
-</span>  <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:getrf</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_lu_fact'>lu_fact</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gen</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>U</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^gen?(trf)?$</span><span class='regexp_end'>/i</span></span>
+    <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:getrf</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>..</span><span class='int'>1</span><span class='rbracket'>]</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^(sym?|her?)(trf)?$</span><span class='regexp_end'>/i</span></span>
+    <span class='id identifier rubyid_func'>func</span> <span class='op'>=</span> <span class='id identifier rubyid_driver'>driver</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>..</span><span class='int'>2</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='op'>+</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>trf</span><span class='tstring_end'>&quot;</span></span>
+    <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_func'>func</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='id identifier rubyid_uplo'>uplo</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>..</span><span class='int'>1</span><span class='rbracket'>]</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid driver: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_driver'>driver</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="lu_inv-class_method">
+  
+    .<strong>lu_inv</strong>(lu, ipiv, driver: &quot;gen&quot;, uplo: &quot;U&quot;)  &#x21d2; <tt>Numo::NArray</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>LU decomposition Computes the inverse of a matrix using the LU
+factorization computed by Numo::Linalg.lu_fact.</p>
+
+<p>This method inverts U and then computes inv(A) by solving the system</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_inv'>inv</span><span class='lparen'>(</span><span class='const'>A</span><span class='rparen'>)</span><span class='op'>*</span><span class='const'>L</span> <span class='op'>=</span> <span class='id identifier rubyid_inv'>inv</span><span class='lparen'>(</span><span class='const'>U</span><span class='rparen'>)</span>
+</code></pre>
+
+<p>for inv(A).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>lu</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>matrix containing the factors L and U from the factorization <code>A =
+P*L*U</code> as computed by Numo::Linalg.lu_fact.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ipiv</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The pivot indices from Numo::Linalg.lu_fact; for 1&lt;=i&lt;=N, row i of
+the matrix was interchanged with row IPIV(i).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>driver</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>choose LAPACK diriver from &#39;gen&#39;,&#39;sym&#39;,&#39;her&#39;.
+(optional, default=&#39;gen&#39;)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>uplo</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>optional, default=&#39;U&#39;. Access upper or (&#39;U&#39;) lower
+(&#39;L&#39;) triangle. (omitted when driver:“gen”)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the inverse of the original matrix A.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 298</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_lu_inv'>lu_inv</span><span class='lparen'>(</span><span class='id identifier rubyid_lu'>lu</span><span class='comma'>,</span> <span class='id identifier rubyid_ipiv'>ipiv</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gen</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>U</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^gen?(tri)?$</span><span class='regexp_end'>/i</span></span>
+    <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:getri</span><span class='comma'>,</span> <span class='id identifier rubyid_lu'>lu</span><span class='comma'>,</span> <span class='id identifier rubyid_ipiv'>ipiv</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^(sym?|her?)(tri)?$</span><span class='regexp_end'>/i</span></span>
+    <span class='id identifier rubyid_func'>func</span> <span class='op'>=</span> <span class='id identifier rubyid_driver'>driver</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>..</span><span class='int'>2</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='op'>+</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tri</span><span class='tstring_end'>&quot;</span></span>
+    <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_func'>func</span><span class='comma'>,</span> <span class='id identifier rubyid_lu'>lu</span><span class='comma'>,</span> <span class='id identifier rubyid_ipiv'>ipiv</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='id identifier rubyid_uplo'>uplo</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid driver: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_driver'>driver</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="lu_solve-class_method">
+  
+    .<strong>lu_solve</strong>(lu, ipiv, b, driver: &quot;gen&quot;, uplo: &quot;U&quot;, trans: &quot;N&quot;)  &#x21d2; <tt>Numo::NArray</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Solves a system of linear equations</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>A</span> <span class='op'>*</span> <span class='const'>X</span> <span class='op'>=</span> <span class='const'>B</span>  <span class='kw'>or</span>  <span class='const'>A</span><span class='op'>**</span><span class='const'>T</span> <span class='op'>*</span> <span class='const'>X</span> <span class='op'>=</span> <span class='const'>B</span>
+</code></pre>
+
+<p>with a N-by-N matrix A using the LU factorization computed by
+Numo::Linalg.lu_fact</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>lu</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>matrix containing the factors L and U from the factorization <code>A =
+P*L*U</code> as computed by Numo::Linalg.lu_fact.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ipiv</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The pivot indices from Numo::Linalg.lu_fact; for 1&lt;=i&lt;=N, row i of
+the matrix was interchanged with row IPIV(i).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>b</span>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the right hand side matrix B.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>driver</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>choose LAPACK diriver from &#39;gen&#39;,&#39;sym&#39;,&#39;her&#39;.
+(optional, default=&#39;gen&#39;)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>uplo</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>optional, default=&#39;U&#39;. Access upper or (&#39;U&#39;) lower
+(&#39;L&#39;) triangle. (omitted when driver:“gen”)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>trans</span>
+      
+      
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Specifies the form of the system of equations (omitted if not
+driver:“gen”):</p>
+<ul><li>
+<p>If &#39;N&#39;: <code>A * X = B</code> (No transpose).</p>
+</li><li>
+<p>If &#39;T&#39;: <code>A**T* X = B</code> (Transpose).</p>
+</li><li>
+<p>If &#39;C&#39;: <code>A**T* X = B</code> (Conjugate transpose = Transpose).</p>
+</li></ul>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the solution matrix X.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 337</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_lu_solve'>lu_solve</span><span class='lparen'>(</span><span class='id identifier rubyid_lu'>lu</span><span class='comma'>,</span> <span class='id identifier rubyid_ipiv'>ipiv</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gen</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>U</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>trans:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>N</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^gen?(trs)?$</span><span class='regexp_end'>/i</span></span>
+    <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:getrs</span><span class='comma'>,</span> <span class='id identifier rubyid_lu'>lu</span><span class='comma'>,</span> <span class='id identifier rubyid_ipiv'>ipiv</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>trans:</span><span class='id identifier rubyid_trans'>trans</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^(sym?|her?)(trs)?$</span><span class='regexp_end'>/i</span></span>
+    <span class='id identifier rubyid_func'>func</span> <span class='op'>=</span> <span class='id identifier rubyid_driver'>driver</span><span class='lbracket'>[</span><span class='int'>0</span><span class='op'>..</span><span class='int'>2</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='op'>+</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>trs</span><span class='tstring_end'>&quot;</span></span>
+    <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_func'>func</span><span class='comma'>,</span> <span class='id identifier rubyid_lu'>lu</span><span class='comma'>,</span> <span class='id identifier rubyid_ipiv'>ipiv</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='id identifier rubyid_uplo'>uplo</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid driver: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_driver'>driver</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2040,27 +2815,27 @@ machine precision is used instead.</p>
       <pre class="lines">
 
 
-469
-470
-471
-472
-473
-474
-475
-476
-477
-478
-479
-480
-481
-482
-483
-484
-485
-486</pre>
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 469</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 611</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_matrix_rank'>matrix_rank</span><span class='lparen'>(</span><span class='id identifier rubyid_m'>m</span><span class='comma'>,</span> <span class='label'>tol:</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>svd</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_m'>m</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Numo.html" title="Numo (module)">Numo</a></span></span><span class='op'>::</span><span class='const'>NArray</span><span class='period'>.</span><span class='id identifier rubyid_asarray'>asarray</span><span class='lparen'>(</span><span class='id identifier rubyid_m'>m</span><span class='rparen'>)</span>
@@ -2121,110 +2896,110 @@ machine precision is used instead.</p>
       <pre class="lines">
 
 
-329
-330
-331
-332
-333
-334
-335
-336
-337
-338
-339
-340
-341
-342
-343
-344
-345
-346
-347
-348
-349
-350
-351
-352
-353
-354
-355
-356
-357
-358
-359
-360
-361
-362
-363
-364
-365
-366
-367
-368
-369
-370
-371
-372
-373
-374
-375
-376
-377
-378
-379
-380
-381
-382
-383
-384
-385
-386
-387
-388
-389
-390
-391
-392
-393
-394
-395
-396
-397
-398
-399
-400
-401
-402
-403
-404
-405
-406
-407
-408
-409
-410
-411
-412
-413
-414
-415
-416
-417
-418
-419
-420
-421
-422
-423
-424
-425
-426
-427
-428
-429</pre>
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 329</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 471</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_norm'>norm</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_ord'>ord</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>axis:</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>keepdims:</span><span class='kw'>false</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Numo.html" title="Numo (module)">Numo</a></span></span><span class='op'>::</span><span class='const'>NArray</span><span class='period'>.</span><span class='id identifier rubyid_asarray'>asarray</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
@@ -2394,7 +3169,7 @@ machine precision is used instead.</p>
       
         &mdash;
         <div class='inline'>
-<p>m-by-n matrix (&gt;= 2-dimensinal NArray)</p>
+<p>m-by-n matrix A (&gt;= 2-dimensinal NArray)</p>
 </div>
       
     </li>
@@ -2409,9 +3184,15 @@ machine precision is used instead.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>“reduce”: returns both Q and R, “r”: only R, “economy”: both Q and R but
-computed in economy-size, “raw”: returns QR and TAU usend in LAPACK.</p>
+        <div class='inline'><ul><li>
+<p>“reduce” – returns both Q and R,</p>
+</li><li>
+<p>“r” – returns only R,</p>
+</li><li>
+<p>“economy” – returns both Q and R but computed in economy-size,</p>
+</li><li>
+<p>“raw” – returns QR and TAU used in LAPACK.</p>
+</li></ul>
 </div>
       
     </li>
@@ -2471,6 +3252,16 @@ computed in economy-size, “raw”: returns QR and TAU usend in LAPACK.</p>
       <pre class="lines">
 
 
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
 169
 170
 171
@@ -2487,20 +3278,10 @@ computed in economy-size, “raw”: returns QR and TAU usend in LAPACK.</p>
 182
 183
 184
-185
-186
-187
-188
-189
-190
-191
-192
-193
-194
-195</pre>
+185</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 169</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 159</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_qr'>qr</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>mode:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>reduce</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_qr'>qr</span><span class='comma'>,</span><span class='id identifier rubyid_tau'>tau</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:geqrf</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
@@ -2584,9 +3365,12 @@ computed in economy-size, “raw”: returns QR and TAU usend in LAPACK.</p>
       
       
         &mdash;
-        <div class='inline'>
-<p>sign: A number representing the sign of the determinant logdet: The natural
-log of the absolute value of the determinant.</p>
+        <div class='inline'><ul><li>
+<p><strong>sign</strong> – A number representing the sign of the determinant.</p>
+</li><li>
+<p><strong>logdet</strong> – The natural log of the absolute value of the
+determinant.</p>
+</li></ul>
 </div>
       
     </li>
@@ -2599,23 +3383,23 @@ log of the absolute value of the determinant.</p>
       <pre class="lines">
 
 
-453
-454
-455
-456
-457
-458
-459
-460
-461
-462
-463
-464
-465
-466</pre>
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 453</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 595</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_slogdet'>slogdet</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_lu'>lu</span><span class='comma'>,</span> <span class='id identifier rubyid_piv'>piv</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:getrf</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
@@ -2695,7 +3479,7 @@ square matrix <code>a</code></p>
         <span class='name'>driver</span>
       
       
-        <span class='type'>(<tt>Numo::NArray</tt>)</span>
+        <span class='type'>(<tt>String or Symbol</tt>)</span>
       
       
       
@@ -2719,7 +3503,7 @@ square matrix <code>a</code></p>
         &mdash;
         <div class='inline'>
 <p>optional, default=&#39;U&#39;. Access upper or (&#39;U&#39;) lower
-(&#39;L&#39;) triangle.</p>
+(&#39;L&#39;) triangle. (omitted when driver:“gen”)</p>
 </div>
       
     </li>
@@ -2733,21 +3517,21 @@ square matrix <code>a</code></p>
       <pre class="lines">
 
 
-504
-505
-506
-507
-508
-509
-510
-511
-512
-513
-514
-515</pre>
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 504</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 649</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_solve'>solve</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gen</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>U</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -2781,7 +3565,8 @@ square matrix <code>a</code></p>
 <p>Computes the Singular Value Decomposition (SVD) of a M-by-N matrix A, and
 the left and/or right singular vectors. The SVD is written</p>
 
-<p>A = U * SIGMA * transpose(V)</p>
+<pre class="code ruby"><code class="ruby"><span class='const'>A</span> <span class='op'>=</span> <span class='const'>U</span> <span class='op'>*</span> <span class='const'>SIGMA</span> <span class='op'>*</span> <span class='id identifier rubyid_transpose'>transpose</span><span class='lparen'>(</span><span class='const'>V</span><span class='rparen'>)</span>
+</code></pre>
 
 <p>where SIGMA is an M-by-N matrix which is zero except for its min(m,n)
 diagonal elements, U is an M-by-M orthogonal matrix, and V is an N-by-N
@@ -2808,7 +3593,7 @@ vectors of A. Note that the routine returns V**T, not V.</p>
       
         &mdash;
         <div class='inline'>
-<p>m-by-n matrix (&gt;= 2-dimensinal NArray)</p>
+<p>m-by-n matrix A (&gt;= 2-dimensinal NArray)</p>
 </div>
       
     </li>
@@ -2857,19 +3642,19 @@ default=&#39;svd&#39;)</p>
       <pre class="lines">
 
 
-214
-215
-216
-217
-218
-219
-220
-221
-222
-223</pre>
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 214</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 205</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_svd'>svd</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>svd</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -2900,7 +3685,8 @@ default=&#39;svd&#39;)</p>
     
 <p>Computes the Singular Values of a M-by-N matrix A. The SVD is written</p>
 
-<p>A = U * SIGMA * transpose(V)</p>
+<pre class="code ruby"><code class="ruby"><span class='const'>A</span> <span class='op'>=</span> <span class='const'>U</span> <span class='op'>*</span> <span class='const'>SIGMA</span> <span class='op'>*</span> <span class='id identifier rubyid_transpose'>transpose</span><span class='lparen'>(</span><span class='const'>V</span><span class='rparen'>)</span>
+</code></pre>
 
 <p>where SIGMA is an M-by-N matrix which is zero except for its min(m,n)
 diagonal elements. The diagonal elements of SIGMA are the singular values
@@ -2924,7 +3710,7 @@ of A; they are real and non-negative, and are returned in descending order.</p>
       
         &mdash;
         <div class='inline'>
-<p>m-by-n matrix (&gt;= 2-dimensinal NArray)</p>
+<p>m-by-n matrix A (&gt;= 2-dimensinal NArray)</p>
 </div>
       
     </li>
@@ -2960,7 +3746,7 @@ default=&#39;svd&#39;)</p>
       
         &mdash;
         <div class='inline'>
-<p>Singular values.</p>
+<p>returns SIGMA (singular values).</p>
 </div>
       
     </li>
@@ -2973,19 +3759,19 @@ default=&#39;svd&#39;)</p>
       <pre class="lines">
 
 
+231
+232
+233
+234
+235
+236
+237
+238
 239
-240
-241
-242
-243
-244
-245
-246
-247
-248</pre>
+240</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 239</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 231</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_svdvals'>svdvals</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>svd</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -3039,12 +3825,12 @@ default=&#39;svd&#39;)</p>
       <pre class="lines">
 
 
-489
-490
-491</pre>
+631
+632
+633</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 489</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 631</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_trace'>trace</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
@@ -3080,20 +3866,20 @@ default=&#39;svd&#39;)</p>
       <pre class="lines">
 
 
-150
-151
-152
-153
-154
-155
-156
-157
-158
-159
-160</pre>
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 150</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 135</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_triu'>triu</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span><span class='id identifier rubyid_k'>k</span><span class='op'>=</span><span class='int'>0</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_ndim'>ndim</span> <span class='op'>&lt;</span> <span class='int'>2</span>
@@ -3168,7 +3954,7 @@ default=&#39;svd&#39;)</p>
 </div>
 
       <div id="footer">
-  Generated on Tue May 23 22:57:20 2017 by
+  Generated on Wed May 24 22:51:53 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>
