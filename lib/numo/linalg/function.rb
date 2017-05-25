@@ -95,21 +95,6 @@ module Numo; module Linalg
     end
   end
 
-  #
-  def vdot(a, b)
-    raise NotImplementedError
-  end
-
-  #
-  def inner(a, b)
-    Blas.call(:gemv, a, b)
-  end
-
-  #
-  def outer(a, b)
-    a[false, :new] * b
-  end
-
   # Matrix product.
   # @param a [Numo::NArray] matrix (>= 2-dimensinal NArray)
   # @param b [Numo::NArray] matrix (>= 2-dimensinal NArray)
@@ -118,20 +103,90 @@ module Numo; module Linalg
     Blas.call(:gemm, a, b)
   end
 
+  # Compute a square matrix `a` to the power `n`.
   #
-  def matrix_power(m, n)
-    raise NotImplementedError
-  end
+  #  * If n > 0: return `a**n`.
+  #  * If n == 0: return identity matrix.
+  #  * If n < 0: return `(a*\*-1)*\*n.abs`.
+  #
+  # @param a [Numo::NArray] square matrix (>= 2-dimensinal NArray).
+  # @param n [Integer] the exponent.
+  # @example
+  #     i = Numo::DFloat[[0, 1], [-1, 0]]
+  #     => Numo::DFloat#shape=[2,2]
+  #     [[0, 1],
+  #      [-1, 0]]
+  #     Numo::Linalg.matrix_power(i,3)
+  #     => Numo::DFloat#shape=[2,2]
+  #     [[0, -1],
+  #      [1, 0]]
+  #     Numo::Linalg.matrix_power(i,0)
+  #     => Numo::DFloat#shape=[2,2]
+  #     [[1, 0],
+  #      [0, 1]]
+  #     Numo::Linalg.matrix_power(i,-3)
+  #     => Numo::DFloat#shape=[2,2]
+  #     [[0, 1],
+  #      [-1, 0]]
+  #
+  #     q = Numo::DFloat.zeros(4,4)
+  #     q[0..1,0..1] = -i
+  #     q[2..3,2..3] = i
+  #     q
+  #     => Numo::DFloat#shape=[4,4]
+  #     [[-0, -1, 0, 0],
+  #      [1, -0, 0, 0],
+  #      [0, 0, 0, 1],
+  #      [0, 0, -1, 0]]
+  #     Numo::Linalg.matrix_power(q,2)
+  #     => Numo::DFloat#shape=[4,4]
+  #     [[-1, 0, 0, 0],
+  #      [0, -1, 0, 0],
+  #      [0, 0, -1, 0],
+  #      [0, 0, 0, -1]]
 
-  #
-  def kron(a, b)
-    raise NotImplementedError
+  def matrix_power(a, n)
+    a = NArray.asarray(a)
+    m,k = a.shape[-2..-1]
+    unless m==k
+      raise NArray::ShapeError, "input must be a square array"
+    end
+    unless Integer===n
+      raise ArgumentError, "exponent must be an integer"
+    end
+    if n == 0
+      return a.class.eye(m)
+    elsif n < 0
+      a = inv(a)
+      n = n.abs
+    end
+    if n <= 3
+      r = a
+      (n-1).times do
+        r = matmul(r,a)
+      end
+    else
+      while (n & 1) == 0
+        a = matmul(a,a)
+        n >>= 1
+      end
+      r = a
+      while n != 0
+        a = matmul(a,a)
+        n >>= 1
+        if (n & 1) != 0
+          r = matmul(r,a)
+        end
+      end
+    end
+    r
   end
 
 
   ## factorization
 
   # Upper triangular matrix.
+  # @!visibility private
   def triu(a,k=0)
     if a.ndim < 2
       raise NArray::ShapeError, "ivalid shape"
@@ -183,6 +238,7 @@ module Numo; module Linalg
     end
     return [q,r]
   end
+
 
   # Computes the Singular Value Decomposition (SVD) of a M-by-N matrix A,
   # and the left and/or right singular vectors.  The SVD is written
@@ -238,6 +294,7 @@ module Numo; module Linalg
       raise ArgumentError, "invalid driver: #{driver}"
     end
   end
+
 
   # Computes an LU factorization of a M-by-N matrix A
   # using partial pivoting with row interchanges.
@@ -407,6 +464,7 @@ module Numo; module Linalg
   #   - **w**  [Numo::NArray] -- The eigenvalues.
   #   - **vl** [Numo::NArray] -- The left eigenvectors if left is true, otherwise nil.
   #   - **vr** [Numo::NArray] -- The right eigenvectors if right is true, otherwise nil.
+
   def eig(a, left:false, right:true)
     jobvl, jobvr = left, right
     case blas_char(a)
@@ -431,6 +489,7 @@ module Numo; module Linalg
   # @return [[w,v]]
   #   - **w** [Numo::NArray] -- The eigenvalues.
   #   - **v** [Numo::NArray] -- The eigenvectors if vals_only is false, otherwise nil.
+
   def eigh(a, vals_only:false, uplo:false, turbo:false)
     jobz = vals_only ? 'N' : 'V' # jobz: Compute eigenvalues and eigenvectors.
     case blas_char(a)
@@ -447,6 +506,7 @@ module Numo; module Linalg
   #
   # @param a [Numo::NArray] square nonsymmetric matrix (>= 2-dimensinal NArray)
   # @return [Numo::NArray] eigenvalues
+
   def eigvals(a)
     jobvl, jobvr = 'N','N'
     case blas_char(a)
@@ -466,6 +526,7 @@ module Numo; module Linalg
   # @param uplo [String or Symbol] (optional, default='U')
   #   Access upper ('U') or lower ('L') triangle.
   # @return [Numo::NArray] eigenvalues
+
   def eigvalsh(a, uplo:false, turbo:false)
     jobz = 'N' # jobz: Compute eigenvalues and eigenvectors.
     case blas_char(a)
@@ -482,15 +543,15 @@ module Numo; module Linalg
 
   # Compute matrix or vector norm.
   #
-  #     |  ord  |  matrix norm            | vector norm                 |
-  #     | ----- | ----------------------- | --------------------------- |
-  #     |  nil  | Frobenius norm          | 2-norm                      |
-  #     | 'fro' | Frobenius norm          |  -                          |
-  #     | 'inf' | x.abs.sum(axis:-1).max  | x.abs.max                   |
-  #     |    0  |  -                      | (x.ne 0).sum                |
-  #     |    1  | x.abs.sum(axis:-2).max  | same as below               |
-  #     |    2  | 2-norm (max sing-value) | same as below               |
-  #     | other |  -                      | (x.abs**ord).sum**(1.0/ord) |
+  #     |  ord  |  matrix norm           | vector norm                 |
+  #     | ----- | ---------------------- | --------------------------- |
+  #     |  nil  | Frobenius norm         | 2-norm                      |
+  #     | 'fro' | Frobenius norm         |  -                          |
+  #     | 'inf' | x.abs.sum(axis:-1).max | x.abs.max                   |
+  #     |    0  |  -                     | (x.ne 0).sum                |
+  #     |    1  | x.abs.sum(axis:-2).max | same as below               |
+  #     |    2  | 2-norm (max sing_vals) | same as below               |
+  #     | other |  -                     | (x.abs**ord).sum**(1.0/ord) |
   #
   # @param a [Numo::NArray] matrix or vector (>= 1-dimensinal NArray)
   # @param ord [String or Symbol] Order of the norm .
@@ -510,7 +571,7 @@ module Numo; module Linalg
       when Array
         if axis.size < 1 || axis.size > 2
           raise ArgmentError, "axis option should be 1- or 2-element array"
-      end
+        end
       else
         raise ArgumentError, "invalid option for axis: #{axis}"
       end
@@ -518,9 +579,15 @@ module Numo; module Linalg
       if a.ndim > 1
         idx = (0...a.ndim).to_a
         tmp = []
-        (axis.size-1).downto(0) do |i|
-          tmp.unshift( idx.delete_at(axis[i]) )
+        axis.each do |i|
+          x = idx[i]
+          if x.nil?
+            raise ArgmentError, "axis contains same dimension"
+          end
+          tmp << x
+          idx[i] = nil
         end
+        idx.compact!
         idx.concat(tmp)
         a = a.transpose(*idx)
       end
@@ -601,11 +668,57 @@ module Numo; module Linalg
     return r
   end
 
-  def cond(*x)
-    raise NotImplementedError
+  # Compute the condition number of a matrix
+  # using the norm with one of the following order.
+  #
+  #     |  ord  |  matrix norm           |
+  #     | ----- | ---------------------- |
+  #     |  nil  | 2-norm using SVD       |
+  #     | 'fro' | Frobenius norm         |
+  #     | 'inf' | x.abs.sum(axis:-1).max |
+  #     |    1  | x.abs.sum(axis:-2).max |
+  #     |    2  | 2-norm (max sing_vals) |
+  #
+  # @param a [Numo::NArray] matrix or vector (>= 1-dimensinal NArray)
+  # @param ord [String or Symbol] Order of the norm.
+  # @return [Numo::NArray] cond result
+  # @example
+  #     a = Numo::DFloat[[1, 0, -1], [0, 1, 0], [1, 0, 1]]
+  #     => Numo::DFloat#shape=[3,3]
+  #     [[1, 0, -1],
+  #      [0, 1, 0],
+  #      [1, 0, 1]]
+  #     LA = Numo::Linalg
+  #     LA.cond(a)
+  #     => 1.4142135623730951
+  #     LA.cond(a, 'fro')
+  #     => 3.1622776601683795
+  #     LA.cond(a, 'inf')
+  #     => 2.0
+  #     LA.cond(a, '-inf')
+  #     => 1.0
+  #     LA.cond(a, 1)
+  #     => 2.0
+  #     LA.cond(a, -1)
+  #     => 1.0
+  #     LA.cond(a, 2)
+  #     => 1.4142135623730951
+  #     LA.cond(a, -2)
+  #     => 0.7071067811865475
+  #     (LA.svdvals(a)).min*(LA.svdvals(LA.inv(a))).min
+  #     => 0.7071067811865475
+
+  def cond(a,ord=nil)
+    if ord.nil?
+      s = svdvals(a)
+      s[false, 0]/s[false, -1]
+    else
+      norm(a, ord, axis:[-2,-1]) * norm(inv(a), ord, axis:[-2,-1])
+    end
   end
 
   # Determinant of a matrix
+  #
   # @param a [Numo::NArray] matrix (>= 2-dimensional NArray)
   # @return [Float or Complex or Numo::NArray]
 
@@ -618,6 +731,7 @@ module Numo; module Linalg
   end
 
   # Natural logarithm of the determinant of a matrix
+  #
   # @param a [Numo::NArray] matrix (>= 2-dimensional NArray)
   # @return [[sign,logdet]]
   #   - **sign** -- A number representing the sign of the determinant.
@@ -638,7 +752,16 @@ module Numo; module Linalg
     [sign, NMath.log(lud_abs).sum(axis:-1)]
   end
 
-  # matrix rank using SVD method
+  # Compute matrix rank of array using SVD
+  # *Rank* is the number of singular values greater than *tol*.
+  #
+  # @param m [Numo::NArray] matrix (>= 2-dimensional NArray)
+  # @param tol [Float] threshold below which singular values are
+  #   considered to be zero. If *tol* is nil,
+  #   `tol = sing_vals.max() * m.shape.max * EPSILON`.
+  # @param driver [String or Symbol] choose LAPACK solver from 'svd',
+  #   'sdd'. (optional, default='svd')
+
   def matrix_rank(m, tol:nil, driver:'svd')
     m = Numo::NArray.asarray(m)
     if m.ndim < 2
@@ -658,14 +781,8 @@ module Numo; module Linalg
     end
   end
 
-  #
-  def trace(*a)
-    raise NotImplementedError
-  end
-
 
   ## Solving equations and inverting matrices
-
 
   # Solves linear equation `a * x = b` for `x`
   # from square matrix `a`
@@ -691,7 +808,6 @@ module Numo; module Linalg
     end
   end
 
-
   # Inverse matrix from square matrix `a`
   # @param a [Numo::NArray] n-by-n square matrix  (>= 2-dimensinal NArray)
   # @param driver [String or Symbol] choose LAPACK diriver
@@ -704,7 +820,6 @@ module Numo; module Linalg
     b = a.new_zeros.eye
     solve(a, b, driver:driver, uplo:uplo)
   end
-
 
   # Computes the minimum-norm solution to a linear least squares
   # problem:
@@ -793,6 +908,8 @@ module Numo; module Linalg
     end
     [x, resids, rank, s]
   end
+
+  private
 
   # @!visibility private
   def _make_complex_eigvecs(w, vin) # :nodoc:
