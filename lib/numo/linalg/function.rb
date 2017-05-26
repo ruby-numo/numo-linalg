@@ -80,17 +80,22 @@ module Numo; module Linalg
   # @param b [Numo::NArray] matrix or vector (>= 1-dimensinal NArray)
   # @return [Numo::NArray] result of dot product
   def dot(a, b)
-    if a.ndim >= 2
-      if b.ndim >= 2
-        return Blas.call(:gemm, a, b)
+    a = NArray.asarray(a)
+    b = NArray.asarray(b)
+    case a.ndim
+    when 1
+      case b.ndim
+      when 1
+        Blas.call(:dot, a, b)
       else
-        return Blas.call(:gemv, a, b)
+        Blas.call(:gemv, b, a, trans:'t')
       end
     else
-      if b.ndim >= 2
-        return Blas.call(:gemv, b, a, trans:'t')
+      case b.ndim
+      when 1
+        Blas.call(:gemv, a, b)
       else
-        return Blas.call(:dot, a, b)
+        Blas.call(:gemm, a, b)
       end
     end
   end
@@ -256,14 +261,23 @@ module Numo; module Linalg
   # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
   # @param driver [String or Symbol] choose LAPACK solver from 'svd',
   #   'sdd'. (optional, default='svd')
+  # @param job [String or Symbol]
+  #   - 'A': all M columns of U and all N rows of V\*\*T are returned in
+  #     the arrays U and VT.
+  #   - 'S': the first min(M,N) columns of U and the first min(M,N)
+  #     rows of V\*\*T are returned in the arrays U and VT.
+  #   - 'N':  no columns of U or rows of V\*\*T are computed.
   # @return [[sigma,u,vt]] SVD result. Array<Numo::NArray>
 
-  def svd(a, driver:'svd')
+  def svd(a, driver:'svd', job:'A')
+    unless /^[ASN]/i =~ job
+      raise ArgumentError, "invalid job: #{job.inspect}"
+    end
     case driver.to_s
     when /^(ge)?sdd$/i, "turbo"
-      Lapack.call(:gesdd, a, jobz:'A')[0..2]
+      Lapack.call(:gesdd, a, jobz:job)[0..2]
     when /^(ge)?svd$/i
-      Lapack.call(:gesvd, a, jobu:'A', jobvt:'A')[0..2]
+      Lapack.call(:gesvd, a, jobu:job, jobvt:job)[0..2]
     else
       raise ArgumentError, "invalid driver: #{driver}"
     end
@@ -811,14 +825,37 @@ module Numo; module Linalg
   # Inverse matrix from square matrix `a`
   # @param a [Numo::NArray] n-by-n square matrix  (>= 2-dimensinal NArray)
   # @param driver [String or Symbol] choose LAPACK diriver
-  #   'gen','sym','her' or 'pos'. (optional, default='gen')
+  #   ('ge'|'sy'|'he'|'po') + ("sv"|"trf")
+  #   (optional, default='getrf')
   # @param uplo [String or Symbol] optional, default='U'. Access upper
-  #   or ('U') lower ('L') triangle. (omitted when driver:"gen")
+  #   or ('U') lower ('L') triangle. (omitted when driver:"ge")
   # @return [Numo::NArray] The inverse matrix.
+  # @example
+  #   Numo::Linalg.inv(a,driver:'getrf')
+  #   => Numo::DFloat#shape=[2,2]
+  #   [[-2, 1],
+  #    [1.5, -0.5]]
+  #   a.dot(Numo::Linalg.inv(a,driver:'getrf'))
+  #   => Numo::DFloat#shape=[2,2]
+  #   [[1, 0],
+  #    [8.88178e-16, 1]]
 
-  def inv(a, driver:"gen", uplo:'U')
-    b = a.new_zeros.eye
-    solve(a, b, driver:driver, uplo:uplo)
+  def inv(a, driver:"getrf", uplo:'U')
+    case driver
+    when /(ge|sy|he|po)sv$/
+      d = $1
+      b = a.new_zeros.eye
+      solve(a, b, driver:d, uplo:uplo)
+    when /(ge|sy|he)tr[fi]$/
+      d = $1
+      lu, piv = lu_fact(a, driver:d, uplo:uplo)
+      lu_inv(lu, piv, driver:d, uplo:uplo)
+    when /potr[fi]$/
+      lu = cho_fact(a, uplo:uplo)
+      cho_inv(lu, uplo:uplo)
+    else
+      raise ArgumentError, "invalid driver: #{driver}"
+    end
   end
 
   # Computes the minimum-norm solution to a linear least squares
@@ -909,6 +946,66 @@ module Numo; module Linalg
     [x, resids, rank, s]
   end
 
+  # Compute the (Moore-Penrose) pseudo-inverse of a matrix
+  # using svd or lstsq.
+  #
+  # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
+  # @param driver [String or Symbol] choose LAPACK driver from
+  #   SVD ('svd', 'sdd') or Least square ('lsd','lss','lsy')
+  #   (optional, default='svd')
+  # @param rcond [Float] (optional, default=-1)
+  #   RCOND is used to determine the effective rank of A.
+  #   Singular values `S(i) <= RCOND*S(1)` are treated as zero.
+  #   If RCOND < 0, machine precision is used instead.
+  # @return [Numo::NArray]
+  # @example
+  #   a = Numo::DFloat.new(5,3).rand_norm
+  #   => Numo::DFloat#shape=[5,3]
+  #   [[-0.581255, -0.168354, 0.586895],
+  #    [-0.595142, -0.802802, -0.326106],
+  #    [0.282922, 1.68427, 0.918499],
+  #    [-0.0485384, -0.464453, -0.992194],
+  #    [0.413794, -0.60717, -0.699695]]
+  #   b = Numo::Linalg.pinv(a,driver:"svd")
+  #   => Numo::DFloat(view)#shape=[3,5]
+  #   [[-0.360863, -0.813125, -0.353367, -0.891963, 0.877253],
+  #    [-0.227645, 0.162939, 0.696655, 0.787685, -0.469346],
+  #    [0.408671, -0.308323, -0.337807, -1.13833, 0.228051]]
+  #   (a-a.dot(b.dot(a))).abs.max
+  #   => 5.551115123125783e-16
+
+  def pinv(a, driver:"svd", rcond:nil)
+    a = NArray.asarray(a)
+    if a.ndim < 2
+      raise NArray::ShapeError, "2-d array is required"
+    end
+    case driver
+    when /^(ge)?s[dv]d$/
+      s, u, vh = svd(a, driver:driver, job:'S')
+      if rcond.nil? || rcond < 0
+        rcond = ((SFloat===s) ? 1e3 : 1e6) * s.class::EPSILON
+      elsif ! Numeric === rcond
+        raise ArgumentError, "rcond must be Numeric"
+      end
+      cond = (s > rcond * s.max(axis:-1, keepdims:true))
+      if cond.all?
+        r = s.reciprocal
+      else
+        r = s.new_zeros
+        r[cond] = s[cond].reciprocal
+      end
+      u *= r[false,:new,true]
+      dot(u,vh).conj.swapaxes(-2,-1)
+    when /^(ge)?ls[dsy]$/
+      b = a.class.eye(a.shape[-2])
+      x, = lstsq(a, b, driver:driver, rcond:rcond)
+      x
+    else
+      raise ArgumentError, "#{driver.inspect} is not one of drivers: "+
+        "svd, sdd, lsd, lss, lsy"
+    end
+  end
+
   private
 
   # @!visibility private
@@ -920,27 +1017,6 @@ module Numo; module Linalg
     v[m+1] = v[m].conj
     v
   end
-
-=begin
-  # numpy.linalg.pinv and scipy.linalg.pinv are different
-  def pinv(a, turbo:false)
-    tflag = turbo
-    a = a.conj
-    args = [a, job: :THIN]
-    if tflag
-      result = Lapack.gesdd(*args)
-    else
-      result = Lapack.gesvd(*args)
-    end
-    u, s, vt = result
-    n = s.shape[0]
-    s_mat = s.class.new(n, n).fill(0.0)
-    (0 ... n).each {|i|
-      s_mat[i, i] = 1.0 / s[i]
-    }
-    vt.dot(s_mat).dot(u)
-  end
-=end
 
 end
 end
