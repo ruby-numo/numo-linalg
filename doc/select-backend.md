@@ -1,8 +1,8 @@
 # Selecting Backend Library
 
-* Numo::Linalg opens dynamic libraries of BLAS and LAPACK at runtime.
-  This design allows you to change backend libraries without
-  re-compiling Numo::Linalg.
+* Numo::Linalg accesses BLAS/LAPACK library throuh dynamic linking
+  loader at runtime.  This design allows you to change backend
+  libraries without re-compiling Numo::Linalg.
 
 * Note that the performance depends on the backend libraries as shown in
   [benchmark](https://github.com/ruby-numo/linalg/tree/master/bench).
@@ -19,7 +19,9 @@
 * Note that these options are for setting default path to load library
   at runtime, not required for building Numo::Linalg library.
 
-## Use default library
+## Use Numo::Linalg
+
+### Use default backend
 
 ```ruby
 require "numo/linalg"
@@ -28,7 +30,7 @@ require "numo/linalg"
 * if --with-backend option is specified, use it.
 * if --with-backend option is not specified, try to load mkl,openblas,atlas,lapack.
 
-## Use non-default library
+### Specify backend
 
 * 1st level (specify backend library)
 

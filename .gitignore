@@ -27,6 +27,7 @@ ext/numo/linalg/*/Makefile
 ext/numo/linalg/*/depend
 ext/numo/linalg/*/doc
 ext/numo/linalg/blas/blas_?.c
+ext/numo/linalg/blas/lib
 ext/numo/linalg/lapack/lapack_?.c
 
 t.rb

@@ -6,19 +6,20 @@ Under development!
 
 ## Introduction
 
-This is a binding of LAPACK with Numo::NArray .
+This is a binding of BLAS/LAPACK for Numo::NArray using dynamic linking loader.
+This desgin allows you to change backend libraries without re-compiling.
 
 ### [Numo::Linalg API](http://ruby-numo.github.io/linalg/yard/Numo/Linalg.html)
 
 * Matrix and vector products
     * dot, matmul
 * Decomposition
-    * lu\_fact, lu\_inv, lu\_solve, cho\_fact, cho\_inv, cho\_solve, qr
-    * svd, svdvals
+    * lu\_fact, lu\_inv, lu\_solve, cho\_fact, cho\_inv, cho\_solve
+      qr, svd, svdvals
 * Matrix eigenvalues
     * eig, eigh, eigvals, eigvalsh
 * Norms and other numbers
-    * norm, cond, det, slogdet, matrix_rank, matrix_power
+    * norm, cond, det, slogdet, matrix\_rank, matrix\_power
 * Solving equations and inverting matrices
     * solve, lstsq, inv, pinv
 
@@ -43,6 +44,9 @@ This is a binding of LAPACK with Numo::NArray .
         * [OpenBLAS](http://www.openblas.net/)
         * [Intel MKL](https://software.intel.com/intel-mkl)
 
+    * Note that the performance depends on the backend library as shown in
+      [benchmark](https://github.com/ruby-numo/linalg/tree/master/bench).
+
 * Install Numo::Linalg
 
 ```shell
@@ -52,7 +56,7 @@ $ rake build
 $ gem install pkg/numo-linalg-*.gem
 ```
 
-* Read instruction for [Selecting Backend Library](https://github.com/ruby-numo/linalg/tree/master/doc/select-backend.md).
+* Read also instruction for [Selecting Backend Library](https://github.com/ruby-numo/linalg/tree/master/doc/select-backend.md).
 
 ## Authors
 
