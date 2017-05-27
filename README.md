@@ -13,15 +13,14 @@ This is a binding of LAPACK with Numo::NArray .
 * Matrix and vector products
     * dot, matmul
 * Decomposition
-    * cholesky, qr, svd
+    * lu\_fact, lu\_inv, lu\_solve, cho\_fact, cho\_inv, cho\_solve, qr
+    * svd, svdvals
 * Matrix eigenvalues
     * eig, eigh, eigvals, eigvalsh
 * Norms and other numbers
-    * norm, det, matrix_rank, slogdet
+    * norm, cond, det, slogdet, matrix_rank, matrix_power
 * Solving equations and inverting matrices
-    * solve, lstsq, inv
-
-More functions to come
+    * solve, lstsq, inv, pinv
 
 ### Low-level modules
 
@@ -32,14 +31,14 @@ More functions to come
 
 * Install [Numo::NArray](https://github.com/ruby-numo/narray)
 
-* Install [LAPACK](http://www.netlib.org/lapack/) or compatible packages.
+* Install [LAPACK](http://www.netlib.org/lapack/) or alternative package.
 
     * Numo::Linalg requires C-interface
       [CBLAS](http://www.netlib.org/blas/#_cblas) and
       [LAPACKE](http://www.netlib.org/lapack/lapacke.html) interface.
       These are included in LAPACK package.
 
-    * It is recommended to use one of following faster libraries:
+    * Recommended: use one of following faster libraries:
         * [ATLAS](https://sourceforge.net/projects/math-atlas/)
         * [OpenBLAS](http://www.openblas.net/)
         * [Intel MKL](https://software.intel.com/intel-mkl)
@@ -53,43 +52,7 @@ $ rake build
 $ gem install pkg/numo-linalg-*.gem
 ```
 
-## Loading backend library
-
-* Numo::Linalg opens dynamic libraries of BLAS and LAPACK at runtime.
-  This design allows you to change backend libraries without
-  re-compiling Numo::Linalg.
-
-* Note that the performance depends on the backend libraries as shown in
-  [benchmark](https://github.com/ruby-numo/linalg/tree/master/bench).
-
-* Dynamic loading example:
-
-```ruby
-require "numo/linalg"
-require "fiddle"
-Fiddle.dlopen("libblas.so")  # referenced from CBLAS
-Fiddle.dlopen("liblapack.so")  # referenced from LAPACKE
-Numo::Linalg::Blas.dlopen("libcblas.so")  # contains cblas_* function
-Numo::Linalg::Lapack.dlopen("liblapacke.so")  # containes LAPACKE_* function
-```
-
-This default behavior is defined in "numo/linalg/use/lapack.rb"
-
-```ruby
-require "numo/linalg/use/lapack"
-```
-
-  * Load Atlas:
-
-```ruby
-require "numo/linalg/use/satlas"
-```
-
-  * Load OpenBLAS:
-
-```ruby
-require "numo/linalg/use/openblas"
-```
+* Read instruction for [Selecting Backend Library](https://github.com/ruby-numo/linalg/tree/master/doc/select-backend.md).
 
 ## Authors
 
