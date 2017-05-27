@@ -2,6 +2,28 @@ require 'mkmf'
 require 'numo/narray'
 require 'erb'
 
+ldirs = [
+ dir_config("mkl")[1],
+ dir_config("openblas")[1],
+ dir_config("atlas")[1],
+ dir_config("blas")[1],
+ dir_config("lapack")[1],
+]
+bked = with_config("backend")
+
+FileUtils.mkdir_p "lib"
+open("lib/site_conf.rb","w"){|f| f.write "
+module Numo
+  module Linalg
+    BACKEND = #{bked.inspect}
+    MKL_LIBPATH = #{ldirs[0].inspect}
+    OPENBLAS_LIBPATH = #{ldirs[1].inspect}
+    ATLAS_LIBPATH = #{ldirs[2].inspect}
+    BLAS_LIBPATH = #{ldirs[3].inspect}
+    LAPACK_LIBPATH = #{ldirs[4].inspect}
+  end
+end"}
+
 $LOAD_PATH.each do |x|
   if File.exist? File.join(x,'numo/numo/narray.h')
     $INCFLAGS = "-I#{x}/numo " + $INCFLAGS

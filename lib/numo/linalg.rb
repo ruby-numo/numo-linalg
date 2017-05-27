@@ -1,4 +1,3 @@
-require "numo/narray"
-require "numo/linalg/blas"
-require "numo/linalg/lapack"
-require "numo/linalg/function"
+require "numo/linalg/linalg"
+
+Numo::Linalg::Loader.load_library

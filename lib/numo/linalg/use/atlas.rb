@@ -1,6 +1,3 @@
-require 'fiddle'
-require 'numo/linalg'
+require "numo/linalg/linalg"
 
-Fiddle.dlopen("libatlas.so")
-Numo::Linalg::Blas.dlopen("libatlas.so")
-Numo::Linalg::Lapack.dlopen("liblapacke.so")
+Numo::Linalg::Loader.load_atlas

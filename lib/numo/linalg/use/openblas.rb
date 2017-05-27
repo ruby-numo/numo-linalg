@@ -1,4 +1,3 @@
-require 'numo/linalg'
+require "numo/linalg/linalg"
 
-Numo::Linalg::Blas.dlopen("libopenblas.so")
-Numo::Linalg::Lapack.dlopen("libopenblas.so")
+Numo::Linalg::Loader.load_openblas

@@ -1,7 +1,3 @@
-require 'fiddle'
-require 'numo/linalg'
+require "numo/linalg/linalg"
 
-Fiddle.dlopen("libblas.so")
-Fiddle.dlopen("liblapack.so")
-Numo::Linalg::Blas.dlopen("libcblas.so")
-Numo::Linalg::Lapack.dlopen("liblapacke.so")
+Numo::Linalg::Loader.load_lapack
