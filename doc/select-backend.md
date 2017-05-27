@@ -66,7 +66,9 @@ Numo::Linalg::Blas.dlopen("libcblas.so")  # contains cblas_* function
 Numo::Linalg::Lapack.dlopen("liblapacke.so")  # containes LAPACKE_* function
 ```
 
-## Show using libraries
+* Reopen (change backend at runtime) is not supported.
+
+## Show libraries
 
 ```ruby
 p Numo::Linalg::Loader.libs
