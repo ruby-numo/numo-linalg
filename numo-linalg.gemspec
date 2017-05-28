@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Numo::Linalg::VERSION
   spec.authors       = ["Masahiro TANAKA"]
   spec.email         = ["masa16.tanaka@gmail.com"]
-  spec.description   = %q{Linalg development version.}
-  spec.summary       = %q{Linalg development version}
+  spec.description   = %q{Ruby/Numo Linear Algebra library with interface to BLAS/LAPACK.}
+  spec.summary       = %q{Ruby/Numo Linear Algebra library with BLAS/LAPACK}
   spec.homepage      = "https://github.com/ruby-numo/numo-linalg"
   spec.license       = "BSD-3-Clause"
 
