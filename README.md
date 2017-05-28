@@ -53,7 +53,7 @@ This desgin allows you to change backend libraries without re-compiling.
 * Install Numo::Linalg
 
 ```shell
-$ gem install numo/linalg
+$ gem install numo-linalg
 ```
 
 or
