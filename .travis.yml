@@ -1,0 +1,21 @@
+language:
+  ruby
+
+rvm:
+  - '2.1'
+  - '2.2'
+  - '2.3'
+
+matrix:
+  fast_finish:
+    true
+
+install: true
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install ruby gcc ruby-dev rake make -y
+
+script:
+  - gem build numo-linalg.gemspec
+  - gem install numo-linalg-0.0.1.gem
