@@ -79,7 +79,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>ext/numo/linalg/lapack/lapack.c<span class="defines">,<br />
-  ext/numo/linalg/lapack/lapack_c.c,<br /> ext/numo/linalg/lapack/lapack_d.c,<br /> ext/numo/linalg/lapack/lapack_s.c,<br /> ext/numo/linalg/lapack/lapack_z.c,<br /> ext/numo/linalg/blas/blas.c,<br /> ext/numo/linalg/blas/blas_c.c,<br /> ext/numo/linalg/blas/blas_d.c,<br /> ext/numo/linalg/blas/blas_s.c,<br /> ext/numo/linalg/blas/blas_z.c,<br /> lib/numo/linalg/function.rb,<br /> lib/numo/linalg/version.rb</span>
+  ext/numo/linalg/lapack/lapack_c.c,<br /> ext/numo/linalg/lapack/lapack_d.c,<br /> ext/numo/linalg/lapack/lapack_s.c,<br /> ext/numo/linalg/lapack/lapack_z.c,<br /> ext/numo/linalg/blas/blas.c,<br /> ext/numo/linalg/blas/blas_c.c,<br /> ext/numo/linalg/blas/blas_d.c,<br /> ext/numo/linalg/blas/blas_s.c,<br /> ext/numo/linalg/blas/blas_z.c,<br /> lib/numo/linalg/function.rb,<br /> lib/numo/linalg/loader.rb,<br /> lib/numo/linalg/version.rb</span>
 </dd>
   </dl>
   
@@ -89,7 +89,7 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Linalg/Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span>, <span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Linalg/Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span>, <span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span>, <span class='object_link'><a href="Linalg/Loader.html" title="Numo::Linalg::Loader (module)">Loader</a></span>
     
   
     
@@ -919,12 +919,12 @@ A = L  * L**H,  if UPLO = &#39;L&#39;,</code></pre>
       <pre class="lines">
 
 
-432
-433
-434</pre>
+418
+419
+420</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 432</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 418</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cho_fact'>cho_fact</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>U</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:potrf</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='id identifier rubyid_uplo'>uplo</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
@@ -1018,12 +1018,12 @@ by Linalg.cho_fact.</p>
       <pre class="lines">
 
 
-448
-449
-450</pre>
+434
+435
+436</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 448</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 434</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cho_inv'>cho_inv</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>U</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:potri</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='id identifier rubyid_uplo'>uplo</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
@@ -1133,12 +1133,12 @@ by Linalg.cho_fact.</p>
       <pre class="lines">
 
 
-464
-465
-466</pre>
+450
+451
+452</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 464</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 450</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cho_solve'>cho_solve</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>U</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:potrs</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='id identifier rubyid_uplo'>uplo</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='int'>0</span><span class='rbracket'>]</span>
@@ -1270,17 +1270,17 @@ LA.cond(a, -2)
       <pre class="lines">
 
 
-725
-726
-727
-728
-729
-730
-731
-732</pre>
+711
+712
+713
+714
+715
+716
+717
+718</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 725</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 711</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_cond'>cond</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span><span class='id identifier rubyid_ord'>ord</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_ord'>ord</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -1354,16 +1354,16 @@ LA.cond(a, -2)
       <pre class="lines">
 
 
-739
-740
-741
-742
-743
-744
-745</pre>
+725
+726
+727
+728
+729
+730
+731</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 739</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 725</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_det'>det</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_lu'>lu</span><span class='comma'>,</span> <span class='id identifier rubyid_piv'>piv</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:getrf</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
@@ -1610,22 +1610,22 @@ true, otherwise nil.</p>
       <pre class="lines">
 
 
-482
-483
-484
-485
-486
-487
-488
-489
-490
-491
-492
-493
-494</pre>
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 482</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 468</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_eig'>eig</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>left:</span><span class='kw'>false</span><span class='comma'>,</span> <span class='label'>right:</span><span class='kw'>true</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_jobvl'>jobvl</span><span class='comma'>,</span> <span class='id identifier rubyid_jobvr'>jobvr</span> <span class='op'>=</span> <span class='id identifier rubyid_left'>left</span><span class='comma'>,</span> <span class='id identifier rubyid_right'>right</span>
@@ -1747,20 +1747,20 @@ otherwise nil.</p>
       <pre class="lines">
 
 
-507
-508
-509
-510
-511
-512
-513
-514
-515
-516
-517</pre>
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 507</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 493</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_eigh'>eigh</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>vals_only:</span><span class='kw'>false</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='kw'>false</span><span class='comma'>,</span> <span class='label'>turbo:</span><span class='kw'>false</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_jobz'>jobz</span> <span class='op'>=</span> <span class='id identifier rubyid_vals_only'>vals_only</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>V</span><span class='tstring_end'>&#39;</span></span> <span class='comment'># jobz: Compute eigenvalues and eigenvectors.
@@ -1842,20 +1842,20 @@ otherwise nil.</p>
       <pre class="lines">
 
 
-524
-525
-526
-527
-528
-529
-530
-531
-532
-533
-534</pre>
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 524</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 510</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_eigvals'>eigvals</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_jobvl'>jobvl</span><span class='comma'>,</span> <span class='id identifier rubyid_jobvr'>jobvr</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span>
@@ -1954,19 +1954,19 @@ otherwise nil.</p>
       <pre class="lines">
 
 
-544
-545
-546
-547
-548
-549
-550
-551
-552
-553</pre>
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 544</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 530</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_eigvalsh'>eigvalsh</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='kw'>false</span><span class='comma'>,</span> <span class='label'>turbo:</span><span class='kw'>false</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_jobz'>jobz</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>N</span><span class='tstring_end'>&#39;</span></span> <span class='comment'># jobz: Compute eigenvalues and eigenvectors.
@@ -2096,26 +2096,26 @@ a.dot(Numo::Linalg.inv(a,driver:&#39;getrf&#39;))
       <pre class="lines">
 
 
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
 843
 844
-845
-846
-847
-848
-849
-850
-851
-852
-853
-854
-855
-856
-857
-858
-859</pre>
+845</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 843</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 829</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inv'>inv</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>getrf</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>U</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_driver'>driver</span>
@@ -2270,6 +2270,20 @@ nil if &#39;gelsy&#39; is used.</p>
       <pre class="lines">
 
 
+873
+874
+875
+876
+877
+878
+879
+880
+881
+882
+883
+884
+885
+886
 887
 888
 889
@@ -2316,24 +2330,10 @@ nil if &#39;gelsy&#39; is used.</p>
 930
 931
 932
-933
-934
-935
-936
-937
-938
-939
-940
-941
-942
-943
-944
-945
-946
-947</pre>
+933</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 887</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 873</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_lstsq'>lstsq</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lsd</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>rcond:</span><span class='op'>-</span><span class='int'>1</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='const'>NArray</span><span class='period'>.</span><span class='id identifier rubyid_asarray'>asarray</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
@@ -2515,20 +2515,20 @@ not stored.</p>
       <pre class="lines">
 
 
-335
-336
-337
-338
-339
-340
-341
-342
-343
-344
-345</pre>
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 335</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 321</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_lu_fact'>lu_fact</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gen</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>U</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -2670,20 +2670,20 @@ the matrix was interchanged with row IPIV(i).</p>
       <pre class="lines">
 
 
-368
-369
-370
-371
-372
-373
-374
-375
-376
-377
-378</pre>
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 368</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 354</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_lu_inv'>lu_inv</span><span class='lparen'>(</span><span class='id identifier rubyid_lu'>lu</span><span class='comma'>,</span> <span class='id identifier rubyid_ipiv'>ipiv</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gen</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>U</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -2863,20 +2863,20 @@ driver:“gen”):</p>
       <pre class="lines">
 
 
-407
-408
-409
-410
-411
-412
-413
-414
-415
-416
-417</pre>
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 407</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 393</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_lu_solve'>lu_solve</span><span class='lparen'>(</span><span class='id identifier rubyid_lu'>lu</span><span class='comma'>,</span> <span class='id identifier rubyid_ipiv'>ipiv</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gen</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>U</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>trans:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>N</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -3260,27 +3260,27 @@ default=&#39;svd&#39;)</p>
       <pre class="lines">
 
 
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
 779
 780
 781
-782
-783
-784
-785
-786
-787
-788
-789
-790
-791
-792
-793
-794
-795
-796</pre>
+782</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 779</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 765</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_matrix_rank'>matrix_rank</span><span class='lparen'>(</span><span class='id identifier rubyid_m'>m</span><span class='comma'>,</span> <span class='label'>tol:</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>svd</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_m'>m</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Numo.html" title="Numo (module)">Numo</a></span></span><span class='op'>::</span><span class='const'>NArray</span><span class='period'>.</span><span class='id identifier rubyid_asarray'>asarray</span><span class='lparen'>(</span><span class='id identifier rubyid_m'>m</span><span class='rparen'>)</span>
@@ -3429,6 +3429,20 @@ default=&#39;svd&#39;)</p>
       <pre class="lines">
 
 
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
 577
 578
 579
@@ -3521,24 +3535,10 @@ default=&#39;svd&#39;)</p>
 666
 667
 668
-669
-670
-671
-672
-673
-674
-675
-676
-677
-678
-679
-680
-681
-682
-683</pre>
+669</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 577</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 563</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_norm'>norm</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_ord'>ord</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>axis:</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>keepdims:</span><span class='kw'>false</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Numo.html" title="Numo (module)">Numo</a></span></span><span class='op'>::</span><span class='const'>NArray</span><span class='period'>.</span><span class='id identifier rubyid_asarray'>asarray</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
@@ -3768,6 +3768,20 @@ RCOND &lt; 0, machine precision is used instead.</p>
       <pre class="lines">
 
 
+963
+964
+965
+966
+967
+968
+969
+970
+971
+972
+973
+974
+975
+976
 977
 978
 979
@@ -3784,24 +3798,10 @@ RCOND &lt; 0, machine precision is used instead.</p>
 990
 991
 992
-993
-994
-995
-996
-997
-998
-999
-1000
-1001
-1002
-1003
-1004
-1005
-1006
-1007</pre>
+993</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 977</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 963</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pinv'>pinv</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>svd</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>rcond:</span><span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='const'>NArray</span><span class='period'>.</span><span class='id identifier rubyid_asarray'>asarray</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
@@ -3954,6 +3954,20 @@ RCOND &lt; 0, machine precision is used instead.</p>
       <pre class="lines">
 
 
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
 219
 220
 221
@@ -3966,30 +3980,16 @@ RCOND &lt; 0, machine precision is used instead.</p>
 228
 229
 230
-231
-232
-233
-234
-235
-236
-237
-238
-239
-240
-241
-242
-243
-244
-245</pre>
+231</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 219</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 205</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_qr'>qr</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>mode:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>reduce</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_qr'>qr</span><span class='comma'>,</span><span class='id identifier rubyid_tau'>tau</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:geqrf</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
   <span class='op'>*</span><span class='id identifier rubyid_shp'>shp</span><span class='comma'>,</span><span class='id identifier rubyid_m'>m</span><span class='comma'>,</span><span class='id identifier rubyid_n'>n</span> <span class='op'>=</span> <span class='id identifier rubyid_qr'>qr</span><span class='period'>.</span><span class='id identifier rubyid_shape'>shape</span>
   <span class='id identifier rubyid_r'>r</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_m'>m</span> <span class='op'>&gt;=</span> <span class='id identifier rubyid_n'>n</span> <span class='op'>&amp;&amp;</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>economic</span><span class='words_sep'> </span><span class='tstring_content'>raw</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_mode'>mode</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>?</span>
-    <span class='id identifier rubyid_triu'>triu</span><span class='lparen'>(</span><span class='id identifier rubyid_qr'>qr</span><span class='lbracket'>[</span><span class='kw'>false</span><span class='comma'>,</span> <span class='int'>0</span><span class='op'>...</span><span class='id identifier rubyid_n'>n</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_triu'>triu</span><span class='lparen'>(</span><span class='id identifier rubyid_qr'>qr</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_qr'>qr</span><span class='lbracket'>[</span><span class='kw'>false</span><span class='comma'>,</span> <span class='int'>0</span><span class='op'>...</span><span class='id identifier rubyid_n'>n</span><span class='comma'>,</span> <span class='kw'>true</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_triu'>triu</span> <span class='op'>:</span> <span class='id identifier rubyid_qr'>qr</span><span class='period'>.</span><span class='id identifier rubyid_triu'>triu</span>
   <span class='id identifier rubyid_mode'>mode</span> <span class='op'>=</span> <span class='id identifier rubyid_mode'>mode</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_mode'>mode</span>
   <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>r</span><span class='tstring_end'>&quot;</span></span>
@@ -4085,23 +4085,23 @@ determinant.</p>
       <pre class="lines">
 
 
-754
-755
-756
-757
-758
-759
-760
-761
-762
-763
-764
-765
-766
-767</pre>
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 754</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 740</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_slogdet'>slogdet</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_lu'>lu</span><span class='comma'>,</span> <span class='id identifier rubyid_piv'>piv</span><span class='comma'>,</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Linalg/Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="Linalg/Lapack.html#call-class_method" title="Numo::Linalg::Lapack.call (method)">call</a></span></span><span class='lparen'>(</span><span class='symbol'>:getrf</span><span class='comma'>,</span> <span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span>
@@ -4237,21 +4237,21 @@ square matrix <code>a</code></p>
       <pre class="lines">
 
 
-812
-813
-814
-815
-816
-817
-818
-819
-820
-821
-822
-823</pre>
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 812</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 798</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_solve'>solve</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gen</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>uplo:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>U</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -4385,22 +4385,22 @@ of V**T are returned in the arrays U and VT.</p>
       <pre class="lines">
 
 
-272
-273
-274
-275
-276
-277
-278
-279
-280
-281
-282
-283
-284</pre>
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 272</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 258</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_svd'>svd</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>svd</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>job:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>A</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='kw'>unless</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^[ASN]</span><span class='regexp_end'>/i</span></span> <span class='op'>=~</span> <span class='id identifier rubyid_job'>job</span>
@@ -4508,19 +4508,19 @@ default=&#39;svd&#39;)</p>
       <pre class="lines">
 
 
-301
-302
-303
-304
-305
-306
-307
-308
-309
-310</pre>
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 301</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/function.rb', line 287</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_svdvals'>svdvals</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='comma'>,</span> <span class='label'>driver:</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>svd</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_driver'>driver</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -4542,7 +4542,7 @@ default=&#39;svd&#39;)</p>
 </div>
 
       <div id="footer">
-  Generated on Sat May 27 02:16:42 2017 by
+  Generated on Mon May 29 00:56:27 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.9 (ruby-2.4.1).
 </div>
