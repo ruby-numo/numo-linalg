@@ -190,20 +190,6 @@ module Numo; module Linalg
 
   ## factorization
 
-  # Upper triangular matrix.
-  # @!visibility private
-  def triu(a,k=0)
-    if a.ndim < 2
-      raise NArray::ShapeError, "ivalid shape"
-    end
-    *shp,m,n = a.shape
-    b = a.reshape(*shp,m*n)
-    x = Numo::Int64.new(m,1).seq + k
-    y = Numo::Int64.new(1,n).seq
-    b[false,(x>y).where] = 0
-    b.reshape(*shp,m,n)
-  end
-
   # Computes a QR factorization of a complex M-by-N matrix A: A = Q \* R.
   #
   # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
@@ -220,7 +206,7 @@ module Numo; module Linalg
     qr,tau, = Lapack.call(:geqrf, a)
     *shp,m,n = qr.shape
     r = (m >= n && %w[economic raw].include?(mode)) ?
-      triu(qr[false, 0...n, true]) : triu(qr)
+      qr[false, 0...n, true].triu : qr.triu
     mode = mode.to_s.downcase
     case mode
     when "r"
