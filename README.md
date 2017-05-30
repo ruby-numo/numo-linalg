@@ -3,7 +3,8 @@
 [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/repo/ruby-numo/linalg)
 [![Build Status](https://travis-ci.org/ruby-numo/linalg.svg?branch=master)](https://travis-ci.org/ruby-numo/linalg)
 
-[GitHub](https://github.com/ruby-numo/linalg)
+[GitHub](https://github.com/ruby-numo/linalg) |
+[RubyGems](https://github.com/ruby-numo/linalg)
 
 Under development!
 
@@ -63,6 +64,14 @@ $ git clone https://github.com/ruby-numo/linalg.git
 $ cd linalg
 $ rake build
 $ gem install pkg/numo-linalg-*.gem
+```
+
+## Using
+
+* Load Numo::Linalg module with default backend:
+
+```ruby
+require "numo/linalg"
 ```
 
 * Read also instruction for [Selecting Backend Library](https://github.com/ruby-numo/linalg/tree/master/doc/select-backend.md).

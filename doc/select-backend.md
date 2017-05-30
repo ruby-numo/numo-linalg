@@ -37,6 +37,18 @@ require "numo/linalg"
 ```ruby
 require "numo/linalg/use/openblas"
 ```
+or
+```ruby
+require "numo/linalg/use/atlas"
+```
+or
+```ruby
+require "numo/linalg/use/mkl"
+```
+or
+```ruby
+require "numo/linalg/use/lapack"
+```
 
 * 2nd level (specify library path)
 

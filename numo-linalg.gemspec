@@ -6,7 +6,7 @@ require_relative "lib/numo/linalg/version"
 Gem::Specification.new do |spec|
   spec.name          = "numo-linalg"
   spec.version       = Numo::Linalg::VERSION
-  spec.authors       = ["Masahiro TANAKA"]
+  spec.authors       = ["Masahiro TANAKA","Makoto KISHIMOTO"]
   spec.email         = ["masa16.tanaka@gmail.com"]
   spec.description   = %q{Ruby/Numo Linear Algebra library with interface to BLAS/LAPACK.}
   spec.summary       = %q{Ruby/Numo Linear Algebra library with BLAS/LAPACK}
