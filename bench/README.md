@@ -9,6 +9,12 @@
 * -pkg : yum-installed package
 * -build : built & installed from source code
 
+    * atlas-pkg : atlas-3.10.1-10.el7.x86_64
+    * atlas-build : atlas3.10.3
+    * openblas-pkg : openblas-0.2.19-4.el7.x86_64
+    * openblas-build : openblas-0.2.19
+    * intel\_mkl : 2017.3.196
+
 ### Result
 
 * Check and compare *real* time.
@@ -20,37 +26,55 @@ $ sh bench.sh
 
 OMP_NUM_THREADS=1
                        user     system      total        real
-blas-build         9.450000   0.010000   9.460000 (  9.467362)
-satlas-pkg         2.150000   0.010000   2.160000 (  2.168709)
-satlas-build       1.240000   0.010000   1.250000 (  1.252929)
-openblas-pkg       1.080000   0.010000   1.090000 (  1.089870)
-openblas-build     1.070000   0.000000   1.070000 (  1.073924)
+blas-build        31.690000   0.020000  31.710000 ( 31.717582)
+satlas-pkg         7.060000   0.010000   7.070000 (  7.087082)
+satlas-build       4.010000   0.020000   4.030000 (  4.036639)
+openblas-pkg       3.500000   0.030000   3.530000 (  3.525150)
+openblas-build     3.500000   0.020000   3.520000 (  3.523451)
+intel_mkl-seq      3.620000   0.010000   3.630000 (  3.638581)
 
 OMP_NUM_THREADS=4
                        user     system      total        real
-tatlas-pkg         2.350000   0.090000   2.440000 (  0.656182)
-tatlas-build       1.420000   0.040000   1.460000 (  0.395914)
-openblaso-pkg      1.270000   0.090000   1.360000 (  0.358807)
-openblasp-pkg      1.200000   0.130000   1.330000 (  0.334057)
-openblas-build     1.180000   0.150000   1.330000 (  0.338615)
+tatlas-pkg         7.970000   0.260000   8.230000 (  2.136432)
+tatlas-pkg         7.950000   0.200000   8.150000 (  2.111306)
+tatlas-build       4.670000   0.110000   4.780000 (  1.257292)
+tatlas-build       4.600000   0.110000   4.710000 (  1.232838)
+openblaso-pkg      4.110000   0.240000   4.350000 (  1.117955)
+openblaso-pkg      4.090000   0.140000   4.230000 (  1.076477)
+openblasp-pkg      4.300000   0.310000   4.610000 (  1.161065)
+openblasp-pkg      4.510000   0.420000   4.930000 (  1.245599)
+openblas-build     4.090000   0.350000   4.440000 (  1.121971)
+openblas-build     4.130000   0.360000   4.490000 (  1.129311)
+intel_mkl-thread   4.390000   0.100000   4.490000 (  1.194790)
+intel_mkl-thread   4.250000   0.080000   4.330000 (  1.093744)
+intel_mkl-thread   4.200000   0.070000   4.270000 (  1.073778)
 
 == DGELS benchmark ==
 
 OMP_NUM_THREADS=1
                        user     system      total        real
-lapack-build      10.740000   0.020000  10.760000 ( 10.757387)
-satlas-pkg         1.940000   0.020000   1.960000 (  1.948135)
-satlas-build       1.430000   0.020000   1.450000 (  1.444768)
-openblas-pkg       1.320000   0.020000   1.340000 (  1.345208)
-openblas-build     1.390000   0.020000   1.410000 (  1.401886)
+lapack-build      36.310000   0.040000  36.350000 ( 36.344356)
+satlas-pkg         6.530000   0.050000   6.580000 (  6.574038)
+satlas-build       4.600000   0.040000   4.640000 (  4.640768)
+openblas-pkg       4.310000   0.020000   4.330000 (  4.342447)
+openblas-build     4.420000   0.050000   4.470000 (  4.471163)
+intel_mkl-seq      3.310000   0.030000   3.340000 (  3.333907)
 
 OMP_NUM_THREADS=4
                        user     system      total        real
-tatlas-pkg         2.250000   0.360000   2.610000 (  1.051549)
-tatlas-build       1.620000   0.240000   1.860000 (  0.888229)
-openblaso-pkg      2.280000   0.130000   2.410000 (  0.778036)
-openblasp-pkg      1.770000   1.210000   2.980000 (  0.750317)
-openblas-build     1.850000   1.460000   3.310000 (  0.867976)
+tatlas-pkg         7.360000   1.220000   8.580000 (  3.373866)
+tatlas-pkg         7.360000   1.180000   8.540000 (  3.334231)
+tatlas-build       5.540000   0.760000   6.300000 (  2.969774)
+tatlas-build       5.570000   0.780000   6.350000 (  3.067050)
+openblaso-pkg      7.260000   0.350000   7.610000 (  2.460789)
+openblaso-pkg      7.480000   0.400000   7.880000 (  2.513503)
+openblasp-pkg      5.950000   3.790000   9.740000 (  2.445235)
+openblasp-pkg      6.000000   3.770000   9.770000 (  2.457592)
+openblas-build     6.190000   4.360000  10.550000 (  2.646929)
+openblas-build     6.120000   4.010000  10.130000 (  2.543951)
+intel_mkl-thread   5.230000   0.150000   5.380000 (  1.374205)
+intel_mkl-thread   4.610000   0.100000   4.710000 (  1.184957)
+intel_mkl-thread   4.520000   0.090000   4.610000 (  1.161126)
 ```
 
 ## Conclusion
