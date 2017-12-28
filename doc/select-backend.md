@@ -9,9 +9,9 @@
 
 ## Install time option to specify default library path
 
-    gem install pkg/numo-linalg-0.0.1.gem -- \
+    gem install pkg/numo-linalg-0.0.2.gem -- \
       --with-backend=mkl \
-      --with-mkl-lib=/opt/intel/composerxe/mkl/lib/intel64 \
+      --with-mkl-lib=/opt/intel/mkl/lib/intel64 \
       --with-openblas-dir=/opt/OpenBLAS \
       --with-atlas-dir=/opt/ATLAS \
       --with-lapack-lib=/opt/LAPACK/lib64
