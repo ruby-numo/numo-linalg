@@ -70,7 +70,7 @@ static void
     "a, x, [uplo:'U', trans:'N', diag:'U'"
    else
     "a, x, [y, alpha:1, beta:0, uplo:'U'"
-   end + ", order:'R'"
+   end + ", order:'R']"
  params = [
    mat("a"),
    vec("x"),

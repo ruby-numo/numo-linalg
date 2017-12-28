@@ -69,7 +69,7 @@ static void
    "a, b, [alpha:1, side:'L', uplo:'U', transa:'N', diag:'U'"
   else
    "a, b, [c, alpha:1, beta:0, side:'L', uplo:'U'"
-  end + ", order:'R'"
+  end + ", order:'R']"
 
  params = [
    mat("a"),
