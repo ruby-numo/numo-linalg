@@ -1,10 +1,10 @@
 # Numo::Linalg : Linear Algebra library with BLAS/LAPACK binding to Numo::NArray
 
-[![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/repo/ruby-numo/linalg)
-[![Build Status](https://travis-ci.org/ruby-numo/linalg.svg?branch=master)](https://travis-ci.org/ruby-numo/linalg)
+[![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/repo/ruby-numo/numo-linalg)
+[![Build Status](https://travis-ci.org/ruby-numo/numo-linalg.svg?branch=master)](https://travis-ci.org/ruby-numo/numo-linalg)
 
-[GitHub](https://github.com/ruby-numo/linalg) |
-[RubyGems](https://github.com/ruby-numo/linalg)
+[GitHub](https://github.com/ruby-numo/numo-linalg) |
+[RubyGems](https://github.com/ruby-numo/numo-linalg)
 
 Under development!
 
@@ -49,7 +49,7 @@ This desgin allows you to change backend libraries without re-compiling.
         * [Intel MKL](https://software.intel.com/intel-mkl)
 
     * Note that the performance depends on the backend library as shown in
-      [benchmark](https://github.com/ruby-numo/linalg/tree/master/bench).
+      [benchmark](https://github.com/ruby-numo/numo-linalg/tree/master/bench).
 
 * Install Numo::Linalg
 
@@ -60,7 +60,7 @@ $ gem install numo-linalg
 or
 
 ```shell
-$ git clone https://github.com/ruby-numo/linalg.git
+$ git clone https://github.com/ruby-numo/numo-linalg.git
 $ cd linalg
 $ rake build
 $ gem install pkg/numo-linalg-*.gem
@@ -74,7 +74,7 @@ $ gem install pkg/numo-linalg-*.gem
 require "numo/linalg"
 ```
 
-* Read also instruction for [Selecting Backend Library](https://github.com/ruby-numo/linalg/tree/master/doc/select-backend.md).
+* Read also instruction for [Selecting Backend Library](https://github.com/ruby-numo/numo-linalg/tree/master/doc/select-backend.md).
 
 ## Authors
 

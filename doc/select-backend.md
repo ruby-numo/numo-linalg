@@ -5,7 +5,7 @@
   libraries without re-compiling Numo::Linalg.
 
 * Note that the performance depends on the backend libraries as shown in
-  [benchmark](https://github.com/ruby-numo/linalg/tree/master/bench).
+  [benchmark](https://github.com/ruby-numo/numo-linalg/tree/master/bench).
 
 ## Install time option to specify default library path
 
