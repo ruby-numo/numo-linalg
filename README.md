@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/ruby-numo/numo-linalg.svg?branch=master)](https://travis-ci.org/ruby-numo/numo-linalg)
 
 [GitHub](https://github.com/ruby-numo/numo-linalg) |
-[RubyGems](https://github.com/ruby-numo/numo-linalg)
+[RubyGems](https://rubygems.org/gems/numo-linalg)
 
 Under development!
 
