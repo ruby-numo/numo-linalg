@@ -992,8 +992,6 @@ module Numo; module Linalg
     end
   end
 
-  private
-
   # @!visibility private
   def _make_complex_eigvecs(w, vin) # :nodoc:
     v = w.class.cast(vin)
@@ -1003,6 +1001,8 @@ module Numo; module Linalg
     v[m+1] = v[m].conj
     v
   end
+
+  private_class_method :_make_complex_eigvecs
 
 end
 end
