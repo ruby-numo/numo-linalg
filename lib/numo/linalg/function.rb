@@ -996,7 +996,7 @@ module Numo; module Linalg
   def _make_complex_eigvecs(w, vin) # :nodoc:
     v = w.class.cast(vin)
     # broadcast to vin.shape
-    m = (w.imag > 0 | Bit.zeros(*vin.shape)).where
+    m = ((w.imag > 0) | Bit.zeros(*vin.shape)).where
     v[m].imag = vin[m+1]
     v[m+1] = v[m].conj
     v
