@@ -1,14 +1,12 @@
 #! /usr/bin/env ruby
 
 pwd = File.dirname(__FILE__)
-#libpath = File.absolute_path(File.dirname(__FILE__))+"/../../../../lib"
-#$LOAD_PATH.unshift libpath
 
 require_relative "../../blas/gen/decl"
 
 while true
   if ARGV[0] == "-l"
-    require "erbpp/line_number"
+    $line_number = true
     ARGV.shift
   elsif ARGV[0] == "-o"
     ARGV.shift
@@ -31,6 +29,7 @@ erb_dir = ["../tmpl"]
 erb_dir.map!{|d| File.join(pwd,d)}
 
 code = DefLib.new do
+  set line_number: $line_number
   set erb_dir: erb_dir
   set erb_suffix: ".c"
   set ns_var: "mN"
