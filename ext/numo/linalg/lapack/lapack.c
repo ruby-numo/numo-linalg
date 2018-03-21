@@ -327,7 +327,7 @@ lapack_s_dlopen(int argc, VALUE *argv, VALUE mod)
     if (i==2) {
         f = NUM2INT(flag);
     } else {
-        f = RTLD_LAZY | RTLD_LOCAL;
+        f = RTLD_LAZY;
     }
     dlerror();
     handle = dlopen(StringValueCStr(lib), f);
