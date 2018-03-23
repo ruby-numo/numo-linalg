@@ -21,16 +21,16 @@ module Numo
             end
         a.each do |d|
           if d.empty?
-            f_iomp5 = "libiomp5.so"
-            f_mkl_core = "libmkl_core.so"
-            f_intel_thread = "libmkl_intel_thread.so"
-            f_intel_lp64 = "libmkl_intel_lp64.so"
+            f_iomp5 = "libiomp5."+EXT
+            f_mkl_core = "libmkl_core."+EXT
+            f_intel_thread = "libmkl_intel_thread."+EXT
+            f_intel_lp64 = "libmkl_intel_lp64."+EXT
           else
             e = d.sub(/\/mkl\//, "/")
-            f_iomp5 = File.join(e,"libiomp5.so")
-            f_mkl_core = File.join(d,"libmkl_core.so")
-            f_intel_thread = File.join(d,"libmkl_intel_thread.so")
-            f_intel_lp64 = File.join(d,"libmkl_intel_lp64.so")
+            f_iomp5 = File.join(e,"libiomp5."+EXT)
+            f_mkl_core = File.join(d,"libmkl_core."+EXT)
+            f_intel_thread = File.join(d,"libmkl_intel_thread."+EXT)
+            f_intel_lp64 = File.join(d,"libmkl_intel_lp64."+EXT)
           end
           begin
             Fiddle.dlopen(f_iomp5)
@@ -60,11 +60,17 @@ module Numo
             else raise ArgumentError,"invalid path"
             end
         a.each do |d|
-          %w[libopenblaso.so libopenblasp.so libopenblas.so].each do |f|
+          %w[libopenblaso. libopenblasp. libopenblas.].each do |f|
             f = File.join(d,f) if !d.empty?
+            f += EXT
             begin
               Blas.dlopen(f)
-              Lapack.dlopen(f)
+              Fiddle.dlopen(f)
+              begin
+                Lapack.dlopen("liblapacke."+EXT)
+              rescue
+                Lapack.dlopen(f)
+              end
               @@libs = [ f ]
               if $DEBUG
                 $stderr.puts "Numo::Linalg: use #{f}"
@@ -88,13 +94,14 @@ module Numo
             else raise ArgumentError,"invalid path"
             end
         a.each do |d|
-          %w[libtatlas.so libatlas.so libsatlas.so].each do |f|
+          %w[libtatlas. libatlas. libsatlas.].each do |f|
             f = File.join(d,f) if !d.empty?
+            f += EXT
             begin
               Fiddle.dlopen(f)
               Blas.dlopen(f)
               l = LAPACK_LIBPATH
-              e = "liblapacke.so"
+              e = "liblapacke."+EXT
               e = File.join(l,e) if l && !l.empty?
               Lapack.dlopen(e)
               @@libs = [ f, e ]
@@ -125,15 +132,15 @@ module Numo
         a.each do |arg|
           b,l = *arg
           if b.empty?
-            f_blas = "libblas.so"
-            f_cblas = "libcblas.so"
-            f_lapack = "liblapack.so"
-            f_lapacke = "liblapacke.so"
+            f_blas = "libblas."+EXT
+            f_cblas = "libcblas."+EXT
+            f_lapack = "liblapack."+EXT
+            f_lapacke = "liblapacke."+EXT
           else
-            f_blas = File.join(b,"libblas.so")
-            f_cblas = File.join(b,"libcblas.so")
-            f_lapack = File.join(l,"liblapack.so")
-            f_lapacke = File.join(l,"liblapacke.so")
+            f_blas = File.join(b,"libblas."+EXT)
+            f_cblas = File.join(b,"libcblas."+EXT)
+            f_lapack = File.join(l,"liblapack."+EXT)
+            f_lapacke = File.join(l,"liblapacke."+EXT)
           end
           begin
             Fiddle.dlopen(f_blas)
