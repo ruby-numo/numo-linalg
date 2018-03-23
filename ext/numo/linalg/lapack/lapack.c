@@ -295,11 +295,17 @@ numo_lapacke_check_func(void **func, const char *name)
         s = alloca(strlen(lapack_prefix)+strlen(name)+1);
         strcpy(s,lapack_prefix);
         strcat(s,name);
+#if defined(HAVE_DLFCN_H)
         dlerror();
+#endif
         *func = dlsym(lapack_handle, s);
-        error = dlerror();
-        if (error != NULL) {
-            rb_raise(rb_eRuntimeError, "%s", error);
+#if defined(HAVE_DLFCN_H)
+        if ((error = dlerror()) != 0) {
+            func = 0;
+        }
+#endif
+        if ( !func ) {
+            rb_raise(rb_eRuntimeError, "unknown symbol \"%s\"", s);
         }
     }
 }
@@ -329,12 +335,20 @@ lapack_s_dlopen(int argc, VALUE *argv, VALUE mod)
     } else {
         f = RTLD_LAZY;
     }
+#if defined(HAVE_DLFCN_H)
     dlerror();
+#endif
     handle = dlopen(StringValueCStr(lib), f);
-    error = dlerror();
-    if (error != NULL) {
+#if defined(HAVE_DLFCN_H)
+    if ( !handle && (error = dlerror()) ) {
         rb_raise(rb_eRuntimeError, "%s", error);
     }
+#else
+    if ( !handle ) {
+        error = dlerror();
+        rb_raise(rb_eRuntimeError, "%s", error);
+    }
+#endif
     lapack_handle = handle;
     return Qnil;
 }
