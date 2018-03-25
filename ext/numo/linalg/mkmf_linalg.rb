@@ -23,10 +23,12 @@ def create_site_conf
       Fiddle.dlopen "libm.so"
     rescue
       (5..7).each do |i|
-        Fiddle.dlopen "libm.so.#{i}"
-        need_version = true
-        break
-      rescue
+        begin
+          Fiddle.dlopen "libm.so.#{i}"
+          need_version = true
+          break
+        rescue
+        end
       end
       if !need_version
         raise "failed to check whether dynamically linked shared object needs version suffix"
