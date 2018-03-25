@@ -9,7 +9,7 @@
 
 ## Install time option to specify default library path
 
-    gem install pkg/numo-linalg-0.1.0.gem -- \
+    gem install numo-linalg -- \
       --with-backend=mkl \
       --with-mkl-lib=/opt/intel/mkl/lib/intel64 \
       --with-openblas-dir=/opt/OpenBLAS \
