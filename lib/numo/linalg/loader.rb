@@ -12,19 +12,26 @@ module Numo
         @@libs
       end
 
-      def dlopen(recv,base,dir=nil,ver=nil)
+      def dlopen(recvr,base,dir=nil,ver=nil)
         if dir && !dir.empty?
           base = File.join(dir,base)
         end
         path = base+".#{EXT}"
-        begin
-          recv.send(:dlopen,path)
-        rescue =>e
+        if NEED_VERSION_SUFFIX
           if ver
-            path = base+".#{ver}"
-            recv.send(:dlopen,path)
-          else
-            raise e
+            path += ".#{ver}"
+          end
+          recvr.send(:dlopen,path)
+        else
+          begin
+            recvr.send(:dlopen,path)
+          rescue => e
+            if ver
+              path += ".#{ver}"
+              recvr.send(:dlopen,path)
+            else
+              raise e
+            end
           end
         end
         path

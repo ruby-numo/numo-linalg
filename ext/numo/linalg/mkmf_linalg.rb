@@ -1,5 +1,4 @@
 require 'mkmf'
-require 'erb'
 
 def create_site_conf
   ldirs = [
@@ -11,9 +10,29 @@ def create_site_conf
   ]
   bked = with_config("backend")
 
+  require 'fiddle'
+
   message "creating lib/site_conf.rb\n"
 
   FileUtils.mkdir_p "lib"
+
+  ext = detect_library_extension
+  need_version = false
+  if ext == 'so'
+    begin
+      Fiddle.dlopen "libm.so"
+    rescue
+      (5..7).each do |i|
+        Fiddle.dlopen "libm.so.#{i}"
+        need_version = true
+        break
+      rescue
+      end
+      if !need_version
+        raise "failed to check whether dynamically linked shared object needs version suffix"
+      end
+    end
+  end
 
   open("lib/site_conf.rb","w"){|f| f.write "
 module Numo
@@ -27,7 +46,8 @@ module Numo
     LAPACK_LIBPATH = #{ldirs[4].inspect}
 
     module Loader
-      EXT = '#{detect_library_extension}'
+      EXT = '#{ext}'
+      NEED_VERSION_SUFFIX = #{need_version}
     end
 
   end
@@ -65,6 +85,7 @@ def find_libnarray_a
 end
 
 def create_depend
+  require 'erb'
   message "creating depend\n"
   dep_path = File.join(Dir.pwd, "depend")
   File.open(dep_path, "w") do |dep|
