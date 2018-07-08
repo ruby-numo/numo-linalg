@@ -479,27 +479,30 @@ module Numo; module Linalg
     [w,vl,vr] #.compact
   end
 
-  # Computes the eigenvalues and, optionally, the left and/or right
-  # eigenvectors for a square symmetric/hermitian matrix A.
+  # Obtains the eigenvalues and, optionally, the eigenvectors
+  # by solving an ordinary or generalized eigenvalue problem
+  # for a square symmetric / Hermitian matrix.
   #
-  # @param a [Numo::NArray] square nonsymmetric matrix (>= 2-dimensinal NArray)
+  # @param a [Numo::NArray] square symmetric matrix (>= 2-dimensinal NArray)
+  # @param b [Numo::NArray] (optional) square symmetric matrix (>= 2-dimensinal NArray)
+  #   If nil, identity matrix is assumed.
   # @param values_only [Bool] (optional) If false, eigenvectors are computed.
   # @param uplo [String or Symbol] (optional, default='U')
   #   Access upper ('U') or lower ('L') triangle.
+  # @param turbo [Bool] (optional) If true, divide and conquer algorithm is used.
   # @return [[w,v]]
   #   - **w** [Numo::NArray] -- The eigenvalues.
   #   - **v** [Numo::NArray] -- The eigenvectors if vals_only is false, otherwise nil.
 
-  def eigh(a, vals_only:false, uplo:false, turbo:false)
+  def eigh(a, b=nil, vals_only:false, uplo:'U', turbo:false)
     jobz = vals_only ? 'N' : 'V' # jobz: Compute eigenvalues and eigenvectors.
-    case blas_char(a)
-    when /c|z/
-      func = turbo ? :hegv : :heev
-    else
-      func = turbo ? :sygv : :syev
-    end
-    w, v, = Lapack.call(func, a, uplo:uplo, jobz:jobz)
-    [w,v] #.compact
+    func = blas_char(a) =~ /c|z/ ? 'hegv' : 'sygv'
+    func << 'd' if turbo
+    b = a.class.eye(a.shape[0]) if b.nil?
+    blas_char(b) # for checking that b is a matrix.
+    v, u, w, = Lapack.call(func.to_sym, a, b, uplo: uplo, jobz: jobz)
+    v = nil if vals_only
+    [w, v]
   end
 
   # Computes the eigenvalues only for a square nonsymmetric matrix A.
