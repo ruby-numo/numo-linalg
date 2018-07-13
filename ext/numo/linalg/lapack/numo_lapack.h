@@ -15,6 +15,9 @@ extern int numo_lapacke_option_order(VALUE order);
 #define option_job numo_lapacke_option_job
 extern char numo_lapacke_option_job(VALUE job, char true_char, char false_char);
 
+#define option_range numo_lapacke_option_range
+extern char numo_lapacke_option_range(VALUE range, char true_char, char false_char);
+
 #define option_trans numo_lapacke_option_trans
 extern char numo_lapacke_option_trans(VALUE trans);
 
