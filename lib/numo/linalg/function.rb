@@ -486,7 +486,10 @@ module Numo; module Linalg
   # @param a [Numo::NArray] square symmetric matrix (>= 2-dimensinal NArray)
   # @param b [Numo::NArray] (optional) square symmetric matrix (>= 2-dimensinal NArray)
   #   If nil, identity matrix is assumed.
-  # @param values_only [Bool] (optional) If false, eigenvectors are computed.
+  # @param vals_only [Bool] (optional) If false, eigenvectors are computed.
+  # @param vals_range [Range] (optional)
+  #   The range of indices of the eigenvalues (in ascending order) and corresponding eigenvectors to be returned.
+  #   If nil or 0...N (N is the size of the matrix a), all eigenvalues and eigenvectors are returned.
   # @param uplo [String or Symbol] (optional, default='U')
   #   Access upper ('U') or lower ('L') triangle.
   # @param turbo [Bool] (optional) If true, divide and conquer algorithm is used.
@@ -494,15 +497,24 @@ module Numo; module Linalg
   #   - **w** [Numo::NArray] -- The eigenvalues.
   #   - **v** [Numo::NArray] -- The eigenvectors if vals_only is false, otherwise nil.
 
-  def eigh(a, b=nil, vals_only:false, uplo:'U', turbo:false)
+  def eigh(a, b=nil, vals_only:false, vals_range:nil, uplo:'U', turbo:false)
     jobz = vals_only ? 'N' : 'V' # jobz: Compute eigenvalues and eigenvectors.
     func = blas_char(a) =~ /c|z/ ? 'hegv' : 'sygv'
-    func << 'd' if turbo
     b = a.class.eye(a.shape[0]) if b.nil?
     blas_char(b) # for checking that b is a matrix.
-    v, u, w, = Lapack.call(func.to_sym, a, b, uplo: uplo, jobz: jobz)
-    v = nil if vals_only
-    [w, v]
+    if vals_range.nil?
+      func << 'd' if turbo
+      v, u_, w, = Lapack.call(func.to_sym, a, b, uplo: uplo, jobz: jobz)
+      v = nil if vals_only
+      [w, v]
+    else
+      func << 'x'
+      il = vals_range.first(1)[0]
+      iu = vals_range.last(1)[0]
+      a_, b_, w, v, = Lapack.call(func.to_sym, a, b, uplo: uplo, jobz: jobz, range: 'I', il: il + 1, iu: iu + 1)
+      v = nil if vals_only
+      [w, v]
+    end
   end
 
   # Computes the eigenvalues only for a square nonsymmetric matrix A.
@@ -522,23 +534,22 @@ module Numo; module Linalg
     w
   end
 
-  # Computes the eigenvalues for a square symmetric/hermitian matrix A.
+  # Obtains the eigenvalues by solving an ordinary or generalized eigenvalue problem
+  # for a square symmetric / Hermitian matrix.
   #
   # @param a [Numo::NArray] square symmetric/hermitian matrix
   #   (>= 2-dimensinal NArray)
+  # @param b [Numo::NArray] (optional) square symmetric matrix (>= 2-dimensinal NArray)
+  #   If nil, identity matrix is assumed.
+  # @param vals_range [Range] (optional)
+  #   The range of indices of the eigenvalues (in ascending order) to be returned.
+  #   If nil or 0...N (N is the size of the matrix a), all eigenvalues are returned.
   # @param uplo [String or Symbol] (optional, default='U')
   #   Access upper ('U') or lower ('L') triangle.
   # @return [Numo::NArray] eigenvalues
 
-  def eigvalsh(a, uplo:false, turbo:false)
-    jobz = 'N' # jobz: Compute eigenvalues and eigenvectors.
-    case blas_char(a)
-    when /c|z/
-      func = turbo ? :hegv : :heev
-    else
-      func = turbo ? :sygv : :syev
-    end
-    Lapack.call(func, a, uplo:uplo, jobz:jobz)[0]
+  def eigvalsh(a, b=nil, vals_range:nil, uplo:'U', turbo:false)
+    eigh(a, b, vals_only: true, vals_range: vals_range, uplo: uplo, turbo: turbo).first
   end
 
 

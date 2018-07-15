@@ -6,6 +6,9 @@ def_id "jobz"
 def_id "jobvl"
 def_id "jobvr"
 def_id "trans"
+def_id "range"
+def_id "il"
+def_id "iu"
 def_id "rcond"
 def_id "itype"
 def_id "norm"
@@ -58,11 +61,13 @@ when /c|z/
   decl "?heevd", "syev"
   decl "?hegv", "sygv"
   decl "?hegvd", "sygv"
+  decl "?hegvx", "sygvx"
 else
   decl "?syev"
   decl "?syevd", "syev"
   decl "?sygv"
   decl "?sygvd", "sygv"
+  decl "?sygvx"
 end
 
 # factorize
