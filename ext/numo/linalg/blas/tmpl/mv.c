@@ -49,6 +49,8 @@ static void
     lda = NDL_STEP(lp,0) / sizeof(dtype);
 
 #if GE
+    int tmp;
+    SWAP_IFCOLTR(g->order, g->trans, g->m, g->n, tmp);
     (*func_p)( g->order, g->trans, g->m, g->n,
         DP(g->alpha), a, lda, (dtype*)p1, s1/sizeof(dtype),
         DP(g->beta), (dtype*)p2, s2/sizeof(dtype) );
