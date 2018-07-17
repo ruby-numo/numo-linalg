@@ -31,6 +31,12 @@ extern void numo_cblas_check_func(void **func, const char *name);
 #define SWAP_IFROW(order,a,b,tmp)                               \
     { if ((order)==CblasRowMajor) {(tmp)=(a);(a)=(b);(b)=(tmp);} }
 
+#define SWAP_IFNOTRANS(trans,a,b,tmp)                           \
+    { if ((trans)==CblasNoTrans) {(tmp)=(a);(a)=(b);(b)=(tmp);} }
+
+#define SWAP_IFTRANS(trans,a,b,tmp)                           \
+    { if ((trans)!=CblasNoTrans) {(tmp)=(a);(a)=(b);(b)=(tmp);} }
+
 #define SWAP_IFCOLTR(order,trans,a,b,tmp)                       \
     { if (((order)==CblasRowMajor && (trans)!=CblasNoTrans) ||  \
           ((order)!=CblasRowMajor && (trans)==CblasNoTrans))    \
