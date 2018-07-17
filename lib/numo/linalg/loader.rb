@@ -16,24 +16,16 @@ module Numo
         if dir && !dir.empty?
           base = File.join(dir,base)
         end
-        path = base+".#{EXT}"
-        if NEED_VERSION_SUFFIX
-          if ver
-            path += ".#{ver}"
-          end
-          recvr.send(:dlopen,path)
-        else
+        if ver && EXT=='so'
           begin
+            path = "#{base}.#{EXT}.#{ver}"
             recvr.send(:dlopen,path)
-          rescue => e
-            if ver
-              path += ".#{ver}"
-              recvr.send(:dlopen,path)
-            else
-              raise e
-            end
+            return path
+          rescue
           end
         end
+        path = "#{base}.#{EXT}"
+        recvr.send(:dlopen,path)
         path
       end
       private :dlopen

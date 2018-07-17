@@ -17,24 +17,6 @@ def create_site_conf
   FileUtils.mkdir_p "lib"
 
   ext = detect_library_extension
-  need_version = false
-  if ext == 'so'
-    begin
-      Fiddle.dlopen "libm.so"
-    rescue
-      (5..7).each do |i|
-        begin
-          Fiddle.dlopen "libm.so.#{i}"
-          need_version = true
-          break
-        rescue
-        end
-      end
-      if !need_version
-        raise "failed to check whether dynamically linked shared object needs version suffix"
-      end
-    end
-  end
 
   open("lib/site_conf.rb","w"){|f| f.write "
 module Numo
@@ -49,7 +31,6 @@ module Numo
 
     module Loader
       EXT = '#{ext}'
-      NEED_VERSION_SUFFIX = #{need_version}
     end
 
   end
@@ -67,6 +48,8 @@ def detect_library_extension
     'so'
   end
 end
+
+require 'numo/narray'
 
 def find_narray_h
   $LOAD_PATH.each do |x|
