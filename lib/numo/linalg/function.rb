@@ -65,7 +65,7 @@ module Numo; module Linalg
           NArray.array_type(a)
         end
       if k && k < NArray
-        t = k::UPCAST[t]
+        t = k::UPCAST[t] || t::UPCAST[k]
       end
     end
     BLAS_CHAR[t] || raise(TypeError,"invalid data type for BLAS/LAPACK")
