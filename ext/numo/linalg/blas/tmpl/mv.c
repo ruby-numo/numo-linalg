@@ -49,8 +49,6 @@ static void
     lda = NDL_STEP(lp,0) / sizeof(dtype);
 
 #if GE
-    int tmp;
-    SWAP_IFCOLTR(g->order, g->trans, g->m, g->n, tmp);
     (*func_p)( g->order, g->trans, g->m, g->n,
         DP(g->alpha), a, lda, (dtype*)p1, s1/sizeof(dtype),
         DP(g->beta), (dtype*)p2, s2/sizeof(dtype) );
@@ -145,9 +143,10 @@ static VALUE
     CHECK_DIM_GE(na2,1);
     nx = COL_SIZE(na2);
 #if GE
-    SWAP_IFCOLTR(g.order,g.trans, ma,na, tmp);
+    SWAP_IFCOL(g.order, ma, na, tmp);
     g.m = ma;
     g.n = na;
+    SWAP_IFTRANS(g.trans, ma, na, tmp);
 #else
     CHECK_SQUARE("a",na1);
 #endif
