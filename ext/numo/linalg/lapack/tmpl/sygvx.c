@@ -20,8 +20,8 @@ static void
     rtype *w;
     int   *ifail;
     int   *info;
-    int    m, n, lda, ldb, ldz, il, iu;
-    rtype  vl, vu;
+    int    m, n, lda, ldb, ldz;
+    rtype  vl = 0, vu = 0;
     rtype  abstol = 0;
 
     args_t *g;
