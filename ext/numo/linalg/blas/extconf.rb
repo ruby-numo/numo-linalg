@@ -1,5 +1,4 @@
 require 'mkmf'
-require 'numo/narray'
 require_relative '../mkmf_linalg'
 
 srcs = %w(
@@ -21,7 +20,7 @@ if !have_header("numo/narray.h")
   exit(1)
 end
 
-if RUBY_PLATFORM =~ /cygwin|mingw/
+if RUBY_PLATFORM =~ /mswin|cygwin|mingw/
   find_libnarray_a
   unless have_library("narray","nary_new")
     puts "libnarray.a not found"
