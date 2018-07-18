@@ -65,7 +65,7 @@ module Numo; module Linalg
           NArray.array_type(a)
         end
       if k && k < NArray
-        t = k::UPCAST[t]
+        t = k::UPCAST[t] || t::UPCAST[k]
       end
     end
     BLAS_CHAR[t] || raise(TypeError,"invalid data type for BLAS/LAPACK")
@@ -499,9 +499,8 @@ module Numo; module Linalg
 
   def eigh(a, b=nil, vals_only:false, vals_range:nil, uplo:'U', turbo:false)
     jobz = vals_only ? 'N' : 'V' # jobz: Compute eigenvalues and eigenvectors.
-    func = blas_char(a) =~ /c|z/ ? 'hegv' : 'sygv'
     b = a.class.eye(a.shape[0]) if b.nil?
-    blas_char(b) # for checking that b is a matrix.
+    func = blas_char(a, b) =~ /c|z/ ? 'hegv' : 'sygv'
     if vals_range.nil?
       func << 'd' if turbo
       v, u_, w, = Lapack.call(func.to_sym, a, b, uplo: uplo, jobz: jobz)
