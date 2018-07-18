@@ -79,7 +79,7 @@ static void
    opt("beta"),
    !is_ge && opt("side"),
    !is_ge && opt("uplo"),
-   is_ge || is_tr && opt("trans"),
+   (is_ge || is_tr) && opt("trans"),
    opt("order")
  ].select{|x| x}.join("\n  ")
 %>
