@@ -30,7 +30,7 @@ static void
     SWAP_IFCOL(g->order,m,n);
     lda = NDL_STEP(lp,0) / sizeof(dtype);
 
-    printf("order=%d m=%d n=%d k=%d lda=%d \n",g->order,m,n,k,lda);
+    //printf("order=%d m=%d n=%d k=%d lda=%d \n",g->order,m,n,k,lda);
 
     *info = (*func_p)(g->order, m, n, k, a, lda, tau);
     CHECK_ERROR(*info);
