@@ -86,7 +86,8 @@ module Numo; module Linalg
     when 1
       case b.ndim
       when 1
-        Blas.call(:dot, a, b)
+        func = blas_char(a, b) =~ /c|z/ ? :dotu : :dot
+        Blas.call(func, a, b)
       else
         Blas.call(:gemv, b, a, trans:'t')
       end
