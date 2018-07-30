@@ -2,6 +2,7 @@
 *.rbc
 .bundle
 .config
+.rspec_status
 .yardoc
 yard
 Gemfile.lock
