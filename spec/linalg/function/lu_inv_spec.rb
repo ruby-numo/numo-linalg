@@ -8,10 +8,6 @@ RSpec.describe Numo::Linalg do
     let(:mat_a) { rand_square_real_mat(m) }
     let(:mat_b) { rand_square_complex_mat(m) }
 
-    it 'raises ArgumentError given a invalid driver option' do
-      expect { described_class.inv(mat_a, driver: 'foo') }.to raise_error(ArgumentError)
-    end
-
     it 'calculates the inverse of a square real matrix' do
       inv_mat_a = described_class.inv(mat_a)
       expect((inv_mat_a.dot(mat_a) - Numo::DFloat.eye(m)).abs.max).to be < ERR_TOL
