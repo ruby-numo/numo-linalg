@@ -296,6 +296,38 @@ module Numo; module Linalg
     end
   end
 
+  # Computes an LU factorization of a M-by-N matrix A
+  # using partial pivoting with row interchanges.
+  #
+  # The factorization has the form
+  #
+  #     A = P * L * U
+  #
+  # where P is a permutation matrix, L is lower triangular with unit
+  # diagonal elements (lower trapezoidal if m > n), and U is upper
+  # triangular (upper trapezoidal if m < n).
+  #
+  # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
+  # @param permute_l [Bool] (optional) If true, perform the matrix product of P and L.
+  # @return [[p,l,u]] if permute_l == false
+  # @return [[pl,u]]  if permute_l == true
+  #
+  #   - **p** [Numo::NArray] -- The permutation matrix P.
+  #   - **l** [Numo::NArray] -- The factor L.
+  #   - **u** [Numo::NArray] -- The factor U.
+
+  def lu(a, permute_l: false)
+    raise NArray::ShapeError, '2-d array is required' if a.ndim < 2
+    m, n = a.shape
+    k = [m, n].min
+    lu, ip = lu_fact(a)
+    l = lu.tril.tap { |mat| mat[mat.diag_indices(0)] = 1.0 }[true, 0...k]
+    u = lu.triu[0...k, 0...n]
+    p = Numo::DFloat.eye(m).tap do |mat|
+          ip.to_a.each_with_index { |i, j| mat[true, [i - 1, j]] = mat[true, [j, i - 1]].dup }
+        end
+    permute_l ? [p.dot(l), u] : [p, l, u]
+  end
 
   # Computes an LU factorization of a M-by-N matrix A
   # using partial pivoting with row interchanges.
