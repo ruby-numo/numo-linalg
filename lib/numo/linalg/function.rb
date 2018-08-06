@@ -309,26 +309,14 @@ module Numo; module Linalg
   # triangular (upper trapezoidal if m < n).
   #
   # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
-  # @param driver [String or Symbol] choose LAPACK diriver from
-  #   'gen','sym','her'. (optional, default='gen')
-  # @param uplo [String or Symbol] optional, default='U'. Access upper
-  #   or ('U') lower ('L') triangle. (omitted when driver:"gen")
   # @return [[lu, ipiv]]
   #   - **lu** [Numo::NArray] -- The factors L and U from the factorization
   #     `A = P*L*U`; the unit diagonal elements of L are not stored.
   #   - **ipiv** [Numo::NArray] -- The pivot indices; for 1 <= i <= min(M,N),
   #      row i of the matrix was interchanged with row IPIV(i).
 
-  def lu_fact(a, driver:"gen", uplo:"U")
-    case driver.to_s
-    when /^gen?(trf)?$/i
-      Lapack.call(:getrf, a)[0..1]
-    when /^(sym?|her?)(trf)?$/i
-      func = driver[0..2].downcase+"trf"
-      Lapack.call(func, a, uplo:uplo)[0..1]
-    else
-      raise ArgumentError, "invalid driver: #{driver}"
-    end
+  def lu_fact(a)
+    Lapack.call(:getrf, a)[0..1]
   end
 
   # Computes the inverse of a matrix using the LU factorization
@@ -346,22 +334,10 @@ module Numo; module Linalg
   # @param ipiv [Numo::NArray] The pivot indices from
   #   Numo::Linalg.lu_fact; for 1<=i<=N, row i of the matrix was
   #   interchanged with row IPIV(i).
-  # @param driver [String or Symbol] choose LAPACK diriver from
-  #   'gen','sym','her'. (optional, default='gen')
-  # @param uplo [String or Symbol] optional, default='U'. Access upper
-  #   or ('U') lower ('L') triangle. (omitted when driver:"gen")
   # @return [Numo::NArray]  the inverse of the original matrix A.
 
-  def lu_inv(lu, ipiv, driver:"gen", uplo:"U")
-    case driver.to_s
-    when /^gen?(tri)?$/i
-      Lapack.call(:getri, lu, ipiv)[0]
-    when /^(sym?|her?)(tri)?$/i
-      func = driver[0..2].downcase+"tri"
-      Lapack.call(func, lu, ipiv, uplo:uplo)[0]
-    else
-      raise ArgumentError, "invalid driver: #{driver}"
-    end
+  def lu_inv(lu, ipiv)
+    Lapack.call(:getri, lu, ipiv)[0]
   end
 
   # Solves a system of linear equations
@@ -378,29 +354,15 @@ module Numo; module Linalg
   #   Numo::Linalg.lu_fact; for 1<=i<=N, row i of the matrix was
   #   interchanged with row IPIV(i).
   # @param b [Numo::NArray] the right hand side matrix B.
-  # @param driver [String or Symbol] choose LAPACK diriver from
-  #   'gen','sym','her'. (optional, default='gen')
-  # @param uplo [String or Symbol] optional, default='U'. Access upper
-  #   or ('U') lower ('L') triangle. (omitted when driver:"gen")
   # @param trans [String or Symbol]
-  #   Specifies the form of the system of equations
-  #   (omitted if not driver:"gen"):
-  #
+  #   Specifies the form of the system of equations:
   #     - If 'N': `A * X = B` (No transpose).
   #     - If 'T': `A*\*T* X = B` (Transpose).
   #     - If 'C': `A*\*T* X = B` (Conjugate transpose = Transpose).
   # @return [Numo::NArray]  the solution matrix X.
 
-  def lu_solve(lu, ipiv, b, driver:"gen", uplo:"U", trans:"N")
-    case driver.to_s
-    when /^gen?(trs)?$/i
-      Lapack.call(:getrs, lu, ipiv, b, trans:trans)[0]
-    when /^(sym?|her?)(trs)?$/i
-      func = driver[0..2].downcase+"trs"
-      Lapack.call(func, lu, ipiv, b, uplo:uplo)[0]
-    else
-      raise ArgumentError, "invalid driver: #{driver}"
-    end
+  def lu_solve(lu, ipiv, b, trans:"N")
+    Lapack.call(:getrs, lu, ipiv, b, trans:trans)[0]
   end
 
 
@@ -848,8 +810,8 @@ module Numo; module Linalg
       solve(a, b, driver:d, uplo:uplo)
     when /(ge|sy|he)tr[fi]$/
       d = $1
-      lu, piv = lu_fact(a, driver:d, uplo:uplo)
-      lu_inv(lu, piv, driver:d, uplo:uplo)
+      lu, piv = lu_fact(a)
+      lu_inv(lu, piv)
     when /potr[fi]$/
       lu = cho_fact(a, uplo:uplo)
       cho_inv(lu, uplo:uplo)

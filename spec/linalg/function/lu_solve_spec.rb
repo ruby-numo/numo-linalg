@@ -13,10 +13,6 @@ RSpec.describe Numo::Linalg do
     let(:mat_d) { rand_rect_complex_mat(m, n) }
     let(:vec_d) { rand_complex_vec(m) }
 
-    it 'raises ArgumentError given a invalid driver option' do
-      expect { described_class.lu_solve(nil, nil, nil, driver: 'foo') }.to raise_error(ArgumentError)
-    end
-
     it 'solves the linear equation A x = b with a square real matrix A' do
       lu, ipiv = described_class.lu_fact(mat_a)
       vec_x = described_class.lu_solve(lu, ipiv, vec_b)
