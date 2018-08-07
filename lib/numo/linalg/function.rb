@@ -777,7 +777,7 @@ module Numo; module Linalg
       # returns lu, x, ipiv, info
       Lapack.call(:gesv, a, b)[1]
     when /^(sym?|her?|pos?)(sv)?$/i
-      func = driver[0..2].downcase+"sv"
+      func = driver[0..1].downcase+"sv"
       Lapack.call(func, a, b, uplo:uplo)[1]
     else
       raise ArgumentError, "invalid driver: #{driver}"
