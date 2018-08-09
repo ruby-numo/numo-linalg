@@ -397,6 +397,31 @@ module Numo; module Linalg
     Lapack.call(:getrs, lu, ipiv, b, trans:trans)[0]
   end
 
+  # Computes the Cholesky factorization of a symmetric/Hermitian
+  # positive definite matrix A. The factorization has the form
+  #
+  #     A = U**H * U,  if UPLO = 'U', or
+  #     A = L  * L**H,  if UPLO = 'L',
+  #
+  # where U is an upper triangular matrix and L is a lower triangular matrix.
+  # @param a [Numo::NArray] n-by-n symmetric matrix A (>= 2-dimensinal NArray)
+  # @param uplo [String or Symbol] optional, default='U'. Access upper
+  #   or ('U') lower ('L') triangle.
+  # @return [Numo::NArray] The factor U or L.
+
+  def cholesky(a, uplo: 'U')
+    raise NArray::ShapeError, '2-d array is required' if a.ndim < 2
+    raise NArray::ShapeError, 'matrix a is not square matrix' if a.shape[0] != a.shape[1]
+    factor = Lapack.call(:potrf, a, uplo: uplo)[0]
+    if uplo == 'U'
+      factor.triu
+    else
+      # TODO: Use the tril method if the verision of Numo::NArray
+      #       in the runtime dependency list becomes 0.9.1.3 or higher.
+      m, = a.shape
+      factor * Numo::DFloat.ones(m, m).triu.transpose
+    end
+  end
 
   # Computes the Cholesky factorization of a symmetric/Hermitian
   # positive definite matrix A. The factorization has the form
@@ -404,16 +429,16 @@ module Numo; module Linalg
   #     A = U**H * U,  if UPLO = 'U', or
   #     A = L  * L**H,  if UPLO = 'L',
   #
-  # where U is an upper triangular matrix and L is lower triangular
+  # where U is an upper triangular matrix and L is a lower triangular matrix.
   # @param a [Numo::NArray] n-by-n symmetric matrix A (>= 2-dimensinal NArray)
   # @param uplo [String or Symbol] optional, default='U'. Access upper
   #   or ('U') lower ('L') triangle.
-  # @return [Numo::NArray] the factor U or L.
+  # @return [Numo::NArray] The matrix which has the Cholesky factor in upper or lower triangular part.
+  #   Remain part consists of random values.
 
   def cho_fact(a, uplo:'U')
     Lapack.call(:potrf, a, uplo:uplo)[0]
   end
-  #alias cholesky cho_fact
 
   # Computes the inverse of a symmetric/Hermitian
   # positive definite matrix A using the Cholesky factorization
