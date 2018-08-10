@@ -195,10 +195,10 @@ module Numo; module Linalg
   #
   # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensinal NArray)
   # @param mode [String]
-  #   - "reduce"  -- returns both Q and R,
-  #   - "r"       -- returns only R,
-  #   - "economy" -- returns both Q and R but computed in economy-size,
-  #   - "raw"     -- returns QR and TAU used in LAPACK.
+  #   - "reduce"   -- returns both Q and R,
+  #   - "r"        -- returns only R,
+  #   - "economic" -- returns both Q and R but computed in economy-size,
+  #   - "raw"      -- returns QR and TAU used in LAPACK.
   # @return [r]        if mode:"r"
   # @return [[q,r]]    if mode:"reduce" or "economic"
   # @return [[qr,tau]] if mode:"raw" (LAPACK geqrf result)
