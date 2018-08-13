@@ -18,7 +18,7 @@ This desgin allows you to change backend libraries without re-compiling.
 * Matrix and vector products
     * dot, matmul
 * Decomposition
-    * lu, lu\_fact, lu\_inv, lu\_solve, cholesky, cho\_fact, cho\_inv, cho\_solve,
+    * lu, lu\_fact, lu\_inv, lu\_solve, ldl, cholesky, cho\_fact, cho\_inv, cho\_solve,
       qr, svd, svdvals
 * Matrix eigenvalues
     * eig, eigh, eigvals, eigvalsh
