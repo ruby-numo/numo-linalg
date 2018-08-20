@@ -397,6 +397,64 @@ module Numo; module Linalg
     Lapack.call(:getrs, lu, ipiv, b, trans:trans)[0]
   end
 
+  # Computes the LDLt or Bunch-Kaufman factorization of a symmetric/Hermitian matrix A.
+  # The factorization has the form
+  #
+  #     A = U*D*U**T  or  A = L*D*L**T
+  #
+  # where U (or L) is a product of permutation and unit upper (lower) triangular matrices
+  # and D is symmetric and block diagonal with 1-by-1 and 2-by-2 diagonal blocks.
+  #
+  # @param a [Numo::NArray] m-by-m matrix A (>= 2-dimensinal NArray)
+  # @param uplo [String or Symbol] optional, default='U'. Access upper or ('U') lower ('L') triangle.
+  # @param hermitian [Bool] optional, default=true. If true, hermitian matrix is assumed.
+  #   (omitted when real-value matrix is given)
+  #
+  # @return [[lu,d,perm]]
+  #
+  #   - **lu** [Numo::NArray] -- The permutated upper (lower) triangular matrix U (L).
+  #   - **d** [Numo::NArray] -- The block diagonal matrix D.
+  #   - **perm** [Numo::NArray] -- The row-permutation index for changing lu into triangular form.
+
+  def ldl(a, uplo: 'U', hermitian: true)
+    raise NArray::ShapeError, '2-d array is required' if a.ndim < 2
+    raise NArray::ShapeError, 'matrix a is not square matrix' if a.shape[0] != a.shape[1]
+
+    is_complex = blas_char(a) =~ /c|z/
+    func = is_complex && hermitian ? 'hetrf' : 'sytrf'
+    lud, ipiv, = Lapack.call(func.to_sym, a, uplo: uplo)
+
+    lu = (uplo == 'U' ? lud.triu : lud.tril).tap { |mat| mat[mat.diag_indices(0)] = 1.0 }
+    d = lud[lud.diag_indices(0)].diag
+
+    m = a.shape[0]
+    n = m - 1
+    changed_2x2 = false
+    perm = Numo::Int32.new(m).seq
+    m.times do |t|
+      i = uplo == 'U' ? t : n - t
+      j = uplo == 'U' ? i - 1 : i + 1;
+      r = uplo == 'U' ? 0..i : i..n;
+      if ipiv[i] > 0
+        k = ipiv[i] - 1
+        lu[[k, i], r] = lu[[i, k], r].dup
+        perm[[k, i]] = perm[[i, k]].dup
+      elsif j.between?(0, n) && ipiv[i] == ipiv[j] && !changed_2x2
+        k = ipiv[i].abs - 1
+        d[j, i] = lud[j, i]
+        d[i, j] = is_complex && hermitian ? lud[j, i].conj : lud[j, i]
+        lu[j, i] = 0.0
+        lu[[k, j], r] = lu[[j, k], r].dup
+        perm[[k, j]] = perm[[j, k]].dup
+        changed_2x2 = true
+        next
+      end
+      changed_2x2 = false
+    end
+
+    [lu, d, perm.sort_index]
+  end
+
   # Computes the Cholesky factorization of a symmetric/Hermitian
   # positive definite matrix A. The factorization has the form
   #
