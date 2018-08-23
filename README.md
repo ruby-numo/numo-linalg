@@ -13,7 +13,7 @@ Under development!
 This is a binding of BLAS/LAPACK for Numo::NArray using dynamic linking loader.
 This desgin allows you to change backend libraries without re-compiling.
 
-### [Numo::Linalg API](http://ruby-numo.github.io/linalg/yard/Numo/Linalg.html)
+### [Numo::Linalg API](http://ruby-numo.github.io/numo-linalg/yard/Numo/Linalg.html)
 
 * Matrix and vector products
     * dot, matmul
@@ -29,8 +29,8 @@ This desgin allows you to change backend libraries without re-compiling.
 
 ### Low-level modules
 
-* [Numo::Linalg::Blas](http://ruby-numo.github.io/linalg/yard/Numo/Linalg/Blas.html) - Low-level BLAS functions
-* [Numo::Linalg::Lapack](http://ruby-numo.github.io/linalg/yard/Numo/Linalg/Lapack.html) - Low-level LAPACK functions
+* [Numo::Linalg::Blas](http://ruby-numo.github.io/numo-linalg/yard/Numo/Linalg/Blas.html) - Low-level BLAS functions
+* [Numo::Linalg::Lapack](http://ruby-numo.github.io/numo-linalg/yard/Numo/Linalg/Lapack.html) - Low-level LAPACK functions
 
 ## Installation
 
