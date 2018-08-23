@@ -6,7 +6,7 @@
 <title>
   Module: Numo::Linalg::Loader
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.12
   
 </title>
 
@@ -111,6 +111,29 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#dlopen-class_method" title="dlopen (class method)">.<strong>dlopen</strong>(recvr, base, dir = nil, ver = nil)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#libs-class_method" title="libs (class method)">.<strong>libs</strong>  &#x21d2; Object </a>
     
 
@@ -125,7 +148,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -133,7 +157,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#load_atlas-class_method" title="load_atlas (class method)">.<strong>load_atlas</strong>(path = nil, exc: true)  &#x21d2; Object </a>
+      <a href="#load_atlas-class_method" title="load_atlas (class method)">.<strong>load_atlas</strong>(*dirs, exc: true)  &#x21d2; Object </a>
     
 
     
@@ -147,7 +171,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -155,7 +180,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#load_lapack-class_method" title="load_lapack (class method)">.<strong>load_lapack</strong>(path = nil, exc: true)  &#x21d2; Object </a>
+      <a href="#load_lapack-class_method" title="load_lapack (class method)">.<strong>load_lapack</strong>(*dirs, exc: true)  &#x21d2; Object </a>
     
 
     
@@ -169,7 +194,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -191,7 +217,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -199,7 +226,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#load_mkl-class_method" title="load_mkl (class method)">.<strong>load_mkl</strong>(path = nil, exc: true)  &#x21d2; Object </a>
+      <a href="#load_mkl-class_method" title="load_mkl (class method)">.<strong>load_mkl</strong>(*dirs, exc: true)  &#x21d2; Object </a>
     
 
     
@@ -213,7 +240,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -221,7 +249,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#load_openblas-class_method" title="load_openblas (class method)">.<strong>load_openblas</strong>(path = nil, exc: true)  &#x21d2; Object </a>
+      <a href="#load_openblas-class_method" title="load_openblas (class method)">.<strong>load_openblas</strong>(*dirs, exc: true)  &#x21d2; Object </a>
     
 
     
@@ -235,7 +263,8 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+</div></span>
   
 </li>
 
@@ -250,7 +279,63 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="libs-class_method">
+  <h3 class="signature first" id="dlopen-class_method">
+  
+    .<strong>dlopen</strong>(recvr, base, dir = nil, ver = nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/loader.rb', line 15</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='id identifier rubyid_recvr'>recvr</span><span class='comma'>,</span><span class='id identifier rubyid_base'>base</span><span class='comma'>,</span><span class='id identifier rubyid_dir'>dir</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span><span class='id identifier rubyid_ver'>ver</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_dir'>dir</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_dir'>dir</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_base'>base</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_dir'>dir</span><span class='comma'>,</span><span class='id identifier rubyid_base'>base</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_ver'>ver</span> <span class='op'>&amp;&amp;</span> <span class='const'>EXT</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>so</span><span class='tstring_end'>&#39;</span></span>
+    <span class='kw'>begin</span>
+      <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_base'>base</span><span class='embexpr_end'>}</span><span class='tstring_content'>.</span><span class='embexpr_beg'>#{</span><span class='const'>EXT</span><span class='embexpr_end'>}</span><span class='tstring_content'>.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_ver'>ver</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_recvr'>recvr</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:dlopen</span><span class='comma'>,</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+      <span class='kw'>return</span> <span class='id identifier rubyid_path'>path</span>
+    <span class='kw'>rescue</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_base'>base</span><span class='embexpr_end'>}</span><span class='tstring_content'>.</span><span class='embexpr_beg'>#{</span><span class='const'>EXT</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_recvr'>recvr</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:dlopen</span><span class='comma'>,</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_path'>path</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="libs-class_method">
   
     .<strong>libs</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -282,7 +367,7 @@
       <div class="method_details ">
   <h3 class="signature " id="load_atlas-class_method">
   
-    .<strong>load_atlas</strong>(path = nil, exc: true)  &#x21d2; <tt>Object</tt> 
+    .<strong>load_atlas</strong>(*dirs, exc: true)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -294,18 +379,6 @@
       <pre class="lines">
 
 
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94
 95
 96
 97
@@ -324,29 +397,31 @@
 110
 111
 112
-113</pre>
+113
+114
+115
+116
+117
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/loader.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/loader.rb', line 95</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_load_atlas'>load_atlas</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span><span class='label'>exc:</span><span class='kw'>true</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='kw'>case</span> <span class='id identifier rubyid_path'>path</span>
-      <span class='kw'>when</span> <span class='const'>String</span><span class='semicolon'>;</span> <span class='lbracket'>[</span><span class='id identifier rubyid_path'>path</span><span class='rbracket'>]</span>
-      <span class='kw'>when</span> <span class='const'>Array</span> <span class='semicolon'>;</span>  <span class='id identifier rubyid_path'>path</span>
-      <span class='kw'>when</span> <span class='const'>NilClass</span><span class='semicolon'>;</span> <span class='lbracket'>[</span><span class='const'>ATLAS_LIBPATH</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
-      <span class='kw'>else</span> <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid path</span><span class='tstring_end'>&quot;</span></span>
-      <span class='kw'>end</span>
-  <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_d'>d</span><span class='op'>|</span>
-    <span class='qwords_beg'>%w[</span><span class='tstring_content'>libtatlas.so</span><span class='words_sep'> </span><span class='tstring_content'>libatlas.so</span><span class='words_sep'> </span><span class='tstring_content'>libsatlas.so</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span>
-      <span class='id identifier rubyid_f'>f</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_d'>d</span><span class='comma'>,</span><span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_d'>d</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_load_atlas'>load_atlas</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_dirs'>dirs</span><span class='comma'>,</span><span class='label'>exc:</span><span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_dirs'>dirs</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_dirs'>dirs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='const'>ATLAS_LIBPATH</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_dirs'>dirs</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_d'>d</span><span class='op'>|</span>
+    <span class='qwords_beg'>%w[</span><span class='words_sep'> </span><span class='tstring_content'>libtatlas</span><span class='words_sep'>
+        </span><span class='tstring_content'>libatlas</span><span class='words_sep'>
+        </span><span class='tstring_content'>libsatlas</span><span class='words_sep'> </span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span>
       <span class='kw'>begin</span>
-        <span class='const'>Fiddle</span><span class='period'>.</span><span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span>
-        <span class='const'><span class='object_link'><a href="Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dlopen'><span class='object_link'><a href="Blas.html#dlopen-class_method" title="Numo::Linalg::Blas.dlopen (method)">dlopen</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span>
-        <span class='id identifier rubyid_l'>l</span> <span class='op'>=</span> <span class='const'>LAPACK_LIBPATH</span>
-        <span class='id identifier rubyid_e'>e</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>liblapacke.so</span><span class='tstring_end'>&quot;</span></span>
-        <span class='id identifier rubyid_e'>e</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_l'>l</span><span class='comma'>,</span><span class='id identifier rubyid_e'>e</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_l'>l</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_l'>l</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-        <span class='const'><span class='object_link'><a href="Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dlopen'><span class='object_link'><a href="Lapack.html#dlopen-class_method" title="Numo::Linalg::Lapack.dlopen (method)">dlopen</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='rparen'>)</span>
-        <span class='cvar'>@@libs</span> <span class='op'>=</span> <span class='lbracket'>[</span> <span class='id identifier rubyid_f'>f</span><span class='comma'>,</span> <span class='id identifier rubyid_e'>e</span> <span class='rbracket'>]</span>
+        <span class='id identifier rubyid_f_atlas'>f_atlas</span> <span class='op'>=</span> <span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='const'>Fiddle</span><span class='comma'>,</span><span class='id identifier rubyid_f'>f</span><span class='comma'>,</span><span class='id identifier rubyid_d'>d</span><span class='comma'>,</span><span class='int'>3</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_f_atlas'>f_atlas</span> <span class='op'>=</span> <span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span></span><span class='comma'>,</span><span class='id identifier rubyid_f'>f</span><span class='comma'>,</span><span class='id identifier rubyid_d'>d</span><span class='comma'>,</span><span class='int'>3</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_f_lapacke'>f_lapacke</span> <span class='op'>=</span> <span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>liblapacke</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='const'>LAPACK_LIBPATH</span><span class='comma'>,</span><span class='int'>3</span><span class='rparen'>)</span>
+        <span class='cvar'>@@libs</span> <span class='op'>=</span> <span class='lbracket'>[</span> <span class='id identifier rubyid_f_atlas'>f_atlas</span><span class='comma'>,</span> <span class='id identifier rubyid_f_lapacke'>f_lapacke</span> <span class='rbracket'>]</span>
         <span class='kw'>if</span> <span class='gvar'>$DEBUG</span>
           <span class='gvar'>$stderr</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Numo::Linalg: use </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_f'>f</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
         <span class='kw'>end</span>
@@ -368,7 +443,7 @@
       <div class="method_details ">
   <h3 class="signature " id="load_lapack-class_method">
   
-    .<strong>load_lapack</strong>(path = nil, exc: true)  &#x21d2; <tt>Object</tt> 
+    .<strong>load_lapack</strong>(*dirs, exc: true)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -380,13 +455,6 @@
       <pre class="lines">
 
 
-115
-116
-117
-118
-119
-120
-121
 122
 123
 124
@@ -413,46 +481,25 @@
 145
 146
 147
-148
-149
-150
-151
-152
-153
-154
-155</pre>
+148</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/loader.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/loader.rb', line 122</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_load_lapack'>load_lapack</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span><span class='label'>exc:</span><span class='kw'>true</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='kw'>case</span> <span class='id identifier rubyid_path'>path</span>
-      <span class='kw'>when</span> <span class='const'>String</span><span class='semicolon'>;</span> <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span><span class='id identifier rubyid_path'>path</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
-      <span class='kw'>when</span> <span class='const'>Array</span> <span class='semicolon'>;</span>  <span class='lbracket'>[</span><span class='id identifier rubyid_path'>path</span><span class='rbracket'>]</span>
-      <span class='kw'>when</span> <span class='const'>NilClass</span>
-        <span class='id identifier rubyid_b'>b</span> <span class='op'>=</span> <span class='const'>BLAS_LIBPATH</span> <span class='op'>||</span> <span class='const'>LAPACK_LIBPATH</span>
-        <span class='id identifier rubyid_l'>l</span> <span class='op'>=</span> <span class='const'>LAPACK_LIBPATH</span> <span class='op'>||</span> <span class='const'>BLAS_LIBPATH</span>
-        <span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='id identifier rubyid_b'>b</span><span class='comma'>,</span><span class='id identifier rubyid_l'>l</span><span class='rbracket'>]</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-      <span class='kw'>else</span> <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid path</span><span class='tstring_end'>&quot;</span></span>
-      <span class='kw'>end</span>
-  <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_arg'>arg</span><span class='op'>|</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_load_lapack'>load_lapack</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_dirs'>dirs</span><span class='comma'>,</span><span class='label'>exc:</span><span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_dirs'>dirs</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_b'>b</span> <span class='op'>=</span> <span class='const'>BLAS_LIBPATH</span> <span class='op'>||</span> <span class='const'>LAPACK_LIBPATH</span>
+    <span class='id identifier rubyid_l'>l</span> <span class='op'>=</span> <span class='const'>LAPACK_LIBPATH</span> <span class='op'>||</span> <span class='const'>BLAS_LIBPATH</span>
+    <span class='id identifier rubyid_dirs'>dirs</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='id identifier rubyid_b'>b</span><span class='comma'>,</span><span class='id identifier rubyid_l'>l</span><span class='rbracket'>]</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_dirs'>dirs</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_arg'>arg</span><span class='op'>|</span>
     <span class='id identifier rubyid_b'>b</span><span class='comma'>,</span><span class='id identifier rubyid_l'>l</span> <span class='op'>=</span> <span class='op'>*</span><span class='id identifier rubyid_arg'>arg</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-      <span class='id identifier rubyid_f_blas'>f_blas</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libblas.so</span><span class='tstring_end'>&quot;</span></span>
-      <span class='id identifier rubyid_f_cblas'>f_cblas</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libcblas.so</span><span class='tstring_end'>&quot;</span></span>
-      <span class='id identifier rubyid_f_lapack'>f_lapack</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>liblapack.so</span><span class='tstring_end'>&quot;</span></span>
-      <span class='id identifier rubyid_f_lapacke'>f_lapacke</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>liblapacke.so</span><span class='tstring_end'>&quot;</span></span>
-    <span class='kw'>else</span>
-      <span class='id identifier rubyid_f_blas'>f_blas</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libblas.so</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_f_cblas'>f_cblas</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_b'>b</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libcblas.so</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_f_lapack'>f_lapack</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_l'>l</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>liblapack.so</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_f_lapacke'>f_lapacke</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_l'>l</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>liblapacke.so</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-    <span class='kw'>end</span>
+    <span class='id identifier rubyid_l'>l</span> <span class='op'>=</span> <span class='id identifier rubyid_b'>b</span> <span class='kw'>if</span> <span class='id identifier rubyid_l'>l</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
     <span class='kw'>begin</span>
-      <span class='const'>Fiddle</span><span class='period'>.</span><span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='id identifier rubyid_f_blas'>f_blas</span><span class='rparen'>)</span>
-      <span class='const'>Fiddle</span><span class='period'>.</span><span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='id identifier rubyid_f_lapack'>f_lapack</span><span class='rparen'>)</span>
-      <span class='const'><span class='object_link'><a href="Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dlopen'><span class='object_link'><a href="Blas.html#dlopen-class_method" title="Numo::Linalg::Blas.dlopen (method)">dlopen</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_f_cblas'>f_cblas</span><span class='rparen'>)</span>
-      <span class='const'><span class='object_link'><a href="Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dlopen'><span class='object_link'><a href="Lapack.html#dlopen-class_method" title="Numo::Linalg::Lapack.dlopen (method)">dlopen</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_f_lapacke'>f_lapacke</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_f_blas'>f_blas</span> <span class='op'>=</span> <span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='const'>Fiddle</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libblas</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='id identifier rubyid_b'>b</span><span class='comma'>,</span><span class='int'>3</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_f_lapack'>f_lapack</span> <span class='op'>=</span> <span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='const'>Fiddle</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>liblapack</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='id identifier rubyid_l'>l</span><span class='comma'>,</span><span class='int'>3</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_f_cblas'>f_cblas</span> <span class='op'>=</span> <span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libcblas</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='id identifier rubyid_b'>b</span><span class='comma'>,</span><span class='int'>3</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_f_lapacke'>f_lapacke</span> <span class='op'>=</span> <span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>liblapacke</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='id identifier rubyid_l'>l</span><span class='comma'>,</span><span class='int'>3</span><span class='rparen'>)</span>
       <span class='cvar'>@@libs</span> <span class='op'>=</span> <span class='lbracket'>[</span> <span class='id identifier rubyid_f_blas'>f_blas</span><span class='comma'>,</span> <span class='id identifier rubyid_f_lapack'>f_lapack</span><span class='comma'>,</span> <span class='id identifier rubyid_f_cblas'>f_cblas</span><span class='comma'>,</span> <span class='id identifier rubyid_f_lapacke'>f_lapacke</span> <span class='rbracket'>]</span>
       <span class='kw'>if</span> <span class='gvar'>$DEBUG</span>
         <span class='gvar'>$stderr</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Numo::Linalg: use </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_f_blas'>f_blas</span><span class='embexpr_end'>}</span><span class='tstring_content'> and </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_f_lapack'>f_lapack</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -484,6 +531,7 @@
   <div class="discussion">
     
 
+
   </div>
 </div>
 <div class="tags">
@@ -508,23 +556,23 @@
       <pre class="lines">
 
 
+150
+151
+152
+153
+154
+155
+156
 157
 158
 159
 160
 161
 162
-163
-164
-165
-166
-167
-168
-169
-170</pre>
+163</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/loader.rb', line 157</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/loader.rb', line 150</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_library'>load_library</span>
   <span class='kw'>case</span> <span class='const'>BACKEND</span>
@@ -548,7 +596,7 @@
       <div class="method_details ">
   <h3 class="signature " id="load_mkl-class_method">
   
-    .<strong>load_mkl</strong>(path = nil, exc: true)  &#x21d2; <tt>Object</tt> 
+    .<strong>load_mkl</strong>(*dirs, exc: true)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -560,24 +608,6 @@
       <pre class="lines">
 
 
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
 33
 34
 35
@@ -598,37 +628,35 @@
 50
 51
 52
-53</pre>
+53
+54
+55
+56
+57
+58
+59
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/loader.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/loader.rb', line 33</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_load_mkl'>load_mkl</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span><span class='label'>exc:</span><span class='kw'>true</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='kw'>case</span> <span class='id identifier rubyid_path'>path</span>
-      <span class='kw'>when</span> <span class='const'>String</span><span class='semicolon'>;</span> <span class='lbracket'>[</span><span class='id identifier rubyid_path'>path</span><span class='rbracket'>]</span>
-      <span class='kw'>when</span> <span class='const'>Array</span> <span class='semicolon'>;</span>  <span class='id identifier rubyid_path'>path</span>
-      <span class='kw'>when</span> <span class='const'>NilClass</span><span class='semicolon'>;</span> <span class='lbracket'>[</span><span class='const'>MKL_LIBPATH</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
-      <span class='kw'>else</span> <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid path</span><span class='tstring_end'>&quot;</span></span>
-      <span class='kw'>end</span>
-  <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_d'>d</span><span class='op'>|</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_load_mkl'>load_mkl</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_dirs'>dirs</span><span class='comma'>,</span><span class='label'>exc:</span><span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_dirs'>dirs</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_dirs'>dirs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='const'>MKL_LIBPATH</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_dirs'>dirs</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_d'>d</span><span class='op'>|</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_d'>d</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-      <span class='id identifier rubyid_f_iomp5'>f_iomp5</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libiomp5.so</span><span class='tstring_end'>&quot;</span></span>
-      <span class='id identifier rubyid_f_mkl_core'>f_mkl_core</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libmkl_core.so</span><span class='tstring_end'>&quot;</span></span>
-      <span class='id identifier rubyid_f_intel_thread'>f_intel_thread</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libmkl_intel_thread.so</span><span class='tstring_end'>&quot;</span></span>
-      <span class='id identifier rubyid_f_intel_lp64'>f_intel_lp64</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libmkl_intel_lp64.so</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_d'>d</span> <span class='op'>=</span> <span class='id identifier rubyid_e'>e</span> <span class='op'>=</span> <span class='kw'>nil</span>
     <span class='kw'>else</span>
       <span class='id identifier rubyid_e'>e</span> <span class='op'>=</span> <span class='id identifier rubyid_d'>d</span><span class='period'>.</span><span class='id identifier rubyid_sub'>sub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\/mkl\/</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_f_iomp5'>f_iomp5</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libiomp5.so</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_f_mkl_core'>f_mkl_core</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_d'>d</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libmkl_core.so</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_f_intel_thread'>f_intel_thread</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_d'>d</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libmkl_intel_thread.so</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_f_intel_lp64'>f_intel_lp64</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_d'>d</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libmkl_intel_lp64.so</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
     <span class='kw'>end</span>
     <span class='kw'>begin</span>
-      <span class='const'>Fiddle</span><span class='period'>.</span><span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='id identifier rubyid_f_iomp5'>f_iomp5</span><span class='rparen'>)</span>
-      <span class='const'>Fiddle</span><span class='period'>.</span><span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='id identifier rubyid_f_mkl_core'>f_mkl_core</span><span class='rparen'>)</span>
-      <span class='const'>Fiddle</span><span class='period'>.</span><span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='id identifier rubyid_f_intel_thread'>f_intel_thread</span><span class='rparen'>)</span>
-      <span class='const'><span class='object_link'><a href="Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dlopen'><span class='object_link'><a href="Blas.html#dlopen-class_method" title="Numo::Linalg::Blas.dlopen (method)">dlopen</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_f_intel_lp64'>f_intel_lp64</span><span class='rparen'>)</span>
-      <span class='const'><span class='object_link'><a href="Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dlopen'><span class='object_link'><a href="Lapack.html#dlopen-class_method" title="Numo::Linalg::Lapack.dlopen (method)">dlopen</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_f_intel_lp64'>f_intel_lp64</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_f_iomp5'>f_iomp5</span> <span class='op'>=</span> <span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='const'>Fiddle</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libiomp5</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='id identifier rubyid_e'>e</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_f_mkl_core'>f_mkl_core</span> <span class='op'>=</span> <span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='const'>Fiddle</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libmkl_core</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='id identifier rubyid_d'>d</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_f_intel_thread'>f_intel_thread</span> <span class='op'>=</span> <span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='const'>Fiddle</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libmkl_intel_thread</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='id identifier rubyid_d'>d</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_f_intel_lp64'>f_intel_lp64</span> <span class='op'>=</span> <span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libmkl_intel_lp64</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='id identifier rubyid_d'>d</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_f_intel_lp64'>f_intel_lp64</span> <span class='op'>=</span> <span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>libmkl_intel_lp64</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='id identifier rubyid_d'>d</span><span class='rparen'>)</span>
       <span class='cvar'>@@libs</span> <span class='op'>=</span> <span class='lbracket'>[</span> <span class='id identifier rubyid_f_iomp5'>f_iomp5</span><span class='comma'>,</span> <span class='id identifier rubyid_f_mkl_core'>f_mkl_core</span><span class='comma'>,</span> <span class='id identifier rubyid_f_intel_thread'>f_intel_thread</span><span class='comma'>,</span> <span class='id identifier rubyid_f_intel_lp64'>f_intel_lp64</span> <span class='rbracket'>]</span>
       <span class='kw'>if</span> <span class='gvar'>$DEBUG</span>
         <span class='gvar'>$stderr</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Numo::Linalg: use </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_f_intel_lp64'>f_intel_lp64</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -650,7 +678,7 @@
       <div class="method_details ">
   <h3 class="signature " id="load_openblas-class_method">
   
-    .<strong>load_openblas</strong>(path = nil, exc: true)  &#x21d2; <tt>Object</tt> 
+    .<strong>load_openblas</strong>(*dirs, exc: true)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -662,14 +690,6 @@
       <pre class="lines">
 
 
-55
-56
-57
-58
-59
-60
-61
-62
 63
 64
 65
@@ -688,25 +708,41 @@
 78
 79
 80
-81</pre>
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/numo/linalg/loader.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/numo/linalg/loader.rb', line 63</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_load_openblas'>load_openblas</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span><span class='label'>exc:</span><span class='kw'>true</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_a'>a</span> <span class='op'>=</span> <span class='kw'>case</span> <span class='id identifier rubyid_path'>path</span>
-      <span class='kw'>when</span> <span class='const'>String</span><span class='semicolon'>;</span> <span class='lbracket'>[</span><span class='id identifier rubyid_path'>path</span><span class='rbracket'>]</span>
-      <span class='kw'>when</span> <span class='const'>Array</span> <span class='semicolon'>;</span>  <span class='id identifier rubyid_path'>path</span>
-      <span class='kw'>when</span> <span class='const'>NilClass</span><span class='semicolon'>;</span> <span class='lbracket'>[</span><span class='const'>OPENBLAS_LIBPATH</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
-      <span class='kw'>else</span> <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>invalid path</span><span class='tstring_end'>&quot;</span></span>
-      <span class='kw'>end</span>
-  <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_d'>d</span><span class='op'>|</span>
-    <span class='qwords_beg'>%w[</span><span class='tstring_content'>libopenblaso.so</span><span class='words_sep'> </span><span class='tstring_content'>libopenblasp.so</span><span class='words_sep'> </span><span class='tstring_content'>libopenblas.so</span><span class='words_sep'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span>
-      <span class='id identifier rubyid_f'>f</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_d'>d</span><span class='comma'>,</span><span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_d'>d</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_load_openblas'>load_openblas</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_dirs'>dirs</span><span class='comma'>,</span><span class='label'>exc:</span><span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_dirs'>dirs</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_dirs'>dirs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='const'>OPENBLAS_LIBPATH</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_dirs'>dirs</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_d'>d</span><span class='op'>|</span>
+    <span class='qwords_beg'>%w[</span><span class='words_sep'> </span><span class='tstring_content'>libopenblaso</span><span class='words_sep'>
+        </span><span class='tstring_content'>libopenblasp</span><span class='words_sep'>
+        </span><span class='tstring_content'>libopenblas</span><span class='words_sep'>  </span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span>
       <span class='kw'>begin</span>
-        <span class='const'><span class='object_link'><a href="Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dlopen'><span class='object_link'><a href="Blas.html#dlopen-class_method" title="Numo::Linalg::Blas.dlopen (method)">dlopen</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span>
-        <span class='const'><span class='object_link'><a href="Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='period'>.</span><span class='id identifier rubyid_dlopen'><span class='object_link'><a href="Lapack.html#dlopen-class_method" title="Numo::Linalg::Lapack.dlopen (method)">dlopen</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span>
-        <span class='cvar'>@@libs</span> <span class='op'>=</span> <span class='lbracket'>[</span> <span class='id identifier rubyid_f'>f</span> <span class='rbracket'>]</span>
+        <span class='id identifier rubyid_f_openblas'>f_openblas</span> <span class='op'>=</span> <span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Blas.html" title="Numo::Linalg::Blas (module)">Blas</a></span></span><span class='comma'>,</span><span class='id identifier rubyid_f'>f</span><span class='comma'>,</span><span class='id identifier rubyid_d'>d</span><span class='comma'>,</span><span class='int'>0</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_f_openblas'>f_openblas</span> <span class='op'>=</span> <span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='const'>Fiddle</span><span class='comma'>,</span><span class='id identifier rubyid_f'>f</span><span class='comma'>,</span><span class='id identifier rubyid_d'>d</span><span class='comma'>,</span><span class='int'>0</span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_f_lapacke'>f_lapacke</span> <span class='op'>=</span> <span class='kw'>nil</span>
+        <span class='kw'>begin</span>
+          <span class='id identifier rubyid_f_lapacke'>f_lapacke</span> <span class='op'>=</span> <span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>liblapacke</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span><span class='id identifier rubyid_d'>d</span><span class='comma'>,</span><span class='int'>3</span><span class='rparen'>)</span>
+        <span class='kw'>rescue</span>
+          <span class='id identifier rubyid_f_openblas'>f_openblas</span> <span class='op'>=</span> <span class='id identifier rubyid_dlopen'>dlopen</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Lapack.html" title="Numo::Linalg::Lapack (module)">Lapack</a></span></span><span class='comma'>,</span><span class='id identifier rubyid_f'>f</span><span class='comma'>,</span><span class='id identifier rubyid_d'>d</span><span class='comma'>,</span><span class='int'>0</span><span class='rparen'>)</span>
+        <span class='kw'>end</span>
+        <span class='cvar'>@@libs</span> <span class='op'>=</span> <span class='lbracket'>[</span> <span class='id identifier rubyid_f_openblas'>f_openblas</span><span class='comma'>,</span> <span class='id identifier rubyid_f_lapacke'>f_lapacke</span> <span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span>
         <span class='kw'>if</span> <span class='gvar'>$DEBUG</span>
           <span class='gvar'>$stderr</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Numo::Linalg: use </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_f'>f</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
         <span class='kw'>end</span>
@@ -730,9 +766,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon May 29 00:56:50 2017 by
+  Generated on Thu Aug 23 15:25:37 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.12 (ruby-2.5.0).
 </div>
 
     </div>

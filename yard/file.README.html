@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.9
+    &mdash; Documentation by YARD 0.9.12
   
 </title>
 
@@ -57,128 +57,145 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'>
-<h1 id="label-Numo-3A-3ALinalg+-3A+Linear+Algebra+library+with+BLAS-2FLAPACK+binding+to+Numo-3A-3ANArray">Numo::Linalg : Linear Algebra library with BLAS/LAPACK binding to Numo::NArray</h1>
+      <div id="content"><div id='filecontents'><h1 id="numolinalg--linear-algebra-library-with-blaslapack-binding-to-numonarray">Numo::Linalg : Linear Algebra library with BLAS/LAPACK binding to Numo::NArray</h1>
 
-<p><a href="http://mybinder.org/repo/ruby-numo/linalg"><img
-src="http://mybinder.org/badge.svg"></a> <a
-href="https://travis-ci.org/ruby-numo/linalg"><img
-src="https://travis-ci.org/ruby-numo/linalg.svg?branch=master"></a></p>
+<p><a href="http://mybinder.org/repo/ruby-numo/numo-linalg"><img src="http://mybinder.org/badge.svg" alt="Binder" /></a>
+<a href="https://travis-ci.org/ruby-numo/numo-linalg"><img src="https://travis-ci.org/ruby-numo/numo-linalg.svg?branch=master" alt="Build Status" /></a></p>
 
-<p><a href="https://github.com/ruby-numo/linalg">GitHub</a></p>
+<p><a href="https://github.com/ruby-numo/numo-linalg">GitHub</a> |
+<a href="https://rubygems.org/gems/numo-linalg">RubyGems</a></p>
 
 <p>Under development!</p>
 
-<h2 id="label-Introduction">Introduction</h2>
+<h2 id="introduction">Introduction</h2>
 
-<p>This is a binding of BLAS/LAPACK for Numo::NArray using dynamic linking
-loader. This desgin allows you to change backend libraries without
-re-compiling.</p>
+<p>This is a binding of BLAS/LAPACK for Numo::NArray using dynamic linking loader.
+This desgin allows you to change backend libraries without re-compiling.</p>
 
-<h3 id="label-Numo-3A-3ALinalg+API"><a href="http://ruby-numo.github.io/linalg/yard/Numo/Linalg.html">Numo::Linalg API</a></h3>
-<ul><li>
-<p>Matrix and vector products</p>
-<ul><li>
-<p>dot, matmul</p>
-</li></ul>
-</li><li>
-<p>Decomposition</p>
-<ul><li>
-<p>lu_fact, lu_inv, lu_solve, cho_fact, cho_inv, cho_solve  qr, svd, svdvals</p>
-</li></ul>
-</li><li>
-<p>Matrix eigenvalues</p>
-<ul><li>
-<p>eig, eigh, eigvals, eigvalsh</p>
-</li></ul>
-</li><li>
-<p>Norms and other numbers</p>
-<ul><li>
-<p>norm, cond, det, slogdet, matrix_rank, matrix_power</p>
-</li></ul>
-</li><li>
-<p>Solving equations and inverting matrices</p>
-<ul><li>
-<p>solve, lstsq, inv, pinv</p>
-</li></ul>
-</li></ul>
+<h3 id="numolinalg-apihttpruby-numogithubiolinalgyardnumolinalghtml"><a href="http://ruby-numo.github.io/linalg/yard/Numo/Linalg.html">Numo::Linalg API</a></h3>
 
-<h3 id="label-Low-level+modules">Low-level modules</h3>
-<ul><li>
-<p><a
-href="http://ruby-numo.github.io/linalg/yard/Numo/Linalg/Blas.html">Numo::Linalg::Blas</a>
-- Low-level BLAS functions</p>
-</li><li>
-<p><a
-href="http://ruby-numo.github.io/linalg/yard/Numo/Linalg/Lapack.html">Numo::Linalg::Lapack</a>
-- Low-level LAPACK functions</p>
-</li></ul>
+<ul>
+  <li>Matrix and vector products
+    <ul>
+      <li>dot, matmul</li>
+    </ul>
+  </li>
+  <li>Decomposition
+    <ul>
+      <li>lu, lu_fact, lu_inv, lu_solve, ldl, cholesky, cho_fact, cho_inv, cho_solve,
+qr, svd, svdvals</li>
+    </ul>
+  </li>
+  <li>Matrix eigenvalues
+    <ul>
+      <li>eig, eigh, eigvals, eigvalsh</li>
+    </ul>
+  </li>
+  <li>Norms and other numbers
+    <ul>
+      <li>norm, cond, det, slogdet, matrix_rank, matrix_power</li>
+    </ul>
+  </li>
+  <li>Solving equations and inverting matrices
+    <ul>
+      <li>solve, lstsq, inv, pinv</li>
+    </ul>
+  </li>
+</ul>
 
-<h2 id="label-Installation">Installation</h2>
-<ul><li>
-<p>Install <a href="https://github.com/ruby-numo/narray">Numo::NArray</a></p>
-</li><li>
-<p>Install <a href="http://www.netlib.org/lapack/">LAPACK</a> or alternative
-package.</p>
-<ul><li>
-<p>Numo::Linalg requires C-interface  <a
-href="http://www.netlib.org/blas/#_cblas">CBLAS</a> and  <a
-href="http://www.netlib.org/lapack/lapacke.html">LAPACKE</a> interface. 
+<h3 id="low-level-modules">Low-level modules</h3>
+
+<ul>
+  <li><a href="http://ruby-numo.github.io/linalg/yard/Numo/Linalg/Blas.html">Numo::Linalg::Blas</a> - Low-level BLAS functions</li>
+  <li><a href="http://ruby-numo.github.io/linalg/yard/Numo/Linalg/Lapack.html">Numo::Linalg::Lapack</a> - Low-level LAPACK functions</li>
+</ul>
+
+<h2 id="installation">Installation</h2>
+
+<ul>
+  <li>
+    <p>Install <a href="https://github.com/ruby-numo/narray">Numo::NArray</a></p>
+  </li>
+  <li>
+    <p>Install <a href="http://www.netlib.org/lapack/">LAPACK</a> or alternative package.</p>
+
+    <ul>
+      <li>
+        <p>Numo::Linalg requires C-interface
+<a href="http://www.netlib.org/blas/#_cblas">CBLAS</a> and
+<a href="http://www.netlib.org/lapack/lapacke.html">LAPACKE</a> interface.
 These are included in LAPACK package.</p>
-</li><li>
-<p>Recommended: use one of following faster libraries:</p>
-<ul><li>
-<p><a href="https://sourceforge.net/projects/math-atlas/">ATLAS</a></p>
-</li><li>
-<p><a href="http://www.openblas.net/">OpenBLAS</a></p>
-</li><li>
-<p><a href="https://software.intel.com/intel-mkl">Intel MKL</a></p>
-</li></ul>
-</li><li>
-<p>Note that the performance depends on the backend library as shown in  <a
-href="https://github.com/ruby-numo/linalg/tree/master/bench">benchmark</a>.</p>
-</li></ul>
-</li><li>
-<p>Install Numo::Linalg</p>
-</li></ul>
+      </li>
+      <li>Recommended: use one of following faster libraries:
+        <ul>
+          <li><a href="https://sourceforge.net/projects/math-atlas/">ATLAS</a></li>
+          <li><a href="http://www.openblas.net/">OpenBLAS</a></li>
+          <li><a href="https://software.intel.com/intel-mkl">Intel MKL</a></li>
+        </ul>
+      </li>
+      <li>Note that the performance depends on the backend library as shown in
+<a href="https://github.com/ruby-numo/numo-linalg/tree/master/bench">benchmark</a>.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Install Numo::Linalg</p>
+  </li>
+</ul>
 
-<pre class="code ruby"><code class="ruby">$ gem install numo-linalg</code></pre>
+<p><code>shell
+$ gem install numo-linalg
+</code></p>
 
 <p>or</p>
 
-<pre class="code ruby"><code class="ruby">$ git clone https://github.com/ruby-numo/linalg.git
+<p><code>shell
+$ git clone https://github.com/ruby-numo/numo-linalg.git
 $ cd linalg
 $ rake build
-$ gem install pkg/numo-linalg-*.gem</code></pre>
-<ul><li>
-<p>Read also instruction for <a
-href="https://github.com/ruby-numo/linalg/tree/master/doc/select-backend.md">Selecting
-Backend Library</a>.</p>
-</li></ul>
+$ gem install pkg/numo-linalg-*.gem
+</code></p>
 
-<h2 id="label-Authors">Authors</h2>
-<ul><li>
-<p>Masahiro TANAKA</p>
-</li><li>
-<p>Makoto KISHIMOTO</p>
-</li><li>
-<p>This work is partly supported by 2016 Ruby Association Grant.</p>
-</li></ul>
+<h2 id="using">Using</h2>
 
-<h2 id="label-ToDo">ToDo</h2>
-<ul><li>
-<p>More functions</p>
-</li><li>
-<p>write test</p>
-</li><li>
-<p>Documentation</p>
-</li></ul>
+<ul>
+  <li>Load Numo::Linalg module with default backend:</li>
+</ul>
+
+<p><code>ruby
+require "numo/linalg"
+</code></p>
+
+<ul>
+  <li>Read also instruction for <a href="https://github.com/ruby-numo/numo-linalg/tree/master/doc/select-backend.md">Selecting Backend Library</a>.</li>
+</ul>
+
+<h2 id="authors">Authors</h2>
+
+<ul>
+  <li>Masahiro Tanaka</li>
+  <li>Makoto Kishimoto</li>
+  <li>Atsushi Tatsuma</li>
+</ul>
+
+<h2 id="acknowledgement">Acknowledgement</h2>
+
+<ul>
+  <li>This work is partly supported by 2016 Ruby Association Grant.</li>
+</ul>
+
+<h2 id="todo">ToDo</h2>
+
+<ul>
+  <li>More functions</li>
+  <li>write test</li>
+  <li>Documentation</li>
+</ul>
 </div></div>
 
       <div id="footer">
-  Generated on Mon May 29 00:56:26 2017 by
+  Generated on Thu Aug 23 15:25:33 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.9 (ruby-2.4.1).
+  0.9.12 (ruby-2.5.0).
 </div>
 
     </div>
