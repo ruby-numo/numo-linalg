@@ -78,8 +78,12 @@ require "numo/linalg"
 
 ## Authors
 
-* Masahiro TANAKA
-* Makoto KISHIMOTO
+* Masahiro Tanaka
+* Makoto Kishimoto
+* Atsushi Tatsuma
+
+## Acknowledgement
+
 * This work is partly supported by 2016 Ruby Association Grant.
 
 ## ToDo
