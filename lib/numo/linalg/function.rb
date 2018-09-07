@@ -296,6 +296,42 @@ module Numo; module Linalg
     end
   end
 
+  # Computes an orthonormal basis for the range of matrix A.
+  #
+  # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensional NArray).
+  # @param rcond [Float] (optional)
+  #   rcond is used to determine the effective rank of A.
+  #   Singular values `s[i] <= rcond * s.max` are treated as zero.
+  #   If rcond < 0, machine precision is used instead.
+  # @return [Numo::NArray] The orthonormal basis for the range of matrix A.
+
+  def orth(a, rcond: -1)
+    raise NArray::ShapeError, '2-d array is required' if a.ndim < 2
+    s, u, = svd(a)
+    tol = s.max * (rcond.nil? || rcond < 0 ? a.class::EPSILON * a.shape.max : rcond)
+    k = (s > tol).count
+    u[true, 0...k]
+  end
+
+  # Computes an orthonormal basis for the null space of matrix A.
+  #
+  # @param a [Numo::NArray] m-by-n matrix A (>= 2-dimensional NArray).
+  # @param rcond [Float] (optional)
+  #   rcond is used to determine the effective rank of A.
+  #   Singular values `s[i] <= rcond * s.max` are treated as zero.
+  #   If rcond < 0, machine precision is used instead.
+  # @return [Numo::NArray] The orthonormal basis for the null space of matrix A.
+
+  def null_space(a, rcond: -1)
+    raise NArray::ShapeError, '2-d array is required' if a.ndim < 2
+    s, _u, vh = svd(a)
+    tol = s.max * (rcond.nil? || rcond < 0 ? a.class::EPSILON * a.shape.max : rcond)
+    k = (s > tol).count
+    return a.class.new if k == vh.shape[0]
+    r = vh[k..-1, true].transpose.dup
+    blas_char(vh) =~ /c|z/ ? r.conj : r
+  end
+
   # Computes an LU factorization of a M-by-N matrix A
   # using partial pivoting with row interchanges.
   #
