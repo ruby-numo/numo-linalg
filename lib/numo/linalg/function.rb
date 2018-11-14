@@ -89,14 +89,58 @@ module Numo; module Linalg
         func = blas_char(a, b) =~ /c|z/ ? :dotu : :dot
         Blas.call(func, a, b)
       else
-        Blas.call(:gemv, b, a, trans:'t')
+        if b.contiguous?
+          trans = 't'
+        else
+          if b.transpose?
+            trans = 'n'
+            b = b.transpose
+          else
+            trans = 't'
+            b = b.dup
+          end
+        end
+        Blas.call(:gemv, b, a, trans:trans)
       end
     else
       case b.ndim
       when 1
-        Blas.call(:gemv, a, b)
+        if a.contiguous?
+          trans = 'n'
+        else
+          if a.transpose?
+            trans = 't'
+            a = a.transpose
+          else
+            trans = 'n'
+            a = a.dup
+          end
+        end
+        Blas.call(:gemv, a, b, trans:trans)
       else
-        Blas.call(:gemm, a, b)
+        if a.contiguous?
+          transa = 'n'
+        else
+          if a.transpose?
+            transa = 't'
+            a = a.transpose
+          else
+            transa = 'n'
+            a = a.dup
+          end
+        end
+        if b.contiguous?
+          transb = 'n'
+        else
+          if b.transpose?
+            transb='t'
+            b = b.transpose
+          else
+            transb='n'
+            b = b.dup
+          end
+        end
+        Blas.call(:gemm, a, b, transa:transa, transb:transb)
       end
     end
   end
