@@ -92,7 +92,7 @@ module Numo; module Linalg
         if b.contiguous?
           trans = 't'
         else
-          if b.transpose?
+          if b.f_contiguous?
             trans = 'n'
             b = b.transpose
           else
@@ -108,7 +108,7 @@ module Numo; module Linalg
         if a.contiguous?
           trans = 'n'
         else
-          if a.transpose?
+          if a.f_contiguous?
             trans = 't'
             a = a.transpose
           else
@@ -121,7 +121,7 @@ module Numo; module Linalg
         if a.contiguous?
           transa = 'n'
         else
-          if a.transpose?
+          if a.f_contiguous?
             transa = 't'
             a = a.transpose
           else
@@ -132,7 +132,7 @@ module Numo; module Linalg
         if b.contiguous?
           transb = 'n'
         else
-          if b.transpose?
+          if b.f_contiguous?
             transb='t'
             b = b.transpose
           else
