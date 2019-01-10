@@ -82,7 +82,7 @@ require "numo/linalg"
 * Makoto Kishimoto
 * Atsushi Tatsuma
 
-## Acknowledgement
+## Acknowledgments
 
 * This work is partly supported by 2016 Ruby Association Grant.
 
