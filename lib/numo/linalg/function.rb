@@ -1084,14 +1084,11 @@ module Numo; module Linalg
         when n
           resids = (x[n..-1,true].abs**2).sum(axis:0)
         when NArray
-          if true
-            resids = (x[false,n..-1,true].abs**2).sum(axis:-2)
-          else
-            resids = x[false,0,true].new_zeros
-            mask = rank.eq(n)
-            # NArray does not suppurt this yet.
-            resids[mask,true] = (x[mask,n..-1,true].abs**2).sum(axis:-2)
-          end
+          resids = (x[false,n..-1,true].abs**2).sum(axis:-2)
+          ## NArray does not suppurt this yet.
+          # resids = x[false,0,true].new_zeros
+          # mask = rank.eq(n)
+          # resids[mask,true] = (x[mask,n..-1,true].abs**2).sum(axis:-2)
         end
       end
       x = x[false,0...n,true]
