@@ -2,13 +2,11 @@ sudo: false
 
 os: linux
 
-dist: trusty
+dist: xenial
 
 language: ruby
 
 rvm:
-  - '2.2'
-  - '2.3'
   - '2.4'
   - '2.5'
   - '2.6'
@@ -23,18 +21,11 @@ notifications:
 addons:
   apt:
     packages:
-      - gcc
-      - make
-      - ruby
-      - ruby-dev
-      - rake
-      - libatlas-base-dev
       - libopenblas-dev
-      - liblapack-dev
       - liblapacke-dev
 
 before_install:
-  - gem install --no-document bundler -v '~> 1.16'
+  - gem install --no-document bundler -v '~> 2.0'
 
 install:
   - bundle install --jobs=3 --retry=3
