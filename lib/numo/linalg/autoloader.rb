@@ -26,7 +26,8 @@ module Numo
         lapacke_dirs = ['/opt/lapack/lib', '/opt/lapack/lib64', '/opt/local/lib/lapack',
                         '/usr/local/opt/lapack/lib']
         opt_dirs =  ['/opt/local/lib', '/opt/local/lib64', '/opt/lib', '/opt/lib64']
-        base_dirs = ['/usr/local/lib', '/usr/local/lib64', '/usr/lib', '/usr/lib64']
+        base_dirs = ['/usr/local/lib', '/usr/local/lib64', '/usr/lib', '/usr/lib64',
+                     "/usr/lib/#{RbConfig::CONFIG['host_cpu']}-#{RbConfig::CONFIG['host_os']}"]
         base_dirs.unshift(*ENV['LD_LIBRARY_PATH'].split(':')) unless ENV['LD_LIBRARY_PATH'].nil?
 
         mkl_libs = find_mkl_libs([*base_dirs, *opt_dirs, *mkl_dirs])
