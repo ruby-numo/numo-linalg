@@ -19,7 +19,8 @@ module Numo
       # @return [String] name of loaded backend library (mkl/openblas/lapack)
       def load_library
         mkl_dirs = ['/opt/intel/lib', '/opt/intel/lib64', '/opt/intel/mkl/lib', '/opt/intel/mkl/lib64']
-        openblas_dirs = ['/opt/openblas/lib', '/opt/openblas/lib64', '/usr/local/opt/openblas/lib']
+        openblas_dirs = ['/opt/OpenBLAS/lib', '/opt/OpenBLAS/lib64', '/opt/openblas/lib', '/opt/openblas/lib64',
+                         '/usr/local/opt/openblas/lib']
         atlas_dirs = ['/opt/atlas/lib', '/opt/atlas/lib64',
                       '/usr/lib/atlas', '/usr/lib64/atlas', '/usr/local/opt/atlas/lib']
         lapacke_dirs = ['/opt/lapack/lib', '/opt/lapack/lib64', '/opt/local/lib/lapack',
