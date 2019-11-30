@@ -1160,6 +1160,49 @@ module Numo; module Linalg
     end
   end
 
+  # Compute the matrix exponential using Pade approximation method.
+  #
+  # @param a [Numo::NArray] square matrix (>= 2-dimensinal NArray)
+  # @param ord [Integer] order of approximation
+  # @return [Numo::NArray]
+  # @example
+  #   a = Numo::Linalg.expm(Numo::DFloat.zeros([2,2]))
+  #   => Numo::DFloat#shape=[2,2]
+  #   [[1, 0],
+  #    [0, 1]]
+  #   b = Numo::Linalg.expm(Numo::DFloat[[1, 2], [-1, 3]] * Complex::I)
+  #   => Numo::DComplex#shape=[2,2]
+  #   [[0.426459+1.89218i, -2.13721-0.978113i],
+  #    [1.06861+0.489056i, -1.71076+0.914063i]]
+
+  def expm(a, ord=8)
+    raise NArray::ShapeError, 'matrix a is not square matrix' if a.shape[0] != a.shape[1]
+
+    inf_norm = norm(a, 'inf')
+    n_squarings = inf_norm.zero? ? 0 : [0, Math.log2(inf_norm).ceil.to_i].max
+    a = a / (2**n_squarings)
+
+    sz_mat = a.shape[0]
+    c = 1
+    s = -1
+    x = Numo::DFloat.eye(sz_mat)
+    n = Numo::DFloat.eye(sz_mat)
+    d = Numo::DFloat.eye(sz_mat)
+
+    (1..ord).each do |k|
+      c *= (ord - k + 1).fdiv((2 * ord - k + 1) * k)
+      x = a.dot(x)
+      cx = c * x
+      n += cx
+      d += s * cx
+      s *= -1
+    end
+
+    res = solve(d, n)
+    n_squarings.times { res = res.dot(res) }
+    res
+  end
+
   # @!visibility private
   def _make_complex_eigvecs(w, vin) # :nodoc:
     v = w.class.cast(vin)
