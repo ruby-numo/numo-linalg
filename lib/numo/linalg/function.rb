@@ -12,12 +12,19 @@ module Numo; module Linalg
     # defined from data-types of arguments.
     # @param [Symbol] func  function name without BLAS char.
     # @param args  arguments passed to Blas function.
+    # @param kwargs  keyword arguments passed to Blas function.
     # @example
     #      c = Numo::Linalg::Blas.call(:gemm, a, b)
-    def self.call(func,*args)
+    def self.call(func, *args, **kwargs)
       fn = (Linalg.blas_char(*args) + func.to_s).to_sym
       fn = FIXNAME[fn] || fn
-      send(fn,*args)
+      if kwargs.empty?
+        # This conditional branch is necessary to prevent ArgumentError
+        # that occurs in Ruby 2.6 or earlier.
+        send(fn, *args)
+      else
+        send(fn, *args, **kwargs)
+      end
     end
 
   end
@@ -34,12 +41,19 @@ module Numo; module Linalg
     # defined from data-types of arguments.
     # @param [Symbol,String] func  function name without BLAS char.
     # @param args  arguments passed to Lapack function.
+    # @param kwargs  keyword arguments passed to Lapack function.
     # @example
     #      s = Numo::Linalg::Lapack.call(:gesv, a)
-    def self.call(func,*args)
+    def self.call(func, *args, **kwargs)
       fn = (Linalg.blas_char(*args) + func.to_s).to_sym
       fn = FIXNAME[fn] || fn
-      send(fn,*args)
+      if kwargs.empty?
+        # This conditional branch is necessary to prevent ArgumentError
+        # that occurs in Ruby 2.6 or earlier.
+        send(fn, *args)
+      else
+        send(fn, *args, **kwargs)
+      end
     end
 
   end
