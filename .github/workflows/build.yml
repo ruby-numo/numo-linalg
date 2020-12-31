@@ -1,0 +1,28 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: [ '2.5', '2.6', '2.7' ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install BLAS and LAPACK
+        run: sudo apt-get install -y libopenblas-dev liblapacke-dev
+      - name: Set up Ruby ${{ matrix.ruby }}
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Build and Install
+        run: |
+          gem install --no-document bundler
+          gem install --no-document specific_install
+          bundle install --jobs 4 --retry 3
+          gem build numo-linalg.gemspec
+          gem install numo-linalg-*.gem
+      - name: Tests
+        run: rspec --color --format documentation --require spec_helper spec

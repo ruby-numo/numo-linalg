@@ -1,7 +1,7 @@
 # Numo::Linalg : Linear Algebra library with BLAS/LAPACK binding to Numo::NArray
 
 [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/repo/ruby-numo/numo-linalg)
-[![Build Status](https://travis-ci.org/ruby-numo/numo-linalg.svg?branch=master)](https://travis-ci.org/ruby-numo/numo-linalg)
+[![Build Status](https://github.com/ruby-numo/numo-linalg/workflows/build/badge.svg)](https://github.com/ruby-numo/numo-linalg/actions)
 
 [GitHub](https://github.com/ruby-numo/numo-linalg) |
 [RubyGems](https://rubygems.org/gems/numo-linalg)
