@@ -17,12 +17,8 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-      - name: Build and Install
+      - name: Build and test with Rake
         run: |
           gem install --no-document bundler
-          gem install --no-document specific_install
           bundle install --jobs 4 --retry 3
-          gem build numo-linalg.gemspec
-          gem install numo-linalg-*.gem
-      - name: Tests
-        run: rspec --color --format documentation --require spec_helper spec
+          bundle exec rake
