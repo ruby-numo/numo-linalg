@@ -11,7 +11,7 @@ Under development!
 ## Introduction
 
 This is a binding of BLAS/LAPACK for Numo::NArray using dynamic linking loader.
-This desgin allows you to change backend libraries without re-compiling.
+This design allows you to change backend libraries without re-compiling.
 
 ### [Numo::Linalg API](http://ruby-numo.github.io/numo-linalg/yard/Numo/Linalg.html)
 
