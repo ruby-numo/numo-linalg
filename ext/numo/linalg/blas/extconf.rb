@@ -36,5 +36,5 @@ elsif have_header("windows.h")
 end
 
 create_site_conf
-create_depend
+create_depend(__dir__)
 create_makefile('numo/linalg/blas')

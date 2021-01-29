@@ -36,5 +36,5 @@ elsif have_header("windows.h")
   exit(1) unless have_func("LoadLibrary")
 end
 
-create_depend
+create_depend(__dir__)
 create_makefile('numo/linalg/lapack')

@@ -69,12 +69,12 @@ def find_libnarray_a
   end
 end
 
-def create_depend
+def create_depend(base_dir)
   require 'erb'
   message "creating depend\n"
-  dep_path = File.join(Dir.pwd, "depend")
+  dep_path = "#{base_dir}/depend"
   File.open(dep_path, "w") do |dep|
-    dep_erb_path = File.join(Dir.pwd, "depend.erb")
+    dep_erb_path = "#{base_dir}/depend.erb"
     File.open(dep_erb_path, "r") do |dep_erb|
       erb = ERB.new(dep_erb.read)
       erb.filename = dep_erb_path
