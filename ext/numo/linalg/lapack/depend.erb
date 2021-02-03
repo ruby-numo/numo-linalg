@@ -1,5 +1,5 @@
-COGEN=ruby gen/cogen.rb -l
-GENDEPS=gen/*.rb tmpl/*.c
+COGEN=<%= "ruby #{__dir__}/gen/cogen.rb -l" %>
+GENDEPS=<%= "#{__dir__}/gen/*.rb #{__dir__}/tmpl/*.c" %>
 
 <%
 srcs = %w[s d c z].map{|c| [c, "lapack_#{c}.c"]}
