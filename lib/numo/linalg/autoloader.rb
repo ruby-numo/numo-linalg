@@ -26,7 +26,7 @@ module Numo
         lapacke_dirs = ['/opt/lapack/lib', '/opt/lapack/lib64', '/opt/local/lib/lapack',
                         '/usr/local/opt/lapack/lib']
         opt_dirs =  ['/opt/local/lib', '/opt/local/lib64', '/opt/lib', '/opt/lib64']
-        base_dirs = ['/usr/local/lib', '/usr/local/lib64', '/usr/lib', '/usr/lib64']
+        base_dirs = ['/usr/local/lib', '/usr/local/lib64', '/usr/lib', '/usr/lib64', '/usr/lib/x86_64-linux-gnu']
         base_dirs.concat(Dir["/usr/lib/#{RbConfig::CONFIG['host_cpu']}-*"])
         base_dirs.unshift(*ENV['LD_LIBRARY_PATH'].split(':')) unless ENV['LD_LIBRARY_PATH'].nil?
 
@@ -71,8 +71,8 @@ module Numo
       def find_libs(lib_names, lib_dirs)
         lib_ext = detect_library_extension
         lib_arr = lib_names.map do |l|
-          [l.to_sym, lib_dirs.map { |d| "#{d}/lib#{l}.#{lib_ext}" }
-                             .keep_if { |f| File.exist?(f) }.first]
+          [l.to_sym, lib_dirs.map { |d| Dir.glob("#{d}/lib#{l}{,64}.#{lib_ext}{,.[0-9]}").last }
+                             .compact.first]
         end
         Hash[*lib_arr.flatten]
       end
