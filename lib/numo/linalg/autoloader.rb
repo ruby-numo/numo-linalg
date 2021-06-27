@@ -26,9 +26,15 @@ module Numo
         lapacke_dirs = ['/opt/lapack/lib', '/opt/lapack/lib64', '/opt/local/lib/lapack',
                         '/usr/local/opt/lapack/lib']
         opt_dirs =  ['/opt/local/lib', '/opt/local/lib64', '/opt/lib', '/opt/lib64']
-        base_dirs = ['/usr/local/lib', '/usr/local/lib64', '/usr/lib', '/usr/lib64', '/usr/lib/x86_64-linux-gnu']
+        base_dirs = ['/usr/local/lib', '/usr/local/lib64', '/usr/lib', '/usr/lib64']
         base_dirs.concat(Dir["/usr/lib/#{RbConfig::CONFIG['host_cpu']}-*"])
         base_dirs.unshift(*ENV['LD_LIBRARY_PATH'].split(':')) unless ENV['LD_LIBRARY_PATH'].nil?
+
+        select_dirs(base_dirs)
+        select_dirs(opt_dirs)
+        select_dirs(lapacke_dirs)
+        select_dirs(atlas_dirs)
+        select_dirs(mkl_dirs)
 
         mkl_libs = find_mkl_libs([*base_dirs, *opt_dirs, *mkl_dirs])
         openblas_libs = find_openblas_libs([*base_dirs, *opt_dirs, *openblas_dirs])
@@ -68,11 +74,18 @@ module Numo
         end
       end
 
+      def select_dirs(dirs)
+        dirs.select!{|d| Dir.exist?(d)}
+      end
+
       def find_libs(lib_names, lib_dirs)
         lib_ext = detect_library_extension
         lib_arr = lib_names.map do |l|
-          [l.to_sym, lib_dirs.map { |d| Dir.glob("#{d}/lib#{l}{,64}.#{lib_ext}{,.[0-9]}").last }
-                             .compact.first]
+          x = nil
+          lib_dirs.each do |d|
+            break if x = Dir.glob("#{d}/lib#{l}{,64}.#{lib_ext}{,.*}").last
+          end
+          [l.to_sym, x]
         end
         Hash[*lib_arr.flatten]
       end
