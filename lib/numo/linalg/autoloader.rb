@@ -64,7 +64,12 @@ module Numo
       end
 
       def detect_library_extension
-        case RbConfig::CONFIG['host_os']
+        # Ruby >= 2.5 provides SOEXT in rbconfig
+        so_ext = RbConfig::CONFIG["SOEXT"]
+        return so_ext if so_ext
+
+        # For Ruby < 2.5, we use RUBY_PLATFORM
+        case RUBY_PLATFORM
         when /mswin|msys|mingw|cygwin/
           'dll'
         when /darwin|mac os/
