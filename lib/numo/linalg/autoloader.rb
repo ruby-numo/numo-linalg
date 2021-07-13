@@ -82,8 +82,17 @@ module Numo
         lib_ext = detect_library_extension
         lib_arr = lib_names.map do |l|
           x = nil
-          lib_dirs.each do |d|
-            break if x = Dir.glob("#{d}/lib#{l}{,64}.#{lib_ext}{,.*}").last
+          lib_dirs.find do |d|
+            x = Dir.glob("#{d}/lib#{l}{,64}.#{lib_ext}{,.*}").find do |lib|
+              begin
+                Fiddle.dlopen(lib).close
+              rescue Fiddle::DLError
+                false
+              else
+                true
+              end
+            end
+            break if x
           end
           [l.to_sym, x]
         end
