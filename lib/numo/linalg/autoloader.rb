@@ -64,13 +64,27 @@ module Numo
       end
 
       def detect_library_extension
-        case RbConfig::CONFIG['host_os']
-        when /mswin|msys|mingw|cygwin/
-          'dll'
+        # Ruby >= 2.5 provides SOEXT in rbconfig
+        so_ext = RbConfig::CONFIG["SOEXT"]
+        return so_ext if so_ext
+
+        return 'dll' if windows?
+
+        # For Ruby < 2.5, we use RUBY_PLATFORM
+        case RUBY_PLATFORM
         when /darwin|mac os/
           'dylib'
         else
           'so'
+        end
+      end
+
+      def windows?
+        case RUBY_PLATFORM
+        when /mswin|msys|mingw|cygwin/
+          true
+        else
+          false
         end
       end
 
@@ -82,8 +96,36 @@ module Numo
         lib_ext = detect_library_extension
         lib_arr = lib_names.map do |l|
           x = nil
-          lib_dirs.each do |d|
-            break if x = Dir.glob("#{d}/lib#{l}{,64}.#{lib_ext}{,.*}").last
+          if windows?
+            # On Windows, try to search the default DLL search path at first
+            [
+              "lib#{l}.#{lib_ext}",
+              "lib#{l}64.#{lib_ext}"
+            ].each do |filename|
+              begin
+                Fiddle.dlopen(filename).close
+              rescue Fiddle::DLError
+                x = nil
+              else
+                x = filename
+                break
+              end
+            end
+          end
+          if x.nil?
+            # Search in the candidate directories
+            lib_dirs.find do |d|
+              x = Dir.glob("#{d}/lib#{l}{,64}.#{lib_ext}{,.*}").find do |lib|
+                begin
+                  Fiddle.dlopen(lib).close
+                rescue Fiddle::DLError
+                  false
+                else
+                  true
+                end
+              end
+              break if x
+            end
           end
           [l.to_sym, x]
         end
