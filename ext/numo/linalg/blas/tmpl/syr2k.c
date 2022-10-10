@@ -106,6 +106,7 @@ static VALUE
         shape[0] = nb;
         shape[1] = na;
     } else {
+        SET_INPLACE(c);
         COPY_OR_CAST_TO(c,cT);
         GetNArray(c,na3);
         CHECK_DIM_GE(na3,2);
@@ -118,9 +119,10 @@ static VALUE
 
     ans = na_ndloop3(&ndf, &g, 3, a, b, c);
 
-    if (ndf.nout = 1) { // c is not given.
+    if (ndf.nout == 1) { // c is not given.
         return ans;
     } else {
+        UNSET_INPLACE(c);
         return c;
     }
 }

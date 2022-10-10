@@ -83,7 +83,7 @@ static VALUE
 
     SWAP_IFCOL(g.order, mx,ny, tmp);
 
-    if (a == Qnil) { // c is not given.
+    if (a == Qnil) { // a is not given.
         ndf.nout = 1;
         ain[2] = ain[3];
         a = INT2FIX(0);
@@ -92,6 +92,7 @@ static VALUE
     } else {
         narray_t  *na3;
         blasint    ma, na;
+        SET_INPLACE(a);
         COPY_OR_CAST_TO(a,cT);
         GetNArray(a,na3);
         CHECK_DIM_GE(na3,2);
@@ -103,9 +104,10 @@ static VALUE
 
     ans = na_ndloop3(&ndf, &g, 3, x, y, a);
 
-    if (ndf.nout = 1) { // a is not given.
+    if (ndf.nout == 1) { // a is not given.
         return ans;
     } else {
+        UNSET_INPLACE(a);
         return a;
     }
 }
