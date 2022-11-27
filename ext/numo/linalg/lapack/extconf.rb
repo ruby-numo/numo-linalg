@@ -29,6 +29,12 @@ if RUBY_PLATFORM =~ /cygwin|mingw/
   end
 end
 
+if RUBY_PLATFORM.match?(/darwin/) && Gem::Version.new('3.1.0') <= Gem::Version.new(RUBY_VERSION)
+  if try_link('int main(void){return 0;}', '-Wl,-undefined,dynamic_lookup')
+    $LDFLAGS << ' -Wl,-undefined,dynamic_lookup'
+  end
+end
+
 if have_header("dlfcn.h")
   exit(1) unless have_library("dl")
   exit(1) unless have_func("dlopen")
