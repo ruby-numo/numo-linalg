@@ -20,6 +20,8 @@ Gem::Specification.new do |spec|
   spec.extensions    = ["ext/numo/linalg/blas/extconf.rb",
                         "ext/numo/linalg/lapack/extconf.rb"]
 
+  spec.add_dependency "fiddle"
+
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rake-compiler"
