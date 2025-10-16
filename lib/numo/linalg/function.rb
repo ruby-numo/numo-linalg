@@ -755,7 +755,7 @@ module Numo; module Linalg
         axis = [axis]
       when Array
         if axis.size < 1 || axis.size > 2
-          raise ArgmentError, "axis option should be 1- or 2-element array"
+          raise ArgumentError, "axis option should be 1- or 2-element array"
         end
       else
         raise ArgumentError, "invalid option for axis: #{axis}"
@@ -767,7 +767,7 @@ module Numo; module Linalg
         axis.each do |i|
           x = idx[i]
           if x.nil?
-            raise ArgmentError, "axis contains same dimension"
+            raise ArgumentError, "axis contains same dimension"
           end
           tmp << x
           idx[i] = nil
@@ -816,7 +816,7 @@ module Numo; module Linalg
         fixdims = [true] * a.ndim
         axis.each do |i|
           if i < -a.ndim || i >= a.ndim
-            raise ArgmentError, "axis (%d) is out of range", i
+            raise ArgumentError, "axis (%d) is out of range", i
           end
           fixdims[i] = :new
         end

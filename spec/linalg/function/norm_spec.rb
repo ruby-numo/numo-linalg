@@ -26,6 +26,12 @@ RSpec.describe Numo::Linalg do
       expect { described_class.norm(vec_a, 'fro') }.to raise_error(ArgumentError)
     end
 
+    it 'raises ArgumentError given an invalid axis option' do
+      expect { described_class.norm(mat_a, axis: []) }.to raise_error(ArgumentError, /axis option should be 1- or 2-element array/)
+      expect { described_class.norm(mat_a, axis: [0, 1, 2]) }.to raise_error(ArgumentError, /axis option should be 1- or 2-element array/)
+      expect { described_class.norm(mat_a, axis: [0, 0]) }.to raise_error(ArgumentError, /axis contains same dimension/)
+    end
+
     it 'calculates the Froubenius norm of a real matrix' do
       norm = Math.sqrt(mat_a.transpose.dot(mat_a).trace)
       expect(described_class.norm(mat_a)).to be_within(norm).of(ERR_TOL)
