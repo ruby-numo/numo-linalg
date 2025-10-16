@@ -103,7 +103,7 @@ static VALUE
 
     ans = na_ndloop3(&ndf, &g, 3, x, y, a);
 
-    if (ndf.nout = 1) { // a is not given.
+    if (ndf.nout == 1) { // a is not given.
         return ans;
     } else {
         return a;
